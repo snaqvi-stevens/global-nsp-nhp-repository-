@@ -129,7 +129,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 }
 .nav-brand{display:flex;align-items:center;gap:11px}
 .nav-logo{
-  width:36px;height:36px;object-fit:contain;
+  height:40px;width:auto;max-width:200px;object-fit:contain;
   filter:drop-shadow(0 1px 2px rgba(15,23,42,0.12));
   transition:filter var(--t-mid);
 }
@@ -224,7 +224,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
   animation:fadeUp 1s var(--ease) 0.45s forwards;
 }
 .hero-logo-img{
-  width:90px;height:90px;object-fit:contain;flex-shrink:0;
+  width:auto;max-width:min(320px,88vw);height:auto;max-height:140px;object-fit:contain;flex-shrink:0;
   filter:drop-shadow(0 2px 8px rgba(15,23,42,0.08));
 }
 .hero-title{
@@ -640,7 +640,7 @@ footer{
   flex-wrap:wrap;gap:1.5rem;
 }
 .footer-brand{display:flex;align-items:center;gap:10px}
-.footer-logo{width:26px;height:26px;object-fit:contain;opacity:0.85;filter:drop-shadow(0 1px 2px rgba(15,23,42,0.08))}
+.footer-logo{height:36px;width:auto;max-width:220px;object-fit:contain;opacity:0.9;filter:drop-shadow(0 1px 2px rgba(15,23,42,0.08))}
 .footer-text{font-size:0.72rem;color:var(--text-subtle);line-height:1.65;max-width:var(--measure);font-family:'DM Sans',sans-serif}
 .footer-text strong{color:var(--text-muted);font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.1em;font-weight:500}
 .footer-links{display:flex;gap:1.5rem}
@@ -721,7 +721,7 @@ footer{
         WHO-Affiliated · Living Repository
       </div>
       <div class="hero-logo-row">
-        <img src="logo.png" alt="" class="hero-logo-img"/>
+        <img src="logo.png" alt="National Surgical and Health Policy logo" class="hero-logo-img"/>
         <div>
           <h1 class="hero-title">
             National Surgical
@@ -930,7 +930,7 @@ footer{
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <img src="logo.png" alt="" class="footer-logo"/>
+      <img src="logo.png" alt="National Surgical and Health Policy logo" class="footer-logo"/>
       <div class="footer-text">
         <strong>National Surgical & Health Policy Repository</strong><br/>
         A WHO-affiliated living repository · Maintained by a global team of surgical policy researchers
@@ -952,7 +952,7 @@ footer{
   if(!container||!window.THREE)return;
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0xffffff, 0.028);
+  scene.fog = new THREE.FogExp2(0xf1f5f9, 0.034);
 
   const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 100);
   camera.position.z = 5.5;
@@ -963,23 +963,23 @@ footer{
   renderer.setClearColor(0x000000, 0);
   container.appendChild(renderer.domElement);
 
-  /* Globe — subtle on white UI; rotation / scroll / mouse motion unchanged */
+  /* Globe — slightly deeper values so it reads on white without dominating */
   const globeR = 2.35;
   const geoOuter = new THREE.SphereGeometry(globeR, 36, 36);
   const matOuter = new THREE.MeshBasicMaterial({
-    color:0x94a3b8, wireframe:true, transparent:true, opacity:0.035
+    color:0x64748b, wireframe:true, transparent:true, opacity:0.055
   });
   const orbOuter = new THREE.Mesh(geoOuter, matOuter);
   scene.add(orbOuter);
 
   const geoShell = new THREE.SphereGeometry(globeR * 0.94, 48, 48);
   const matShell = new THREE.MeshPhongMaterial({
-    color:0xcdd5e1,
-    emissive:0xe8ecf0,
-    specular:0xf1f5f9,
-    shininess:48,
+    color:0xa8b4c4,
+    emissive:0xd2dae4,
+    specular:0xe2e8f0,
+    shininess:42,
     transparent:true,
-    opacity:0.055,
+    opacity:0.085,
     side:THREE.DoubleSide,
     depthWrite:false,
   });
@@ -988,23 +988,23 @@ footer{
 
   const geoMid = new THREE.SphereGeometry(globeR * 0.76, 28, 20);
   const matMid = new THREE.MeshBasicMaterial({
-    color:0x0d9488, wireframe:true, transparent:true, opacity:0.028
+    color:0x0f766e, wireframe:true, transparent:true, opacity:0.045
   });
   const orbMid = new THREE.Mesh(geoMid, matMid);
   scene.add(orbMid);
 
   const geoCore = new THREE.SphereGeometry(0.52, 28, 28);
   const matCore = new THREE.MeshBasicMaterial({
-    color:0x0d9488, transparent:true, opacity:0.045
+    color:0x0f766e, transparent:true, opacity:0.075
   });
   const core = new THREE.Mesh(geoCore, matCore);
   scene.add(core);
 
-  const pointLight = new THREE.PointLight(0x0d9488, 0.85, 8);
+  const pointLight = new THREE.PointLight(0x0d9488, 1.15, 8);
   pointLight.position.set(0, 0, 0);
   scene.add(pointLight);
 
-  const ambLight = new THREE.AmbientLight(0xe2e8f0, 1);
+  const ambLight = new THREE.AmbientLight(0xd1d9e4, 1);
   scene.add(ambLight);
 
   let scrollY=0, targetScrollY=0, mouseX=0, mouseY=0;
@@ -1032,11 +1032,11 @@ footer{
     orbMid.rotation.x   = t*0.15 + mouseY*0.15;
     core.rotation.y     = t*0.1;
 
-    /* Pulsing — low amplitude for light backgrounds */
+    /* Pulsing — modest amplitude */
     const pulse = 0.88 + Math.sin(t*1.8)*0.12;
-    matOuter.opacity = 0.035*pulse;
-    matShell.opacity = 0.045 + 0.025*pulse;
-    pointLight.intensity = 0.85*pulse;
+    matOuter.opacity = 0.055*pulse;
+    matShell.opacity = 0.075 + 0.035*pulse;
+    pointLight.intensity = 1.15*pulse;
 
     /* Camera drift with scroll */
     camera.position.y = -frac*1.2 + Math.sin(t*0.5)*0.05;
