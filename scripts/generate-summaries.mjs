@@ -54,8 +54,10 @@ function extractPolicyDataFromHtml(html) {
 }
 
 function docPathOnDisk(entry) {
-  const sub = SUBFOLDERS[entry.whoRegion] || entry.whoRegion;
-  return path.join(ROOT, REPO_ROOT, sub, entry.file);
+  const sub = entry.docSubfolder || SUBFOLDERS[entry.whoRegion] || entry.whoRegion;
+  const file =
+    entry.status === 'both' && entry.fileNhp ? entry.fileNhp : entry.file;
+  return path.join(ROOT, REPO_ROOT, sub, file);
 }
 
 function cleanExtract(text) {
@@ -375,7 +377,7 @@ async function main() {
       done++;
       if (done % 25 === 0) console.log(`Processed ${done} PDFs…`);
     } catch (e) {
-      console.warn(`Skip ${entry.country} (${entry.file}): ${e.message}`);
+      console.warn(`Skip ${entry.country} (${entry.file || entry.fileNhp || ''}): ${e.message}`);
       failed++;
       existing[entry.country] = LINK_FALLBACK_SUMMARY;
     }

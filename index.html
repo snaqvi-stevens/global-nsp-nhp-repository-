@@ -534,6 +534,12 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
   font-size:0.6rem;font-weight:700;color:var(--text-subtle);
   letter-spacing:0.08em;font-family:'Cinzel',serif;
 }
+.doc-actions{display:flex;flex-direction:column;align-items:flex-start;gap:0.4rem}
+.doc-btn-row{display:flex;flex-direction:column;align-items:flex-start;gap:0.15rem}
+.doc-kind{font-size:0.58rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-subtle)}
+.doc-kind--nsp{color:var(--teal-dark)}
+.doc-kind--nhp{color:#b45309}
+.policy-years-legend{display:block;margin-top:0.12rem;font-size:0.62rem;color:var(--fog-3);letter-spacing:0.04em}
 .doc-btn{
   display:inline-flex;align-items:center;gap:0.3rem;
   padding:0.22rem 0.6rem;border-radius:3px;
@@ -1111,13 +1117,13 @@ const policyData = [
   {country:"Egypt",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2010",file:"EGY_Egypt_National-Health-Strategy_2010-2025.pdf"},
   {country:"Eritrea",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"eritrea_hssdp_ii_21022017.pdf"},
   {country:"Eswatini",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2023",file:"Eswatini-Strategic-Direction-Summary-2023.pdf"},
-  {country:"Ethiopia",region:"Africa",whoRegion:"AFRO",status:"both",docType:"NSP + NHP",year:"2021",file:"ETH_Ethiopia_Health-Sector-Transformation-Plan-II_2021-2026.pdf"},
+  {country:"Ethiopia",region:"Africa",whoRegion:"AFRO",status:"both",docType:"NSP + NHP",year:"2021",yearNhp:"2021",yearNsp:"",fileNhp:"ETH_Ethiopia_Health-Sector-Transformation-Plan-II_2021-2026.pdf",fileNsp:"Ethiopia SALTS II _ National Surgical Care Strategic Plan.pdf"},
   {country:"Gabon",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"GAB_Plan_national_de_d\u00e9veloppement_sanitaire_2017-2021.pdf"},
   {country:"Gambia",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2021",file:"GMB_Gambia_National-Health-Policy_2021-2030.pdf"},
   {country:"Ghana",region:"Africa",whoRegion:"AFRO",status:"nsp",docType:"NSP",year:"2025",file:"Ghana-FINAL-NSOAP-for-press-2.pdf"},
   {country:"Guinea",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2015",file:"GIN_Guinea_Plan-national-de-developmment-sanitaire_2015-2024.pdf"},
   {country:"Guinea-Bissau",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2018",file:"GNB_Guinea-Bissau_Plano-Nacional-de-Desenvolvimento-Sanit\u00e1rio_2018-2022.pdf"},
-  {country:"Kenya",region:"Africa",whoRegion:"AFRO",status:"both",docType:"NSP + NHP",year:"2014",file:"kenya_health_policy_2014_to_2030.pdf"},
+  {country:"Kenya",region:"Africa",whoRegion:"AFRO",status:"both",docType:"NSP + NHP",year:"2014",yearNhp:"2014",yearNsp:"",fileNhp:"kenya_health_policy_2014_to_2030.pdf",fileNsp:"Kenya NSP- open link- interactive website.pdf"},
   {country:"Lesotho",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"LSO_Lesotho_National-Health-Policy_2017.pdf"},
   {country:"Liberia",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2024",file:"National-Operational-Plan-2024 Liberia.pdf"},
   {country:"Madagascar",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"MDG_Madagascar_Plan-de-d\u00e9veloppement-du-secteur-Sant\u00e9_2020-2024.pdf"},
@@ -1148,7 +1154,7 @@ const policyData = [
   {country:"Kuwait",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nsp",docType:"NSP",year:"2024",file:"Kuwait Surgical Suite Operational Policy 2024-2026.pdf"},
   {country:"Lebanon",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2020",file:"LBN_Lebanon_National-Health-Strategy_2030.pdf"},
   {country:"Morocco (EMR)",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2025",file:"MAR_Morocco_Plan-de-sant\u00e9-2025.pdf"},
-  {country:"Oman",region:"Eastern Mediterranean",whoRegion:"EMR",status:"both",docType:"NSP + NHP",year:"2017",file:"OMAN NSP 2017.pdf"},
+  {country:"Oman",region:"Eastern Mediterranean",whoRegion:"EMR",status:"both",docType:"NSP + NHP",year:"2021",yearNhp:"2021",yearNsp:"2017",fileNhp:"OMN_Oman_10th-Five-year-Plan-for-Health-development_2021-2025.docx",fileNsp:"OMAN NSP 2017.pdf"},
   {country:"Pakistan",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nsp",docType:"NSP",year:"2020",file:"Pakistan NSOAP+Manual_20200921.pdf"},
   {country:"Qatar",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2018",file:"QAT_Qatar_National-Health-strategy_2018-2022.pdf"},
   {country:"Saudi Arabia",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2021",file:"Saudi Arabia 2021-2025-health-sector-transformation-program-delivery-plan-en.pdf"},
@@ -1201,12 +1207,12 @@ const policyData = [
   {country:"Slovenia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2016",file:"Slovenia National Health Plan 2016-2025.pdf"},
   {country:"Spain",region:"Europe",whoRegion:"EURO",status:"nsp",docType:"NSP",year:"2020",file:"Spain NSP (Spanish).pdf"},
   {country:"Sweden",region:"Europe",whoRegion:"EURO",status:"nsp",docType:"NSP",year:"2020",file:"Sweden NSP (Anesthesia).pdf"},
-  {country:"Switzerland",region:"Europe",whoRegion:"EURO",status:"both",docType:"NSP + NHP",year:"2012",file:"Switzerland NSP 2012 (Safe Surgery Program).pdf"},
+  {country:"Switzerland",region:"Europe",whoRegion:"EURO",status:"both",docType:"NSP + NHP",year:"2020",yearNhp:"2020",yearNsp:"2012",fileNhp:"Switzerland Health Plan 2020-2030 (French).pdf",fileNsp:"Switzerland NSP 2012 (Safe Surgery Program).pdf"},
   {country:"Tajikistan",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2022",file:"Tajikistan NHP 2022-2025.docx"},
   {country:"Turkey",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2024",file:"Turkey NHP 2024-2028.pdf"},
   {country:"Turkmenistan",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2015",file:"Turkmenistan NHP 2015 (Turkmen).pdf"},
   {country:"Ukraine",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2020",file:"Ukraine NHP (Cancer Control) 2020-2030.pdf"},
-  {country:"United Kingdom",region:"Europe",whoRegion:"EURO",status:"both",docType:"NSP + NHP",year:"2019",file:"UK NHS Long term plan 2019.pdf"},
+  {country:"United Kingdom",region:"Europe",whoRegion:"EURO",status:"both",docType:"NSP + NHP",year:"2022",yearNhp:"2021",yearNsp:"2022",fileNhp:"UK Health Reform Proposals 2021.pdf",fileNsp:"Northern Ireland Surgical Action Plan.pdf"},
   {country:"Uzbekistan",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2019",file:"Uzbekistan NHP 2019-2022 (Uzbek, scan).pdf"},
   {country:"Bangladesh",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2011",file:"Bangladesh NHP 2011.pdf"},
   {country:"Bhutan",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2015",file:"Bhutan NHP 2015-2023.pdf"},
@@ -1221,7 +1227,7 @@ const policyData = [
   {country:"Timor-Leste",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2011",file:"Timor Leste NHP 2011-2030.pdf"},
   {country:"Australia",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2020",file:"Australia NHP 2020-25.pdf"},
   {country:"Brunei",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2015",file:"Brunei NHP 2015-2035.pdf"},
-  {country:"Cambodia",region:"Western Pacific",whoRegion:"WPR",status:"both",docType:"NSP + NHP",year:"2018",file:"Cambodia NHP 2018-2027.pdf"},
+  {country:"Cambodia",region:"Western Pacific",whoRegion:"WPR",status:"both",docType:"NSP + NHP",year:"2026",yearNhp:"2018",yearNsp:"2026",fileNhp:"Cambodia NHP 2018-2027.pdf",fileNsp:"Cambodia NSOAP 2026-2035.pdf"},
   {country:"China",region:"Western Pacific",whoRegion:"WPR",status:"nsp",docType:"NSP",year:"2023",file:"China NSP 2023-2025.pdf"},
   {country:"Fiji",region:"Western Pacific",whoRegion:"WPR",status:"nsp",docType:"NSP",year:"2020",file:"Fiji NSP 2020-2025.pdf"},
   {country:"Japan",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2020",file:"Japan NHP (2020, English).pdf"},
@@ -1411,11 +1417,67 @@ function getFiltered(){
 
 const REPO_SUBFOLDERS = {'AFRO':'AFRO','EMR':'EMR NSP-NHP Documents','EURO':'EURO','SEARO':'SEARO','WPR':'WPR NSP-NHP Documents'};
 
-function getDocHref(d) {
+function getDocHref(d, fileName) {
   const sub = d.docSubfolder || REPO_SUBFOLDERS[d.whoRegion] || d.whoRegion;
-  const fileSeg = typeof d.file === 'string' ? d.file.normalize('NFD') : '';
+  const raw = fileName != null ? fileName : d.status === 'both' && d.fileNhp ? d.fileNhp : d.file;
+  const fileSeg = typeof raw === 'string' ? raw.normalize('NFD') : '';
   return ['Region-wise NSP-NHP documents [Living Repository', sub, fileSeg]
     .map(encodeURIComponent).join('/');
+}
+
+/** Ordered NSP first, then NHP, when both exist. */
+function getCatalogueDownloadItems(d) {
+  if (d.status === 'both' && d.fileNsp && d.fileNhp) {
+    return [
+      { label: 'National Surgical Plan (NSP)', short: 'NSP', file: d.fileNsp, kind: 'nsp' },
+      { label: 'National Health Policy (NHP)', short: 'NHP', file: d.fileNhp, kind: 'nhp' },
+    ];
+  }
+  const kind = d.status === 'nsp' ? 'nsp' : 'nhp';
+  const label = kind === 'nsp' ? 'National Surgical Plan (NSP)' : 'National Health Policy (NHP)';
+  const short = kind === 'nsp' ? 'NSP' : 'NHP';
+  return [{ label, short, file: d.file, kind }];
+}
+
+function docLinkButtonLabel(fileName) {
+  const f = String(fileName || '').toLowerCase();
+  if (f.endsWith('.pdf')) return 'View PDF';
+  return 'Open file';
+}
+
+function indicatedYearToNumber(y) {
+  if (y == null || y === '' || y === '\u2014') return null;
+  const n = parseInt(String(y).trim(), 10);
+  return !isNaN(n) && n >= 1990 && n <= 2040 ? n : null;
+}
+
+/** For NSP + NHP rows: max of indicated NHP/NSP years (ignores blank NSP/NHP years). */
+function latestIndicatedCatalogueYear(d) {
+  if (d.status === 'both' && d.fileNsp) {
+    const yh = indicatedYearToNumber(d.yearNhp != null && d.yearNhp !== '' ? d.yearNhp : d.year);
+    const ys = indicatedYearToNumber(d.yearNsp);
+    const nums = [yh, ys].filter(function (n) { return n != null; });
+    if (nums.length) return String(Math.max.apply(null, nums));
+  }
+  return String(d.year);
+}
+
+function dualYearBreakdownLabel(d) {
+  if (d.status !== 'both' || !d.fileNsp) return '';
+  const parts = [];
+  if (d.yearNhp != null && d.yearNhp !== '') parts.push('NHP ' + d.yearNhp);
+  if (d.yearNsp != null && d.yearNsp !== '') parts.push('NSP ' + d.yearNsp);
+  return parts.join(', ');
+}
+
+function formatCatalogueYearCell(d) {
+  if (d.status === 'both' && d.fileNsp) {
+    const latest = latestIndicatedCatalogueYear(d);
+    const breakdown = dualYearBreakdownLabel(d);
+    const title = breakdown ? ' title="' + escHtml(breakdown) + '"' : '';
+    return '<span' + title + ' style="font-variant-numeric:tabular-nums;color:var(--fog-3)">' + escHtml(latest) + '</span><span class="policy-years-legend">Latest indicated</span>';
+  }
+  return '<span style="font-variant-numeric:tabular-nums;color:var(--fog-3)">' + escHtml(String(d.year)) + '</span>';
 }
 
 function escHtml(s) {
@@ -1431,7 +1493,29 @@ function buildPolicySummaryHtml(d) {
     : d.status === 'both'
     ? 'Catalogue note: includes both national health policy or sector strategy and explicit surgical or anesthesia planning (NSP + NHP).'
     : 'Catalogue note: National Health Policy or health sector strategic plan (NHP) — broader system objectives; may still include surgical-care priorities.';
-  return '<p>' + narrative + '</p><p><strong>Indexed as</strong> ' + escHtml(sc.label) + ', <strong>year</strong> ' + escHtml(d.year) + ', <strong>WHO</strong> ' + escHtml(d.whoRegion) + ' · ' + escHtml(d.region) + '.</p><p class="fn"><strong>Repository file:</strong> <code>' + escHtml(d.file) + '</code></p>';
+  let filesBlock;
+  if (d.status === 'both' && d.fileNsp && d.fileNhp) {
+    filesBlock =
+      '<p class="fn"><strong>Repository files</strong></p><ul class="fn" style="margin:0.35rem 0 0 1.1rem;line-height:1.55">' +
+      '<li><strong>NSP:</strong> <code>' + escHtml(d.fileNsp) + '</code></li>' +
+      '<li><strong>NHP:</strong> <code>' + escHtml(d.fileNhp) + '</code></li></ul>';
+  } else {
+    filesBlock = '<p class="fn"><strong>Repository file:</strong> <code>' + escHtml(d.file) + '</code></p>';
+  }
+  let yearLine;
+  if (d.status === 'both' && d.fileNsp) {
+    const latest = latestIndicatedCatalogueYear(d);
+    const bd = dualYearBreakdownLabel(d);
+    yearLine =
+      '<strong>Latest indicated year</strong> ' + escHtml(latest) +
+      (bd ? ' <span class="fn">(' + escHtml(bd) + ')</span>' : '') +
+      ', <strong>WHO</strong> ' + escHtml(d.whoRegion) + ' · ' + escHtml(d.region) + '.';
+  } else {
+    yearLine =
+      '<strong>year</strong> ' + escHtml(String(d.year)) +
+      ', <strong>WHO</strong> ' + escHtml(d.whoRegion) + ' · ' + escHtml(d.region) + '.';
+  }
+  return '<p>' + narrative + '</p><p><strong>Indexed as</strong> ' + escHtml(sc.label) + ', ' + yearLine + '</p>' + filesBlock;
 }
 
 function ensurePolicySummariesLoaded() {
@@ -1448,19 +1532,20 @@ function ensurePolicySummariesLoaded() {
 }
 
 function openCountryDocumentTab(d) {
-  const rel = getDocHref(d);
-  const absUrl = new URL(rel, document.baseURI).href;
+  const items = getCatalogueDownloadItems(d);
+  const firstRel = getDocHref(d, items[0] && items[0].file);
+  const firstAbs = new URL(firstRel, document.baseURI).href;
 
   ensurePolicySummariesLoaded().then(function (summaries) {
     const extra = summaries && summaries[d.country];
     var w = window.open('', '_blank');
     if (!w) {
-      window.open(absUrl, '_blank', 'noopener,noreferrer');
+      window.open(firstAbs, '_blank', 'noopener,noreferrer');
       return;
     }
     try { w.opener = null; } catch (e) {}
     const title = escHtml(d.country) + ' — NSP/NHP document';
-    const css = 'body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#071018;color:#e8edf4;line-height:1.65;max-width:44rem;margin:0 auto;padding:2rem 1.25rem}h1{font-family:Georgia,serif;font-size:1.35rem;font-weight:500;color:#7ee8ec;margin:0 0 .5rem}p{margin:0 0 1rem}.fn{font-size:0.9rem;color:rgba(232,237,244,.72)}code{font-size:0.82rem;word-break:break-all}.actions{margin-top:1.5rem}.btn{display:inline-block;padding:0.65rem 1.15rem;background:rgba(42,181,187,.22);border:1px solid #2ab5bb;color:#f0f7fa;text-decoration:none;border-radius:4px;font-weight:600}.btn:hover{background:rgba(42,181,187,.35)}.note{margin-top:2rem;font-size:0.8rem;color:rgba(232,237,244,.55)}.doc-sum{border-left:3px solid rgba(42,181,187,.45);padding-left:1rem;margin:1rem 0}h2.sum{font-size:0.95rem;font-weight:600;color:#7ee8ec;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.06em}';
+    const css = 'body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#071018;color:#e8edf4;line-height:1.65;max-width:44rem;margin:0 auto;padding:2rem 1.25rem}h1{font-family:Georgia,serif;font-size:1.35rem;font-weight:500;color:#7ee8ec;margin:0 0 .5rem}p{margin:0 0 1rem}.fn{font-size:0.9rem;color:rgba(232,237,244,.72)}code{font-size:0.82rem;word-break:break-all}.actions{margin-top:1.5rem;display:flex;flex-direction:column;align-items:flex-start;gap:0.65rem}.btn{display:inline-block;padding:0.65rem 1.15rem;background:rgba(42,181,187,.22);border:1px solid #2ab5bb;color:#f0f7fa;text-decoration:none;border-radius:4px;font-weight:600}.btn:hover{background:rgba(42,181,187,.35)}.note{margin-top:2rem;font-size:0.8rem;color:rgba(232,237,244,.55)}.doc-sum{border-left:3px solid rgba(42,181,187,.45);padding-left:1rem;margin:1rem 0}h2.sum{font-size:0.95rem;font-weight:600;color:#7ee8ec;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.06em}.btn span.f{display:block;font-size:0.72rem;font-weight:500;opacity:0.85;margin-bottom:0.15rem;letter-spacing:0.04em;text-transform:uppercase}';
     w.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>' + title + '</title><style>' + css + '</style></head><body>');
     w.document.write('<h1>' + escHtml(d.country) + '</h1>');
     w.document.write('<p class="fn">National Surgical &amp; Health Policy Atlas — catalogue details below; where <code>summaries.json</code> has been generated, a document-based summary is included.</p>');
@@ -1469,7 +1554,13 @@ function openCountryDocumentTab(d) {
       w.document.write('<h2 class="sum">From the policy file</h2>');
       w.document.write('<div class="doc-sum"><p>' + escHtml(extra) + '</p></div>');
     }
-    w.document.write('<div class="actions"><a class="btn" href="' + escHtml(absUrl) + '" target="_blank" rel="noopener noreferrer">Open document file</a></div>');
+    const links = items.map(function (it) {
+      const rel = getDocHref(d, it.file);
+      const absUrl = new URL(rel, document.baseURI).href;
+      const verb = docLinkButtonLabel(it.file);
+      return '<a class="btn" href="' + escHtml(absUrl) + '" target="_blank" rel="noopener noreferrer"><span class="f">' + escHtml(it.short) + '</span>' + escHtml(verb) + '</a>';
+    }).join('');
+    w.document.write('<div class="actions">' + links + '</div>');
     w.document.write('<p class="note">Regenerate summaries locally with <code>npm install</code> and <code>npm run summaries</code> (optional <code>OPENAI_API_KEY</code> for richer text). Use the repo root or GitHub Pages so file links resolve.</p></body></html>');
     w.document.close();
   });
@@ -1504,18 +1595,27 @@ function renderTable(){
   const bodyRg = document.getElementById('policy-rowgroup-body');
   if (!bodyRg) return;
   bodyRg.innerHTML = slice.map(d=>{
-    const pdfPath = getDocHref(d);
+    const items = getCatalogueDownloadItems(d);
+    const svg = '<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+    let docCell;
+    if (items.length > 1) {
+      docCell = '<div class="doc-actions">' + items.map(it => {
+        const href = getDocHref(d, it.file);
+        const verb = docLinkButtonLabel(it.file);
+        const al = escHtml(d.country + ' — ' + it.short + ' document');
+        return '<div class="doc-btn-row"><span class="doc-kind doc-kind--' + it.kind + '">' + it.short + '</span><a class="doc-btn" href="' + href + '" target="_blank" rel="noopener noreferrer" aria-label="' + al + '">' + svg + verb + '</a></div>';
+      }).join('') + '</div>';
+    } else {
+      const pdfPath = getDocHref(d, items[0].file);
+      const al = escHtml(d.country + ' — ' + items[0].short + ' document');
+      docCell = '<a class="doc-btn" href="' + pdfPath + '" target="_blank" rel="noopener noreferrer" aria-label="' + al + '">' + svg + docLinkButtonLabel(items[0].file) + '</a>';
+    }
     return `<div class="policy-row" role="row">
       <div class="policy-td" role="cell"><strong>${d.country}</strong></div>
       <div class="policy-td" role="cell"><span class="who-tag">${d.whoRegion}</span> <span style="font-size:0.78rem;color:var(--fog-3)">${d.region}</span></div>
       <div class="policy-td" role="cell"><span class="badge ${d.status}"><span class="dot"></span>${d.docType}</span></div>
-      <div class="policy-td" role="cell" style="font-variant-numeric:tabular-nums;color:var(--fog-3)">${d.year}</div>
-      <div class="policy-td" role="cell">
-        <a class="doc-btn" href="${pdfPath}" target="_blank">
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          View PDF
-        </a>
-      </div>
+      <div class="policy-td" role="cell">${formatCatalogueYearCell(d)}</div>
+      <div class="policy-td" role="cell">${docCell}</div>
     </div>`;
   }).join('');
   renderPagination(filtered.length);
@@ -1753,7 +1853,13 @@ function initD3Map() {
           if (td) td.style.background = sc.color;
 
           if (dataRow) {
-            if (tm) tm.textContent = 'Document year: ' + dataRow.year;
+            if (tm) {
+              if (dataRow.status === 'both' && dataRow.fileNsp) {
+                tm.textContent = 'Latest indicated year: ' + latestIndicatedCatalogueYear(dataRow);
+              } else {
+                tm.textContent = 'Document year: ' + dataRow.year;
+              }
+            }
             if (tr) tr.textContent = dataRow.region + ' · ' + dataRow.whoRegion;
           } else {
             if (tm) tm.textContent = 'Not in current repository';
