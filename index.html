@@ -442,27 +442,35 @@ body{
 .table-meta{font-size:0.75rem;line-height:1.35;color:var(--fog-3);font-family:'DM Sans',sans-serif}
 .table-meta span{font-weight:600;color:var(--fog-2)}
 .tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:auto;background:rgba(5,13,24,0.5)}
-/* No sticky on <th>: Safari/WebKit still mis-orders thead vs first tbody row with sticky table cells */
-.data-table{width:100%;border-collapse:collapse;border-spacing:0;font-size:0.78rem;font-family:'DM Sans',sans-serif}
-.data-table thead{background:transparent}
-.data-table thead th{
-  padding:0.12rem 0.875rem 0.14rem;
-  line-height:1.15;
-  vertical-align:middle;
+/* Grid sheet (not HTML table): avoids Chrome/Safari thead/tbody paint-order bugs */
+.policy-sheet{
+  width:100%;min-width:720px;font-size:0.78rem;font-family:'DM Sans',sans-serif;
+}
+.policy-sheet .policy-rowgroup{display:block}
+.policy-row{
+  display:grid;
+  grid-template-columns:minmax(5.5rem,1.2fr) minmax(6rem,1.35fr) minmax(4rem,0.75fr) minmax(2.75rem,0.38fr) minmax(5rem,0.95fr);
+  column-gap:0;align-items:stretch;
+  border-bottom:1px solid var(--rule-2);
+}
+.policy-row--head{
   background:rgba(5,13,24,0.98);
   border-bottom:1px solid var(--rule);
   box-shadow:0 1px 0 rgba(42,181,187,0.15);
+}
+.policy-th{
+  padding:0.12rem 0.875rem 0.14rem;line-height:1.15;
   text-align:left;font-size:0.58rem;font-weight:600;
   letter-spacing:0.13em;text-transform:uppercase;color:var(--teal);
   white-space:nowrap;font-family:'DM Sans',sans-serif;
 }
-.data-table tbody td{
-  padding:0.7rem 0.875rem;border-bottom:1px solid var(--rule-2);vertical-align:middle;color:var(--fog-2);
+.policy-td{
+  padding:0.7rem 0.875rem;vertical-align:middle;color:var(--fog-2);
   background:rgba(5,13,24,0.35);
 }
-.data-table tbody tr{transition:background var(--t-fast)}
-.data-table tbody tr:hover td{background:rgba(42,181,187,0.05)}
-.data-table tbody tr:last-child td{border-bottom:none}
+.policy-rowgroup--body .policy-row{align-items:center;transition:background var(--t-fast)}
+.policy-rowgroup--body .policy-row:hover .policy-td{background:rgba(42,181,187,0.05)}
+.policy-rowgroup--body .policy-row:last-child{border-bottom:none}
 .badge{
   display:inline-flex;align-items:center;gap:0.3rem;
   padding:0.16rem 0.5rem;border-radius:2px;
@@ -764,12 +772,18 @@ footer{
         </div>
       </div>
       <div class="tbl-wrap">
-        <table class="data-table" id="policy-table">
-          <thead><tr>
-            <th>Country</th><th>WHO Region</th><th>Document Type</th><th>Year</th><th>Access</th>
-          </tr></thead>
-          <tbody id="table-body"></tbody>
-        </table>
+        <div class="policy-sheet" role="table" aria-label="National health policy documents by country">
+          <div class="policy-rowgroup" role="rowgroup">
+            <div class="policy-row policy-row--head" role="row">
+              <div class="policy-th" role="columnheader">Country</div>
+              <div class="policy-th" role="columnheader">WHO Region</div>
+              <div class="policy-th" role="columnheader">Document Type</div>
+              <div class="policy-th" role="columnheader">Year</div>
+              <div class="policy-th" role="columnheader">Access</div>
+            </div>
+          </div>
+          <div class="policy-rowgroup policy-rowgroup--body" role="rowgroup" id="policy-rowgroup-body"></div>
+        </div>
       </div>
       <div class="pagination" id="pagination"></div>
     </div>
@@ -1428,22 +1442,22 @@ function renderTable(){
   syncTableMeta(filtered.length, catalogueSize);
   const start = (currentPage-1)*ROWS;
   const slice = filtered.slice(start, start+ROWS);
-  const tbody = document.getElementById('table-body');
-  if (!tbody) return;
-  tbody.innerHTML = slice.map(d=>{
+  const bodyRg = document.getElementById('policy-rowgroup-body');
+  if (!bodyRg) return;
+  bodyRg.innerHTML = slice.map(d=>{
     const pdfPath = getDocHref(d);
-    return `<tr>
-      <td><strong>${d.country}</strong></td>
-      <td><span class="who-tag">${d.whoRegion}</span> <span style="font-size:0.78rem;color:var(--fog-3)">${d.region}</span></td>
-      <td><span class="badge ${d.status}"><span class="dot"></span>${d.docType}</span></td>
-      <td style="font-variant-numeric:tabular-nums;color:var(--fog-3)">${d.year}</td>
-      <td>
+    return `<div class="policy-row" role="row">
+      <div class="policy-td" role="cell"><strong>${d.country}</strong></div>
+      <div class="policy-td" role="cell"><span class="who-tag">${d.whoRegion}</span> <span style="font-size:0.78rem;color:var(--fog-3)">${d.region}</span></div>
+      <div class="policy-td" role="cell"><span class="badge ${d.status}"><span class="dot"></span>${d.docType}</span></div>
+      <div class="policy-td" role="cell" style="font-variant-numeric:tabular-nums;color:var(--fog-3)">${d.year}</div>
+      <div class="policy-td" role="cell">
         <a class="doc-btn" href="${pdfPath}" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           View PDF
         </a>
-      </td>
-    </tr>`;
+      </div>
+    </div>`;
   }).join('');
   renderPagination(filtered.length);
 }
