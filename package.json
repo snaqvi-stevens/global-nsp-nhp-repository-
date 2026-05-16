@@ -3,7 +3,8 @@
   "private": true,
   "description": "Generate summaries.json from policy PDFs (optional OpenAI refinement)",
   "scripts": {
-    "summaries": "node scripts/generate-summaries.mjs"
+    "summaries": "node scripts/generate-summaries.mjs",
+    "summaries:translate": "node scripts/generate-summaries.mjs --translate-only"
   },
   "devDependencies": {
     "pdf-parse": "^1.1.1"

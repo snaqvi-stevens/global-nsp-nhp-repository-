@@ -6,8 +6,10 @@
  *   npm install
  *   OPENAI_API_KEY=sk-... npm run summaries   # optional: short AI summary per file
  *   npm run summaries                         # smart extractive (TOC / acronym noise reduced)
+ *   npm run summaries:translate                 # English-ify existing summaries.json (needs API key)
  *
  * Skips .docx and missing files. Merges into existing summaries.json.
+ * Non-English summaries are translated to English when OPENAI_API_KEY is set.
  */
 import fs from 'fs';
 import path from 'path';
@@ -286,24 +288,69 @@ function extractiveSummary(raw) {
   return sanitizeExtract(slice.trim() + (flat.length > skip + max ? ' …' : ''));
 }
 
-async function summarizeWithOpenAI(excerpt, meta) {
+const ENGLISH_STOPWORDS = new Set([
+  'the', 'and', 'for', 'with', 'that', 'this', 'from', 'are', 'was', 'were', 'have', 'has',
+  'will', 'been', 'health', 'national', 'policy', 'plan', 'sector', 'services', 'government',
+  'population', 'coverage', 'universal', 'development', 'improve', 'access', 'quality', 'care',
+  'system', 'strategic', 'objectives', 'program', 'programme', 'through', 'their', 'which',
+  'including', 'between', 'during', 'under', 'over', 'into', 'such', 'also', 'than', 'these',
+]);
+
+/** Heuristic: true if text is probably already English (for atlas display). */
+function isLikelyEnglish(text) {
+  const t = String(text || '').trim();
+  if (!t || t === LINK_FALLBACK_SUMMARY) return true;
+  if (/^Machine Translated by Google/i.test(t)) return true;
+
+  const sample = t.slice(0, 1200);
+  const letters = (sample.match(/\p{L}/gu) || []).length;
+  if (letters < 24) return true;
+
+  const nonLatinScripts =
+    (sample.match(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/g) || [])
+      .length +
+    (sample.match(/[\u4E00-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/g) || []).length +
+    (sample.match(/[\u0400-\u04FF\u0500-\u052F]/g) || []).length +
+    (sample.match(/[\u0900-\u097F]/g) || []).length;
+  if (nonLatinScripts > 12) return false;
+
+  const words = sample.toLowerCase().match(/\b[a-z]{3,}\b/g) || [];
+  if (words.length < 8) return nonLatinScripts === 0;
+
+  let stopHits = 0;
+  for (const w of words.slice(0, 100)) {
+    if (ENGLISH_STOPWORDS.has(w)) stopHits++;
+  }
+  const stopRatio = stopHits / Math.min(words.length, 100);
+
+  const accented = (sample.match(/[àâäáãåæçèéêëíìîïñòóôõöùúûüýÿœß]/gi) || []).length;
+  const accentRatio = accented / Math.max(letters, 1);
+  if (accentRatio > 0.045 && stopRatio < 0.06) return false;
+
+  if (stopRatio >= 0.05) return true;
+  if (stopRatio >= 0.025 && nonLatinScripts === 0) return true;
+
+  const enMarkers =
+    /\b(the|and|of|to|in|for|with|on|at|by|from|as|is|are|was|were|be|been|being|have|has|had|do|does|did|will|would|shall|should|may|might|must|can|could|not|no|but|or|if|than|that|this|these|those|which|who|whom|whose|what|when|where|why|how)\b/i;
+  const markerHits = (sample.match(enMarkers) || []).length;
+  return markerHits >= 4 && nonLatinScripts === 0;
+}
+
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+async function openaiChat(system, user, maxTokens = 400) {
   const key = process.env.OPENAI_API_KEY;
   if (!key) return null;
   const body = {
     model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
     messages: [
-      {
-        role: 'system',
-        content:
-          'You summarize national health policy and surgical plan documents for a global public atlas. Be factual, neutral, and concise. Do not invent statistics or commitments not implied by the excerpt.',
-      },
-      {
-        role: 'user',
-        content: `Country: ${meta.country}\nDocument type (catalogue): ${meta.docType}\nYear (catalogue): ${meta.year}\nWHO region: ${meta.whoRegion}\n\nExcerpt from the policy PDF (may be partial):\n\n${excerpt.slice(0, 12000)}\n\nWrite 2–4 clear sentences summarizing what this policy emphasizes (goals, time horizon, main health/surgery themes). If the excerpt is boilerplate only, say what little can be inferred and note that the source text was limited.`,
-      },
+      { role: 'system', content: system },
+      { role: 'user', content: user },
     ],
-    max_tokens: 320,
-    temperature: 0.35,
+    max_tokens: maxTokens,
+    temperature: 0.25,
   };
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -315,20 +362,100 @@ async function summarizeWithOpenAI(excerpt, meta) {
   });
   if (!res.ok) {
     const err = await res.text();
-    console.warn(`OpenAI error for ${meta.country}: ${res.status} ${err.slice(0, 200)}`);
+    console.warn(`OpenAI error: ${res.status} ${err.slice(0, 200)}`);
     return null;
   }
   const data = await res.json();
-  const out = data?.choices?.[0]?.message?.content?.trim();
-  return out || null;
+  return data?.choices?.[0]?.message?.content?.trim() || null;
+}
+
+async function summarizeWithOpenAI(excerpt, meta) {
+  return openaiChat(
+    'You summarize national health policy and surgical plan documents for a global public atlas. Be factual, neutral, and concise. Do not invent statistics or commitments not implied by the excerpt. Always write in clear English, even when the source excerpt is in another language.',
+    `Country: ${meta.country}\nDocument type (catalogue): ${meta.docType}\nYear (catalogue): ${meta.year}\nWHO region: ${meta.whoRegion}\n\nExcerpt from the policy PDF (may be partial; language may vary):\n\n${excerpt.slice(0, 12000)}\n\nWrite 2–4 clear sentences in English summarizing what this policy emphasizes (goals, time horizon, main health/surgery themes). If the excerpt is boilerplate only, say what little can be inferred and note that the source text was limited.`,
+    320,
+  );
+}
+
+async function translateSummaryToEnglish(text, meta) {
+  const country = meta?.country || 'Unknown country';
+  return openaiChat(
+    'You translate excerpts from national health policy documents into English for a global public atlas. Preserve facts, numbers, dates, and policy meaning. Do not add information that is not in the source. Use neutral, professional English suitable for policymakers and researchers.',
+    `Country: ${country}\nDocument type (catalogue): ${meta?.docType || 'N/A'}\n\nTranslate the following passage into clear English (2–4 sentences if the source is long; keep the same factual content). If the text is already English, return it lightly edited for clarity only.\n\n${String(text).slice(0, 6000)}`,
+    380,
+  );
+}
+
+async function ensureEnglishSummary(summary, meta) {
+  if (!summary || summary === LINK_FALLBACK_SUMMARY) return summary;
+  if (isLikelyEnglish(summary)) return summary;
+  if (!process.env.OPENAI_API_KEY) {
+    console.warn(
+      `  ${meta.country}: summary appears non-English — set OPENAI_API_KEY to translate.`,
+    );
+    return summary;
+  }
+  const delay = Number(process.env.TRANSLATE_DELAY_MS || 150);
+  if (delay > 0) await sleep(delay);
+  const translated = await translateSummaryToEnglish(summary, meta);
+  if (!translated) return summary;
+  if (!isLikelyEnglish(translated)) {
+    console.warn(`  ${meta.country}: translation still looks non-English; keeping original.`);
+    return summary;
+  }
+  return translated;
+}
+
+function policyByCountry(policyData) {
+  const map = new Map();
+  for (const entry of policyData) map.set(entry.country, entry);
+  return map;
+}
+
+async function translateExistingSummaries(outPath, policyData) {
+  let existing = {};
+  try {
+    existing = JSON.parse(fs.readFileSync(outPath, 'utf8'));
+  } catch {
+    console.error(`No summaries at ${outPath}`);
+    process.exit(1);
+  }
+  if (!process.env.OPENAI_API_KEY) {
+    console.error('OPENAI_API_KEY is required for translation.');
+    process.exit(1);
+  }
+  const byCountry = policyByCountry(policyData);
+  const keys = Object.keys(existing).sort();
+  let translated = 0;
+  let skipped = 0;
+  console.log(`Checking ${keys.length} summaries for English translation…`);
+  for (const country of keys) {
+    const meta = byCountry.get(country) || { country, docType: 'N/A', year: '', whoRegion: '' };
+    const before = existing[country];
+    const after = await ensureEnglishSummary(before, meta);
+    if (after !== before) {
+      existing[country] = after;
+      translated++;
+      console.log(`  Translated: ${country}`);
+    } else if (!isLikelyEnglish(before) && before !== LINK_FALLBACK_SUMMARY) {
+      skipped++;
+    }
+  }
+  fs.writeFileSync(outPath, JSON.stringify(existing, null, 2), 'utf8');
+  console.log(`Wrote ${outPath} — translated: ${translated}, still non-English: ${skipped}`);
 }
 
 async function main() {
   const pdfParse = (await import('pdf-parse')).default;
   const htmlPath = path.join(ROOT, 'index.html');
-  const outPath = path.join(ROOT, 'summaries.json');
   const html = fs.readFileSync(htmlPath, 'utf8');
   const policyData = extractPolicyDataFromHtml(html);
+  const outPath = path.join(ROOT, 'summaries.json');
+
+  if (process.argv.includes('--translate-only')) {
+    await translateExistingSummaries(outPath, policyData);
+    return;
+  }
 
   let existing = {};
   try {
@@ -338,8 +465,8 @@ async function main() {
   const useAI = Boolean(process.env.OPENAI_API_KEY);
   console.log(
     useAI
-      ? 'Using OpenAI for narrative summaries.'
-      : 'Extractive mode only (set OPENAI_API_KEY for richer summaries).',
+      ? 'Using OpenAI for narrative summaries and English translation when needed.'
+      : 'Extractive mode only (set OPENAI_API_KEY for AI summaries and translation).',
   );
 
   let done = 0;
@@ -373,6 +500,7 @@ async function main() {
       if (!summary) {
         summary = LINK_FALLBACK_SUMMARY;
       }
+      summary = await ensureEnglishSummary(summary, entry);
       existing[entry.country] = summary;
       done++;
       if (done % 25 === 0) console.log(`Processed ${done} PDFs…`);
