@@ -423,7 +423,7 @@ body{
 }
 
 /* ── TABLE SECTION ── */
-#table-section{padding:2.75rem 0 5rem;border-top:1px solid var(--rule-2)}
+#table-section{padding:1.75rem 0 5rem;border-top:1px solid var(--rule-2)}
 #table-section .section-h2{margin-bottom:0.35rem}
 .table-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:0.55rem}
 .search-wrap{position:relative;display:flex;align-items:center}
@@ -439,9 +439,10 @@ body{
 #search-input::placeholder{color:var(--fog-3)}
 .table-meta{font-size:0.75rem;line-height:1.35;color:var(--fog-3);font-family:'DM Sans',sans-serif}
 .table-meta span{font-weight:600;color:var(--fog-2)}
-.tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:rgba(5,13,24,0.5)}
-.data-table{width:100%;border-collapse:collapse;border-spacing:0;font-size:0.78rem;font-family:'DM Sans',sans-serif}
-/* Sticky on <thead> breaks row order in Safari; stick each <th> instead. */
+/* overflow-y visible so sticky <th> isn't trapped in a scrollport (breaks WebKit paint order) */
+.tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow-x:auto;overflow-y:visible;background:rgba(5,13,24,0.5)}
+/* separate + 0 spacing: collapse + sticky th breaks row order in Safari/WebKit */
+.data-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.78rem;font-family:'DM Sans',sans-serif}
 .data-table thead{background:transparent}
 .data-table thead th{
   position:sticky;top:62px;z-index:11;
@@ -455,7 +456,10 @@ body{
   letter-spacing:0.13em;text-transform:uppercase;color:var(--teal);
   white-space:nowrap;font-family:'DM Sans',sans-serif;
 }
-.data-table td{padding:0.7rem 0.875rem;border-bottom:1px solid var(--rule-2);vertical-align:middle;color:var(--fog-2)}
+.data-table tbody td{
+  padding:0.7rem 0.875rem;border-bottom:1px solid var(--rule-2);vertical-align:middle;color:var(--fog-2);
+  background:rgba(5,13,24,0.35);
+}
 .data-table tbody tr{transition:background var(--t-fast)}
 .data-table tbody tr:hover td{background:rgba(42,181,187,0.05)}
 .data-table tbody tr:last-child td{border-bottom:none}
@@ -759,7 +763,7 @@ footer{
           <input type="text" id="search-input" placeholder="Search country or region…" autocomplete="off"/>
         </div>
       </div>
-      <div class="tbl-wrap reveal reveal-d3">
+      <div class="tbl-wrap">
         <table class="data-table" id="policy-table">
           <thead><tr>
             <th>Country</th><th>WHO Region</th><th>Document Type</th><th>Year</th><th>Access</th>
