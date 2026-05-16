@@ -424,8 +424,8 @@ body{
 
 /* ── TABLE SECTION ── */
 #table-section{padding:5rem 0;border-top:1px solid var(--rule-2)}
-#table-section .section-h2{margin-bottom:0.45rem}
-.table-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:0.7rem}
+#table-section .section-h2{margin-bottom:0.35rem}
+.table-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:0.55rem}
 .search-wrap{position:relative;display:flex;align-items:center}
 .search-wrap svg{position:absolute;left:0.75rem;width:12px;height:12px;stroke:var(--fog-3);stroke-width:2;fill:none;pointer-events:none}
 #search-input{
@@ -437,22 +437,22 @@ body{
 }
 #search-input:focus{border-color:rgba(42,181,187,0.4);background:rgba(42,181,187,0.04);box-shadow:0 0 0 3px rgba(42,181,187,0.08)}
 #search-input::placeholder{color:var(--fog-3)}
-.table-meta{font-size:0.75rem;color:var(--fog-3);font-family:'DM Sans',sans-serif}
+.table-meta{font-size:0.75rem;line-height:1.35;color:var(--fog-3);font-family:'DM Sans',sans-serif}
 .table-meta span{font-weight:600;color:var(--fog-2)}
 .tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:rgba(5,13,24,0.5)}
-.data-table{width:100%;border-collapse:collapse;font-size:0.78rem;font-family:'DM Sans',sans-serif}
+.data-table{width:100%;border-collapse:collapse;border-spacing:0;font-size:0.78rem;font-family:'DM Sans',sans-serif}
 .data-table thead{
   position:sticky;top:62px;z-index:10;
-  background:rgba(5,13,24,0.97);
+  background:rgba(5,13,24,0.98);
   box-shadow:0 1px 0 var(--rule);
 }
 .data-table thead th{
-  padding:0.32rem 0.875rem 0.38rem;
-  line-height:1.2;
-  vertical-align:top;
-  background:rgba(42,181,187,0.06);border-bottom:1px solid var(--rule);
-  text-align:left;font-size:0.62rem;font-weight:700;
-  letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);
+  padding:0.12rem 0.875rem 0.14rem;
+  line-height:1.15;
+  vertical-align:middle;
+  background:rgba(42,181,187,0.07);border-bottom:1px solid var(--rule);
+  text-align:left;font-size:0.58rem;font-weight:600;
+  letter-spacing:0.13em;text-transform:uppercase;color:var(--teal);
   white-space:nowrap;font-family:'DM Sans',sans-serif;
 }
 .data-table td{padding:0.7rem 0.875rem;border-bottom:1px solid var(--rule-2);vertical-align:middle;color:var(--fog-2)}
