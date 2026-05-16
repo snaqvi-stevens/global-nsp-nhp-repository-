@@ -416,6 +416,12 @@ button,.nav-links a,.footer-links a,a.btn,a.doc-btn,a.nav-cta,a.champion-link{te
 .tip-status{display:flex;align-items:center;gap:0.35rem;font-size:0.72rem;font-weight:500;margin-bottom:0.45rem;color:var(--fog-2);font-family:'DM Sans',sans-serif}
 .tip-dot{width:7px;height:7px;border-radius:50%}
 .tip-meta{font-size:0.72rem;color:var(--fog-3);line-height:1.5;font-family:'DM Sans',sans-serif}
+.tip-summary{
+  display:none;margin-top:0.45rem;padding-top:0.45rem;border-top:1px solid var(--rule-2);
+  font-size:0.68rem;line-height:1.45;color:var(--fog-2);font-family:'DM Sans',sans-serif;
+  max-height:7.25rem;overflow-y:auto;
+}
+.tip-summary:not([hidden]){display:block}
 .tip-region{
   display:inline-block;margin-top:0.4rem;
   font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
@@ -655,6 +661,7 @@ footer{
   <div class="tip-country" id="tip-country"></div>
   <div class="tip-status" id="tip-status"><span class="tip-dot" id="tip-dot"></span><span id="tip-status-text"></span></div>
   <div class="tip-meta" id="tip-meta"></div>
+  <div class="tip-summary" id="tip-summary" hidden></div>
   <div class="tip-region" id="tip-region"></div>
 </div>
 
@@ -1384,16 +1391,24 @@ function buildPolicySummaryHtml(d) {
   return '<p>' + narrative + '</p><p><strong>Indexed as</strong> ' + escHtml(sc.label) + ', <strong>year</strong> ' + escHtml(d.year) + ', <strong>WHO</strong> ' + escHtml(d.whoRegion) + ' · ' + escHtml(d.region) + '.</p><p class="fn"><strong>Repository file:</strong> <code>' + escHtml(d.file) + '</code></p>';
 }
 
+function ensurePolicySummariesLoaded() {
+  if (!window.__policySummariesPromise) {
+    window.__policySummariesPromise = fetch('summaries.json')
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .catch(function () { return {}; })
+      .then(function (data) {
+        window.__policySummaries = data;
+        return data;
+      });
+  }
+  return window.__policySummariesPromise;
+}
+
 function openCountryDocumentTab(d) {
   const rel = getDocHref(d);
   const absUrl = new URL(rel, document.baseURI).href;
-  const promiseSummaries =
-    window.__policySummariesPromise ||
-    (window.__policySummariesPromise = fetch('summaries.json'))
-      .then(function (r) { return r.ok ? r.json() : {}; })
-      .catch(function () { return {}; });
 
-  promiseSummaries.then(function (summaries) {
+  ensurePolicySummariesLoaded().then(function (summaries) {
     const extra = summaries && summaries[d.country];
     var w = window.open('', '_blank');
     if (!w) {
@@ -1543,6 +1558,32 @@ const ourToTopo = {
 
 const tip = document.getElementById('map-tip');
 let tipTimeout;
+let mapTipHoverKey = null;
+
+function truncateMapSummaryText(s, maxLen) {
+  if (!s || typeof s !== 'string') return '';
+  var t = s.replace(/\s+/g, ' ').trim();
+  if (t.length <= maxLen) return t;
+  return t.slice(0, maxLen).trim() + '\u2026';
+}
+
+function fillMapTipSummaryForKey(countryKey) {
+  var el = document.getElementById('tip-summary');
+  if (!el) return;
+  if (!countryKey) {
+    el.textContent = '';
+    el.hidden = true;
+    return;
+  }
+  var raw = window.__policySummaries && window.__policySummaries[countryKey];
+  if (raw && typeof raw === 'string' && raw.trim()) {
+    el.textContent = truncateMapSummaryText(raw, 380);
+    el.hidden = false;
+  } else {
+    el.textContent = '';
+    el.hidden = true;
+  }
+}
 
 // Build lookup: our dataset country name -> data row
 const lookup = {};
@@ -1676,12 +1717,20 @@ function initD3Map() {
             if (tr) tr.textContent = '';
           }
 
+          mapTipHoverKey = dataRow ? dataRow.country : null;
+          fillMapTipSummaryForKey(mapTipHoverKey);
+          ensurePolicySummariesLoaded().then(function () {
+            fillMapTipSummaryForKey(mapTipHoverKey);
+          });
+
           tip.style.display = 'block';
           setTimeout(() => tip.classList.add('visible'), 10);
           positionTip(event);
         })
         .on('mouseleave', function() {
           if (!tip) return;
+          mapTipHoverKey = null;
+          fillMapTipSummaryForKey(null);
           tip.classList.remove('visible');
           tipTimeout = setTimeout(() => { tip.style.display = 'none'; }, 200);
         })
@@ -1730,6 +1779,7 @@ window.addEventListener('resize', () => {
 }, {passive: true});
 
 // Initialize map
+ensurePolicySummariesLoaded();
 initD3Map();
 
 </script></body></html>
