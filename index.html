@@ -3,619 +3,587 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Global NSP/NHP Repository — National Surgical & Health Policy Atlas</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<title>National Surgical & Health Policy — Global Repository</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <style>
-/* ── RESET & BASE ─────────────────────────────────────────────────── */
+/* ── RESET ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:15px;-webkit-font-smoothing:antialiased}
-body{font-family:'Inter',system-ui,sans-serif;background:#fff;color:#1a2332;overflow-x:hidden;line-height:1.6}
-a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;font-size:15px}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:#02060e;color:#e8edf4;
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(42,181,187,0.2);border-radius:2px}
 
-/* ── DESIGN TOKENS ────────────────────────────────────────────────── */
+/* ── TOKENS ── */
 :root{
-  /* Palette */
-  --ink:        #0f1923;
-  --ink-2:      #1a2332;
-  --ink-3:      #2d3d52;
-  --muted:      #5a6a7a;
-  --muted-2:    #8a9aaa;
-  --rule:       #e2e8f0;
-  --rule-2:     #edf2f7;
-  --surface:    #f7fafc;
+  --bg:         #02060e;
+  --bg-2:       #050d18;
+  --navy:       #091628;
+  --teal:       #2ab5bb;
+  --teal-dark:  #1a8a8f;
+  --teal-glow:  rgba(42,181,187,0.18);
+  --teal-faint: rgba(42,181,187,0.07);
   --white:      #ffffff;
-
-  /* Brand */
-  --teal:       #006b6e;
-  --teal-mid:   #008a8e;
-  --teal-light: #00b3b8;
-  --teal-pale:  #e6f7f7;
-  --teal-faint: #f0fbfb;
-
-  /* Status */
-  --c-both:     #15803d;
-  --c-nsp:      #006b6e;
-  --c-nhp:      #b45309;
-  --c-none:     #d1dbe6;
-  --c-unknown:  #a0b0bf;
-
-  /* Motion */
+  --fog:        rgba(232,237,244,0.7);
+  --fog-2:      rgba(232,237,244,0.4);
+  --fog-3:      rgba(232,237,244,0.18);
+  --rule:       rgba(42,181,187,0.12);
+  --rule-2:     rgba(255,255,255,0.05);
+  --glass:      rgba(5,13,24,0.55);
+  --c-both:     #1e9e55;
+  --c-nsp:      #2ab5bb;
+  --c-nhp:      #c49a3a;
+  --c-none:     #1a2535;
   --ease:       cubic-bezier(0.16,1,0.3,1);
   --ease-std:   cubic-bezier(0.4,0,0.2,1);
-  --t-fast:     120ms;
-  --t-mid:      200ms;
-  --t-slow:     320ms;
+  --t-fast:     140ms;
+  --t-mid:      240ms;
+  --t-slow:     420ms;
 }
 
-/* ── SCROLLBAR ──────────────────────────────────────────────────────── */
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:var(--muted-2)}
+/* ── WEBGL FIXED CANVAS ── */
+#webgl-canvas{
+  position:fixed;top:0;left:0;
+  width:100vw;height:100vh;
+  z-index:0;pointer-events:none;
+}
 
-/* ── TYPOGRAPHY ───────────────────────────────────────────────────── */
-.serif{font-family:'DM Serif Display',Georgia,serif}
-
-/* ── LAYOUT ───────────────────────────────────────────────────────── */
-.wrap{max-width:1240px;margin:0 auto;padding:0 2rem}
-
-/* ══════════════════════════════════════════════════════════════════ */
-/*  NAV                                                               */
-/* ══════════════════════════════════════════════════════════════════ */
+/* ── NAV BANNER ── */
 .nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  height:56px;
-  background:rgba(255,255,255,0.96);
-  border-bottom:1px solid var(--rule);
-  transition:box-shadow var(--t-mid) var(--ease-std),
-             background var(--t-mid) var(--ease-std);
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:62px;
+  background:rgba(2,6,14,0);
+  border-bottom:1px solid rgba(42,181,187,0);
+  transition:background 0.5s var(--ease-std),
+             border-color 0.5s var(--ease-std),
+             backdrop-filter 0.5s;
 }
 .nav.scrolled{
-  box-shadow:0 1px 12px rgba(15,25,35,0.08);
-  background:rgba(255,255,255,0.98);
+  background:rgba(2,6,14,0.88);
+  border-bottom:1px solid var(--rule);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
 }
 .nav-inner{
-  max-width:1240px;margin:0 auto;padding:0 2rem;
-  height:56px;display:flex;align-items:center;justify-content:space-between;
+  max-width:1280px;margin:0 auto;padding:0 2.5rem;
+  height:62px;display:flex;align-items:center;justify-content:space-between;
 }
-.nav-brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.nav-badge{
-  width:30px;height:30px;border-radius:5px;
-  background:var(--teal);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
+.nav-brand{display:flex;align-items:center;gap:11px}
+.nav-logo{
+  width:36px;height:36px;object-fit:contain;
+  filter:drop-shadow(0 0 10px rgba(42,181,187,0.5));
+  transition:filter var(--t-mid);
 }
-.nav-badge svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.nav-name{
-  font-size:0.875rem;font-weight:600;color:var(--ink);
-  letter-spacing:-0.01em;line-height:1.2;
+.nav-brand:hover .nav-logo{filter:drop-shadow(0 0 16px rgba(42,181,187,0.8))}
+.nav-wordmark{
+  font-family:'Cinzel',serif;
+  font-size:0.75rem;font-weight:500;
+  color:rgba(255,255,255,0.9);
+  letter-spacing:0.12em;line-height:1.3;
 }
-.nav-name span{display:block;font-size:0.7rem;font-weight:400;color:var(--muted);letter-spacing:0}
-.nav-links{display:flex;align-items:center;gap:0}
+.nav-wordmark span{
+  display:block;font-family:'DM Sans',sans-serif;
+  font-size:0.58rem;font-weight:400;
+  color:var(--fog-3);letter-spacing:0.18em;
+  text-transform:uppercase;
+}
+.nav-links{display:flex;align-items:center;height:62px}
 .nav-links a{
-  position:relative;padding:0 1rem;height:56px;
+  position:relative;padding:0 1rem;height:62px;
   display:flex;align-items:center;
-  font-size:0.8125rem;font-weight:500;color:var(--muted);
-  transition:color var(--t-fast) var(--ease-std);
+  font-family:'DM Sans',sans-serif;
+  font-size:0.72rem;font-weight:500;
+  letter-spacing:0.09em;text-transform:uppercase;
+  color:var(--fog-3);
+  transition:color var(--t-fast);
 }
 .nav-links a::after{
-  content:'';position:absolute;bottom:0;left:1rem;right:1rem;height:2px;
-  background:var(--teal);border-radius:2px 2px 0 0;
+  content:'';position:absolute;bottom:-1px;left:1rem;right:1rem;
+  height:1px;background:var(--teal);
   transform:scaleX(0);transform-origin:center;
   transition:transform var(--t-mid) var(--ease);
 }
-.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover{color:var(--fog)}
 .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
 .nav-links a.active{color:var(--teal)}
 .nav-cta{
-  margin-left:0.75rem;
-  padding:0.45rem 1rem!important;height:auto!important;
-  background:var(--teal);color:#fff!important;
-  border-radius:5px;font-weight:600!important;font-size:0.8rem!important;
-  transition:background var(--t-fast) var(--ease-std),
-             transform var(--t-fast) var(--ease-std)!important;
+  margin-left:1rem;
+  padding:0.45rem 1.1rem!important;height:auto!important;
+  font-family:'Cinzel',serif!important;
+  font-size:0.62rem!important;font-weight:500!important;
+  letter-spacing:0.14em!important;text-transform:uppercase!important;
+  color:var(--teal)!important;
+  border:1px solid rgba(42,181,187,0.4)!important;
+  border-radius:2px;background:transparent;
+  transition:background var(--t-fast),border-color var(--t-fast),
+             color var(--t-fast),box-shadow var(--t-fast)!important;
 }
 .nav-cta::after{display:none!important}
-.nav-cta:hover{background:var(--teal-mid)!important;transform:translateY(-1px)!important}
-
-/* ══════════════════════════════════════════════════════════════════ */
-/*  HERO                                                              */
-/* ══════════════════════════════════════════════════════════════════ */
-.hero{
-  margin-top:56px;
-  background:var(--ink);
-  padding:5rem 0 4.5rem;
-  position:relative;overflow:hidden;
+.nav-cta:hover{
+  background:rgba(42,181,187,0.1)!important;
+  border-color:var(--teal)!important;
+  color:var(--white)!important;
+  box-shadow:0 0 20px rgba(42,181,187,0.15)!important;
 }
-/* Subtle topo-map grid */
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
-  background-size:48px 48px;
-  mask-image:radial-gradient(ellipse 80% 100% at 70% 50%,black 0%,transparent 70%);
+
+/* ── SECTIONS (stacked, z above canvas) ── */
+.story{position:relative;z-index:1}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:flex-start;
+  padding:8rem 0 5rem;
 }
 .hero-inner{
-  max-width:1240px;margin:0 auto;padding:0 2rem;
-  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  max-width:1280px;margin:0 auto;padding:0 2.5rem;
+  width:100%;
 }
 .hero-eyebrow{
-  display:inline-flex;align-items:center;gap:0.5rem;
-  font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
-  color:rgba(255,255,255,0.45);margin-bottom:1.25rem;
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.65rem;font-weight:500;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--teal);
+  margin-bottom:2rem;
+  opacity:0;transform:translateY(14px);
+  animation:fadeUp 0.9s var(--ease) 0.2s forwards;
 }
-.hero-eyebrow-dot{
-  width:6px;height:6px;border-radius:50%;background:var(--teal-light);
+.eyebrow-line{width:28px;height:1px;background:var(--teal);opacity:0.6}
+.eyebrow-dot{
+  width:5px;height:5px;border-radius:50%;background:var(--teal);
   animation:blink 2.4s ease-in-out infinite;
 }
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-.hero h1{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(2rem,3.5vw,2.9rem);
-  font-weight:400;line-height:1.15;letter-spacing:-0.02em;
-  color:#fff;margin-bottom:1.25rem;
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{to{opacity:1}}
+
+.hero-logo-row{
+  display:flex;align-items:center;gap:1.75rem;
+  margin-bottom:1.5rem;
+  opacity:0;transform:translateY(20px);
+  animation:fadeUp 1s var(--ease) 0.45s forwards;
 }
-.hero h1 em{font-style:italic;color:#5ad8dc}
+.hero-logo-img{
+  width:90px;height:90px;object-fit:contain;flex-shrink:0;
+  filter:drop-shadow(0 0 28px rgba(42,181,187,0.55))
+         drop-shadow(0 0 60px rgba(42,181,187,0.2));
+}
+.hero-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.8rem,3.5vw,3rem);
+  font-weight:400;letter-spacing:0.06em;
+  color:var(--white);line-height:1.15;
+}
+.hero-title em{
+  display:block;font-family:'Playfair Display',serif;
+  font-style:italic;font-weight:400;
+  font-size:0.75em;letter-spacing:0.02em;
+  color:var(--teal);
+}
+
 .hero-desc{
-  font-size:0.9375rem;line-height:1.75;
-  color:rgba(255,255,255,0.55);max-width:460px;margin-bottom:2rem;
+  font-size:0.9rem;line-height:1.85;
+  color:var(--fog-2);max-width:500px;
+  margin-bottom:2.5rem;
+  opacity:0;transform:translateY(18px);
+  animation:fadeUp 1s var(--ease) 0.65s forwards;
 }
-.hero-actions{display:flex;gap:0.75rem;flex-wrap:wrap}
+
+.hero-actions{
+  display:flex;gap:0.875rem;flex-wrap:wrap;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp 1s var(--ease) 0.82s forwards;
+}
 .btn{
   display:inline-flex;align-items:center;gap:0.4rem;
-  padding:0.6rem 1.25rem;border-radius:5px;
-  font-size:0.8125rem;font-weight:600;border:none;
-  transition:background var(--t-fast) var(--ease-std),
-             transform var(--t-fast) var(--ease-std),
-             box-shadow var(--t-fast) var(--ease-std);
+  padding:0.7rem 1.6rem;
+  font-family:'Cinzel',serif;
+  font-size:0.65rem;font-weight:500;letter-spacing:0.14em;
+  text-transform:uppercase;border:none;
+  transition:all var(--t-fast) var(--ease-std);cursor:pointer;
 }
-.btn:active{transform:translateY(0)!important}
-.btn-primary{background:var(--teal-light);color:#fff}
-.btn-primary:hover{background:#00cace;transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,179,184,0.35)}
-.btn-ghost{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.15)}
-.btn-ghost:hover{background:rgba(255,255,255,0.14);transform:translateY(-1px)}
+.btn-primary{
+  background:var(--teal-dark);color:var(--white);
+  box-shadow:0 0 24px rgba(42,181,187,0.25);
+}
+.btn-primary:hover{
+  background:var(--teal);transform:translateY(-1px);
+  box-shadow:0 0 36px rgba(42,181,187,0.4);
+}
+.btn-ghost{
+  background:transparent;color:var(--fog-2);
+  border:1px solid var(--rule);
+}
+.btn-ghost:hover{border-color:rgba(42,181,187,0.35);color:var(--fog);transform:translateY(-1px)}
 
-.hero-stats{
-  display:flex;gap:2.5rem;margin-top:3rem;
-  padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1);
+.hero-divider{
+  width:100%;height:1px;
+  background:linear-gradient(90deg,var(--rule),transparent);
+  margin:3rem 0 2rem;
+  opacity:0;animation:fadeIn 1s var(--ease) 1.1s forwards;
 }
-.hero-stat{}
+.hero-stats{
+  display:flex;gap:3.5rem;flex-wrap:wrap;
+  opacity:0;animation:fadeUp 1s var(--ease) 1.1s forwards;
+}
 .hero-stat-n{
-  font-family:'DM Serif Display',serif;
-  font-size:2rem;font-weight:400;color:#5ad8dc;line-height:1;
-  font-feature-settings:"tnum";
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;font-weight:400;color:var(--teal);line-height:1;
 }
 .hero-stat-l{
-  font-size:0.7rem;color:rgba(255,255,255,0.4);
-  text-transform:uppercase;letter-spacing:0.07em;margin-top:0.25rem;
+  font-size:0.6rem;color:var(--fog-3);
+  text-transform:uppercase;letter-spacing:0.14em;margin-top:0.35rem;
 }
 
-/* Hero right — live counter panel */
-.hero-panel{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:10px;padding:1.75rem;
-  backdrop-filter:blur(4px);
-}
-.hero-panel-title{
-  font-size:0.7rem;font-weight:600;letter-spacing:0.1em;
-  text-transform:uppercase;color:rgba(255,255,255,0.35);
-  margin-bottom:1.25rem;
-}
-.region-bars{}
-.region-row{margin-bottom:1rem}
-.region-row-head{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:0.35rem;
-}
-.region-label{font-size:0.78rem;color:rgba(255,255,255,0.65);font-weight:500}
-.region-count{font-size:0.78rem;color:rgba(255,255,255,0.35);font-variant-numeric:tabular-nums}
-.region-track{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden}
-.region-fill{height:100%;background:var(--teal-light);border-radius:2px;transform-origin:left;transform:scaleX(0);transition:transform 1.2s var(--ease)}
-.region-fill.animate{transform:scaleX(1)}
-
-/* ══════════════════════════════════════════════════════════════════ */
-/*  SECTION CHROME                                                    */
-/* ══════════════════════════════════════════════════════════════════ */
+/* ── SECTION CHROME ── */
+.section-wrap{max-width:1280px;margin:0 auto;padding:0 2.5rem}
 .section-eye{
-  font-size:0.68rem;font-weight:700;letter-spacing:0.12em;
-  text-transform:uppercase;color:var(--teal);margin-bottom:0.4rem;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.6rem;font-weight:600;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;
 }
 .section-h2{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(1.4rem,2.5vw,1.9rem);
-  font-weight:400;color:var(--ink);line-height:1.25;margin-bottom:0.5rem;
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.4rem,2.5vw,2rem);
+  font-weight:400;letter-spacing:0.06em;
+  color:var(--white);line-height:1.3;margin-bottom:0.6rem;
 }
-.section-sub{font-size:0.875rem;color:var(--muted);line-height:1.7;max-width:560px}
+.section-sub{
+  font-family:'DM Sans',sans-serif;
+  font-size:0.875rem;color:var(--fog-2);
+  line-height:1.8;max-width:500px;
+}
 
-/* ══════════════════════════════════════════════════════════════════ */
-/*  MAP SECTION                                                       */
-/* ══════════════════════════════════════════════════════════════════ */
-#map-section{
-  background:var(--surface);
-  border-top:1px solid var(--rule);
-  border-bottom:1px solid var(--rule);
-  padding:3rem 0;
+/* ── GLASS CARD ── */
+.glass-card{
+  background:var(--glass);
+  border:1px solid var(--rule);
+  border-radius:12px;
+  backdrop-filter:blur(28px) saturate(150%);
+  -webkit-backdrop-filter:blur(28px) saturate(150%);
+  box-shadow:
+    0 0 0 1px rgba(42,181,187,0.05),
+    0 24px 64px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.05);
 }
+
+/* ── MAP SECTION ── */
+#map-section{padding:5rem 0;border-top:1px solid var(--rule-2)}
 .map-layout{
-  display:grid;grid-template-columns:220px 1fr;
-  gap:1.5rem;align-items:start;
+  display:grid;grid-template-columns:200px 1fr;
+  gap:1.25rem;align-items:start;margin-top:2.5rem;
 }
-
-/* Sidebar */
-.map-sidebar{display:flex;flex-direction:column;gap:1.25rem}
-.sidebar-block{background:#fff;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
-.sidebar-block-head{
-  padding:0.75rem 1rem;
-  font-size:0.68rem;font-weight:700;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--muted);
-  border-bottom:1px solid var(--rule-2);background:var(--surface);
+.map-sidebar{display:flex;flex-direction:column;gap:1rem}
+.sidebar-block{
+  background:rgba(5,13,24,0.7);
+  border:1px solid var(--rule);border-radius:8px;overflow:hidden;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
 }
-.filter-list{padding:0.5rem}
+.sidebar-head{
+  padding:0.6rem 0.875rem;
+  font-family:'Cinzel',serif;
+  font-size:0.55rem;font-weight:500;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--teal);
+  border-bottom:1px solid var(--rule-2);
+  background:rgba(42,181,187,0.04);
+}
+.filter-list,.region-filter-list{padding:0.35rem}
 .filter-pill{
-  display:flex;align-items:center;gap:0.5rem;width:100%;
-  padding:0.5rem 0.6rem;border-radius:5px;border:none;background:none;
-  font-size:0.8125rem;color:var(--muted);font-weight:500;
-  transition:background var(--t-fast) var(--ease-std),
-             color var(--t-fast) var(--ease-std);
+  display:flex;align-items:center;gap:0.45rem;width:100%;
+  padding:0.42rem 0.6rem;border-radius:5px;border:none;
+  background:none;color:var(--fog-3);
+  font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:500;
   cursor:pointer;text-align:left;
-}
-.filter-pill:hover{background:var(--teal-faint);color:var(--ink)}
-.filter-pill.active{background:var(--teal-pale);color:var(--teal)}
-.filter-pill-dot{
-  width:9px;height:9px;border-radius:50%;flex-shrink:0;
-  transition:transform var(--t-mid) var(--ease);
-}
-.filter-pill:hover .filter-pill-dot,.filter-pill.active .filter-pill-dot{transform:scale(1.2)}
-.filter-pill-count{
-  margin-left:auto;font-size:0.7rem;font-weight:600;
-  background:var(--rule-2);color:var(--muted);
-  padding:0.1rem 0.4rem;border-radius:3px;
   transition:background var(--t-fast),color var(--t-fast);
 }
-.filter-pill.active .filter-pill-count{background:rgba(0,107,110,0.12);color:var(--teal)}
-
-.region-filter-list{padding:0.5rem}
+.filter-pill:hover{background:var(--teal-faint);color:var(--fog)}
+.filter-pill.active{background:rgba(42,181,187,0.12);color:var(--teal)}
+.filter-pill-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;transition:transform var(--t-mid) var(--ease)}
+.filter-pill:hover .filter-pill-dot,.filter-pill.active .filter-pill-dot{transform:scale(1.4)}
+.filter-pill-count{
+  margin-left:auto;font-size:0.65rem;font-weight:600;
+  background:rgba(255,255,255,0.05);color:var(--fog-3);
+  padding:0.08rem 0.38rem;border-radius:3px;
+  transition:background var(--t-fast),color var(--t-fast);
+}
+.filter-pill.active .filter-pill-count{background:rgba(42,181,187,0.15);color:var(--teal)}
 .region-pill{
   display:flex;align-items:center;gap:0.4rem;width:100%;
-  padding:0.45rem 0.6rem;border-radius:5px;border:none;background:none;
-  font-size:0.78rem;color:var(--muted);font-weight:500;cursor:pointer;text-align:left;
+  padding:0.38rem 0.6rem;border-radius:5px;border:none;
+  background:none;color:var(--fog-3);
+  font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;
+  cursor:pointer;text-align:left;
   transition:background var(--t-fast),color var(--t-fast);
 }
-.region-pill:hover{background:var(--teal-faint);color:var(--ink)}
-.region-pill.active{background:var(--teal-pale);color:var(--teal)}
-.region-pip{
-  width:6px;height:6px;border-radius:50%;flex-shrink:0;
-  background:var(--teal-light);opacity:0.4;
-  transition:opacity var(--t-fast);
-}
+.region-pill:hover{background:var(--teal-faint);color:var(--fog)}
+.region-pill.active{background:rgba(42,181,187,0.12);color:var(--teal)}
+.region-pip{width:5px;height:5px;border-radius:50%;flex-shrink:0;background:var(--teal);opacity:0.35;transition:opacity var(--t-fast)}
 .region-pill.active .region-pip{opacity:1}
 
-/* Map canvas */
-.map-canvas-wrap{position:relative}
-.map-card{
-  background:#fff;border:1px solid var(--rule);border-radius:8px;
-  overflow:hidden;
-  box-shadow:0 1px 3px rgba(15,25,35,0.04),0 4px 16px rgba(15,25,35,0.04);
-}
 .map-card-head{
   display:flex;align-items:center;justify-content:space-between;
   padding:0.875rem 1.25rem;border-bottom:1px solid var(--rule-2);
-  background:var(--surface);
+  background:rgba(42,181,187,0.03);
 }
-.map-card-title{font-size:0.8rem;font-weight:600;color:var(--ink-3)}
+.map-card-title{
+  font-family:'DM Sans',sans-serif;
+  font-size:0.72rem;font-weight:500;color:var(--fog-2);letter-spacing:0.04em;
+}
 .map-zoom-controls{display:flex;gap:0.3rem}
 .zoom-btn{
   width:26px;height:26px;border-radius:4px;
-  border:1px solid var(--rule);background:#fff;
+  border:1px solid var(--rule);background:transparent;
   display:flex;align-items:center;justify-content:center;
-  font-size:0.85rem;color:var(--muted);cursor:pointer;
+  font-size:0.85rem;color:var(--fog-3);cursor:pointer;
   transition:background var(--t-fast),color var(--t-fast),border-color var(--t-fast);
 }
-.zoom-btn:hover{background:var(--teal-faint);border-color:var(--teal);color:var(--teal)}
-
-#world-map{width:100%;height:auto;display:block}
-
-/* Country paths */
+.zoom-btn:hover{background:var(--teal-faint);border-color:rgba(42,181,187,0.3);color:var(--teal)}
+#world-map{width:100%;height:auto;display:block;background:transparent}
 .country{
-  fill:var(--c-none);stroke:#fff;stroke-width:0.6;
+  fill:var(--c-none);stroke:rgba(2,6,14,0.7);stroke-width:0.4;
   cursor:pointer;
-  transition:fill var(--t-mid) var(--ease-std),
-             opacity var(--t-mid) var(--ease-std),
-             stroke-width var(--t-fast) var(--ease-std);
+  transition:opacity var(--t-mid),fill var(--t-mid);
 }
-.country:hover{stroke:#333;stroke-width:1.2;opacity:0.85}
-.country.has-data{cursor:pointer}
+.country:hover{stroke:rgba(42,181,187,0.6);stroke-width:1;opacity:0.8}
 .country.status-nsp{fill:var(--c-nsp)}
 .country.status-nhp{fill:var(--c-nhp)}
 .country.status-both{fill:var(--c-both)}
-.country.status-unknown{fill:var(--c-unknown)}
-.country.dimmed{opacity:0.1}
-.country.highlighted{stroke:var(--ink);stroke-width:1.5;opacity:1!important}
+.map-legend{
+  display:flex;gap:1.25rem;flex-wrap:wrap;
+  padding:0.7rem 1.25rem;border-top:1px solid var(--rule-2);
+}
+.leg-item{display:flex;align-items:center;gap:0.4rem;font-size:0.68rem;color:var(--fog-3);font-family:'DM Sans',sans-serif}
+.leg-swatch{width:9px;height:9px;border-radius:2px;flex-shrink:0}
 
 /* Tooltip */
 #map-tip{
   position:fixed;display:none;pointer-events:none;z-index:300;
-  background:#fff;border:1px solid var(--rule);border-radius:7px;
-  padding:0.875rem 1rem;min-width:200px;max-width:260px;
-  box-shadow:0 4px 24px rgba(15,25,35,0.12);
-  opacity:0;transform:translateY(4px);
-  transition:opacity 150ms var(--ease-std),transform 150ms var(--ease-std);
+  background:rgba(5,13,24,0.9);
+  border:1px solid rgba(42,181,187,0.2);border-radius:8px;
+  padding:0.875rem 1rem;min-width:200px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.7),0 0 0 1px rgba(42,181,187,0.05);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  opacity:0;transform:translateY(6px);
+  transition:opacity 140ms var(--ease-std),transform 140ms var(--ease-std);
 }
 #map-tip.visible{opacity:1;transform:translateY(0);display:block}
-.tip-country{font-size:0.875rem;font-weight:600;color:var(--ink);margin-bottom:0.35rem}
-.tip-status{
-  display:inline-flex;align-items:center;gap:0.35rem;
-  font-size:0.75rem;font-weight:600;margin-bottom:0.5rem;
-}
-.tip-dot{width:8px;height:8px;border-radius:50%}
-.tip-meta{font-size:0.75rem;color:var(--muted);line-height:1.5}
+.tip-country{font-family:'Cinzel',serif;font-size:0.875rem;font-weight:500;color:var(--white);margin-bottom:0.3rem;letter-spacing:0.04em}
+.tip-status{display:flex;align-items:center;gap:0.35rem;font-size:0.72rem;font-weight:500;margin-bottom:0.45rem;color:var(--fog-2);font-family:'DM Sans',sans-serif}
+.tip-dot{width:7px;height:7px;border-radius:50%}
+.tip-meta{font-size:0.72rem;color:var(--fog-3);line-height:1.5;font-family:'DM Sans',sans-serif}
 .tip-region{
   display:inline-block;margin-top:0.4rem;
-  font-size:0.68rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;
-  color:var(--muted-2);background:var(--rule-2);padding:0.15rem 0.45rem;border-radius:3px;
+  font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--teal);background:rgba(42,181,187,0.08);
+  padding:0.12rem 0.45rem;border-radius:2px;font-family:'DM Sans',sans-serif;
 }
 
-/* Legend */
-.map-legend{
-  display:flex;gap:1.25rem;flex-wrap:wrap;
-  padding:0.75rem 1.25rem;border-top:1px solid var(--rule-2);
-}
-.leg-item{display:flex;align-items:center;gap:0.4rem;font-size:0.75rem;color:var(--muted)}
-.leg-swatch{width:11px;height:11px;border-radius:2px;flex-shrink:0}
-
-/* ══════════════════════════════════════════════════════════════════ */
-/*  REPOSITORY TABLE                                                  */
-/* ══════════════════════════════════════════════════════════════════ */
-#table-section{background:#fff;padding:3rem 0}
-.table-header{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem;
-}
-.search-wrap{
-  position:relative;
-  display:flex;align-items:center;
-}
-.search-wrap svg{
-  position:absolute;left:0.75rem;
-  width:14px;height:14px;stroke:var(--muted-2);stroke-width:2;
-  fill:none;pointer-events:none;
-}
+/* ── TABLE SECTION ── */
+#table-section{padding:5rem 0;border-top:1px solid var(--rule-2)}
+.table-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.search-wrap{position:relative;display:flex;align-items:center}
+.search-wrap svg{position:absolute;left:0.75rem;width:12px;height:12px;stroke:var(--fog-3);stroke-width:2;fill:none;pointer-events:none}
 #search-input{
-  width:260px;padding:0.5rem 0.75rem 0.5rem 2.25rem;
-  border:1px solid var(--rule);border-radius:6px;
-  font-size:0.8125rem;color:var(--ink);font-family:inherit;
-  background:#fff;outline:none;
-  transition:border-color var(--t-fast),box-shadow var(--t-fast);
+  width:240px;padding:0.5rem 0.75rem 0.5rem 2.1rem;
+  border:1px solid var(--rule);border-radius:4px;
+  font-size:0.78rem;color:var(--fog);font-family:'DM Sans',sans-serif;
+  background:rgba(255,255,255,0.03);outline:none;
+  transition:border-color var(--t-fast),background var(--t-fast),box-shadow var(--t-fast);
 }
-#search-input:focus{border-color:var(--teal-mid);box-shadow:0 0 0 3px rgba(0,138,142,0.1)}
-#search-input::placeholder{color:var(--muted-2)}
-
-.table-meta{font-size:0.78rem;color:var(--muted)}
-.table-meta span{font-weight:600;color:var(--ink)}
-
-.tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:hidden}
-.data-table{width:100%;border-collapse:collapse;font-size:0.8125rem}
-.data-table thead{position:sticky;top:56px;z-index:10}
+#search-input:focus{border-color:rgba(42,181,187,0.4);background:rgba(42,181,187,0.04);box-shadow:0 0 0 3px rgba(42,181,187,0.08)}
+#search-input::placeholder{color:var(--fog-3)}
+.table-meta{font-size:0.75rem;color:var(--fog-3);font-family:'DM Sans',sans-serif}
+.table-meta span{font-weight:600;color:var(--fog-2)}
+.tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:rgba(5,13,24,0.5)}
+.data-table{width:100%;border-collapse:collapse;font-size:0.78rem;font-family:'DM Sans',sans-serif}
+.data-table thead{position:sticky;top:62px;z-index:10}
 .data-table th{
-  padding:0.6rem 0.875rem;
-  background:var(--surface);border-bottom:1px solid var(--rule);
-  text-align:left;font-size:0.68rem;font-weight:700;
-  letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);
-  white-space:nowrap;
+  padding:0.65rem 0.875rem;
+  background:rgba(42,181,187,0.05);border-bottom:1px solid var(--rule);
+  text-align:left;font-size:0.58rem;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);
+  white-space:nowrap;font-family:'Cinzel',serif;
 }
-.data-table th:first-child{border-radius:8px 0 0 0}
-.data-table th:last-child{border-radius:0 8px 0 0}
-.data-table td{
-  padding:0.7rem 0.875rem;
-  border-bottom:1px solid var(--rule-2);
-  vertical-align:middle;color:var(--ink-2);
-}
-.data-table tbody tr{transition:background var(--t-fast) var(--ease-std)}
-.data-table tbody tr:hover td{background:var(--teal-faint)}
+.data-table td{padding:0.7rem 0.875rem;border-bottom:1px solid var(--rule-2);vertical-align:middle;color:var(--fog-2)}
+.data-table tbody tr{transition:background var(--t-fast)}
+.data-table tbody tr:hover td{background:rgba(42,181,187,0.05)}
 .data-table tbody tr:last-child td{border-bottom:none}
-
 .badge{
   display:inline-flex;align-items:center;gap:0.3rem;
-  padding:0.18rem 0.55rem;border-radius:3px;
-  font-size:0.68rem;font-weight:700;letter-spacing:0.02em;
-  white-space:nowrap;
+  padding:0.16rem 0.5rem;border-radius:2px;
+  font-size:0.62rem;font-weight:700;letter-spacing:0.05em;white-space:nowrap;
 }
 .badge .dot{width:5px;height:5px;border-radius:50%;background:currentColor}
-.badge.both{background:#dcfce7;color:#15803d}
-.badge.nsp{background:#cffafe;color:#0e7490}
-.badge.nhp{background:#fef3c7;color:#b45309}
-.badge.none,.badge.unknown{background:var(--rule-2);color:var(--muted)}
-
+.badge.both{background:rgba(30,158,85,0.15);color:#4ec988}
+.badge.nsp{background:rgba(42,181,187,0.14);color:var(--teal)}
+.badge.nhp{background:rgba(196,154,58,0.15);color:#d4aa5a}
+.badge.none,.badge.unknown{background:rgba(255,255,255,0.05);color:var(--fog-3)}
 .who-tag{
-  display:inline-block;padding:0.15rem 0.5rem;
-  background:var(--rule-2);border-radius:3px;
-  font-size:0.68rem;font-weight:600;color:var(--muted);
-  letter-spacing:0.03em;
+  display:inline-block;padding:0.12rem 0.45rem;
+  background:rgba(255,255,255,0.05);border-radius:2px;
+  font-size:0.6rem;font-weight:700;color:var(--fog-3);
+  letter-spacing:0.08em;font-family:'Cinzel',serif;
 }
-
 .doc-btn{
   display:inline-flex;align-items:center;gap:0.3rem;
-  padding:0.25rem 0.6rem;border-radius:4px;
-  font-size:0.75rem;font-weight:600;color:var(--teal);
-  border:1px solid rgba(0,107,110,0.2);background:var(--teal-faint);
+  padding:0.22rem 0.6rem;border-radius:3px;
+  font-size:0.68rem;font-weight:600;
+  color:var(--teal);
+  border:1px solid rgba(42,181,187,0.2);background:rgba(42,181,187,0.07);
   transition:background var(--t-fast),border-color var(--t-fast),transform var(--t-fast);
 }
-.doc-btn:hover{background:var(--teal-pale);border-color:var(--teal);transform:translateY(-1px)}
-.doc-btn svg{width:11px;height:11px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-
-/* Pagination */
+.doc-btn:hover{background:rgba(42,181,187,0.16);border-color:rgba(42,181,187,0.4);transform:translateY(-1px)}
+.doc-btn svg{width:10px;height:10px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .pagination{display:flex;align-items:center;justify-content:center;gap:0.3rem;margin-top:1.5rem}
 .pg-btn{
   min-width:32px;height:32px;padding:0 0.4rem;
-  border-radius:5px;border:1px solid var(--rule);background:#fff;
-  color:var(--muted);font-size:0.8rem;font-weight:500;
+  border-radius:4px;border:1px solid var(--rule);background:transparent;
+  color:var(--fog-3);font-size:0.78rem;font-weight:500;font-family:'DM Sans',sans-serif;
   display:flex;align-items:center;justify-content:center;
-  transition:all var(--t-fast) var(--ease-std);
+  transition:all var(--t-fast);cursor:pointer;
 }
-.pg-btn:hover:not(:disabled){border-color:var(--teal-mid);color:var(--teal)}
-.pg-btn.active{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:600}
-.pg-btn:disabled{opacity:0.35;cursor:not-allowed}
+.pg-btn:hover:not(:disabled){border-color:rgba(42,181,187,0.35);color:var(--teal)}
+.pg-btn.active{background:var(--teal-dark);border-color:var(--teal-dark);color:var(--white);font-weight:700}
+.pg-btn:disabled{opacity:0.25;cursor:not-allowed}
 
-/* ══════════════════════════════════════════════════════════════════ */
-/*  HOW IT WORKS                                                      */
-/* ══════════════════════════════════════════════════════════════════ */
-#how-section{
-  background:var(--surface);
-  border-top:1px solid var(--rule);
-  padding:3.5rem 0;
-}
-.how-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;background:var(--rule);
-  border:1px solid var(--rule);border-radius:8px;overflow:hidden;
-  margin-top:2.5rem;
-}
+/* ── HOW IT WORKS ── */
+#how-section{padding:5rem 0;border-top:1px solid var(--rule-2)}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-top:2.5rem}
 .how-card{
-  background:#fff;padding:1.75rem 1.5rem;
-  transition:background var(--t-mid) var(--ease-std);
+  background:rgba(5,13,24,0.75);padding:1.75rem 1.4rem;
   position:relative;overflow:hidden;
+  transition:background var(--t-mid);
 }
 .how-card::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:var(--teal);transform:scaleX(0);transform-origin:left;
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--teal),rgba(42,181,187,0.2));
+  transform:scaleX(0);transform-origin:left;
   transition:transform var(--t-slow) var(--ease);
 }
-.how-card:hover{background:var(--teal-faint)}
+.how-card:hover{background:rgba(42,181,187,0.05)}
 .how-card:hover::after{transform:scaleX(1)}
 .how-n{
-  font-family:'DM Serif Display',serif;
-  font-size:2.5rem;font-weight:400;
-  color:rgba(0,107,110,0.08);line-height:1;
-  margin-bottom:0.875rem;
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:3rem;font-weight:400;
+  color:rgba(42,181,187,0.08);line-height:1;margin-bottom:1rem;
 }
 .how-icon{
-  width:36px;height:36px;background:var(--teal-pale);border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:1rem;
+  width:34px;height:34px;background:rgba(42,181,187,0.08);
+  border:1px solid rgba(42,181,187,0.15);border-radius:5px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:1rem;
   transition:background var(--t-mid),transform var(--t-mid) var(--ease);
 }
-.how-card:hover .how-icon{background:rgba(0,107,110,0.15);transform:scale(1.05)}
-.how-icon svg{width:16px;height:16px;stroke:var(--teal);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.how-card h3{font-size:0.875rem;font-weight:600;color:var(--ink);margin-bottom:0.5rem}
-.how-card p{font-size:0.8rem;color:var(--muted);line-height:1.65}
+.how-card:hover .how-icon{background:rgba(42,181,187,0.15);transform:scale(1.06)}
+.how-icon svg{width:14px;height:14px;stroke:var(--teal);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.how-card h3{font-family:'Cinzel',serif;font-size:0.75rem;font-weight:500;letter-spacing:0.08em;color:var(--white);margin-bottom:0.5rem}
+.how-card p{font-size:0.775rem;color:var(--fog-3);line-height:1.7;font-family:'DM Sans',sans-serif}
 
-/* ══════════════════════════════════════════════════════════════════ */
-/*  CONTRIBUTE                                                        */
-/* ══════════════════════════════════════════════════════════════════ */
-#contribute-section{background:#fff;border-top:1px solid var(--rule);padding:3.5rem 0}
-.contribute-layout{
-  display:grid;grid-template-columns:1fr 420px;gap:3rem;align-items:start;
-}
+/* ── CONTRIBUTE ── */
+#contribute-section{padding:5rem 0;border-top:1px solid var(--rule-2)}
+.contribute-layout{display:grid;grid-template-columns:1fr 380px;gap:3.5rem;align-items:start}
 .contribute-body h2{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:400;
-  color:var(--ink);margin-bottom:0.75rem;line-height:1.25;
+  font-family:'Cinzel',serif;font-size:clamp(1.3rem,2vw,1.8rem);
+  font-weight:400;letter-spacing:0.06em;color:var(--white);
+  margin-bottom:0.75rem;line-height:1.3;margin-top:0.5rem;
 }
-.contribute-body p{font-size:0.875rem;color:var(--muted);line-height:1.75;margin-bottom:1.5rem}
+.contribute-body p{font-size:0.85rem;color:var(--fog-2);line-height:1.8;margin-bottom:1.5rem;font-family:'DM Sans',sans-serif}
 .contribute-bullets{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.75rem}
-.contribute-bullets li{
-  display:flex;align-items:flex-start;gap:0.6rem;
-  font-size:0.8125rem;color:var(--ink-3);line-height:1.5;
+.contribute-bullets li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.8rem;color:var(--fog-2);line-height:1.55;font-family:'DM Sans',sans-serif}
+.contribute-bullets li::before{content:'';flex-shrink:0;width:4px;height:4px;border-radius:50%;background:var(--teal);margin-top:0.55rem}
+.champion-link{
+  display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.875rem;
+  font-family:'Cinzel',serif;font-size:0.6rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--teal);transition:color var(--t-fast),gap var(--t-fast);
 }
-.contribute-bullets li::before{
-  content:'';flex-shrink:0;width:5px;height:5px;border-radius:50%;
-  background:var(--teal);margin-top:0.5rem;
-}
-
-.form-card{
-  background:var(--surface);border:1px solid var(--rule);
-  border-radius:8px;padding:1.75rem;
-}
+.champion-link:hover{color:var(--white);gap:0.6rem}
+.champion-link svg{width:10px;height:10px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .form-card-title{
-  font-size:0.7rem;font-weight:700;letter-spacing:0.1em;
-  text-transform:uppercase;color:var(--muted);
-  padding-bottom:1rem;margin-bottom:1rem;
-  border-bottom:1px solid var(--rule);
+  font-family:'Cinzel',serif;font-size:0.58rem;font-weight:500;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--teal);
+  padding-bottom:0.875rem;margin-bottom:0.875rem;border-bottom:1px solid var(--rule);
 }
-.form-field{margin-bottom:0.875rem}
-.form-label{
-  display:block;font-size:0.7rem;font-weight:700;
-  letter-spacing:0.06em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:0.3rem;
-}
+.form-field{margin-bottom:0.8rem}
+.form-label{display:block;font-family:'DM Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--fog-3);margin-bottom:0.3rem}
 .form-control{
-  width:100%;padding:0.55rem 0.75rem;
-  border:1px solid var(--rule);border-radius:5px;
-  font-size:0.8125rem;color:var(--ink);font-family:inherit;
-  background:#fff;outline:none;
-  transition:border-color var(--t-fast),box-shadow var(--t-fast);
-  -webkit-appearance:none;
+  width:100%;padding:0.5rem 0.7rem;
+  border:1px solid var(--rule);border-radius:3px;
+  font-size:0.78rem;color:var(--fog);font-family:'DM Sans',sans-serif;
+  background:rgba(255,255,255,0.03);outline:none;-webkit-appearance:none;
+  transition:border-color var(--t-fast),background var(--t-fast);
 }
-.form-control:focus{border-color:var(--teal-mid);box-shadow:0 0 0 3px rgba(0,138,142,0.1)}
-.form-note{font-size:0.72rem;color:var(--muted-2);margin-top:0.875rem;line-height:1.5;font-style:italic}
+.form-control:focus{border-color:rgba(42,181,187,0.4);background:rgba(42,181,187,0.04)}
+.form-control option{background:#091628;color:var(--white)}
+.form-note{font-size:0.68rem;color:var(--fog-3);margin-top:0.875rem;line-height:1.6;font-style:italic;font-family:'DM Sans',sans-serif}
 
-/* ══════════════════════════════════════════════════════════════════ */
-/*  FOOTER                                                            */
-/* ══════════════════════════════════════════════════════════════════ */
+/* ── FOOTER ── */
 footer{
-  background:var(--ink);
-  border-top:1px solid rgba(255,255,255,0.06);
-  padding:2.5rem 0;
+  border-top:1px solid var(--rule);padding:2.5rem 0;
+  background:rgba(2,6,14,0.8);
+  backdrop-filter:blur(12px);
 }
 .footer-inner{
-  max-width:1240px;margin:0 auto;padding:0 2rem;
-  display:flex;justify-content:space-between;
-  align-items:center;flex-wrap:wrap;gap:1.5rem;
+  max-width:1280px;margin:0 auto;padding:0 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1.5rem;
 }
-.footer-left p{font-size:0.78rem;color:rgba(255,255,255,0.35);line-height:1.6}
-.footer-left strong{color:rgba(255,255,255,0.7)}
+.footer-brand{display:flex;align-items:center;gap:10px}
+.footer-logo{width:26px;height:26px;object-fit:contain;opacity:0.6;filter:drop-shadow(0 0 6px rgba(42,181,187,0.3))}
+.footer-text{font-size:0.72rem;color:var(--fog-3);line-height:1.65;font-family:'DM Sans',sans-serif}
+.footer-text strong{color:rgba(232,237,244,0.5);font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.1em;font-weight:500}
 .footer-links{display:flex;gap:1.5rem}
 .footer-links a{
-  font-size:0.78rem;color:rgba(255,255,255,0.35);
+  font-family:'DM Sans',sans-serif;font-size:0.7rem;
+  color:var(--fog-3);letter-spacing:0.06em;
   transition:color var(--t-fast);
 }
-.footer-links a:hover{color:rgba(255,255,255,0.75)}
+.footer-links a:hover{color:var(--teal)}
 
-/* ══════════════════════════════════════════════════════════════════ */
-/*  SCROLL ENTRANCE                                                   */
-/* ══════════════════════════════════════════════════════════════════ */
-.reveal{opacity:0;transform:translateY(16px);transition:opacity 0.5s var(--ease),transform 0.5s var(--ease)}
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.65s var(--ease),transform 0.65s var(--ease)}
 .reveal.in{opacity:1;transform:none}
-.reveal-delay-1{transition-delay:60ms}
-.reveal-delay-2{transition-delay:120ms}
-.reveal-delay-3{transition-delay:180ms}
-.reveal-delay-4{transition-delay:240ms}
+.reveal-d1{transition-delay:80ms}
+.reveal-d2{transition-delay:160ms}
+.reveal-d3{transition-delay:240ms}
 
-/* ══════════════════════════════════════════════════════════════════ */
-/*  RESPONSIVE                                                        */
-/* ══════════════════════════════════════════════════════════════════ */
-@media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;gap:2.5rem}
-  .hero-panel{display:none}
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
   .map-layout{grid-template-columns:1fr}
   .map-sidebar{flex-direction:row;flex-wrap:wrap}
-  .sidebar-block{flex:1;min-width:180px}
+  .sidebar-block{flex:1;min-width:150px}
   .how-grid{grid-template-columns:repeat(2,1fr)}
   .contribute-layout{grid-template-columns:1fr}
 }
 @media(max-width:640px){
   .nav-links{display:none}
   .how-grid{grid-template-columns:1fr}
-  .hero-stats{gap:1.5rem;flex-wrap:wrap}
-  .wrap{padding:0 1.25rem}
-  .hero-inner{padding:0 1.25rem}
-  footer .footer-inner{padding:0 1.25rem}
+  .hero-stats{gap:2rem;flex-wrap:wrap}
+  .hero-logo-row{flex-direction:column;align-items:flex-start;gap:1.25rem}
+  .section-wrap,.hero-inner,.footer-inner{padding-left:1.5rem;padding-right:1.5rem}
 }
 </style>
 </head>
 <body>
 
-<!-- ─── NAV ──────────────────────────────────────────────────────── -->
+<!-- ── FIXED WEBGL CANVAS ── -->
+<div id="webgl-canvas"></div>
+
+<!-- ── NAV ── -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <div class="nav-brand">
-      <div class="nav-badge">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <img src="logo.png" alt="National Surgical & Health Policy" class="nav-logo"/>
+      <div class="nav-wordmark">
+        National Surgical & Health Policy
+        <span>Global Living Repository</span>
       </div>
-      <div class="nav-name">Global NSP/NHP Repository<span>National Surgical & Health Policy Atlas</span></div>
     </div>
     <div class="nav-links">
       <a href="#map-section" class="active">Map</a>
@@ -626,37 +594,7 @@ footer{
   </div>
 </nav>
 
-<!-- ─── HERO ──────────────────────────────────────────────────────── -->
-<section class="hero" id="home">
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span> WHO-affiliated · Living Repository</div>
-      <h1 class="serif">National Surgical &amp; <em>Health Policy</em> Atlas</h1>
-      <p class="hero-desc">A continuously updated global repository of National Surgical Plans (NSPs) and National Health Plans (NHPs) with surgical considerations — mapping policy coverage across all WHO regions.</p>
-      <div class="hero-actions">
-        <a href="#map-section" class="btn btn-primary">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Explore the Map
-        </a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97SoSObe_IiwPr7bscEgK33IXQ0HI-yHDOo0Fw/viewform" target="_blank" class="btn btn-ghost">
-          Submit Your Country's Policy →
-        </a>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-n" id="s-countries">0</div><div class="hero-stat-l">Countries Documented</div></div>
-        <div class="hero-stat"><div class="hero-stat-n" id="s-nsp">0</div><div class="hero-stat-l">Surgical Plans (NSPs)</div></div>
-        <div class="hero-stat"><div class="hero-stat-n" id="s-nhp">0</div><div class="hero-stat-l">Health Policies (NHPs)</div></div>
-        <div class="hero-stat"><div class="hero-stat-n">5</div><div class="hero-stat-l">WHO Regions</div></div>
-      </div>
-    </div>
-    <div class="hero-panel reveal">
-      <div class="hero-panel-title">Coverage by WHO Region</div>
-      <div class="region-bars" id="region-bars"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── TOOLTIP (global) ──────────────────────────────────────────── -->
+<!-- ── TOOLTIP ── -->
 <div id="map-tip" role="tooltip">
   <div class="tip-country" id="tip-country"></div>
   <div class="tip-status" id="tip-status"><span class="tip-dot" id="tip-dot"></span><span id="tip-status-text"></span></div>
@@ -664,374 +602,225 @@ footer{
   <div class="tip-region" id="tip-region"></div>
 </div>
 
-<!-- ─── MAP ──────────────────────────────────────────────────────── -->
-<section id="map-section">
-  <div class="wrap">
-    <div class="section-eye reveal">Interactive Map</div>
-    <h2 class="section-h2 reveal reveal-delay-1">Global NSP / NHP Status</h2>
-    <p class="section-sub reveal reveal-delay-2" style="margin-bottom:2rem">Click any country to view details and access the policy document. Filter by document type or WHO region.</p>
+<!-- ── STORY (all sections sit above WebGL) ── -->
+<main class="story">
 
-    <div class="map-layout">
-      <!-- Sidebar -->
-      <div class="map-sidebar reveal">
-        <div class="sidebar-block">
-          <div class="sidebar-block-head">Document Type</div>
-          <div class="filter-list">
-            <button class="filter-pill active" data-filter="all">
-              <span class="filter-pill-dot" style="background:var(--ink-3)"></span>
-              All Types
-              <span class="filter-pill-count" id="fc-all">0</span>
-            </button>
-            <button class="filter-pill" data-filter="both">
-              <span class="filter-pill-dot" style="background:var(--c-both)"></span>
-              NSP + NHP
-              <span class="filter-pill-count" id="fc-both">0</span>
-            </button>
-            <button class="filter-pill" data-filter="nsp">
-              <span class="filter-pill-dot" style="background:var(--c-nsp)"></span>
-              NSP Only
-              <span class="filter-pill-count" id="fc-nsp">0</span>
-            </button>
-            <button class="filter-pill" data-filter="nhp">
-              <span class="filter-pill-dot" style="background:var(--c-nhp)"></span>
-              NHP Only
-              <span class="filter-pill-count" id="fc-nhp">0</span>
-            </button>
-          </div>
-        </div>
-        <div class="sidebar-block">
-          <div class="sidebar-block-head">WHO Region</div>
-          <div class="region-filter-list" id="region-filters"></div>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-dot"></span>
+        WHO-Affiliated · Living Repository
+      </div>
+      <div class="hero-logo-row">
+        <img src="logo.png" alt="" class="hero-logo-img"/>
+        <div>
+          <h1 class="hero-title">
+            National Surgical
+            <em>&amp; Health Policy Atlas</em>
+          </h1>
         </div>
       </div>
+      <p class="hero-desc">A continuously updated global repository of National Surgical Plans (NSPs) and National Health Plans (NHPs) with surgical considerations — mapping policy coverage across all WHO regions.</p>
+      <div class="hero-actions">
+        <a href="#map-section" class="btn btn-primary">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Explore the Map
+        </a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97SoSObe_IiwPr7bscEgK33IXQ0HI-yHDOo0Fw/viewform" target="_blank" class="btn btn-ghost">
+          Submit Your Country →
+        </a>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-n" id="s-countries">0</div><div class="hero-stat-l">Countries Documented</div></div>
+        <div><div class="hero-stat-n" id="s-nsp">0</div><div class="hero-stat-l">Surgical Plans</div></div>
+        <div><div class="hero-stat-n" id="s-nhp">0</div><div class="hero-stat-l">Health Policies</div></div>
+        <div><div class="hero-stat-n">5</div><div class="hero-stat-l">WHO Regions</div></div>
+      </div>
+    </div>
+  </section>
 
-      <!-- Map -->
-      <div class="map-canvas-wrap reveal reveal-delay-1">
-        <div class="map-card">
-          <div class="map-card-head">
-            <span class="map-card-title" id="map-title-label">All Countries — 144 documented</span>
-            <div class="map-zoom-controls">
-              <button class="zoom-btn" id="zoom-in" title="Zoom in">+</button>
-              <button class="zoom-btn" id="zoom-out" title="Zoom out">−</button>
-              <button class="zoom-btn" id="zoom-reset" title="Reset view" style="font-size:0.7rem;letter-spacing:-0.02em">↺</button>
+  <!-- MAP -->
+  <section id="map-section">
+    <div class="section-wrap">
+      <div class="section-eye reveal">Interactive Map</div>
+      <h2 class="section-h2 reveal reveal-d1">Global NSP / NHP Status</h2>
+      <p class="section-sub reveal reveal-d2">Click any country to view details. Filter by document type or WHO region.</p>
+      <div class="map-layout">
+        <div class="map-sidebar reveal">
+          <div class="sidebar-block">
+            <div class="sidebar-head">Document Type</div>
+            <div class="filter-list">
+              <button class="filter-pill active" data-filter="all">
+                <span class="filter-pill-dot" style="background:rgba(232,237,244,0.3)"></span>All Types
+                <span class="filter-pill-count" id="fc-all">0</span>
+              </button>
+              <button class="filter-pill" data-filter="both">
+                <span class="filter-pill-dot" style="background:var(--c-both)"></span>NSP + NHP
+                <span class="filter-pill-count" id="fc-both">0</span>
+              </button>
+              <button class="filter-pill" data-filter="nsp">
+                <span class="filter-pill-dot" style="background:var(--c-nsp)"></span>NSP Only
+                <span class="filter-pill-count" id="fc-nsp">0</span>
+              </button>
+              <button class="filter-pill" data-filter="nhp">
+                <span class="filter-pill-dot" style="background:var(--c-nhp)"></span>NHP Only
+                <span class="filter-pill-count" id="fc-nhp">0</span>
+              </button>
             </div>
           </div>
-
-          <div style="overflow:hidden" id="map-viewport">
-            <svg id="world-map" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg"
-              style="transition:transform 0.3s var(--ease-std);transform-origin:center">
-              <!-- Countries are added by JS from data -->
-              <!-- Simplified accurate SVG paths for documented countries -->
-
-              <!-- Americas -->
-              <path class="country status-nhp" id="c-canada" data-c="Canada" data-r="Americas" data-who="AMRO" d="M115,55 L248,50 L255,115 L243,118 L118,122 Z"/>
-              <path class="country status-nhp" id="c-usa" data-c="United States" data-r="Americas" data-who="AMRO" d="M118,122 L243,118 L258,148 L262,175 L242,188 L218,195 L192,202 L165,198 L140,188 L120,168 L112,148 Z"/>
-              <path class="country status-nhp" id="c-mexico" data-c="Mexico" data-r="Americas" data-who="AMRO" d="M140,188 L218,195 L222,225 L202,238 L178,242 L152,228 L138,208 Z"/>
-              <path class="country status-nhp" id="c-brazil" data-c="Brazil" data-r="Americas" data-who="AMRO" d="M198,265 L272,260 L292,288 L288,335 L268,365 L242,378 L218,368 L202,348 L192,314 L188,288 Z"/>
-              <path class="country status-nhp" id="c-colombia" data-c="Colombia" data-r="Americas" data-who="AMRO" d="M168,258 L198,265 L192,290 L170,295 L157,280 L160,266 Z"/>
-              <path class="country status-nhp" id="c-peru" data-c="Peru" data-r="Americas" data-who="AMRO" d="M157,280 L190,288 L186,333 L162,338 L148,318 L146,298 Z"/>
-              <path class="country status-nhp" id="c-argentina" data-c="Argentina" data-r="Americas" data-who="AMRO" d="M218,368 L242,378 L240,418 L222,435 L206,423 L202,398 L208,378 Z"/>
-              <path class="country" id="c-venezuela" data-c="Venezuela" data-r="Americas" data-who="AMRO" d="M198,248 L233,245 L242,262 L222,268 L202,265 Z"/>
-              <path class="country" id="c-chile" data-c="Chile" data-r="Americas" data-who="AMRO" d="M202,348 L218,368 L208,423 L198,421 L194,394 L196,363 Z"/>
-              <path class="country" id="c-guatemala" data-c="Guatemala" data-r="Americas" data-who="AMRO" d="M178,242 L202,238 L207,252 L190,258 L178,252 Z"/>
-
-              <!-- Europe -->
-              <path class="country status-nhp" id="c-uk" data-c="United Kingdom" data-r="Europe" data-who="EURO" d="M428,88 L443,86 L446,102 L438,108 L426,106 Z"/>
-              <path class="country status-nhp" id="c-france" data-c="France" data-r="Europe" data-who="EURO" d="M438,108 L458,105 L463,122 L453,130 L436,128 L433,115 Z"/>
-              <path class="country status-nhp" id="c-germany" data-c="Germany" data-r="Europe" data-who="EURO" d="M453,93 L476,91 L480,108 L468,114 L455,111 Z"/>
-              <path class="country status-nsp" id="c-spain" data-c="Spain" data-r="Europe" data-who="EURO" d="M428,125 L458,122 L460,138 L440,142 L426,138 Z"/>
-              <path class="country status-nhp" id="c-italy" data-c="Italy" data-r="Europe" data-who="EURO" d="M458,120 L476,118 L483,132 L473,145 L460,142 L456,130 Z"/>
-              <path class="country status-nsp" id="c-sweden" data-c="Sweden" data-r="Europe" data-who="EURO" d="M460,63 L476,60 L480,80 L468,84 L458,80 Z"/>
-              <path class="country status-nhp" id="c-norway" data-c="Norway" data-r="Europe" data-who="EURO" d="M446,56 L460,53 L463,68 L453,72 L443,68 Z"/>
-              <path class="country status-nhp" id="c-poland" data-c="Poland" data-r="Europe" data-who="EURO" d="M476,89 L493,87 L496,103 L480,106 Z"/>
-              <path class="country status-nhp" id="c-ukraine" data-c="Ukraine" data-r="Europe" data-who="EURO" d="M488,93 L513,91 L516,108 L498,112 L486,106 Z"/>
-              <path class="country status-nhp" id="c-russia" data-c="Russia" data-r="Europe" data-who="EURO" d="M488,53 L678,48 L683,88 L513,91 L493,87 L486,70 Z"/>
-              <path class="country status-nhp" id="c-romania" data-c="Romania" data-r="Europe" data-who="EURO" d="M488,108 L510,106 L514,120 L498,125 L486,118 Z"/>
-              <path class="country status-nhp" id="c-austria" data-c="Austria" data-r="Europe" data-who="EURO" d="M458,108 L478,106 L480,118 L462,120 Z"/>
-              <path class="country status-nhp" id="c-czechrep" data-c="Czech Republic" data-r="Europe" data-who="EURO" d="M463,95 L480,93 L482,105 L465,107 Z"/>
-              <path class="country status-nhp" id="c-hungary" data-c="Hungary" data-r="Europe" data-who="EURO" d="M475,108 L493,106 L496,118 L478,121 Z"/>
-              <path class="country status-nhp" id="c-portugal" data-c="Portugal" data-r="Europe" data-who="EURO" d="M416,125 L428,123 L430,138 L418,140 Z"/>
-              <path class="country status-nhp" id="c-switzerland" data-c="Switzerland" data-r="Europe" data-who="EURO" d="M450,112 L463,110 L465,120 L452,122 Z"/>
-              <path class="country status-nhp" id="c-netherlands" data-c="Netherlands" data-r="Europe" data-who="EURO" d="M447,93 L456,91 L458,102 L449,104 Z"/>
-              <path class="country status-nhp" id="c-belgium" data-c="Belgium" data-r="Europe" data-who="EURO" d="M444,102 L456,100 L458,110 L446,112 Z"/>
-              <path class="country status-nhp" id="c-finland" data-c="Finland" data-r="Europe" data-who="EURO" d="M476,45 L498,42 L502,62 L480,65 Z"/>
-              <path class="country status-nhp" id="c-denmark" data-c="Denmark" data-r="Europe" data-who="EURO" d="M456,73 L468,71 L470,84 L458,86 Z"/>
-              <path class="country status-nhp" id="c-turkey" data-c="Turkey" data-r="Europe" data-who="EURO" d="M500,138 L535,135 L540,152 L518,158 L498,155 Z"/>
-              <path class="country status-nhp" id="c-serbia" data-c="Serbia" data-r="Europe" data-who="EURO" d="M479,118 L494,116 L496,128 L480,131 Z"/>
-              <path class="country status-nhp" id="c-bulgaria" data-c="Bulgaria" data-r="Europe" data-who="EURO" d="M490,120 L510,118 L513,130 L492,133 Z"/>
-              <path class="country status-nhp" id="c-greece" data-c="Greece" data-r="Europe" data-who="EURO" d="M483,132 L500,130 L503,145 L486,148 Z"/>
-              <path class="country status-nhp" id="c-belarus" data-c="Belarus" data-r="Europe" data-who="EURO" d="M490,78 L510,76 L513,90 L492,93 Z"/>
-              <path class="country status-nhp" id="c-latvia" data-c="Latvia" data-r="Europe" data-who="EURO" d="M480,65 L498,63 L500,76 L482,78 Z"/>
-              <path class="country status-nhp" id="c-lithuania" data-c="Lithuania" data-r="Europe" data-who="EURO" d="M480,76 L496,74 L498,86 L482,88 Z"/>
-              <path class="country status-nhp" id="c-estonia" data-c="Estonia" data-r="Europe" data-who="EURO" d="M480,57 L496,55 L498,66 L482,68 Z"/>
-              <path class="country status-nhp" id="c-moldova" data-c="Moldova" data-r="Europe" data-who="EURO" d="M506,108 L516,106 L518,118 L508,120 Z"/>
-              <path class="country status-nhp" id="c-slovakia" data-c="Slovakia" data-r="Europe" data-who="EURO" d="M475,100 L490,98 L492,108 L477,110 Z"/>
-              <path class="country status-nhp" id="c-croatia" data-c="Croatia" data-r="Europe" data-who="EURO" d="M466,118 L480,116 L482,128 L468,130 Z"/>
-              <path class="country status-nhp" id="c-slovenia" data-c="Slovenia" data-r="Europe" data-who="EURO" d="M458,116 L468,114 L470,124 L460,126 Z"/>
-              <path class="country status-nhp" id="c-iceland" data-c="Iceland" data-r="Europe" data-who="EURO" d="M395,42 L415,40 L417,52 L397,54 Z"/>
-              <path class="country status-nhp" id="c-ireland" data-c="Ireland" data-r="Europe" data-who="EURO" d="M417,85 L428,83 L430,95 L418,97 Z"/>
-              <path class="country status-nhp" id="c-malta" data-c="Malta" data-r="Europe" data-who="EURO" d="M463,150 L470,150 L471,156 L464,157 Z"/>
-              <path class="country status-nhp" id="c-israel" data-c="Israel" data-r="Europe" data-who="EURO" d="M520,168 L528,166 L530,178 L522,180 Z"/>
-              <path class="country status-nhp" id="c-albania" data-c="Albania" data-r="Europe" data-who="EURO" d="M475,128 L482,126 L484,138 L476,140 Z"/>
-              <path class="country status-nhp" id="c-northmac" data-c="North Macedonia" data-r="Europe" data-who="EURO" d="M482,130 L492,128 L494,138 L484,140 Z"/>
-              <path class="country status-nhp" id="c-montenegro" data-c="Montenegro" data-r="Europe" data-who="EURO" d="M472,128 L480,126 L482,136 L474,138 Z"/>
-              <path class="country status-nhp" id="c-bosnia" data-c="Bosnia and Herzegovina" data-r="Europe" data-who="EURO" d="M466,124 L478,122 L480,132 L468,134 Z"/>
-              <path class="country status-nhp" id="c-russia2" data-c="Russia" data-r="Europe" data-who="EURO" d="M683,48 L880,45 L882,82 L685,85 Z"/>
-              <path class="country status-nhp" id="c-kazakhstan" data-c="Kazakhstan" data-r="Europe" data-who="EURO" d="M568,88 L643,85 L648,115 L572,118 Z"/>
-              <path class="country status-nhp" id="c-uzbekistan" data-c="Uzbekistan" data-r="Europe" data-who="EURO" d="M572,118 L608,115 L612,132 L575,135 Z"/>
-              <path class="country status-nhp" id="c-kyrgyzstan" data-c="Kyrgyzstan" data-r="Europe" data-who="EURO" d="M608,115 L635,112 L638,125 L610,128 Z"/>
-              <path class="country status-nhp" id="c-tajikistan" data-c="Tajikistan" data-r="Europe" data-who="EURO" d="M608,128 L630,126 L633,140 L610,142 Z"/>
-              <path class="country status-nhp" id="c-armenia" data-c="Armenia" data-r="Europe" data-who="EURO" d="M538,148 L550,146 L552,156 L540,158 Z"/>
-              <path class="country status-nhp" id="c-georgia" data-c="Georgia" data-r="Europe" data-who="EURO" d="M518,142 L540,140 L542,152 L520,154 Z"/>
-              <path class="country status-nhp" id="c-azerbaijan" data-c="Azerbaijan" data-r="Europe" data-who="EURO" d="M548,148 L562,146 L565,160 L550,162 Z"/>
-              <path class="country status-nhp" id="c-turkmenistan" data-c="Turkmenistan" data-r="Europe" data-who="EURO" d="M565,130 L598,128 L601,150 L568,152 Z"/>
-              <path class="country status-nhp" id="c-luxembourg" data-c="Luxembourg" data-r="Europe" data-who="EURO" d="M449,107 L455,106 L456,113 L450,114 Z"/>
-              <path class="country status-nhp" id="c-sanmarino" data-c="San Marino" data-r="Europe" data-who="EURO" d="M462,124 L466,124 L467,128 L463,129 Z"/>
-              <path class="country status-nhp" id="c-andorra" data-c="Andorra" data-r="Europe" data-who="EURO" d="M437,127 L441,127 L442,131 L438,132 Z"/>
-
-              <!-- Africa -->
-              <path class="country status-nhp" id="c-egypt" data-c="Egypt" data-r="Africa" data-who="AFRO" d="M498,163 L527,160 L530,183 L513,188 L496,184 Z"/>
-              <path class="country status-nhp" id="c-algeria" data-c="Algeria" data-r="Africa" data-who="AFRO" d="M441,160 L475,158 L480,183 L460,186 L440,182 Z"/>
-              <path class="country status-nhp" id="c-morocco" data-c="Morocco" data-r="Africa" data-who="AFRO" d="M427,158 L442,156 L444,175 L429,178 Z"/>
-              <path class="country status-nhp" id="c-libya" data-c="Libya" data-r="Africa" data-who="AFRO" d="M475,158 L500,155 L503,178 L478,181 Z"/>
-              <path class="country status-nhp" id="c-mauritania" data-c="Mauritania" data-r="Africa" data-who="AFRO" d="M425,198 L452,195 L455,220 L428,223 Z"/>
-              <path class="country status-nhp" id="c-mali" data-c="Mali" data-r="Africa" data-who="AFRO" d="M432,218 L460,215 L463,238 L435,242 Z"/>
-              <path class="country status-nhp" id="c-niger" data-c="Niger" data-r="Africa" data-who="AFRO" d="M460,208 L492,205 L495,228 L463,232 Z"/>
-              <path class="country status-nhp" id="c-nigeria" data-c="Nigeria" data-r="Africa" data-who="AFRO" d="M450,228 L482,225 L486,248 L453,252 Z"/>
-              <path class="country status-both" id="c-ethiopia" data-c="Ethiopia" data-r="Africa" data-who="AFRO" d="M525,215 L555,212 L562,235 L552,255 L532,260 L518,248 L516,230 Z"/>
-              <path class="country status-nhp" id="c-southafrica" data-c="South Africa" data-r="Africa" data-who="AFRO" d="M496,345 L532,342 L538,368 L522,382 L504,378 L492,362 Z"/>
-              <path class="country status-nsp" id="c-ghana" data-c="Ghana" data-r="Africa" data-who="AFRO" d="M443,235 L463,233 L465,252 L446,255 Z"/>
-              <path class="country status-nsp" id="c-rwanda" data-c="Rwanda" data-r="Africa" data-who="AFRO" d="M525,255 L535,253 L537,263 L527,265 Z"/>
-              <path class="country status-nsp" id="c-namibia" data-c="Namibia" data-r="Africa" data-who="AFRO" d="M486,325 L512,322 L515,348 L490,352 Z"/>
-              <path class="country status-nsp" id="c-nigeria2" data-c="Nigeria" data-r="Africa" data-who="AFRO" d="M452,248 L483,245 L487,265 L455,268 Z"/>
-              <path class="country status-nsp" id="c-tanzania" data-c="Tanzania" data-r="Africa" data-who="AFRO" d="M528,258 L558,255 L562,278 L543,285 L526,278 Z"/>
-              <path class="country status-nsp" id="c-sierraleone" data-c="Sierra Leone" data-r="Africa" data-who="AFRO" d="M425,240 L440,238 L442,252 L427,255 Z"/>
-              <path class="country status-nhp" id="c-kenya" data-c="Kenya" data-r="Africa" data-who="AFRO" d="M538,240 L560,238 L565,258 L548,265 Z"/>
-              <path class="country status-nhp" id="c-chad" data-c="Chad" data-r="Africa" data-who="AFRO" d="M480,210 L510,207 L513,232 L483,235 Z"/>
-              <path class="country status-nhp" id="c-sudan" data-c="Sudan" data-r="Africa" data-who="AFRO" d="M507,190 L538,188 L542,212 L525,217 L510,214 Z"/>
-              <path class="country status-nhp" id="c-southsudan" data-c="South Sudan" data-r="Africa" data-who="AFRO" d="M507,215 L535,212 L538,235 L510,240 Z"/>
-              <path class="country status-nhp" id="c-angola" data-c="Angola" data-r="Africa" data-who="AFRO" d="M488,278 L516,275 L520,305 L496,310 Z"/>
-              <path class="country status-nhp" id="c-drc" data-c="Congo (DRC)" data-r="Africa" data-who="AFRO" d="M487,255 L523,252 L526,278 L508,285 L488,278 Z"/>
-              <path class="country status-nhp" id="c-congo" data-c="Congo" data-r="Africa" data-who="AFRO" d="M467,252 L490,250 L493,272 L470,275 Z"/>
-              <path class="country status-nhp" id="c-cameroon" data-c="Cameroon" data-r="Africa" data-who="AFRO" d="M466,235 L490,232 L493,252 L468,255 Z"/>
-              <path class="country status-nhp" id="c-senegal" data-c="Senegal" data-r="Africa" data-who="AFRO" d="M413,218 L430,215 L432,230 L415,232 Z"/>
-              <path class="country status-nhp" id="c-mali2" data-c="Mali" data-r="Africa" data-who="AFRO" d="M418,200 L445,197 L448,218 L420,222 Z"/>
-              <path class="country status-nhp" id="c-mozambique" data-c="Mozambique" data-r="Africa" data-who="AFRO" d="M525,295 L543,292 L546,322 L530,330 Z"/>
-              <path class="country status-nhp" id="c-madagascar" data-c="Madagascar" data-r="Africa" data-who="AFRO" d="M560,295 L578,293 L580,330 L562,333 Z"/>
-              <path class="country status-nhp" id="c-zambia" data-c="Zambia" data-r="Africa" data-who="AFRO" d="M505,298 L528,295 L530,320 L508,323 Z"/>
-              <path class="country status-nhp" id="c-zimbabwe" data-c="Zimbabwe" data-r="Africa" data-who="AFRO" d="M513,323 L533,320 L536,342 L515,345 Z"/>
-              <path class="country status-nhp" id="c-malawi" data-c="Malawi" data-r="Africa" data-who="AFRO" d="M536,300 L546,298 L548,318 L538,320 Z"/>
-              <path class="country status-nhp" id="c-uganda" data-c="Uganda" data-r="Africa" data-who="AFRO" d="M522,242 L540,240 L542,255 L524,258 Z"/>
-              <path class="country status-nhp" id="c-djibouti" data-c="Djibouti" data-r="Africa" data-who="AFRO" d="M550,225 L558,223 L560,233 L552,235 Z"/>
-              <path class="country status-nhp" id="c-eritrea" data-c="Eritrea" data-r="Africa" data-who="AFRO" d="M535,208 L552,205 L555,218 L537,220 Z"/>
-              <path class="country status-nhp" id="c-gabon" data-c="Gabon" data-r="Africa" data-who="AFRO" d="M464,258 L480,255 L483,272 L466,275 Z"/>
-              <path class="country status-nhp" id="c-gambia" data-c="Gambia" data-r="Africa" data-who="AFRO" d="M412,228 L423,226 L425,233 L413,235 Z"/>
-              <path class="country status-nhp" id="c-guinea" data-c="Guinea" data-r="Africa" data-who="AFRO" d="M416,235 L438,232 L440,248 L418,252 Z"/>
-              <path class="country status-nhp" id="c-guinea-bissau" data-c="Guinea-Bissau" data-r="Africa" data-who="AFRO" d="M412,232 L418,230 L420,242 L413,243 Z"/>
-              <path class="country status-nhp" id="c-ivorycoast" data-c="Côte d'Ivoire" data-r="Africa" data-who="AFRO" d="M432,240 L453,237 L455,255 L434,258 Z"/>
-              <path class="country status-nhp" id="c-burkina" data-c="Burkina Faso" data-r="Africa" data-who="AFRO" d="M438,225 L462,222 L464,238 L440,242 Z"/>
-              <path class="country status-nhp" id="c-togo" data-c="Togo" data-r="Africa" data-who="AFRO" d="M453,237 L460,235 L462,252 L454,254 Z"/>
-              <path class="country status-nhp" id="c-benin" data-c="Benin" data-r="Africa" data-who="AFRO" d="M458,232 L466,230 L468,248 L460,250 Z"/>
-              <path class="country status-nhp" id="c-liberia" data-c="Liberia" data-r="Africa" data-who="AFRO" d="M424,248 L438,245 L440,260 L425,262 Z"/>
-              <path class="country status-nhp" id="c-comoros" data-c="Comoros" data-r="Africa" data-who="AFRO" d="M558,290 L565,288 L567,297 L560,298 Z"/>
-              <path class="country status-nhp" id="c-capeverde" data-c="Cape Verde" data-r="Africa" data-who="AFRO" d="M390,210 L400,208 L402,218 L392,220 Z"/>
-              <path class="country status-nhp" id="c-eswatini" data-c="Eswatini" data-r="Africa" data-who="AFRO" d="M527,365 L535,363 L537,372 L528,374 Z"/>
-              <path class="country status-nhp" id="c-lesotho" data-c="Lesotho" data-r="Africa" data-who="AFRO" d="M513,365 L523,363 L525,372 L514,374 Z"/>
-              <path class="country status-nhp" id="c-botswana" data-c="Botswana" data-r="Africa" data-who="AFRO" d="M500,328 L525,325 L528,350 L502,354 Z"/>
-              <path class="country status-nhp" id="c-mauritius" data-c="Mauritius" data-r="Africa" data-who="AFRO" d="M580,308 L588,306 L590,315 L581,317 Z"/>
-              <path class="country status-nhp" id="c-seychelles" data-c="Seychelles" data-r="Africa" data-who="AFRO" d="M576,268 L583,266 L585,275 L577,276 Z"/>
-              <path class="country status-nhp" id="c-saotome" data-c="São Tomé and Príncipe" data-r="Africa" data-who="AFRO" d="M456,262 L462,261 L463,268 L457,268 Z"/>
-              <path class="country status-nhp" id="c-caf" data-c="Central African Republic" data-r="Africa" data-who="AFRO" d="M480,235 L510,232 L513,252 L483,255 Z"/>
-              <path class="country status-nhp" id="c-car2" data-c="Algeria" data-r="Africa" data-who="AFRO" d="M443,182 L478,180 L481,205 L445,208 Z"/>
-
-              <!-- Middle East / EMR -->
-              <path class="country status-nhp" id="c-iran" data-c="Iran" data-r="Eastern Mediterranean" data-who="EMR" d="M553,148 L588,145 L593,168 L570,175 L550,170 Z"/>
-              <path class="country status-nhp" id="c-iraq" data-c="Iraq" data-r="Eastern Mediterranean" data-who="EMR" d="M536,152 L556,150 L558,168 L538,172 Z"/>
-              <path class="country status-nhp" id="c-syria" data-c="Syria" data-r="Eastern Mediterranean" data-who="EMR" d="M518,138 L538,135 L540,152 L520,155 Z"/>
-              <path class="country status-nhp" id="c-saudi" data-c="Saudi Arabia" data-r="Eastern Mediterranean" data-who="EMR" d="M538,175 L576,172 L580,200 L555,205 Z"/>
-              <path class="country status-nhp" id="c-yemen" data-c="Yemen" data-r="Eastern Mediterranean" data-who="EMR" d="M550,195 L578,193 L580,210 L556,213 Z"/>
-              <path class="country status-nhp" id="c-qatar" data-c="Qatar" data-r="Eastern Mediterranean" data-who="EMR" d="M562,178 L568,177 L570,188 L563,189 Z"/>
-              <path class="country status-nhp" id="c-bahrain" data-c="Bahrain" data-r="Eastern Mediterranean" data-who="EMR" d="M556,175 L561,175 L562,181 L557,182 Z"/>
-              <path class="country status-both" id="c-oman" data-c="Oman" data-r="Eastern Mediterranean" data-who="EMR" d="M572,178 L592,175 L595,198 L575,202 Z"/>
-              <path class="country status-nhp" id="c-uae" data-c="UAE" data-r="Eastern Metropolitan" data-who="EMR" d="M565,168 L578,165 L580,178 L568,180 Z"/>
-              <path class="country status-nhp" id="c-jordan" data-c="Jordan" data-r="Eastern Mediterranean" data-who="EMR" d="M520,158 L536,155 L538,170 L522,173 Z"/>
-              <path class="country status-nhp" id="c-lebanon" data-c="Lebanon" data-r="Eastern Mediterranean" data-who="EMR" d="M516,148 L524,146 L526,155 L518,157 Z"/>
-              <path class="country status-nhp" id="c-afghanistan" data-c="Afghanistan" data-r="Eastern Mediterranean" data-who="EMR" d="M578,132 L610,130 L614,152 L582,155 Z"/>
-              <path class="country status-nsp" id="c-pakistan" data-c="Pakistan" data-r="Eastern Mediterranean" data-who="EMR" d="M580,148 L610,145 L614,168 L584,172 Z"/>
-              <path class="country status-nhp" id="c-somalia" data-c="Somalia" data-r="Eastern Mediterranean" data-who="EMR" d="M538,235 L562,232 L565,258 L540,262 Z"/>
-              <path class="country status-nsp" id="c-kuwait" data-c="Kuwait" data-r="Eastern Mediterranean" data-who="EMR" d="M545,165 L555,163 L557,172 L547,174 Z"/>
-              <path class="country status-nhp" id="c-tunisia" data-c="Tunisia" data-r="Eastern Mediterranean" data-who="EMR" d="M458,148 L470,146 L472,160 L460,162 Z"/>
-
-              <!-- South-East Asia / SEARO -->
-              <path class="country status-nhp" id="c-india" data-c="India" data-r="South-East Asia" data-who="SEARO" d="M598,158 L643,155 L650,182 L642,212 L625,235 L605,242 L590,233 L583,208 L585,182 Z"/>
-              <path class="country status-nhp" id="c-bangladesh" data-c="Bangladesh" data-r="South-East Asia" data-who="SEARO" d="M643,173 L657,170 L660,188 L645,192 Z"/>
-              <path class="country status-nhp" id="c-myanmar" data-c="Myanmar" data-r="South-East Asia" data-who="SEARO" d="M643,175 L663,172 L666,200 L648,205 Z"/>
-              <path class="country status-nhp" id="c-nepal" data-c="Nepal" data-r="South-East Asia" data-who="SEARO" d="M628,155 L646,152 L648,165 L630,168 Z"/>
-              <path class="country status-nhp" id="c-bhutan" data-c="Bhutan" data-r="South-East Asia" data-who="SEARO" d="M643,155 L655,153 L657,163 L645,165 Z"/>
-              <path class="country status-nhp" id="c-srilanka" data-c="Sri Lanka" data-r="South-East Asia" data-who="SEARO" d="M622,238 L632,236 L634,250 L623,252 Z"/>
-              <path class="country status-nhp" id="c-maldives" data-c="Maldives" data-r="South-East Asia" data-who="SEARO" d="M612,248 L618,247 L620,260 L613,261 Z"/>
-              <path class="country status-nhp" id="c-thailand" data-c="Thailand" data-r="South-East Asia" data-who="SEARO" d="M646,202 L666,200 L668,225 L650,228 Z"/>
-              <path class="country status-nhp" id="c-indonesia" data-c="Indonesia" data-r="South-East Asia" data-who="SEARO" d="M678,248 L728,245 L736,262 L718,268 L680,265 Z"/>
-              <path class="country status-nhp" id="c-timorleste" data-c="Timor-Leste" data-r="South-East Asia" data-who="SEARO" d="M732,265 L748,263 L750,273 L733,275 Z"/>
-              <path class="country status-nhp" id="c-dprkoreA" data-c="DPR Korea" data-r="South-East Asia" data-who="SEARO" d="M714,128 L733,126 L736,142 L716,145 Z"/>
-
-              <!-- Western Pacific / WPR -->
-              <path class="country status-nhp" id="c-china" data-c="China" data-r="Western Pacific" data-who="WPR" d="M643,118 L728,115 L738,152 L723,178 L698,188 L673,183 L648,173 L640,155 Z"/>
-              <path class="country status-nhp" id="c-japan" data-c="Japan" data-r="Western Pacific" data-who="WPR" d="M733,138 L752,135 L756,155 L740,160 L730,152 Z"/>
-              <path class="country status-nhp" id="c-korea" data-c="Republic of Korea" data-r="Western Pacific" data-who="WPR" d="M716,140 L733,138 L736,155 L718,158 Z"/>
-              <path class="country status-nhp" id="c-mongolia" data-c="Mongolia" data-r="Western Pacific" data-who="WPR" d="M653,98 L710,96 L714,118 L656,120 Z"/>
-              <path class="country status-nhp" id="c-australia" data-c="Australia" data-r="Western Pacific" data-who="WPR" d="M715,308 L773,305 L780,353 L760,373 L728,370 L710,348 Z"/>
-              <path class="country status-nhp" id="c-nz" data-c="New Zealand" data-r="Western Pacific" data-who="WPR" d="M780,358 L795,355 L798,372 L783,377 Z"/>
-              <path class="country status-nhp" id="c-philippines" data-c="Philippines" data-r="Western Pacific" data-who="WPR" d="M693,208 L715,205 L718,228 L695,232 Z"/>
-              <path class="country status-nhp" id="c-malaysia" data-c="Malaysia" data-r="Western Pacific" data-who="WPR" d="M656,238 L682,235 L685,248 L658,252 Z"/>
-              <path class="country status-nhp" id="c-vietnam" data-c="Vietnam" data-r="Western Pacific" data-who="WPR" d="M658,192 L673,190 L676,220 L660,223 Z"/>
-              <path class="country status-nhp" id="c-cambodia" data-c="Cambodia" data-r="Western Pacific" data-who="WPR" d="M653,220 L668,218 L670,235 L655,238 Z"/>
-              <path class="country status-nhp" id="c-singapore" data-c="Singapore" data-r="Western Pacific" data-who="WPR" d="M668,248 L674,247 L675,253 L669,254 Z"/>
-              <path class="country status-nhp" id="c-brunei" data-c="Brunei" data-r="Western Pacific" data-who="WPR" d="M680,232 L688,230 L690,240 L682,242 Z"/>
-              <path class="country status-nsp" id="c-fiji" data-c="Fiji" data-r="Western Pacific" data-who="WPR" d="M798,300 L808,298 L810,310 L800,312 Z"/>
-              <path class="country status-nsp" id="c-tonga" data-c="Tonga" data-r="Western Pacific" data-who="WPR" d="M815,318 L822,316 L824,325 L816,327 Z"/>
-              <path class="country status-nsp" id="c-samoa" data-c="Samoa" data-r="Western Pacific" data-who="WPR" d="M808,305 L816,303 L818,312 L810,314 Z"/>
-              <path class="country status-nhp" id="c-png" data-c="Papua New Guinea" data-r="Western Pacific" data-who="WPR" d="M733,268 L760,265 L762,283 L738,286 Z"/>
-              <path class="country status-nhp" id="c-solomon" data-c="Solomon Islands" data-r="Western Pacific" data-who="WPR" d="M768,278 L785,275 L787,288 L770,290 Z"/>
-              <path class="country status-nhp" id="c-marshall" data-c="Marshall Islands" data-r="Western Pacific" data-who="WPR" d="M825,235 L832,233 L834,242 L826,243 Z"/>
-              <path class="country status-nhp" id="c-micronesia" data-c="Micronesia" data-r="Western Pacific" data-who="WPR" d="M793,240 L802,238 L804,248 L795,249 Z"/>
-              <path class="country status-nhp" id="c-kiribati" data-c="Kiribati" data-r="Western Pacific" data-who="WPR" d="M820,270 L828,268 L830,278 L822,279 Z"/>
-              <path class="country status-nhp" id="c-niue" data-c="Niue" data-r="Western Pacific" data-who="WPR" d="M835,318 L840,317 L841,323 L836,324 Z"/>
-            </svg>
+          <div class="sidebar-block">
+            <div class="sidebar-head">WHO Region</div>
+            <div class="region-filter-list" id="region-filters"></div>
           </div>
-
-          <div class="map-legend">
-            <div class="leg-item"><div class="leg-swatch" style="background:var(--c-both)"></div>NSP + NHP</div>
-            <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nsp)"></div>NSP Only</div>
-            <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nhp)"></div>NHP Only</div>
-            <div class="leg-item"><div class="leg-swatch" style="background:var(--c-none)"></div>Not in repository</div>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="glass-card">
+            <div class="map-card-head">
+              <span class="map-card-title" id="map-title-label">All Countries — 144 documented</span>
+              <div class="map-zoom-controls">
+                <button class="zoom-btn" id="zoom-in">+</button>
+                <button class="zoom-btn" id="zoom-out">−</button>
+                <button class="zoom-btn" id="zoom-reset" style="font-size:0.7rem">↺</button>
+              </div>
+            </div>
+            <div style="overflow:hidden;position:relative" id="map-viewport">
+              <svg id="world-map" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+                <!-- D3 renders here -->
+              </svg>
+            </div>
+            <div class="map-legend">
+              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-both)"></div>NSP + NHP</div>
+              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nsp)"></div>NSP Only</div>
+              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nhp)"></div>NHP Only</div>
+              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-none)"></div>Not in repository</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ─── REPOSITORY TABLE ──────────────────────────────────────────── -->
-<section id="table-section">
-  <div class="wrap">
-    <div class="section-eye reveal">Repository</div>
-    <h2 class="section-h2 reveal reveal-delay-1">Policy Documents</h2>
+  <!-- TABLE -->
+  <section id="table-section">
+    <div class="section-wrap">
+      <div class="section-eye reveal">Repository</div>
+      <h2 class="section-h2 reveal reveal-d1">Policy Documents</h2>
+      <div class="table-header reveal reveal-d2">
+        <p class="table-meta">Showing <span id="tbl-count">144</span> of 144 countries</p>
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="search-input" placeholder="Search country or region…" autocomplete="off"/>
+        </div>
+      </div>
+      <div class="tbl-wrap reveal reveal-d3">
+        <table class="data-table" id="policy-table">
+          <thead><tr>
+            <th>Country</th><th>WHO Region</th><th>Document Type</th><th>Year</th><th>Access</th>
+          </tr></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </section>
 
-    <div class="table-header reveal reveal-delay-2">
-      <p class="table-meta">Showing <span id="tbl-count">144</span> of 144 countries</p>
-      <div class="search-wrap">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="search-input" placeholder="Search country or region…" autocomplete="off"/>
+  <!-- HOW IT WORKS -->
+  <section id="how-section">
+    <div class="section-wrap">
+      <div class="section-eye reveal">Process</div>
+      <h2 class="section-h2 reveal reveal-d1">How the Repository Stays <em style="font-family:'Playfair Display',serif;font-style:italic;color:var(--teal)">Living</em></h2>
+      <p class="section-sub reveal reveal-d2">Anyone with knowledge of their country's latest policy can contribute in under 10 minutes.</p>
+      <div class="how-grid">
+        <div class="how-card reveal">
+          <div class="how-n">01</div>
+          <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <h3>Submit via Form</h3>
+          <p>Submit your country's NSP or NHP via PDF or URL. Anonymous submission supported for sensitive roles or regions.</p>
+        </div>
+        <div class="how-card reveal reveal-d1">
+          <div class="how-n">02</div>
+          <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h3>Regional Review</h3>
+          <p>2–3 expert reviewers per WHO region validate and assign manuscript status categories within 20 days.</p>
+        </div>
+        <div class="how-card reveal reveal-d2">
+          <div class="how-n">03</div>
+          <div class="how-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <h3>Map Updates</h3>
+          <p>Verified documents are published during fortnightly review cycles, tapering to monthly in the sustainment phase.</p>
+        </div>
+        <div class="how-card reveal reveal-d3">
+          <div class="how-n">04</div>
+          <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3>Join the Network</h3>
+          <p>Contributors may join our Global NSP Hub-and-Spokes Network and connect with surgical policy champions worldwide.</p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="tbl-wrap reveal reveal-delay-3">
-      <table class="data-table" id="policy-table">
-        <thead>
-          <tr>
-            <th>Country</th>
-            <th>WHO Region</th>
-            <th>Document Type</th>
-            <th>Year</th>
-            <th>Access</th>
-          </tr>
-        </thead>
-        <tbody id="table-body"></tbody>
-      </table>
-    </div>
-    <div class="pagination" id="pagination"></div>
-  </div>
-</section>
-
-<!-- ─── HOW IT WORKS ──────────────────────────────────────────────── -->
-<section id="how-section">
-  <div class="wrap">
-    <div class="section-eye reveal">Process</div>
-    <h2 class="section-h2 reveal reveal-delay-1">How the Repository Stays <em class="serif" style="font-style:italic">Living</em></h2>
-    <p class="section-sub reveal reveal-delay-2">Anyone with knowledge of their country's latest policy can contribute in under 10 minutes. No barriers, anonymous submission supported.</p>
-
-    <div class="how-grid">
-      <div class="how-card reveal">
-        <div class="how-n">01</div>
-        <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-        <h3>Submit via Form</h3>
-        <p>Use the Google Form to submit or update your country's NSP or NHP — PDF upload or URL link. Anonymous submission available for contributors in sensitive roles.</p>
-      </div>
-      <div class="how-card reveal reveal-delay-1">
-        <div class="how-n">02</div>
-        <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <h3>Regional Review</h3>
-        <p>Our global team (2–3 reviewers per WHO region) validates submissions and assigns status categories from the manuscript within 20 days.</p>
-      </div>
-      <div class="how-card reveal reveal-delay-2">
-        <div class="how-n">03</div>
-        <div class="how-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-        <h3>Map Updates</h3>
-        <p>Verified documents are added to the repository and the interactive map reflects updated status during our fortnightly review cycle, tapering to monthly in sustainment phase.</p>
-      </div>
-      <div class="how-card reveal reveal-delay-3">
-        <div class="how-n">04</div>
-        <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Join the Network</h3>
-        <p>Contributors can opt in to our Global NSP Hub-and-Spokes Network and stay connected with surgical policy champions across all WHO regions.</p>
+  <!-- CONTRIBUTE -->
+  <section id="contribute-section">
+    <div class="section-wrap">
+      <div class="contribute-layout">
+        <div class="contribute-body reveal">
+          <div class="section-eye">Contribute</div>
+          <h2>Update Your Country's Surgical Policy</h2>
+          <p>Know about a recent NSP or NHP in your country? Help keep this global repository current. All contributions are reviewed by regional experts before publication.</p>
+          <ul class="contribute-bullets">
+            <li>Submit a PDF document or a direct URL link</li>
+            <li>Anonymous submission available for sensitive roles or regions</li>
+            <li>Receive a personal letter of thanks for your contribution</li>
+            <li>Stay updated on new policies and collaboration opportunities</li>
+            <li>6-month internal policy review cycle ensures ongoing accuracy</li>
+          </ul>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97SoSObe_IiwPr7bscEgK33IXQ0HI-yHDOo0Fw/viewform" target="_blank" class="btn btn-primary" style="display:inline-flex">
+            Open Submission Form
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a href="https://forms.gle/TkdTGmxjJAMUtTvL7" target="_blank" class="champion-link">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Become a Global NSP Champion
+          </a>
+        </div>
+        <div class="glass-card reveal reveal-d1" style="padding:1.75rem">
+          <div class="form-card-title">Form Preview</div>
+          <div class="form-field">
+            <label class="form-label">Country / Territory</label>
+            <select class="form-control"><option>Select your country…</option><option>Ethiopia</option><option>Nigeria</option><option>India</option><option>Indonesia</option><option>Other / Territory</option></select>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Document Type</label>
+            <select class="form-control"><option>National Surgical Plan (NSP)</option><option>National Health Policy (NHP)</option><option>Both NSP and NHP</option><option>Other Policy Document</option></select>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Document Link (URL)</label>
+            <input type="text" class="form-control" placeholder="https://…"/>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Submitter Role</label>
+            <select class="form-control"><option>My details</option><option>Representative's details</option><option>Both</option><option>Anonymous</option></select>
+          </div>
+          <p class="form-note">Full form includes PDF upload, branching logic, anonymity controls, and opt-in for the Global NSP Hub-and-Spokes Network.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ─── CONTRIBUTE ────────────────────────────────────────────────── -->
-<section id="contribute-section">
-  <div class="wrap">
-    <div class="contribute-layout">
-      <div class="contribute-body reveal">
-        <div class="section-eye">Contribute</div>
-        <h2>Update Your Country's Surgical Policy</h2>
-        <p>Know about a recent NSP or NHP in your country? Help keep this global repository current and accurate. All contributions are reviewed by regional experts before publication.</p>
-        <ul class="contribute-bullets">
-          <li>Submit a PDF document or a direct URL link</li>
-          <li>Anonymous submission available for sensitive roles or regions</li>
-          <li>Optional: join the Global NSP Hub-and-Spokes Network</li>
-          <li>Stay updated on new policies, initiatives, and collaboration opportunities</li>
-          <li>Receive a personal letter of thanks for supporting the repository</li>
-        </ul>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97SoSObe_IiwPr7bscEgK33IXQ0HI-yHDOo0Fw/viewform" target="_blank" class="btn btn-primary" style="display:inline-flex">
-          Open Submission Form
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-        <p style="margin-top:1rem;font-size:0.78rem;color:var(--muted)">Also: <a href="https://forms.gle/TkdTGmxjJAMUtTvL7" target="_blank" style="color:var(--teal);font-weight:600">Become a Global NSP Champion →</a></p>
-      </div>
-      <div class="form-card reveal reveal-delay-1">
-        <div class="form-card-title">Form Preview</div>
-        <div class="form-field">
-          <label class="form-label">Country / Territory</label>
-          <select class="form-control"><option>Select your country…</option><option>Ethiopia</option><option>Nigeria</option><option>India</option><option>Indonesia</option><option>Other / Territory</option></select>
-        </div>
-        <div class="form-field">
-          <label class="form-label">Document Type</label>
-          <select class="form-control"><option>National Surgical Plan (NSP)</option><option>National Health Policy (NHP)</option><option>Both NSP and NHP</option><option>Other Policy Document</option></select>
-        </div>
-        <div class="form-field">
-          <label class="form-label">Document Link (URL)</label>
-          <input type="text" class="form-control" placeholder="https://…"/>
-        </div>
-        <div class="form-field">
-          <label class="form-label">Submitter Role</label>
-          <select class="form-control"><option>My details</option><option>Representative's details</option><option>Both</option><option>Anonymous</option></select>
-        </div>
-        <p class="form-note">Full form includes PDF upload, branching logic, anonymity controls, and opt-in for the Global NSP Hub-and-Spokes Network.</p>
-      </div>
-    </div>
-  </div>
-</section>
+</main>
 
-<!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-left">
-      <p><strong>Global NSP/NHP Repository</strong> — National Surgical & Health Policy Atlas<br/>
-      A WHO-affiliated living repository of national surgical and health policies.<br/>
-      Maintained by a global team of surgical policy researchers.</p>
+    <div class="footer-brand">
+      <img src="logo.png" alt="" class="footer-logo"/>
+      <div class="footer-text">
+        <strong>National Surgical & Health Policy Repository</strong><br/>
+        A WHO-affiliated living repository · Maintained by a global team of surgical policy researchers
+      </div>
     </div>
     <div class="footer-links">
       <a href="#map-section">Map</a>
@@ -1041,6 +830,128 @@ footer{
     </div>
   </div>
 </footer>
+
+<!-- ── THREE.JS ORB ── -->
+<script>
+(function(){
+  const container = document.getElementById('webgl-canvas');
+  if(!container||!window.THREE)return;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x02060e, 0.1);
+
+  const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 100);
+  camera.position.z = 5.5;
+
+  const renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0);
+  container.appendChild(renderer.domElement);
+
+  /* Outer wireframe orb */
+  const geoOuter = new THREE.IcosahedronGeometry(2.4, 3);
+  const matOuter = new THREE.MeshBasicMaterial({
+    color:0x2ab5bb, wireframe:true, transparent:true, opacity:0.18
+  });
+  const orbOuter = new THREE.Mesh(geoOuter, matOuter);
+  scene.add(orbOuter);
+
+  /* Mid wireframe — denser, slower */
+  const geoMid = new THREE.IcosahedronGeometry(1.9, 2);
+  const matMid = new THREE.MeshBasicMaterial({
+    color:0x1a8a8f, wireframe:true, transparent:true, opacity:0.1
+  });
+  const orbMid = new THREE.Mesh(geoMid, matMid);
+  scene.add(orbMid);
+
+  /* Inner solid glow core */
+  const geoCore = new THREE.SphereGeometry(0.85, 32, 32);
+  const matCore = new THREE.MeshBasicMaterial({
+    color:0x0d3a3e, transparent:true, opacity:0.85
+  });
+  const core = new THREE.Mesh(geoCore, matCore);
+  scene.add(core);
+
+  /* Point light — gives the orb a glow center */
+  const pointLight = new THREE.PointLight(0x2ab5bb, 3.5, 8);
+  pointLight.position.set(0, 0, 0);
+  scene.add(pointLight);
+
+  const ambLight = new THREE.AmbientLight(0x0a2030, 1);
+  scene.add(ambLight);
+
+  let scrollY=0, targetScrollY=0, mouseX=0, mouseY=0;
+
+  window.addEventListener('scroll',()=>{ targetScrollY=window.scrollY; },{passive:true});
+  window.addEventListener('mousemove',e=>{
+    mouseX=(e.clientX/window.innerWidth-0.5)*0.6;
+    mouseY=(e.clientY/window.innerHeight-0.5)*0.4;
+  },{passive:true});
+
+  const maxScroll=()=>Math.max(1,document.body.scrollHeight-window.innerHeight);
+  let t=0;
+
+  function animate(){
+    requestAnimationFrame(animate);
+    t+=0.004;
+    scrollY+=(targetScrollY-scrollY)*0.04;
+    const frac=scrollY/maxScroll();
+
+    orbOuter.rotation.y = t*0.4 + frac*Math.PI*1.2 + mouseX*0.4;
+    orbOuter.rotation.x = t*0.2 + frac*0.6 + mouseY*0.25;
+    orbMid.rotation.y   = -t*0.3 + frac*Math.PI*0.8 + mouseX*0.25;
+    orbMid.rotation.x   = t*0.15 + mouseY*0.15;
+    core.rotation.y     = t*0.1;
+
+    /* Pulsing glow */
+    const pulse = 0.85 + Math.sin(t*1.8)*0.15;
+    matOuter.opacity = 0.18*pulse;
+    pointLight.intensity = 3.5*pulse;
+
+    /* Camera drift with scroll */
+    camera.position.y = -frac*1.2 + Math.sin(t*0.5)*0.05;
+    camera.position.x = mouseX*0.3;
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize',()=>{
+    camera.aspect=window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth,window.innerHeight);
+  },{passive:true});
+})();
+</script>
+
+<!-- ── NAV SCROLL ── -->
+<script>
+const nav=document.getElementById('nav');
+const navLinksAll=document.querySelectorAll('.nav-links a:not(.nav-cta)');
+
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>30);
+  const ids=['home','map-section','table-section','how-section','contribute-section'];
+  let cur='home';
+  for(const id of ids){
+    const el=document.getElementById(id);
+    if(el&&el.getBoundingClientRect().top<90)cur=id;
+  }
+  navLinksAll.forEach(a=>{
+    const h=a.getAttribute('href').replace('#','');
+    a.classList.toggle('active',h===cur||(h==='map-section'&&cur==='home'));
+  });
+},{passive:true});
+</script>
+
+<!-- ── SCROLL REVEAL ── -->
+<script>
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+</script>
 
 <script>
 /* ═══════════════════════════════════════════════════════════════════
@@ -1338,21 +1249,14 @@ document.querySelectorAll('.filter-pill').forEach(btn=>{
 });
 
 function applyFilters(){
-  const mapTitle = document.getElementById('map-title-label');
-  // Map
-  document.querySelectorAll('.country').forEach(el=>{
-    const s = el.dataset.s || el.getAttribute('class').match(/status-(\w+)/)?.[1];
-    const who = el.dataset.who || '';
-    const filterOk = activeFilter==='all' || s===activeFilter;
-    const regionOk = activeRegion==='all' || who===activeRegion;
-    el.classList.toggle('dimmed', !(filterOk && regionOk));
-  });
-  // Table
+  mapFilterStatus = activeFilter;
+  mapFilterRegion = activeRegion;
+  updateMapFilters();
   currentPage=1;
   renderTable();
-  // Title
   const showing = getFiltered().length;
-  mapTitle.textContent = `${activeFilter==='all'?'All Types':SC[activeFilter]?.label||activeFilter}${activeRegion==='all'?'':', '+WHO_REGIONS.find(r=>r.key===activeRegion)?.label} — ${showing} countr${showing===1?'y':'ies'}`;
+  const mapTitle = document.getElementById('map-title-label');
+  mapTitle.textContent = (activeFilter==='all'?'All Types':SC[activeFilter]?.label||activeFilter)+(activeRegion==='all'?'':', '+(WHO_REGIONS.find(r=>r.key===activeRegion)?.label||activeRegion))+' — '+showing+' countr'+(showing===1?'y':'ies');
 }
 
 function getFiltered(){
@@ -1386,14 +1290,14 @@ function renderTable(){
   const slice = filtered.slice(start, start+ROWS);
   const tbody = document.getElementById('table-body');
   tbody.innerHTML = slice.map(d=>{
-    const driveBase = 'https://drive.google.com/drive/folders/1Uq0lW7R6D1P5yUS4PjhlaCmCb7hZikWX';
+    const driveBase = 'Region-wise NSP-NHP documents [Living Repository';
     return `<tr>
       <td><strong>${d.country}</strong></td>
       <td><span class="who-tag">${d.whoRegion}</span> <span style="font-size:0.78rem;color:var(--muted)">${d.region}</span></td>
       <td><span class="badge ${d.status}"><span class="dot"></span>${d.docType}</span></td>
       <td style="font-variant-numeric:tabular-nums;color:var(--muted)">${d.year}</td>
       <td>
-        <a class="doc-btn" href="${driveBase}" target="_blank">
+        <a class="doc-btn" href="${driveBase}/${encodeURIComponent(d.file)}" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           View PDF
         </a>
@@ -1431,72 +1335,234 @@ function goPage(n){
 renderTable();
 
 /* ═══════════════════════════════════════════════════════════════════
-   MAP TOOLTIP
+   D3 WORLD MAP — accurate country boundaries from real TopoJSON
 ═══════════════════════════════════════════════════════════════════ */
+
+// Status lookup: topojson country name -> status
+const countryStatus = {
+  'Afghanistan': 'nhp', 'Albania': 'nhp', 'Algeria': 'nhp', 'Angola': 'nhp',
+  'Armenia': 'nhp', 'Australia': 'nhp', 'Austria': 'nhp', 'Azerbaijan': 'nhp',
+  'Bangladesh': 'nhp', 'Belarus': 'nhp', 'Belgium': 'nhp', 'Benin': 'nhp',
+  'Bhutan': 'nhp', 'Bosnia and Herz.': 'nhp', 'Botswana': 'nhp', 'Brunei': 'nhp',
+  'Bulgaria': 'nhp', 'Burkina Faso': 'nhp', 'Cambodia': 'both', 'Cameroon': 'nhp',
+  'Central African Rep.': 'nhp', 'Chad': 'nhp', 'China': 'nsp', 'Congo': 'nhp',
+  'Croatia': 'nhp', 'Cyprus': 'nhp', 'Czechia': 'nhp', 'Dem. Rep. Congo': 'nhp',
+  'Denmark': 'nsp', 'Djibouti': 'nhp', 'Egypt': 'nhp', 'Eritrea': 'nhp',
+  'Estonia': 'nhp', 'Ethiopia': 'both', 'Fiji': 'nsp', 'Finland': 'nhp',
+  'France': 'nhp', 'Gabon': 'nhp', 'Gambia': 'nhp', 'Georgia': 'nhp',
+  'Ghana': 'nsp', 'Greece': 'nhp', 'Guinea': 'nhp', 'Guinea-Bissau': 'nhp',
+  'Hungary': 'nhp', 'Iceland': 'nhp', 'India': 'nhp', 'Indonesia': 'nhp',
+  'Iran': 'nhp', 'Iraq': 'nhp', 'Ireland': 'nsp', 'Israel': 'nhp', 'Italy': 'nhp',
+  'Japan': 'nhp', 'Kazakhstan': 'nhp', 'Kenya': 'both', 'Kuwait': 'nsp',
+  'Kyrgyzstan': 'nhp', 'Latvia': 'nhp', 'Lebanon': 'nhp', 'Lesotho': 'nhp',
+  'Liberia': 'nhp', 'Lithuania': 'nhp', 'Luxembourg': 'nhp', 'Macedonia': 'nhp',
+  'Madagascar': 'nhp', 'Malawi': 'nhp', 'Malaysia': 'nhp', 'Mali': 'nhp',
+  'Mauritania': 'nhp', 'Moldova': 'nhp', 'Mongolia': 'nhp', 'Montenegro': 'nhp',
+  'Morocco': 'nhp', 'Mozambique': 'nhp', 'Myanmar': 'nhp', 'Namibia': 'nsp',
+  'Nepal': 'nhp', 'New Zealand': 'nhp', 'Nigeria': 'nsp', 'North Korea': 'nhp',
+  'Norway': 'nhp', 'Oman': 'both', 'Pakistan': 'nsp', 'Papua New Guinea': 'nhp',
+  'Philippines': 'nhp', 'Poland': 'nhp', 'Portugal': 'nhp', 'Qatar': 'nhp',
+  'Romania': 'nhp', 'Russia': 'nhp', 'Rwanda': 'nsp', 'S. Sudan': 'nhp',
+  'Saudi Arabia': 'nhp', 'Senegal': 'nhp', 'Serbia': 'nhp', 'Sierra Leone': 'nsp',
+  'Slovakia': 'nhp', 'Slovenia': 'nhp', 'Solomon Is.': 'nhp', 'Somalia': 'nhp',
+  'South Africa': 'nhp', 'South Korea': 'nhp', 'Spain': 'nsp', 'Sri Lanka': 'nhp',
+  'Sudan': 'nhp', 'Sweden': 'nsp', 'Switzerland': 'both', 'Syria': 'nhp',
+  'Tajikistan': 'nhp', 'Tanzania': 'nsp', 'Thailand': 'nhp', 'Timor-Leste': 'nhp',
+  'Togo': 'nhp', 'Tunisia': 'nhp', 'Turkey': 'nhp', 'Turkmenistan': 'nhp',
+  'Uganda': 'nhp', 'Ukraine': 'nhp', 'United Arab Emirates': 'nsp',
+  'United Kingdom': 'both', 'Uzbekistan': 'nhp', 'Vietnam': 'nhp', 'Yemen': 'nhp',
+  'Zimbabwe': 'nhp', 'eSwatini': 'nhp',
+};
+
+// Reverse lookup: our dataset country name -> topojson name
+const ourToTopo = {
+  'Congo (DRC)':'Dem. Rep. Congo','Czech Republic':'Czechia',
+  'Bosnia and Herzegovina':'Bosnia and Herz.','North Macedonia':'Macedonia',
+  'Republic of Korea':'South Korea','DPR Korea':'North Korea',
+  'South Sudan':'S. Sudan','Central African Republic':'Central African Rep.',
+  'Eswatini':'eSwatini','Solomon Islands':'Solomon Is.',
+};
+
 const tip = document.getElementById('map-tip');
 let tipTimeout;
 
-// Build lookup from country name
+// Build lookup: our dataset country name -> data row
 const lookup = {};
-policyData.forEach(d=>{lookup[d.country.toLowerCase()]=d});
+policyData.forEach(d => { lookup[d.country.toLowerCase()] = d; });
 
-document.querySelectorAll('.country').forEach(el=>{
-  el.addEventListener('mousemove', e=>{
-    clearTimeout(tipTimeout);
-    const cname = el.dataset.c||'';
-    const d = lookup[cname.toLowerCase()];
-    const s = d?.status || el.getAttribute('class').match(/status-(\w+)/)?.[1] || 'none';
-    const sc = SC[s]||SC.none;
+// Color function
+function getStatusColor(status) {
+  const colors = {
+    both: 'var(--c-both)', nsp: 'var(--c-nsp)',
+    nhp: 'var(--c-nhp)', none: 'var(--c-none)'
+  };
+  return colors[status] || colors.none;
+}
 
-    document.getElementById('tip-country').textContent = cname;
-    document.getElementById('tip-status-text').textContent = sc.label;
-    document.getElementById('tip-dot').style.background = sc.color;
+// Active filter state shared with map
+let mapFilterStatus = 'all';
+let mapFilterRegion = 'all';
 
-    if(d){
-      document.getElementById('tip-meta').textContent = `Document year: ${d.year}`;
-      document.getElementById('tip-region').textContent = d.region+' · '+d.whoRegion;
-    } else {
-      document.getElementById('tip-meta').textContent = 'Not in current repository';
-      document.getElementById('tip-region').textContent = el.dataset.r||'';
-    }
-
-    tip.style.display='block';
-    setTimeout(()=>tip.classList.add('visible'),10);
-
-    const tx = e.clientX+16, ty = e.clientY-10;
-    const tw = tip.offsetWidth, th = tip.offsetHeight;
-    tip.style.left = (tx+tw>window.innerWidth-10 ? e.clientX-tw-10 : tx)+'px';
-    tip.style.top  = (ty+th>window.innerHeight-10? e.clientY-th-10 : ty)+'px';
-  });
-
-  el.addEventListener('mouseleave',()=>{
-    tip.classList.remove('visible');
-    tipTimeout = setTimeout(()=>{tip.style.display='none'},200);
-  });
-
-  el.addEventListener('click',()=>{
-    const cname = el.dataset.c||'';
-    const d = lookup[cname.toLowerCase()];
-    if(d){
-      document.getElementById('search-input').value = cname;
-      currentPage=1;
-      renderTable();
-      document.getElementById('table-section').scrollIntoView({behavior:'smooth'});
-    }
-  });
+// WHO region by topojson country name (approximate)
+const countryToWHO = {};
+policyData.forEach(d => {
+  const topo = ourToTopo[d.country] || d.country;
+  countryToWHO[topo] = d.whoRegion;
 });
 
-/* ═══════════════════════════════════════════════════════════════════
-   MAP ZOOM (simulated)
-═══════════════════════════════════════════════════════════════════ */
-const mapSvg = document.getElementById('world-map');
-let zoom=1, panX=0, panY=0;
-function updateMap(){
-  mapSvg.style.transform=`scale(${zoom}) translate(${panX}px,${panY}px)`;
+// D3 map setup
+const svgEl = document.getElementById('world-map');
+let d3zoom, svgSel, pathSel;
+
+function initD3Map() {
+  const container = svgEl.parentElement;
+  const W = container.clientWidth || 900;
+  const H = Math.round(W * 0.5);
+
+  svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svgEl.setAttribute('width', W);
+  svgEl.setAttribute('height', H);
+
+  svgSel = d3.select('#world-map');
+  svgSel.selectAll('*').remove();
+
+  const g = svgSel.append('g').attr('id', 'map-g');
+
+  const projection = d3.geoNaturalEarth1()
+    .scale(W / 6.28)
+    .translate([W / 2, H / 2]);
+
+  const pathGen = d3.geoPath().projection(projection);
+
+  // Zoom behavior
+  d3zoom = d3.zoom()
+    .scaleExtent([1, 8])
+    .translateExtent([[0, 0], [W, H]])
+    .on('zoom', (event) => {
+      g.attr('transform', event.transform);
+    });
+
+  svgSel.call(d3zoom);
+
+  // Zoom controls
+  document.getElementById('zoom-in').onclick = () =>
+    svgSel.transition().duration(300).call(d3zoom.scaleBy, 1.5);
+  document.getElementById('zoom-out').onclick = () =>
+    svgSel.transition().duration(300).call(d3zoom.scaleBy, 1/1.5);
+  document.getElementById('zoom-reset').onclick = () =>
+    svgSel.transition().duration(400).call(d3zoom.transform, d3.zoomIdentity);
+
+  // Load TopoJSON
+  fetch('countries-110m.json')
+    .then(r => r.json())
+    .then(world => {
+      const countries = topojson.feature(world, world.objects.countries);
+
+      pathSel = g.selectAll('.country')
+        .data(countries.features)
+        .enter()
+        .append('path')
+        .attr('class', d => {
+          const name = d.properties.name;
+          const status = countryStatus[name];
+          return 'country' + (status ? ' status-' + status : '');
+        })
+        .attr('data-name', d => d.properties.name)
+        .attr('d', pathGen)
+        .style('fill', d => {
+          const name = d.properties.name;
+          const status = countryStatus[name] || 'none';
+          return getStatusColor(status);
+        })
+        .style('stroke', '#fff')
+        .style('stroke-width', '0.5px')
+        .style('cursor', d => countryStatus[d.properties.name] ? 'pointer' : 'default')
+        .style('transition', 'opacity 200ms, fill 200ms');
+
+      // Attach interactions
+      pathSel
+        .on('mousemove', function(event, d) {
+          clearTimeout(tipTimeout);
+          const name = d.properties.name;
+          const status = countryStatus[name] || 'none';
+          const sc = SC[status] || SC.none;
+
+          // Find matching data row (try exact name, then our mapping)
+          const dataRow = lookup[name.toLowerCase()] ||
+            Object.values(lookup).find(row => (ourToTopo[row.country] || row.country) === name);
+
+          document.getElementById('tip-country').textContent = name;
+          document.getElementById('tip-status-text').textContent = sc.label;
+          document.getElementById('tip-dot').style.background = sc.color;
+
+          if (dataRow) {
+            document.getElementById('tip-meta').textContent = 'Document year: ' + dataRow.year;
+            document.getElementById('tip-region').textContent = dataRow.region + ' · ' + dataRow.whoRegion;
+          } else {
+            document.getElementById('tip-meta').textContent = 'Not in current repository';
+            document.getElementById('tip-region').textContent = '';
+          }
+
+          tip.style.display = 'block';
+          setTimeout(() => tip.classList.add('visible'), 10);
+          positionTip(event);
+        })
+        .on('mouseleave', function() {
+          tip.classList.remove('visible');
+          tipTimeout = setTimeout(() => { tip.style.display = 'none'; }, 200);
+        })
+        .on('click', function(event, d) {
+          const name = d.properties.name;
+          const dataRow = lookup[name.toLowerCase()] ||
+            Object.values(lookup).find(row => (ourToTopo[row.country] || row.country) === name);
+          if (dataRow) {
+            document.getElementById('search-input').value = dataRow.country;
+            currentPage = 1;
+            renderTable();
+            document.getElementById('table-section').scrollIntoView({behavior:'smooth'});
+          }
+        });
+
+      // Apply initial filter state
+      updateMapFilters();
+    })
+    .catch(err => {
+      console.error('Map load error:', err);
+      svgEl.innerHTML = '<text x="50%" y="50%" text-anchor="middle" fill="#5a6a7a" font-size="14">Map data unavailable — please ensure countries-110m.json is in the same folder.</text>';
+    });
 }
-document.getElementById('zoom-in').addEventListener('click',()=>{zoom=Math.min(zoom*1.3,4);updateMap()});
-document.getElementById('zoom-out').addEventListener('click',()=>{zoom=Math.max(zoom/1.3,1);if(zoom===1){panX=0;panY=0;}updateMap()});
-document.getElementById('zoom-reset').addEventListener('click',()=>{zoom=1;panX=0;panY=0;updateMap()});
+
+function positionTip(event) {
+  const tx = event.clientX + 16;
+  const ty = event.clientY - 10;
+  const tw = tip.offsetWidth;
+  const th = tip.offsetHeight;
+  tip.style.left = (tx + tw > window.innerWidth - 10 ? event.clientX - tw - 10 : tx) + 'px';
+  tip.style.top  = (ty + th > window.innerHeight - 10 ? event.clientY - th - 10 : ty) + 'px';
+}
+
+function updateMapFilters() {
+  if (!pathSel) return;
+  pathSel.style('opacity', d => {
+    const name = d.properties.name;
+    const status = countryStatus[name];
+    const who = countryToWHO[name];
+    const typeOk = mapFilterStatus === 'all' || status === mapFilterStatus;
+    const regionOk = mapFilterRegion === 'all' || who === mapFilterRegion;
+    if (!status) return 0.35; // not in repo
+    return (typeOk && regionOk) ? 1 : 0.08;
+  });
+}
+
+// Resize handler
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(initD3Map, 200);
+}, {passive: true});
+
+// Initialize map
+initD3Map();
 
 /* ═══════════════════════════════════════════════════════════════════
    SCROLL REVEAL
@@ -1505,6 +1571,4 @@ const revObs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
 },{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
-</script>
-</body>
-</html>
+</script></body></html>
