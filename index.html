@@ -1219,8 +1219,8 @@ let activeFilter = 'all';
 let activeRegion = 'all';
 let mapFilterStatus = 'all';
 let mapFilterRegion = 'all';
-/* Declared before applyFilters() so updateMapFilters() does not hit the pathSel TDZ. */
-let d3zoom, svgSel, pathSel;
+/* D3 selections live on this object so filter callbacks never touch a let TDZ. */
+const mapD3 = { d3zoom: null, svgSel: null, pathSel: null };
 const fc = {all:total, both, nsp, nhp};
 setText('fc-all', String(total));
 setText('fc-both', String(both));
@@ -1549,10 +1549,10 @@ function initD3Map() {
   svgEl.setAttribute('width', W);
   svgEl.setAttribute('height', H);
 
-  svgSel = d3.select('#world-map');
-  svgSel.selectAll('*').remove();
+  mapD3.svgSel = d3.select('#world-map');
+  mapD3.svgSel.selectAll('*').remove();
 
-  const g = svgSel.append('g').attr('id', 'map-g');
+  const g = mapD3.svgSel.append('g').attr('id', 'map-g');
 
   const projection = d3.geoNaturalEarth1()
     .scale(W / 6.28)
@@ -1561,25 +1561,25 @@ function initD3Map() {
   const pathGen = d3.geoPath().projection(projection);
 
   // Zoom behavior
-  d3zoom = d3.zoom()
+  mapD3.d3zoom = d3.zoom()
     .scaleExtent([1, 8])
     .translateExtent([[0, 0], [W, H]])
     .on('zoom', (event) => {
       g.attr('transform', event.transform);
     });
 
-  svgSel.call(d3zoom);
+  mapD3.svgSel.call(mapD3.d3zoom);
 
   // Zoom controls
   const zi = document.getElementById('zoom-in');
   const zo = document.getElementById('zoom-out');
   const zr = document.getElementById('zoom-reset');
   if (zi) zi.onclick = () =>
-    svgSel.transition().duration(300).call(d3zoom.scaleBy, 1.5);
+    mapD3.svgSel.transition().duration(300).call(mapD3.d3zoom.scaleBy, 1.5);
   if (zo) zo.onclick = () =>
-    svgSel.transition().duration(300).call(d3zoom.scaleBy, 1/1.5);
+    mapD3.svgSel.transition().duration(300).call(mapD3.d3zoom.scaleBy, 1/1.5);
   if (zr) zr.onclick = () =>
-    svgSel.transition().duration(400).call(d3zoom.transform, d3.zoomIdentity);
+    mapD3.svgSel.transition().duration(400).call(mapD3.d3zoom.transform, d3.zoomIdentity);
 
   // Load TopoJSON
   fetch('countries-110m.json')
@@ -1590,7 +1590,7 @@ function initD3Map() {
     .then(world => {
       const countries = topojson.feature(world, world.objects.countries);
 
-      pathSel = g.selectAll('.country')
+      mapD3.pathSel = g.selectAll('.country')
         .data(countries.features)
         .enter()
         .append('path')
@@ -1612,7 +1612,7 @@ function initD3Map() {
         .style('transition', 'opacity 200ms, fill 200ms');
 
       // Attach interactions
-      pathSel
+      mapD3.pathSel
         .on('mousemove', function(event, d) {
           if (!tip) return;
           clearTimeout(tipTimeout);
@@ -1673,8 +1673,8 @@ function positionTip(event) {
 }
 
 function updateMapFilters() {
-  if (!pathSel) return;
-  pathSel.style('opacity', d => {
+  if (!mapD3.pathSel) return;
+  mapD3.pathSel.style('opacity', d => {
     const name = d.properties.name;
     const status = countryStatus[name];
     const who = countryToWHO[name];
