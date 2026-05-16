@@ -424,7 +424,8 @@ body{
 
 /* ── TABLE SECTION ── */
 #table-section{padding:5rem 0;border-top:1px solid var(--rule-2)}
-.table-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:0.95rem}
+#table-section .section-h2{margin-bottom:0.45rem}
+.table-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:0.7rem}
 .search-wrap{position:relative;display:flex;align-items:center}
 .search-wrap svg{position:absolute;left:0.75rem;width:12px;height:12px;stroke:var(--fog-3);stroke-width:2;fill:none;pointer-events:none}
 #search-input{
@@ -440,13 +441,18 @@ body{
 .table-meta span{font-weight:600;color:var(--fog-2)}
 .tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:rgba(5,13,24,0.5)}
 .data-table{width:100%;border-collapse:collapse;font-size:0.78rem;font-family:'DM Sans',sans-serif}
+.data-table thead{
+  position:sticky;top:62px;z-index:10;
+  background:rgba(5,13,24,0.97);
+  box-shadow:0 1px 0 var(--rule);
+}
 .data-table thead th{
-  padding:0.26rem 0.875rem 0.22rem;
-  line-height:1;
-  vertical-align:middle;
-  background:rgba(42,181,187,0.05);border-bottom:1px solid var(--rule);
-  text-align:left;font-size:0.56rem;font-weight:700;
-  letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);
+  padding:0.32rem 0.875rem 0.38rem;
+  line-height:1.2;
+  vertical-align:top;
+  background:rgba(42,181,187,0.06);border-bottom:1px solid var(--rule);
+  text-align:left;font-size:0.62rem;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);
   white-space:nowrap;font-family:'DM Sans',sans-serif;
 }
 .data-table td{padding:0.7rem 0.875rem;border-bottom:1px solid var(--rule-2);vertical-align:middle;color:var(--fog-2)}
@@ -747,7 +753,7 @@ footer{
       <div class="section-eye reveal">Repository</div>
       <h2 class="section-h2 reveal reveal-d1">Policy Documents</h2>
       <div class="table-header reveal reveal-d2">
-        <p class="table-meta">Showing <span id="tbl-count"></span> of <span id="tbl-total"></span> countries</p>
+        <p class="table-meta" id="table-meta" aria-live="polite"></p>
         <div class="search-wrap">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
           <input type="text" id="search-input" placeholder="Search country or region…" autocomplete="off"/>
@@ -1227,9 +1233,8 @@ setText('fc-all', String(total));
 setText('fc-both', String(both));
 setText('fc-nsp', String(nsp));
 setText('fc-nhp', String(nhp));
-setText('tbl-total', String(total));
-setText('tbl-count', String(total));
 setText('map-title-label', 'All Types — ' + total + ' countr' + (total === 1 ? 'y' : 'ies'));
+syncTableMeta(total, total);
 
 const rfList = document.getElementById('region-filters');
 if (rfList) {
@@ -1404,12 +1409,16 @@ function openCountryDocumentTab(d) {
 const ROWS = 15;
 let currentPage = 1;
 
+function syncTableMeta(shown, catalogueSize) {
+  const meta = document.getElementById('table-meta');
+  if (!meta) return;
+  meta.textContent = 'Showing ' + shown + ' of ' + catalogueSize + ' catalogue entries';
+}
+
 function renderTable(){
   const filtered = getFiltered();
-  const tblCount = document.getElementById('tbl-count');
-  const tblTotal = document.getElementById('tbl-total');
-  if (tblTotal) tblTotal.textContent = String(policyData.length);
-  if (tblCount) tblCount.textContent = String(filtered.length);
+  const catalogueSize = policyData.length;
+  syncTableMeta(filtered.length, catalogueSize);
   const start = (currentPage-1)*ROWS;
   const slice = filtered.slice(start, start+ROWS);
   const tbody = document.getElementById('table-body');
