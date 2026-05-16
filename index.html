@@ -1182,6 +1182,7 @@ const WHO_REGIONS = [
    HERO STATS COUNT-UP
 ═══════════════════════════════════════════════════════════════════ */
 function countUp(el, target, dur=1200){
+  if (!el) return;
   let start=null;
   const step = ts => {
     if(!start) start=ts;
@@ -1192,34 +1193,55 @@ function countUp(el, target, dur=1200){
   };
   requestAnimationFrame(step);
 }
+function setText(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
+
 const nsp = policyData.filter(d=>d.status==='nsp').length;
 const nhp = policyData.filter(d=>d.status==='nhp').length;
 const both = policyData.filter(d=>d.status==='both').length;
 const total = policyData.length;
 
-// Defer count-up until visible
-const heroObs = new IntersectionObserver(entries=>{
-  if(entries[0].isIntersecting){
-    countUp(document.getElementById('s-countries'), total);
-    countUp(document.getElementById('s-nsp'), nsp+both);
-    countUp(document.getElementById('s-nhp'), nhp+both);
-    heroObs.disconnect();
-  }
-},{threshold:0.3});
-heroObs.observe(document.querySelector('.hero-stats'));
+const regionCounts = {};
+WHO_REGIONS.forEach(r=> regionCounts[r.key] = policyData.filter(d=>d.whoRegion===r.key).length);
+const maxCount = Math.max(1, ...Object.values(regionCounts));
+
+/* Sidebar + filter state first so IntersectionObserver or hero DOM issues cannot strand the map. */
+let activeFilter = 'all';
+let activeRegion = 'all';
+let mapFilterStatus = 'all';
+let mapFilterRegion = 'all';
+const fc = {all:total, both, nsp, nhp};
+setText('fc-all', String(total));
+setText('fc-both', String(both));
+setText('fc-nsp', String(nsp));
+setText('fc-nhp', String(nhp));
+
+const rfList = document.getElementById('region-filters');
+if (rfList) {
+  rfList.innerHTML = `<button class="region-pill active" data-region="all"><span class="region-pip"></span>All Regions</button>`;
+  WHO_REGIONS.forEach(r=>{
+    rfList.innerHTML += `<button class="region-pill" data-region="${r.key}"><span class="region-pip"></span>${r.label}</button>`;
+  });
+  rfList.querySelectorAll('.region-pill').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      rfList.querySelectorAll('.region-pill').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      activeRegion = btn.dataset.region;
+      applyFilters();
+    });
+  });
+}
 
 /* ═══════════════════════════════════════════════════════════════════
    HERO REGION BARS
 ═══════════════════════════════════════════════════════════════════ */
 const regionBars = document.getElementById('region-bars');
-const regionCounts = {};
-WHO_REGIONS.forEach(r=> regionCounts[r.key] = policyData.filter(d=>d.whoRegion===r.key).length);
-const maxCount = Math.max(1, ...Object.values(regionCounts));
-
 if (regionBars) {
-WHO_REGIONS.forEach(r=>{
-  const c = regionCounts[r.key];
-  regionBars.innerHTML += `
+  WHO_REGIONS.forEach(r=>{
+    const c = regionCounts[r.key];
+    regionBars.innerHTML += `
     <div class="region-row">
       <div class="region-row-head">
         <span class="region-label">${r.label}</span>
@@ -1227,48 +1249,36 @@ WHO_REGIONS.forEach(r=>{
       </div>
       <div class="region-track"><div class="region-fill" data-pct="${c/maxCount}" style="width:${c/maxCount*100}%"></div></div>
     </div>`;
-});
-
-const barObs = new IntersectionObserver(entries=>{
-  if(entries[0].isIntersecting){
+  });
+  if (typeof IntersectionObserver !== 'undefined') {
+    const barObs = new IntersectionObserver(entries=>{
+      if(entries[0] && entries[0].isIntersecting){
+        document.querySelectorAll('.region-fill').forEach(f=>f.classList.add('animate'));
+        barObs.disconnect();
+      }
+    },{threshold:0.5});
+    barObs.observe(regionBars);
+  } else {
     document.querySelectorAll('.region-fill').forEach(f=>f.classList.add('animate'));
-    barObs.disconnect();
   }
-},{threshold:0.5});
-barObs.observe(regionBars);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   FILTER STATE
-═══════════════════════════════════════════════════════════════════ */
-let activeFilter = 'all';
-let activeRegion = 'all';
-
-// Type filter counts
-const fc = {all:total, both, nsp, nhp};
-document.getElementById('fc-all').textContent = total;
-document.getElementById('fc-both').textContent = both;
-document.getElementById('fc-nsp').textContent = nsp;
-document.getElementById('fc-nhp').textContent = nhp;
-
-/* ═══════════════════════════════════════════════════════════════════
-   REGION FILTER PILLS (sidebar)
-═══════════════════════════════════════════════════════════════════ */
-const rfList = document.getElementById('region-filters');
-if (rfList) {
-rfList.innerHTML = `<button class="region-pill active" data-region="all"><span class="region-pip"></span>All Regions</button>`;
-WHO_REGIONS.forEach(r=>{
-  rfList.innerHTML += `<button class="region-pill" data-region="${r.key}"><span class="region-pip"></span>${r.label}</button>`;
-});
-
-rfList.querySelectorAll('.region-pill').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    rfList.querySelectorAll('.region-pill').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    activeRegion = btn.dataset.region;
-    applyFilters();
-  });
-});
+function runHeroCountUp(){
+  countUp(document.getElementById('s-countries'), total);
+  countUp(document.getElementById('s-nsp'), nsp+both);
+  countUp(document.getElementById('s-nhp'), nhp+both);
+}
+const heroStatsEl = document.querySelector('.hero-stats');
+if (typeof IntersectionObserver !== 'undefined' && heroStatsEl) {
+  const heroObs = new IntersectionObserver(entries=>{
+    if(entries[0] && entries[0].isIntersecting){
+      runHeroCountUp();
+      heroObs.disconnect();
+    }
+  },{threshold:0.3});
+  heroObs.observe(heroStatsEl);
+} else {
+  runHeroCountUp();
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -1291,11 +1301,17 @@ function applyFilters(){
   renderTable();
   const showing = getFiltered().length;
   const mapTitle = document.getElementById('map-title-label');
-  mapTitle.textContent = (activeFilter==='all'?'All Types':SC[activeFilter]?.label||activeFilter)+(activeRegion==='all'?'':', '+(WHO_REGIONS.find(r=>r.key===activeRegion)?.label||activeRegion))+' — '+showing+' countr'+(showing===1?'y':'ies');
+  if (mapTitle) {
+    const sc = SC[activeFilter];
+    const typeLabel = activeFilter==='all' ? 'All Types' : (sc && sc.label) || activeFilter;
+    const reg = activeRegion==='all' ? '' : ', ' + ((WHO_REGIONS.find(r=>r.key===activeRegion) || {}).label || activeRegion);
+    mapTitle.textContent = typeLabel + reg + ' — ' + showing + ' countr' + (showing===1?'y':'ies');
+  }
 }
 
 function getFiltered(){
-  const q = document.getElementById('search-input').value.toLowerCase();
+  const si = document.getElementById('search-input');
+  const q = si && si.value ? si.value.toLowerCase() : '';
   return policyData.filter(d=>{
     const typeOk = activeFilter==='all'||d.status===activeFilter;
     const regionOk = activeRegion==='all'||d.whoRegion===activeRegion;
@@ -1335,7 +1351,7 @@ function openCountryDocumentTab(d) {
     window.__policySummariesPromise ||
     (window.__policySummariesPromise = fetch('summaries.json'))
       .then(function (r) { return r.ok ? r.json() : {}; })
-      .catch(function () { return {}; }));
+      .catch(function () { return {}; });
 
   promiseSummaries.then(function (summaries) {
     const extra = summaries && summaries[d.country];
@@ -1364,10 +1380,10 @@ function openCountryDocumentTab(d) {
 /* ═══════════════════════════════════════════════════════════════════
    SEARCH
 ═══════════════════════════════════════════════════════════════════ */
-document.getElementById('search-input').addEventListener('input',()=>{
-  currentPage=1;
-  renderTable();
-});
+(function(){
+  const si = document.getElementById('search-input');
+  if (si) si.addEventListener('input',()=>{ currentPage=1; renderTable(); });
+})();
 
 /* ═══════════════════════════════════════════════════════════════════
    TABLE
@@ -1377,10 +1393,12 @@ let currentPage = 1;
 
 function renderTable(){
   const filtered = getFiltered();
-  document.getElementById('tbl-count').textContent = filtered.length;
+  const tblCount = document.getElementById('tbl-count');
+  if (tblCount) tblCount.textContent = String(filtered.length);
   const start = (currentPage-1)*ROWS;
   const slice = filtered.slice(start, start+ROWS);
   const tbody = document.getElementById('table-body');
+  if (!tbody) return;
   tbody.innerHTML = slice.map(d=>{
     const pdfPath = getDocHref(d);
     return `<tr>
@@ -1402,6 +1420,7 @@ function renderTable(){
 function renderPagination(total){
   const pages = Math.ceil(total/ROWS);
   const pg = document.getElementById('pagination');
+  if (!pg) return;
   if(pages<=1){pg.innerHTML='';return;}
   let html='';
   html+=`<button class="pg-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
@@ -1424,7 +1443,7 @@ function goPage(n){
   document.getElementById('table-section').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-renderTable();
+applyFilters();
 
 /* ═══════════════════════════════════════════════════════════════════
    D3 WORLD MAP — accurate country boundaries from real TopoJSON
@@ -1498,10 +1517,6 @@ function getStatusColor(status) {
   return colors[status] || colors.none;
 }
 
-// Active filter state shared with map
-let mapFilterStatus = 'all';
-let mapFilterRegion = 'all';
-
 // WHO region by topojson country name (approximate)
 const countryToWHO = {};
 policyData.forEach(d => {
@@ -1549,11 +1564,14 @@ function initD3Map() {
   svgSel.call(d3zoom);
 
   // Zoom controls
-  document.getElementById('zoom-in').onclick = () =>
+  const zi = document.getElementById('zoom-in');
+  const zo = document.getElementById('zoom-out');
+  const zr = document.getElementById('zoom-reset');
+  if (zi) zi.onclick = () =>
     svgSel.transition().duration(300).call(d3zoom.scaleBy, 1.5);
-  document.getElementById('zoom-out').onclick = () =>
+  if (zo) zo.onclick = () =>
     svgSel.transition().duration(300).call(d3zoom.scaleBy, 1/1.5);
-  document.getElementById('zoom-reset').onclick = () =>
+  if (zr) zr.onclick = () =>
     svgSel.transition().duration(400).call(d3zoom.transform, d3.zoomIdentity);
 
   // Load TopoJSON
@@ -1589,6 +1607,7 @@ function initD3Map() {
       // Attach interactions
       pathSel
         .on('mousemove', function(event, d) {
+          if (!tip) return;
           clearTimeout(tipTimeout);
           const name = d.properties.name;
           const status = countryStatus[name] || 'none';
@@ -1596,16 +1615,21 @@ function initD3Map() {
 
           const dataRow = resolveDataRowForTopoName(name);
 
-          document.getElementById('tip-country').textContent = name;
-          document.getElementById('tip-status-text').textContent = sc.label;
-          document.getElementById('tip-dot').style.background = sc.color;
+          const tc = document.getElementById('tip-country');
+          const tst = document.getElementById('tip-status-text');
+          const td = document.getElementById('tip-dot');
+          const tm = document.getElementById('tip-meta');
+          const tr = document.getElementById('tip-region');
+          if (tc) tc.textContent = name;
+          if (tst) tst.textContent = sc.label;
+          if (td) td.style.background = sc.color;
 
           if (dataRow) {
-            document.getElementById('tip-meta').textContent = 'Document year: ' + dataRow.year;
-            document.getElementById('tip-region').textContent = dataRow.region + ' · ' + dataRow.whoRegion;
+            if (tm) tm.textContent = 'Document year: ' + dataRow.year;
+            if (tr) tr.textContent = dataRow.region + ' · ' + dataRow.whoRegion;
           } else {
-            document.getElementById('tip-meta').textContent = 'Not in current repository';
-            document.getElementById('tip-region').textContent = '';
+            if (tm) tm.textContent = 'Not in current repository';
+            if (tr) tr.textContent = '';
           }
 
           tip.style.display = 'block';
@@ -1613,6 +1637,7 @@ function initD3Map() {
           positionTip(event);
         })
         .on('mouseleave', function() {
+          if (!tip) return;
           tip.classList.remove('visible');
           tipTimeout = setTimeout(() => { tip.style.display = 'none'; }, 200);
         })
@@ -1631,6 +1656,7 @@ function initD3Map() {
 }
 
 function positionTip(event) {
+  if (!tip) return;
   const tx = event.clientX + 16;
   const ty = event.clientY - 10;
   const tw = tip.offsetWidth;
