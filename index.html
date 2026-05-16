@@ -1545,10 +1545,39 @@ function openCountryDocumentTab(d) {
     }
     try { w.opener = null; } catch (e) {}
     const title = escHtml(d.country) + ' — NSP/NHP document';
-    const css = 'body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#071018;color:#e8edf4;line-height:1.65;max-width:44rem;margin:0 auto;padding:2rem 1.25rem}h1{font-family:Georgia,serif;font-size:1.35rem;font-weight:500;color:#7ee8ec;margin:0 0 .5rem}p{margin:0 0 1rem}.fn{font-size:0.9rem;color:rgba(232,237,244,.72)}code{font-size:0.82rem;word-break:break-all}.actions{margin-top:1.5rem;display:flex;flex-direction:column;align-items:flex-start;gap:0.65rem}.btn{display:inline-block;padding:0.65rem 1.15rem;background:rgba(42,181,187,.22);border:1px solid #2ab5bb;color:#f0f7fa;text-decoration:none;border-radius:4px;font-weight:600}.btn:hover{background:rgba(42,181,187,.35)}.note{margin-top:2rem;font-size:0.8rem;color:rgba(232,237,244,.55)}.doc-sum{border-left:3px solid rgba(42,181,187,.45);padding-left:1rem;margin:1rem 0}h2.sum{font-size:0.95rem;font-weight:600;color:#7ee8ec;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.06em}.btn span.f{display:block;font-size:0.72rem;font-weight:500;opacity:0.85;margin-bottom:0.15rem;letter-spacing:0.04em;text-transform:uppercase}';
-    w.document.write('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>' + title + '</title><style>' + css + '</style></head><body>');
+    const css =
+      "body{font-family:'DM Sans',system-ui,-apple-system,Segoe UI,sans-serif;background:#ffffff;color:#1e293b;line-height:1.65;max-width:42rem;margin:0 auto;padding:2rem 1.35rem;font-size:15px;-webkit-font-smoothing:antialiased}" +
+      "h1{font-family:'Playfair Display',Georgia,serif;font-size:1.5rem;font-weight:500;color:#0f172a;margin:0 0 0.75rem;line-height:1.25}" +
+      "p{margin:0 0 1rem}" +
+      ".intro{font-size:0.93rem;color:#475569;line-height:1.6}" +
+      ".fn{font-size:0.9rem;color:#475569;line-height:1.6}" +
+      ".fn strong{color:#0f172a;font-weight:600}" +
+      "code{font-size:0.8rem;word-break:break-all;font-family:ui-monospace,SFMono-Regular,monospace;background:#f1f5f9;color:#0f766e;padding:0.1rem 0.35rem;border-radius:3px;border:1px solid rgba(13,148,136,0.18)}" +
+      ".actions{margin-top:1.5rem;display:flex;flex-direction:column;align-items:flex-start;gap:0.65rem}" +
+      ".btn{display:inline-block;padding:0.55rem 1.15rem;background:#0d9488;border:1px solid #0f766e;color:#ffffff;text-decoration:none;border-radius:4px;font-weight:600;font-family:inherit;box-shadow:0 1px 2px rgba(15,23,42,0.06)}" +
+      ".btn:hover{background:#0f766e}" +
+      ".note{margin-top:1.75rem;font-size:0.8rem;color:#64748b;line-height:1.55}" +
+      ".doc-sum{border-left:3px solid #0d9488;padding:0.85rem 1rem;margin:1rem 0;background:#f8fafc;border-radius:0 4px 4px 0}" +
+      ".doc-sum p{margin:0;color:#334155;line-height:1.65}" +
+      "h2.sum{font-size:0.8rem;font-weight:600;color:#0f766e;margin:1.5rem 0 0.5rem;text-transform:uppercase;letter-spacing:0.07em}" +
+      ".btn .f{display:block;font-size:0.68rem;font-weight:600;margin-bottom:0.2rem;letter-spacing:0.06em;text-transform:uppercase;opacity:0.95}" +
+      "ul.fn{margin:0.35rem 0 0.25rem 1.1rem;padding:0;color:#475569;line-height:1.55}" +
+      "ul.fn li{margin:0.2rem 0}" +
+      "ul.fn code{font-size:0.78rem}";
+    w.document.write(
+      '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/>' +
+      '<meta name="viewport" content="width=device-width,initial-scale=1"/>' +
+      '<title>' + title + '</title>' +
+      '<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&amp;family=Playfair+Display:wght@500&amp;display=swap" rel="stylesheet"/>' +
+      '<style>' + css + '</style></head><body>'
+    );
     w.document.write('<h1>' + escHtml(d.country) + '</h1>');
-    w.document.write('<p class="fn">National Surgical &amp; Health Policy Atlas — catalogue details below; where <code>summaries.json</code> has been generated, a document-based summary is included.</p>');
+    w.document.write(
+      '<p class="intro">Catalogue entry for this country in the <strong>National Surgical &amp; Health Policy Atlas</strong>. ' +
+      'Metadata and repository file names are listed below. ' +
+      'Use the buttons to open each document. ' +
+      'When <code>summaries.json</code> includes this country, an excerpt from the indexed PDF appears under <strong>From the policy file</strong>.</p>'
+    );
     w.document.write(buildPolicySummaryHtml(d));
     if (extra) {
       w.document.write('<h2 class="sum">From the policy file</h2>');
@@ -1561,7 +1590,7 @@ function openCountryDocumentTab(d) {
       return '<a class="btn" href="' + escHtml(absUrl) + '" target="_blank" rel="noopener noreferrer"><span class="f">' + escHtml(it.short) + '</span>' + escHtml(verb) + '</a>';
     }).join('');
     w.document.write('<div class="actions">' + links + '</div>');
-    w.document.write('<p class="note">Regenerate summaries locally with <code>npm install</code> and <code>npm run summaries</code> (optional <code>OPENAI_API_KEY</code> for richer text). Use the repo root or GitHub Pages so file links resolve.</p></body></html>');
+    w.document.write('<p class="note">Optional: regenerate excerpt text locally with <code>npm install</code> and <code>npm run summaries</code> (add <code>OPENAI_API_KEY</code> for richer narratives). Links assume this site is served from the repository root or GitHub Pages.</p></body></html>');
     w.document.close();
   });
 }
