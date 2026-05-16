@@ -1127,25 +1127,12 @@ const WHO_REGIONS = [
 /* ═══════════════════════════════════════════════════════════════════
    NAV SCROLL
 ═══════════════════════════════════════════════════════════════════ */
-const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 20);
 }, {passive:true});
 
 /* Active nav link */
-const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
-const sections = ['home','map-section','table-section','how-section','contribute-section'];
-window.addEventListener('scroll', () => {
-  let cur = 'home';
-  for(const id of sections){
-    const el = document.getElementById(id);
-    if(el && el.getBoundingClientRect().top < 80) cur = id;
-  }
-  navLinks.forEach(a => {
-    const href = a.getAttribute('href').replace('#','');
-    a.classList.toggle('active', href === cur || (href==='map-section' && cur==='home'));
-  });
-}, {passive:true});
+/* nav active state handled above */
 
 /* ═══════════════════════════════════════════════════════════════════
    HERO STATS COUNT-UP
