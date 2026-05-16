@@ -1,0 +1,11 @@
+{
+  "name": "global-nsp-nhp-repository",
+  "private": true,
+  "description": "Generate summaries.json from policy PDFs (optional OpenAI refinement)",
+  "scripts": {
+    "summaries": "node scripts/generate-summaries.mjs"
+  },
+  "devDependencies": {
+    "pdf-parse": "^1.1.1"
+  }
+}
