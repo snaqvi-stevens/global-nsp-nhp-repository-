@@ -406,6 +406,9 @@ button,.nav-links a,.footer-links a,a.btn,a.doc-btn,a.nav-cta,a.champion-link{te
   background:rgba(5,13,24,0.9);
   border:1px solid rgba(42,181,187,0.2);border-radius:8px;
   padding:0.875rem 1rem;min-width:200px;
+  max-width:min(22rem, calc(100vw - 1.25rem));
+  max-height:calc(100vh - 1.5rem);
+  overflow:hidden;
   box-shadow:0 8px 40px rgba(0,0,0,0.7),0 0 0 1px rgba(42,181,187,0.05);
   backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
   opacity:0;transform:translateY(6px);
@@ -419,9 +422,14 @@ button,.nav-links a,.footer-links a,a.btn,a.doc-btn,a.nav-cta,a.champion-link{te
 .tip-summary{
   display:none;margin-top:0.45rem;padding-top:0.45rem;border-top:1px solid var(--rule-2);
   font-size:0.68rem;line-height:1.45;color:var(--fog-2);font-family:'DM Sans',sans-serif;
-  max-height:7.25rem;overflow-y:auto;
+  overflow-wrap:break-word;word-break:break-word;
 }
-.tip-summary:not([hidden]){display:block}
+.tip-summary:not([hidden]){
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:10;
+  overflow:hidden;
+}
 .tip-region{
   display:inline-block;margin-top:0.4rem;
   font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
@@ -1750,12 +1758,17 @@ function initD3Map() {
 
 function positionTip(event) {
   if (!tip) return;
-  const tx = event.clientX + 16;
-  const ty = event.clientY - 10;
+  const pad = 12;
+  let tx = event.clientX + 16;
+  let ty = event.clientY - 10;
   const tw = tip.offsetWidth;
   const th = tip.offsetHeight;
-  tip.style.left = (tx + tw > window.innerWidth - 10 ? event.clientX - tw - 10 : tx) + 'px';
-  tip.style.top  = (ty + th > window.innerHeight - 10 ? event.clientY - th - 10 : ty) + 'px';
+  if (tx + tw > window.innerWidth - pad) tx = event.clientX - tw - pad;
+  if (ty + th > window.innerHeight - pad) ty = event.clientY - th - pad;
+  tx = Math.max(pad, Math.min(tx, window.innerWidth - tw - pad));
+  ty = Math.max(pad, Math.min(ty, window.innerHeight - th - pad));
+  tip.style.left = tx + 'px';
+  tip.style.top = ty + 'px';
 }
 
 function updateMapFilters() {
