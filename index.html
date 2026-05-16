@@ -316,7 +316,7 @@ button{font-family:inherit;cursor:pointer}
 }
 .zoom-btn:hover{background:var(--teal-faint);border-color:var(--teal);color:var(--teal)}
 
-#world-map{width:100%;height:auto;display:block;background:var(--surface)}
+#world-map{width:100%;height:auto;display:block}
 
 /* Country paths */
 .country{
@@ -605,9 +605,6 @@ footer{
   footer .footer-inner{padding:0 1.25rem}
 }
 </style>
-<!-- D3 + TopoJSON for accurate world map -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 </head>
 <body>
 
@@ -720,9 +717,186 @@ footer{
             </div>
           </div>
 
-          <div style="overflow:hidden;position:relative" id="map-viewport">
-            <svg id="world-map" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;transition:transform 0.3s var(--ease-std);transform-origin:center">
-              <!-- Rendered by D3 from real TopoJSON data -->
+          <div style="overflow:hidden" id="map-viewport">
+            <svg id="world-map" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg"
+              style="transition:transform 0.3s var(--ease-std);transform-origin:center">
+              <!-- Countries are added by JS from data -->
+              <!-- Simplified accurate SVG paths for documented countries -->
+
+              <!-- Americas -->
+              <path class="country status-nhp" id="c-canada" data-c="Canada" data-r="Americas" data-who="AMRO" d="M115,55 L248,50 L255,115 L243,118 L118,122 Z"/>
+              <path class="country status-nhp" id="c-usa" data-c="United States" data-r="Americas" data-who="AMRO" d="M118,122 L243,118 L258,148 L262,175 L242,188 L218,195 L192,202 L165,198 L140,188 L120,168 L112,148 Z"/>
+              <path class="country status-nhp" id="c-mexico" data-c="Mexico" data-r="Americas" data-who="AMRO" d="M140,188 L218,195 L222,225 L202,238 L178,242 L152,228 L138,208 Z"/>
+              <path class="country status-nhp" id="c-brazil" data-c="Brazil" data-r="Americas" data-who="AMRO" d="M198,265 L272,260 L292,288 L288,335 L268,365 L242,378 L218,368 L202,348 L192,314 L188,288 Z"/>
+              <path class="country status-nhp" id="c-colombia" data-c="Colombia" data-r="Americas" data-who="AMRO" d="M168,258 L198,265 L192,290 L170,295 L157,280 L160,266 Z"/>
+              <path class="country status-nhp" id="c-peru" data-c="Peru" data-r="Americas" data-who="AMRO" d="M157,280 L190,288 L186,333 L162,338 L148,318 L146,298 Z"/>
+              <path class="country status-nhp" id="c-argentina" data-c="Argentina" data-r="Americas" data-who="AMRO" d="M218,368 L242,378 L240,418 L222,435 L206,423 L202,398 L208,378 Z"/>
+              <path class="country" id="c-venezuela" data-c="Venezuela" data-r="Americas" data-who="AMRO" d="M198,248 L233,245 L242,262 L222,268 L202,265 Z"/>
+              <path class="country" id="c-chile" data-c="Chile" data-r="Americas" data-who="AMRO" d="M202,348 L218,368 L208,423 L198,421 L194,394 L196,363 Z"/>
+              <path class="country" id="c-guatemala" data-c="Guatemala" data-r="Americas" data-who="AMRO" d="M178,242 L202,238 L207,252 L190,258 L178,252 Z"/>
+
+              <!-- Europe -->
+              <path class="country status-nhp" id="c-uk" data-c="United Kingdom" data-r="Europe" data-who="EURO" d="M428,88 L443,86 L446,102 L438,108 L426,106 Z"/>
+              <path class="country status-nhp" id="c-france" data-c="France" data-r="Europe" data-who="EURO" d="M438,108 L458,105 L463,122 L453,130 L436,128 L433,115 Z"/>
+              <path class="country status-nhp" id="c-germany" data-c="Germany" data-r="Europe" data-who="EURO" d="M453,93 L476,91 L480,108 L468,114 L455,111 Z"/>
+              <path class="country status-nsp" id="c-spain" data-c="Spain" data-r="Europe" data-who="EURO" d="M428,125 L458,122 L460,138 L440,142 L426,138 Z"/>
+              <path class="country status-nhp" id="c-italy" data-c="Italy" data-r="Europe" data-who="EURO" d="M458,120 L476,118 L483,132 L473,145 L460,142 L456,130 Z"/>
+              <path class="country status-nsp" id="c-sweden" data-c="Sweden" data-r="Europe" data-who="EURO" d="M460,63 L476,60 L480,80 L468,84 L458,80 Z"/>
+              <path class="country status-nhp" id="c-norway" data-c="Norway" data-r="Europe" data-who="EURO" d="M446,56 L460,53 L463,68 L453,72 L443,68 Z"/>
+              <path class="country status-nhp" id="c-poland" data-c="Poland" data-r="Europe" data-who="EURO" d="M476,89 L493,87 L496,103 L480,106 Z"/>
+              <path class="country status-nhp" id="c-ukraine" data-c="Ukraine" data-r="Europe" data-who="EURO" d="M488,93 L513,91 L516,108 L498,112 L486,106 Z"/>
+              <path class="country status-nhp" id="c-russia" data-c="Russia" data-r="Europe" data-who="EURO" d="M488,53 L678,48 L683,88 L513,91 L493,87 L486,70 Z"/>
+              <path class="country status-nhp" id="c-romania" data-c="Romania" data-r="Europe" data-who="EURO" d="M488,108 L510,106 L514,120 L498,125 L486,118 Z"/>
+              <path class="country status-nhp" id="c-austria" data-c="Austria" data-r="Europe" data-who="EURO" d="M458,108 L478,106 L480,118 L462,120 Z"/>
+              <path class="country status-nhp" id="c-czechrep" data-c="Czech Republic" data-r="Europe" data-who="EURO" d="M463,95 L480,93 L482,105 L465,107 Z"/>
+              <path class="country status-nhp" id="c-hungary" data-c="Hungary" data-r="Europe" data-who="EURO" d="M475,108 L493,106 L496,118 L478,121 Z"/>
+              <path class="country status-nhp" id="c-portugal" data-c="Portugal" data-r="Europe" data-who="EURO" d="M416,125 L428,123 L430,138 L418,140 Z"/>
+              <path class="country status-nhp" id="c-switzerland" data-c="Switzerland" data-r="Europe" data-who="EURO" d="M450,112 L463,110 L465,120 L452,122 Z"/>
+              <path class="country status-nhp" id="c-netherlands" data-c="Netherlands" data-r="Europe" data-who="EURO" d="M447,93 L456,91 L458,102 L449,104 Z"/>
+              <path class="country status-nhp" id="c-belgium" data-c="Belgium" data-r="Europe" data-who="EURO" d="M444,102 L456,100 L458,110 L446,112 Z"/>
+              <path class="country status-nhp" id="c-finland" data-c="Finland" data-r="Europe" data-who="EURO" d="M476,45 L498,42 L502,62 L480,65 Z"/>
+              <path class="country status-nhp" id="c-denmark" data-c="Denmark" data-r="Europe" data-who="EURO" d="M456,73 L468,71 L470,84 L458,86 Z"/>
+              <path class="country status-nhp" id="c-turkey" data-c="Turkey" data-r="Europe" data-who="EURO" d="M500,138 L535,135 L540,152 L518,158 L498,155 Z"/>
+              <path class="country status-nhp" id="c-serbia" data-c="Serbia" data-r="Europe" data-who="EURO" d="M479,118 L494,116 L496,128 L480,131 Z"/>
+              <path class="country status-nhp" id="c-bulgaria" data-c="Bulgaria" data-r="Europe" data-who="EURO" d="M490,120 L510,118 L513,130 L492,133 Z"/>
+              <path class="country status-nhp" id="c-greece" data-c="Greece" data-r="Europe" data-who="EURO" d="M483,132 L500,130 L503,145 L486,148 Z"/>
+              <path class="country status-nhp" id="c-belarus" data-c="Belarus" data-r="Europe" data-who="EURO" d="M490,78 L510,76 L513,90 L492,93 Z"/>
+              <path class="country status-nhp" id="c-latvia" data-c="Latvia" data-r="Europe" data-who="EURO" d="M480,65 L498,63 L500,76 L482,78 Z"/>
+              <path class="country status-nhp" id="c-lithuania" data-c="Lithuania" data-r="Europe" data-who="EURO" d="M480,76 L496,74 L498,86 L482,88 Z"/>
+              <path class="country status-nhp" id="c-estonia" data-c="Estonia" data-r="Europe" data-who="EURO" d="M480,57 L496,55 L498,66 L482,68 Z"/>
+              <path class="country status-nhp" id="c-moldova" data-c="Moldova" data-r="Europe" data-who="EURO" d="M506,108 L516,106 L518,118 L508,120 Z"/>
+              <path class="country status-nhp" id="c-slovakia" data-c="Slovakia" data-r="Europe" data-who="EURO" d="M475,100 L490,98 L492,108 L477,110 Z"/>
+              <path class="country status-nhp" id="c-croatia" data-c="Croatia" data-r="Europe" data-who="EURO" d="M466,118 L480,116 L482,128 L468,130 Z"/>
+              <path class="country status-nhp" id="c-slovenia" data-c="Slovenia" data-r="Europe" data-who="EURO" d="M458,116 L468,114 L470,124 L460,126 Z"/>
+              <path class="country status-nhp" id="c-iceland" data-c="Iceland" data-r="Europe" data-who="EURO" d="M395,42 L415,40 L417,52 L397,54 Z"/>
+              <path class="country status-nhp" id="c-ireland" data-c="Ireland" data-r="Europe" data-who="EURO" d="M417,85 L428,83 L430,95 L418,97 Z"/>
+              <path class="country status-nhp" id="c-malta" data-c="Malta" data-r="Europe" data-who="EURO" d="M463,150 L470,150 L471,156 L464,157 Z"/>
+              <path class="country status-nhp" id="c-israel" data-c="Israel" data-r="Europe" data-who="EURO" d="M520,168 L528,166 L530,178 L522,180 Z"/>
+              <path class="country status-nhp" id="c-albania" data-c="Albania" data-r="Europe" data-who="EURO" d="M475,128 L482,126 L484,138 L476,140 Z"/>
+              <path class="country status-nhp" id="c-northmac" data-c="North Macedonia" data-r="Europe" data-who="EURO" d="M482,130 L492,128 L494,138 L484,140 Z"/>
+              <path class="country status-nhp" id="c-montenegro" data-c="Montenegro" data-r="Europe" data-who="EURO" d="M472,128 L480,126 L482,136 L474,138 Z"/>
+              <path class="country status-nhp" id="c-bosnia" data-c="Bosnia and Herzegovina" data-r="Europe" data-who="EURO" d="M466,124 L478,122 L480,132 L468,134 Z"/>
+              <path class="country status-nhp" id="c-russia2" data-c="Russia" data-r="Europe" data-who="EURO" d="M683,48 L880,45 L882,82 L685,85 Z"/>
+              <path class="country status-nhp" id="c-kazakhstan" data-c="Kazakhstan" data-r="Europe" data-who="EURO" d="M568,88 L643,85 L648,115 L572,118 Z"/>
+              <path class="country status-nhp" id="c-uzbekistan" data-c="Uzbekistan" data-r="Europe" data-who="EURO" d="M572,118 L608,115 L612,132 L575,135 Z"/>
+              <path class="country status-nhp" id="c-kyrgyzstan" data-c="Kyrgyzstan" data-r="Europe" data-who="EURO" d="M608,115 L635,112 L638,125 L610,128 Z"/>
+              <path class="country status-nhp" id="c-tajikistan" data-c="Tajikistan" data-r="Europe" data-who="EURO" d="M608,128 L630,126 L633,140 L610,142 Z"/>
+              <path class="country status-nhp" id="c-armenia" data-c="Armenia" data-r="Europe" data-who="EURO" d="M538,148 L550,146 L552,156 L540,158 Z"/>
+              <path class="country status-nhp" id="c-georgia" data-c="Georgia" data-r="Europe" data-who="EURO" d="M518,142 L540,140 L542,152 L520,154 Z"/>
+              <path class="country status-nhp" id="c-azerbaijan" data-c="Azerbaijan" data-r="Europe" data-who="EURO" d="M548,148 L562,146 L565,160 L550,162 Z"/>
+              <path class="country status-nhp" id="c-turkmenistan" data-c="Turkmenistan" data-r="Europe" data-who="EURO" d="M565,130 L598,128 L601,150 L568,152 Z"/>
+              <path class="country status-nhp" id="c-luxembourg" data-c="Luxembourg" data-r="Europe" data-who="EURO" d="M449,107 L455,106 L456,113 L450,114 Z"/>
+              <path class="country status-nhp" id="c-sanmarino" data-c="San Marino" data-r="Europe" data-who="EURO" d="M462,124 L466,124 L467,128 L463,129 Z"/>
+              <path class="country status-nhp" id="c-andorra" data-c="Andorra" data-r="Europe" data-who="EURO" d="M437,127 L441,127 L442,131 L438,132 Z"/>
+
+              <!-- Africa -->
+              <path class="country status-nhp" id="c-egypt" data-c="Egypt" data-r="Africa" data-who="AFRO" d="M498,163 L527,160 L530,183 L513,188 L496,184 Z"/>
+              <path class="country status-nhp" id="c-algeria" data-c="Algeria" data-r="Africa" data-who="AFRO" d="M441,160 L475,158 L480,183 L460,186 L440,182 Z"/>
+              <path class="country status-nhp" id="c-morocco" data-c="Morocco" data-r="Africa" data-who="AFRO" d="M427,158 L442,156 L444,175 L429,178 Z"/>
+              <path class="country status-nhp" id="c-libya" data-c="Libya" data-r="Africa" data-who="AFRO" d="M475,158 L500,155 L503,178 L478,181 Z"/>
+              <path class="country status-nhp" id="c-mauritania" data-c="Mauritania" data-r="Africa" data-who="AFRO" d="M425,198 L452,195 L455,220 L428,223 Z"/>
+              <path class="country status-nhp" id="c-mali" data-c="Mali" data-r="Africa" data-who="AFRO" d="M432,218 L460,215 L463,238 L435,242 Z"/>
+              <path class="country status-nhp" id="c-niger" data-c="Niger" data-r="Africa" data-who="AFRO" d="M460,208 L492,205 L495,228 L463,232 Z"/>
+              <path class="country status-nhp" id="c-nigeria" data-c="Nigeria" data-r="Africa" data-who="AFRO" d="M450,228 L482,225 L486,248 L453,252 Z"/>
+              <path class="country status-both" id="c-ethiopia" data-c="Ethiopia" data-r="Africa" data-who="AFRO" d="M525,215 L555,212 L562,235 L552,255 L532,260 L518,248 L516,230 Z"/>
+              <path class="country status-nhp" id="c-southafrica" data-c="South Africa" data-r="Africa" data-who="AFRO" d="M496,345 L532,342 L538,368 L522,382 L504,378 L492,362 Z"/>
+              <path class="country status-nsp" id="c-ghana" data-c="Ghana" data-r="Africa" data-who="AFRO" d="M443,235 L463,233 L465,252 L446,255 Z"/>
+              <path class="country status-nsp" id="c-rwanda" data-c="Rwanda" data-r="Africa" data-who="AFRO" d="M525,255 L535,253 L537,263 L527,265 Z"/>
+              <path class="country status-nsp" id="c-namibia" data-c="Namibia" data-r="Africa" data-who="AFRO" d="M486,325 L512,322 L515,348 L490,352 Z"/>
+              <path class="country status-nsp" id="c-nigeria2" data-c="Nigeria" data-r="Africa" data-who="AFRO" d="M452,248 L483,245 L487,265 L455,268 Z"/>
+              <path class="country status-nsp" id="c-tanzania" data-c="Tanzania" data-r="Africa" data-who="AFRO" d="M528,258 L558,255 L562,278 L543,285 L526,278 Z"/>
+              <path class="country status-nsp" id="c-sierraleone" data-c="Sierra Leone" data-r="Africa" data-who="AFRO" d="M425,240 L440,238 L442,252 L427,255 Z"/>
+              <path class="country status-nhp" id="c-kenya" data-c="Kenya" data-r="Africa" data-who="AFRO" d="M538,240 L560,238 L565,258 L548,265 Z"/>
+              <path class="country status-nhp" id="c-chad" data-c="Chad" data-r="Africa" data-who="AFRO" d="M480,210 L510,207 L513,232 L483,235 Z"/>
+              <path class="country status-nhp" id="c-sudan" data-c="Sudan" data-r="Africa" data-who="AFRO" d="M507,190 L538,188 L542,212 L525,217 L510,214 Z"/>
+              <path class="country status-nhp" id="c-southsudan" data-c="South Sudan" data-r="Africa" data-who="AFRO" d="M507,215 L535,212 L538,235 L510,240 Z"/>
+              <path class="country status-nhp" id="c-angola" data-c="Angola" data-r="Africa" data-who="AFRO" d="M488,278 L516,275 L520,305 L496,310 Z"/>
+              <path class="country status-nhp" id="c-drc" data-c="Congo (DRC)" data-r="Africa" data-who="AFRO" d="M487,255 L523,252 L526,278 L508,285 L488,278 Z"/>
+              <path class="country status-nhp" id="c-congo" data-c="Congo" data-r="Africa" data-who="AFRO" d="M467,252 L490,250 L493,272 L470,275 Z"/>
+              <path class="country status-nhp" id="c-cameroon" data-c="Cameroon" data-r="Africa" data-who="AFRO" d="M466,235 L490,232 L493,252 L468,255 Z"/>
+              <path class="country status-nhp" id="c-senegal" data-c="Senegal" data-r="Africa" data-who="AFRO" d="M413,218 L430,215 L432,230 L415,232 Z"/>
+              <path class="country status-nhp" id="c-mali2" data-c="Mali" data-r="Africa" data-who="AFRO" d="M418,200 L445,197 L448,218 L420,222 Z"/>
+              <path class="country status-nhp" id="c-mozambique" data-c="Mozambique" data-r="Africa" data-who="AFRO" d="M525,295 L543,292 L546,322 L530,330 Z"/>
+              <path class="country status-nhp" id="c-madagascar" data-c="Madagascar" data-r="Africa" data-who="AFRO" d="M560,295 L578,293 L580,330 L562,333 Z"/>
+              <path class="country status-nhp" id="c-zambia" data-c="Zambia" data-r="Africa" data-who="AFRO" d="M505,298 L528,295 L530,320 L508,323 Z"/>
+              <path class="country status-nhp" id="c-zimbabwe" data-c="Zimbabwe" data-r="Africa" data-who="AFRO" d="M513,323 L533,320 L536,342 L515,345 Z"/>
+              <path class="country status-nhp" id="c-malawi" data-c="Malawi" data-r="Africa" data-who="AFRO" d="M536,300 L546,298 L548,318 L538,320 Z"/>
+              <path class="country status-nhp" id="c-uganda" data-c="Uganda" data-r="Africa" data-who="AFRO" d="M522,242 L540,240 L542,255 L524,258 Z"/>
+              <path class="country status-nhp" id="c-djibouti" data-c="Djibouti" data-r="Africa" data-who="AFRO" d="M550,225 L558,223 L560,233 L552,235 Z"/>
+              <path class="country status-nhp" id="c-eritrea" data-c="Eritrea" data-r="Africa" data-who="AFRO" d="M535,208 L552,205 L555,218 L537,220 Z"/>
+              <path class="country status-nhp" id="c-gabon" data-c="Gabon" data-r="Africa" data-who="AFRO" d="M464,258 L480,255 L483,272 L466,275 Z"/>
+              <path class="country status-nhp" id="c-gambia" data-c="Gambia" data-r="Africa" data-who="AFRO" d="M412,228 L423,226 L425,233 L413,235 Z"/>
+              <path class="country status-nhp" id="c-guinea" data-c="Guinea" data-r="Africa" data-who="AFRO" d="M416,235 L438,232 L440,248 L418,252 Z"/>
+              <path class="country status-nhp" id="c-guinea-bissau" data-c="Guinea-Bissau" data-r="Africa" data-who="AFRO" d="M412,232 L418,230 L420,242 L413,243 Z"/>
+              <path class="country status-nhp" id="c-ivorycoast" data-c="Côte d'Ivoire" data-r="Africa" data-who="AFRO" d="M432,240 L453,237 L455,255 L434,258 Z"/>
+              <path class="country status-nhp" id="c-burkina" data-c="Burkina Faso" data-r="Africa" data-who="AFRO" d="M438,225 L462,222 L464,238 L440,242 Z"/>
+              <path class="country status-nhp" id="c-togo" data-c="Togo" data-r="Africa" data-who="AFRO" d="M453,237 L460,235 L462,252 L454,254 Z"/>
+              <path class="country status-nhp" id="c-benin" data-c="Benin" data-r="Africa" data-who="AFRO" d="M458,232 L466,230 L468,248 L460,250 Z"/>
+              <path class="country status-nhp" id="c-liberia" data-c="Liberia" data-r="Africa" data-who="AFRO" d="M424,248 L438,245 L440,260 L425,262 Z"/>
+              <path class="country status-nhp" id="c-comoros" data-c="Comoros" data-r="Africa" data-who="AFRO" d="M558,290 L565,288 L567,297 L560,298 Z"/>
+              <path class="country status-nhp" id="c-capeverde" data-c="Cape Verde" data-r="Africa" data-who="AFRO" d="M390,210 L400,208 L402,218 L392,220 Z"/>
+              <path class="country status-nhp" id="c-eswatini" data-c="Eswatini" data-r="Africa" data-who="AFRO" d="M527,365 L535,363 L537,372 L528,374 Z"/>
+              <path class="country status-nhp" id="c-lesotho" data-c="Lesotho" data-r="Africa" data-who="AFRO" d="M513,365 L523,363 L525,372 L514,374 Z"/>
+              <path class="country status-nhp" id="c-botswana" data-c="Botswana" data-r="Africa" data-who="AFRO" d="M500,328 L525,325 L528,350 L502,354 Z"/>
+              <path class="country status-nhp" id="c-mauritius" data-c="Mauritius" data-r="Africa" data-who="AFRO" d="M580,308 L588,306 L590,315 L581,317 Z"/>
+              <path class="country status-nhp" id="c-seychelles" data-c="Seychelles" data-r="Africa" data-who="AFRO" d="M576,268 L583,266 L585,275 L577,276 Z"/>
+              <path class="country status-nhp" id="c-saotome" data-c="São Tomé and Príncipe" data-r="Africa" data-who="AFRO" d="M456,262 L462,261 L463,268 L457,268 Z"/>
+              <path class="country status-nhp" id="c-caf" data-c="Central African Republic" data-r="Africa" data-who="AFRO" d="M480,235 L510,232 L513,252 L483,255 Z"/>
+              <path class="country status-nhp" id="c-car2" data-c="Algeria" data-r="Africa" data-who="AFRO" d="M443,182 L478,180 L481,205 L445,208 Z"/>
+
+              <!-- Middle East / EMR -->
+              <path class="country status-nhp" id="c-iran" data-c="Iran" data-r="Eastern Mediterranean" data-who="EMR" d="M553,148 L588,145 L593,168 L570,175 L550,170 Z"/>
+              <path class="country status-nhp" id="c-iraq" data-c="Iraq" data-r="Eastern Mediterranean" data-who="EMR" d="M536,152 L556,150 L558,168 L538,172 Z"/>
+              <path class="country status-nhp" id="c-syria" data-c="Syria" data-r="Eastern Mediterranean" data-who="EMR" d="M518,138 L538,135 L540,152 L520,155 Z"/>
+              <path class="country status-nhp" id="c-saudi" data-c="Saudi Arabia" data-r="Eastern Mediterranean" data-who="EMR" d="M538,175 L576,172 L580,200 L555,205 Z"/>
+              <path class="country status-nhp" id="c-yemen" data-c="Yemen" data-r="Eastern Mediterranean" data-who="EMR" d="M550,195 L578,193 L580,210 L556,213 Z"/>
+              <path class="country status-nhp" id="c-qatar" data-c="Qatar" data-r="Eastern Mediterranean" data-who="EMR" d="M562,178 L568,177 L570,188 L563,189 Z"/>
+              <path class="country status-nhp" id="c-bahrain" data-c="Bahrain" data-r="Eastern Mediterranean" data-who="EMR" d="M556,175 L561,175 L562,181 L557,182 Z"/>
+              <path class="country status-both" id="c-oman" data-c="Oman" data-r="Eastern Mediterranean" data-who="EMR" d="M572,178 L592,175 L595,198 L575,202 Z"/>
+              <path class="country status-nhp" id="c-uae" data-c="UAE" data-r="Eastern Metropolitan" data-who="EMR" d="M565,168 L578,165 L580,178 L568,180 Z"/>
+              <path class="country status-nhp" id="c-jordan" data-c="Jordan" data-r="Eastern Mediterranean" data-who="EMR" d="M520,158 L536,155 L538,170 L522,173 Z"/>
+              <path class="country status-nhp" id="c-lebanon" data-c="Lebanon" data-r="Eastern Mediterranean" data-who="EMR" d="M516,148 L524,146 L526,155 L518,157 Z"/>
+              <path class="country status-nhp" id="c-afghanistan" data-c="Afghanistan" data-r="Eastern Mediterranean" data-who="EMR" d="M578,132 L610,130 L614,152 L582,155 Z"/>
+              <path class="country status-nsp" id="c-pakistan" data-c="Pakistan" data-r="Eastern Mediterranean" data-who="EMR" d="M580,148 L610,145 L614,168 L584,172 Z"/>
+              <path class="country status-nhp" id="c-somalia" data-c="Somalia" data-r="Eastern Mediterranean" data-who="EMR" d="M538,235 L562,232 L565,258 L540,262 Z"/>
+              <path class="country status-nsp" id="c-kuwait" data-c="Kuwait" data-r="Eastern Mediterranean" data-who="EMR" d="M545,165 L555,163 L557,172 L547,174 Z"/>
+              <path class="country status-nhp" id="c-tunisia" data-c="Tunisia" data-r="Eastern Mediterranean" data-who="EMR" d="M458,148 L470,146 L472,160 L460,162 Z"/>
+
+              <!-- South-East Asia / SEARO -->
+              <path class="country status-nhp" id="c-india" data-c="India" data-r="South-East Asia" data-who="SEARO" d="M598,158 L643,155 L650,182 L642,212 L625,235 L605,242 L590,233 L583,208 L585,182 Z"/>
+              <path class="country status-nhp" id="c-bangladesh" data-c="Bangladesh" data-r="South-East Asia" data-who="SEARO" d="M643,173 L657,170 L660,188 L645,192 Z"/>
+              <path class="country status-nhp" id="c-myanmar" data-c="Myanmar" data-r="South-East Asia" data-who="SEARO" d="M643,175 L663,172 L666,200 L648,205 Z"/>
+              <path class="country status-nhp" id="c-nepal" data-c="Nepal" data-r="South-East Asia" data-who="SEARO" d="M628,155 L646,152 L648,165 L630,168 Z"/>
+              <path class="country status-nhp" id="c-bhutan" data-c="Bhutan" data-r="South-East Asia" data-who="SEARO" d="M643,155 L655,153 L657,163 L645,165 Z"/>
+              <path class="country status-nhp" id="c-srilanka" data-c="Sri Lanka" data-r="South-East Asia" data-who="SEARO" d="M622,238 L632,236 L634,250 L623,252 Z"/>
+              <path class="country status-nhp" id="c-maldives" data-c="Maldives" data-r="South-East Asia" data-who="SEARO" d="M612,248 L618,247 L620,260 L613,261 Z"/>
+              <path class="country status-nhp" id="c-thailand" data-c="Thailand" data-r="South-East Asia" data-who="SEARO" d="M646,202 L666,200 L668,225 L650,228 Z"/>
+              <path class="country status-nhp" id="c-indonesia" data-c="Indonesia" data-r="South-East Asia" data-who="SEARO" d="M678,248 L728,245 L736,262 L718,268 L680,265 Z"/>
+              <path class="country status-nhp" id="c-timorleste" data-c="Timor-Leste" data-r="South-East Asia" data-who="SEARO" d="M732,265 L748,263 L750,273 L733,275 Z"/>
+              <path class="country status-nhp" id="c-dprkoreA" data-c="DPR Korea" data-r="South-East Asia" data-who="SEARO" d="M714,128 L733,126 L736,142 L716,145 Z"/>
+
+              <!-- Western Pacific / WPR -->
+              <path class="country status-nhp" id="c-china" data-c="China" data-r="Western Pacific" data-who="WPR" d="M643,118 L728,115 L738,152 L723,178 L698,188 L673,183 L648,173 L640,155 Z"/>
+              <path class="country status-nhp" id="c-japan" data-c="Japan" data-r="Western Pacific" data-who="WPR" d="M733,138 L752,135 L756,155 L740,160 L730,152 Z"/>
+              <path class="country status-nhp" id="c-korea" data-c="Republic of Korea" data-r="Western Pacific" data-who="WPR" d="M716,140 L733,138 L736,155 L718,158 Z"/>
+              <path class="country status-nhp" id="c-mongolia" data-c="Mongolia" data-r="Western Pacific" data-who="WPR" d="M653,98 L710,96 L714,118 L656,120 Z"/>
+              <path class="country status-nhp" id="c-australia" data-c="Australia" data-r="Western Pacific" data-who="WPR" d="M715,308 L773,305 L780,353 L760,373 L728,370 L710,348 Z"/>
+              <path class="country status-nhp" id="c-nz" data-c="New Zealand" data-r="Western Pacific" data-who="WPR" d="M780,358 L795,355 L798,372 L783,377 Z"/>
+              <path class="country status-nhp" id="c-philippines" data-c="Philippines" data-r="Western Pacific" data-who="WPR" d="M693,208 L715,205 L718,228 L695,232 Z"/>
+              <path class="country status-nhp" id="c-malaysia" data-c="Malaysia" data-r="Western Pacific" data-who="WPR" d="M656,238 L682,235 L685,248 L658,252 Z"/>
+              <path class="country status-nhp" id="c-vietnam" data-c="Vietnam" data-r="Western Pacific" data-who="WPR" d="M658,192 L673,190 L676,220 L660,223 Z"/>
+              <path class="country status-nhp" id="c-cambodia" data-c="Cambodia" data-r="Western Pacific" data-who="WPR" d="M653,220 L668,218 L670,235 L655,238 Z"/>
+              <path class="country status-nhp" id="c-singapore" data-c="Singapore" data-r="Western Pacific" data-who="WPR" d="M668,248 L674,247 L675,253 L669,254 Z"/>
+              <path class="country status-nhp" id="c-brunei" data-c="Brunei" data-r="Western Pacific" data-who="WPR" d="M680,232 L688,230 L690,240 L682,242 Z"/>
+              <path class="country status-nsp" id="c-fiji" data-c="Fiji" data-r="Western Pacific" data-who="WPR" d="M798,300 L808,298 L810,310 L800,312 Z"/>
+              <path class="country status-nsp" id="c-tonga" data-c="Tonga" data-r="Western Pacific" data-who="WPR" d="M815,318 L822,316 L824,325 L816,327 Z"/>
+              <path class="country status-nsp" id="c-samoa" data-c="Samoa" data-r="Western Pacific" data-who="WPR" d="M808,305 L816,303 L818,312 L810,314 Z"/>
+              <path class="country status-nhp" id="c-png" data-c="Papua New Guinea" data-r="Western Pacific" data-who="WPR" d="M733,268 L760,265 L762,283 L738,286 Z"/>
+              <path class="country status-nhp" id="c-solomon" data-c="Solomon Islands" data-r="Western Pacific" data-who="WPR" d="M768,278 L785,275 L787,288 L770,290 Z"/>
+              <path class="country status-nhp" id="c-marshall" data-c="Marshall Islands" data-r="Western Pacific" data-who="WPR" d="M825,235 L832,233 L834,242 L826,243 Z"/>
+              <path class="country status-nhp" id="c-micronesia" data-c="Micronesia" data-r="Western Pacific" data-who="WPR" d="M793,240 L802,238 L804,248 L795,249 Z"/>
+              <path class="country status-nhp" id="c-kiribati" data-c="Kiribati" data-r="Western Pacific" data-who="WPR" d="M820,270 L828,268 L830,278 L822,279 Z"/>
+              <path class="country status-nhp" id="c-niue" data-c="Niue" data-r="Western Pacific" data-who="WPR" d="M835,318 L840,317 L841,323 L836,324 Z"/>
             </svg>
           </div>
 
@@ -1164,14 +1338,21 @@ document.querySelectorAll('.filter-pill').forEach(btn=>{
 });
 
 function applyFilters(){
-  mapFilterStatus = activeFilter;
-  mapFilterRegion = activeRegion;
-  updateMapFilters();
+  const mapTitle = document.getElementById('map-title-label');
+  // Map
+  document.querySelectorAll('.country').forEach(el=>{
+    const s = el.dataset.s || el.getAttribute('class').match(/status-(\w+)/)?.[1];
+    const who = el.dataset.who || '';
+    const filterOk = activeFilter==='all' || s===activeFilter;
+    const regionOk = activeRegion==='all' || who===activeRegion;
+    el.classList.toggle('dimmed', !(filterOk && regionOk));
+  });
+  // Table
   currentPage=1;
   renderTable();
+  // Title
   const showing = getFiltered().length;
-  const mapTitle = document.getElementById('map-title-label');
-  mapTitle.textContent = (activeFilter==='all'?'All Types':SC[activeFilter]?.label||activeFilter)+(activeRegion==='all'?'':', '+(WHO_REGIONS.find(r=>r.key===activeRegion)?.label||activeRegion))+' — '+showing+' countr'+(showing===1?'y':'ies');
+  mapTitle.textContent = `${activeFilter==='all'?'All Types':SC[activeFilter]?.label||activeFilter}${activeRegion==='all'?'':', '+WHO_REGIONS.find(r=>r.key===activeRegion)?.label} — ${showing} countr${showing===1?'y':'ies'}`;
 }
 
 function getFiltered(){
@@ -1250,234 +1431,72 @@ function goPage(n){
 renderTable();
 
 /* ═══════════════════════════════════════════════════════════════════
-   D3 WORLD MAP — accurate country boundaries from real TopoJSON
+   MAP TOOLTIP
 ═══════════════════════════════════════════════════════════════════ */
-
-// Status lookup: topojson country name -> status
-const countryStatus = {
-  'Afghanistan': 'nhp', 'Albania': 'nhp', 'Algeria': 'nhp', 'Angola': 'nhp',
-  'Armenia': 'nhp', 'Australia': 'nhp', 'Austria': 'nhp', 'Azerbaijan': 'nhp',
-  'Bangladesh': 'nhp', 'Belarus': 'nhp', 'Belgium': 'nhp', 'Benin': 'nhp',
-  'Bhutan': 'nhp', 'Bosnia and Herz.': 'nhp', 'Botswana': 'nhp', 'Brunei': 'nhp',
-  'Bulgaria': 'nhp', 'Burkina Faso': 'nhp', 'Cambodia': 'both', 'Cameroon': 'nhp',
-  'Central African Rep.': 'nhp', 'Chad': 'nhp', 'China': 'nsp', 'Congo': 'nhp',
-  'Croatia': 'nhp', 'Cyprus': 'nhp', 'Czechia': 'nhp', 'Dem. Rep. Congo': 'nhp',
-  'Denmark': 'nsp', 'Djibouti': 'nhp', 'Egypt': 'nhp', 'Eritrea': 'nhp',
-  'Estonia': 'nhp', 'Ethiopia': 'both', 'Fiji': 'nsp', 'Finland': 'nhp',
-  'France': 'nhp', 'Gabon': 'nhp', 'Gambia': 'nhp', 'Georgia': 'nhp',
-  'Ghana': 'nsp', 'Greece': 'nhp', 'Guinea': 'nhp', 'Guinea-Bissau': 'nhp',
-  'Hungary': 'nhp', 'Iceland': 'nhp', 'India': 'nhp', 'Indonesia': 'nhp',
-  'Iran': 'nhp', 'Iraq': 'nhp', 'Ireland': 'nsp', 'Israel': 'nhp', 'Italy': 'nhp',
-  'Japan': 'nhp', 'Kazakhstan': 'nhp', 'Kenya': 'both', 'Kuwait': 'nsp',
-  'Kyrgyzstan': 'nhp', 'Latvia': 'nhp', 'Lebanon': 'nhp', 'Lesotho': 'nhp',
-  'Liberia': 'nhp', 'Lithuania': 'nhp', 'Luxembourg': 'nhp', 'Macedonia': 'nhp',
-  'Madagascar': 'nhp', 'Malawi': 'nhp', 'Malaysia': 'nhp', 'Mali': 'nhp',
-  'Mauritania': 'nhp', 'Moldova': 'nhp', 'Mongolia': 'nhp', 'Montenegro': 'nhp',
-  'Morocco': 'nhp', 'Mozambique': 'nhp', 'Myanmar': 'nhp', 'Namibia': 'nsp',
-  'Nepal': 'nhp', 'New Zealand': 'nhp', 'Nigeria': 'nsp', 'North Korea': 'nhp',
-  'Norway': 'nhp', 'Oman': 'both', 'Pakistan': 'nsp', 'Papua New Guinea': 'nhp',
-  'Philippines': 'nhp', 'Poland': 'nhp', 'Portugal': 'nhp', 'Qatar': 'nhp',
-  'Romania': 'nhp', 'Russia': 'nhp', 'Rwanda': 'nsp', 'S. Sudan': 'nhp',
-  'Saudi Arabia': 'nhp', 'Senegal': 'nhp', 'Serbia': 'nhp', 'Sierra Leone': 'nsp',
-  'Slovakia': 'nhp', 'Slovenia': 'nhp', 'Solomon Is.': 'nhp', 'Somalia': 'nhp',
-  'South Africa': 'nhp', 'South Korea': 'nhp', 'Spain': 'nsp', 'Sri Lanka': 'nhp',
-  'Sudan': 'nhp', 'Sweden': 'nsp', 'Switzerland': 'both', 'Syria': 'nhp',
-  'Tajikistan': 'nhp', 'Tanzania': 'nsp', 'Thailand': 'nhp', 'Timor-Leste': 'nhp',
-  'Togo': 'nhp', 'Tunisia': 'nhp', 'Turkey': 'nhp', 'Turkmenistan': 'nhp',
-  'Uganda': 'nhp', 'Ukraine': 'nhp', 'United Arab Emirates': 'nsp',
-  'United Kingdom': 'both', 'Uzbekistan': 'nhp', 'Vietnam': 'nhp', 'Yemen': 'nhp',
-  'Zimbabwe': 'nhp', 'eSwatini': 'nhp',
-};
-
-// Reverse lookup: our dataset country name -> topojson name
-const ourToTopo = {
-  'Congo (DRC)':'Dem. Rep. Congo','Czech Republic':'Czechia',
-  'Bosnia and Herzegovina':'Bosnia and Herz.','North Macedonia':'Macedonia',
-  'Republic of Korea':'South Korea','DPR Korea':'North Korea',
-  'South Sudan':'S. Sudan','Central African Republic':'Central African Rep.',
-  'Eswatini':'eSwatini','Solomon Islands':'Solomon Is.',
-};
-
 const tip = document.getElementById('map-tip');
 let tipTimeout;
 
-// Build lookup: our dataset country name -> data row
+// Build lookup from country name
 const lookup = {};
-policyData.forEach(d => { lookup[d.country.toLowerCase()] = d; });
+policyData.forEach(d=>{lookup[d.country.toLowerCase()]=d});
 
-// Color function
-function getStatusColor(status) {
-  const colors = {
-    both: 'var(--c-both)', nsp: 'var(--c-nsp)',
-    nhp: 'var(--c-nhp)', none: 'var(--c-none)'
-  };
-  return colors[status] || colors.none;
-}
+document.querySelectorAll('.country').forEach(el=>{
+  el.addEventListener('mousemove', e=>{
+    clearTimeout(tipTimeout);
+    const cname = el.dataset.c||'';
+    const d = lookup[cname.toLowerCase()];
+    const s = d?.status || el.getAttribute('class').match(/status-(\w+)/)?.[1] || 'none';
+    const sc = SC[s]||SC.none;
 
-// Active filter state shared with map
-let mapFilterStatus = 'all';
-let mapFilterRegion = 'all';
+    document.getElementById('tip-country').textContent = cname;
+    document.getElementById('tip-status-text').textContent = sc.label;
+    document.getElementById('tip-dot').style.background = sc.color;
 
-// WHO region by topojson country name (approximate)
-const countryToWHO = {};
-policyData.forEach(d => {
-  const topo = ourToTopo[d.country] || d.country;
-  countryToWHO[topo] = d.whoRegion;
+    if(d){
+      document.getElementById('tip-meta').textContent = `Document year: ${d.year}`;
+      document.getElementById('tip-region').textContent = d.region+' · '+d.whoRegion;
+    } else {
+      document.getElementById('tip-meta').textContent = 'Not in current repository';
+      document.getElementById('tip-region').textContent = el.dataset.r||'';
+    }
+
+    tip.style.display='block';
+    setTimeout(()=>tip.classList.add('visible'),10);
+
+    const tx = e.clientX+16, ty = e.clientY-10;
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    tip.style.left = (tx+tw>window.innerWidth-10 ? e.clientX-tw-10 : tx)+'px';
+    tip.style.top  = (ty+th>window.innerHeight-10? e.clientY-th-10 : ty)+'px';
+  });
+
+  el.addEventListener('mouseleave',()=>{
+    tip.classList.remove('visible');
+    tipTimeout = setTimeout(()=>{tip.style.display='none'},200);
+  });
+
+  el.addEventListener('click',()=>{
+    const cname = el.dataset.c||'';
+    const d = lookup[cname.toLowerCase()];
+    if(d){
+      document.getElementById('search-input').value = cname;
+      currentPage=1;
+      renderTable();
+      document.getElementById('table-section').scrollIntoView({behavior:'smooth'});
+    }
+  });
 });
 
-// D3 map setup
-const svgEl = document.getElementById('world-map');
-let d3zoom, svgSel, pathSel;
-
-function initD3Map() {
-  const container = svgEl.parentElement;
-  const W = container.clientWidth || 900;
-  const H = Math.round(W * 0.5);
-
-  svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  svgEl.setAttribute('width', W);
-  svgEl.setAttribute('height', H);
-
-  svgSel = d3.select('#world-map');
-  svgSel.selectAll('*').remove();
-
-  const g = svgSel.append('g').attr('id', 'map-g');
-
-  const projection = d3.geoNaturalEarth1()
-    .scale(W / 6.28)
-    .translate([W / 2, H / 2]);
-
-  const pathGen = d3.geoPath().projection(projection);
-
-  // Zoom behavior
-  d3zoom = d3.zoom()
-    .scaleExtent([1, 8])
-    .translateExtent([[0, 0], [W, H]])
-    .on('zoom', (event) => {
-      g.attr('transform', event.transform);
-    });
-
-  svgSel.call(d3zoom);
-
-  // Zoom controls
-  document.getElementById('zoom-in').onclick = () =>
-    svgSel.transition().duration(300).call(d3zoom.scaleBy, 1.5);
-  document.getElementById('zoom-out').onclick = () =>
-    svgSel.transition().duration(300).call(d3zoom.scaleBy, 1/1.5);
-  document.getElementById('zoom-reset').onclick = () =>
-    svgSel.transition().duration(400).call(d3zoom.transform, d3.zoomIdentity);
-
-  // Load TopoJSON
-  fetch('countries-110m.json')
-    .then(r => r.json())
-    .then(world => {
-      const countries = topojson.feature(world, world.objects.countries);
-
-      pathSel = g.selectAll('.country')
-        .data(countries.features)
-        .enter()
-        .append('path')
-        .attr('class', d => {
-          const name = d.properties.name;
-          const status = countryStatus[name];
-          return 'country' + (status ? ' status-' + status : '');
-        })
-        .attr('data-name', d => d.properties.name)
-        .attr('d', pathGen)
-        .style('fill', d => {
-          const name = d.properties.name;
-          const status = countryStatus[name] || 'none';
-          return getStatusColor(status);
-        })
-        .style('stroke', '#fff')
-        .style('stroke-width', '0.5px')
-        .style('cursor', d => countryStatus[d.properties.name] ? 'pointer' : 'default')
-        .style('transition', 'opacity 200ms, fill 200ms');
-
-      // Attach interactions
-      pathSel
-        .on('mousemove', function(event, d) {
-          clearTimeout(tipTimeout);
-          const name = d.properties.name;
-          const status = countryStatus[name] || 'none';
-          const sc = SC[status] || SC.none;
-
-          // Find matching data row (try exact name, then our mapping)
-          const dataRow = lookup[name.toLowerCase()] ||
-            Object.values(lookup).find(row => (ourToTopo[row.country] || row.country) === name);
-
-          document.getElementById('tip-country').textContent = name;
-          document.getElementById('tip-status-text').textContent = sc.label;
-          document.getElementById('tip-dot').style.background = sc.color;
-
-          if (dataRow) {
-            document.getElementById('tip-meta').textContent = 'Document year: ' + dataRow.year;
-            document.getElementById('tip-region').textContent = dataRow.region + ' · ' + dataRow.whoRegion;
-          } else {
-            document.getElementById('tip-meta').textContent = 'Not in current repository';
-            document.getElementById('tip-region').textContent = '';
-          }
-
-          tip.style.display = 'block';
-          setTimeout(() => tip.classList.add('visible'), 10);
-          positionTip(event);
-        })
-        .on('mouseleave', function() {
-          tip.classList.remove('visible');
-          tipTimeout = setTimeout(() => { tip.style.display = 'none'; }, 200);
-        })
-        .on('click', function(event, d) {
-          const name = d.properties.name;
-          const dataRow = lookup[name.toLowerCase()] ||
-            Object.values(lookup).find(row => (ourToTopo[row.country] || row.country) === name);
-          if (dataRow) {
-            document.getElementById('search-input').value = dataRow.country;
-            currentPage = 1;
-            renderTable();
-            document.getElementById('table-section').scrollIntoView({behavior:'smooth'});
-          }
-        });
-
-      // Apply initial filter state
-      updateMapFilters();
-    })
-    .catch(err => {
-      console.error('Map load error:', err);
-      svgEl.innerHTML = '<text x="50%" y="50%" text-anchor="middle" fill="#5a6a7a" font-size="14">Map data unavailable — please ensure countries-110m.json is in the same folder.</text>';
-    });
+/* ═══════════════════════════════════════════════════════════════════
+   MAP ZOOM (simulated)
+═══════════════════════════════════════════════════════════════════ */
+const mapSvg = document.getElementById('world-map');
+let zoom=1, panX=0, panY=0;
+function updateMap(){
+  mapSvg.style.transform=`scale(${zoom}) translate(${panX}px,${panY}px)`;
 }
-
-function positionTip(event) {
-  const tx = event.clientX + 16;
-  const ty = event.clientY - 10;
-  const tw = tip.offsetWidth;
-  const th = tip.offsetHeight;
-  tip.style.left = (tx + tw > window.innerWidth - 10 ? event.clientX - tw - 10 : tx) + 'px';
-  tip.style.top  = (ty + th > window.innerHeight - 10 ? event.clientY - th - 10 : ty) + 'px';
-}
-
-function updateMapFilters() {
-  if (!pathSel) return;
-  pathSel.style('opacity', d => {
-    const name = d.properties.name;
-    const status = countryStatus[name];
-    const who = countryToWHO[name];
-    const typeOk = mapFilterStatus === 'all' || status === mapFilterStatus;
-    const regionOk = mapFilterRegion === 'all' || who === mapFilterRegion;
-    if (!status) return 0.35; // not in repo
-    return (typeOk && regionOk) ? 1 : 0.08;
-  });
-}
-
-// Resize handler
-let resizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(initD3Map, 200);
-}, {passive: true});
-
-// Initialize map
-initD3Map();
+document.getElementById('zoom-in').addEventListener('click',()=>{zoom=Math.min(zoom*1.3,4);updateMap()});
+document.getElementById('zoom-out').addEventListener('click',()=>{zoom=Math.max(zoom/1.3,1);if(zoom===1){panX=0;panY=0;}updateMap()});
+document.getElementById('zoom-reset').addEventListener('click',()=>{zoom=1;panX=0;panY=0;updateMap()});
 
 /* ═══════════════════════════════════════════════════════════════════
    SCROLL REVEAL
