@@ -1001,10 +1001,17 @@ footer{
 
 <!-- ── SCROLL REVEAL ── -->
 <script>
-const revObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
-},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(typeof IntersectionObserver==='undefined'){
+    els.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var revObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
+  },{threshold:0.1});
+  els.forEach(function(el){ revObs.observe(el); });
+})();
 </script>
 
 <script>
@@ -1212,6 +1219,8 @@ let activeFilter = 'all';
 let activeRegion = 'all';
 let mapFilterStatus = 'all';
 let mapFilterRegion = 'all';
+/* Declared before applyFilters() so updateMapFilters() does not hit the pathSel TDZ. */
+let d3zoom, svgSel, pathSel;
 const fc = {all:total, both, nsp, nhp};
 setText('fc-all', String(total));
 setText('fc-both', String(both));
@@ -1526,8 +1535,6 @@ policyData.forEach(d => {
 
 // D3 map setup
 const svgEl = document.getElementById('world-map');
-
-let d3zoom, svgSel, pathSel;
 
 function initD3Map() {
   if (!svgEl || typeof d3 === 'undefined' || typeof topojson === 'undefined') {
