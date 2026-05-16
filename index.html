@@ -927,22 +927,23 @@ footer{
 
 <!-- ── NAV SCROLL ── -->
 <script>
-const nav=document.getElementById('nav');
-const navLinksAll=document.querySelectorAll('.nav-links a:not(.nav-cta)');
-
-window.addEventListener('scroll',()=>{
-  nav.classList.toggle('scrolled',window.scrollY>30);
-  const ids=['home','map-section','table-section','how-section','contribute-section'];
-  let cur='home';
-  for(const id of ids){
-    const el=document.getElementById(id);
-    if(el&&el.getBoundingClientRect().top<90)cur=id;
-  }
-  navLinksAll.forEach(a=>{
-    const h=a.getAttribute('href').replace('#','');
-    a.classList.toggle('active',h===cur||(h==='map-section'&&cur==='home'));
-  });
-},{passive:true});
+(function(){
+  const navEl=document.getElementById('nav');
+  const navLinksAll=document.querySelectorAll('.nav-links a:not(.nav-cta)');
+  window.addEventListener('scroll',()=>{
+    navEl.classList.toggle('scrolled',window.scrollY>30);
+    const ids=['home','map-section','table-section','how-section','contribute-section'];
+    let cur='home';
+    for(const id of ids){
+      const el=document.getElementById(id);
+      if(el&&el.getBoundingClientRect().top<90)cur=id;
+    }
+    navLinksAll.forEach(a=>{
+      const h=a.getAttribute('href').replace('#','');
+      a.classList.toggle('active',h===cur||(h==='map-section'&&cur==='home'));
+    });
+  },{passive:true});
+})();
 </script>
 
 <!-- ── SCROLL REVEAL ── -->
