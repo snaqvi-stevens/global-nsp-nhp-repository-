@@ -1290,14 +1290,16 @@ function renderTable(){
   const slice = filtered.slice(start, start+ROWS);
   const tbody = document.getElementById('table-body');
   tbody.innerHTML = slice.map(d=>{
-    const driveBase = 'Region-wise NSP-NHP documents [Living Repository';
+    const subfolders = {'AFRO':'AFRO','EMR':'EMR NSP-NHP Documents','EURO':'EURO','SEARO':'SEARO','WPR':'WPR NSP-NHP Documents'};
+    const subfolder = subfolders[d.whoRegion] || d.whoRegion;
+    const pdfPath = 'Region-wise NSP-NHP documents [Living Repository/' + subfolder + '/' + d.file;
     return `<tr>
       <td><strong>${d.country}</strong></td>
-      <td><span class="who-tag">${d.whoRegion}</span> <span style="font-size:0.78rem;color:var(--muted)">${d.region}</span></td>
+      <td><span class="who-tag">${d.whoRegion}</span> <span style="font-size:0.78rem;color:var(--fog-3)">${d.region}</span></td>
       <td><span class="badge ${d.status}"><span class="dot"></span>${d.docType}</span></td>
-      <td style="font-variant-numeric:tabular-nums;color:var(--muted)">${d.year}</td>
+      <td style="font-variant-numeric:tabular-nums;color:var(--fog-3)">${d.year}</td>
       <td>
-        <a class="doc-btn" href="${driveBase}/${encodeURIComponent(d.file)}" target="_blank">
+        <a class="doc-btn" href="${pdfPath}" target="_blank">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           View PDF
         </a>
