@@ -425,6 +425,8 @@ body{
 /* ── TABLE SECTION ── */
 #table-section{padding:1.75rem 0 5rem;border-top:1px solid var(--rule-2)}
 #table-section .section-h2{margin-bottom:0.35rem}
+/* Opacity-only in this section: translateY on .reveal can composite badly next to the table in WebKit */
+#table-section .reveal{transform:none}
 .table-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:0.55rem}
 .search-wrap{position:relative;display:flex;align-items:center}
 .search-wrap svg{position:absolute;left:0.75rem;width:12px;height:12px;stroke:var(--fog-3);stroke-width:2;fill:none;pointer-events:none}
@@ -439,13 +441,11 @@ body{
 #search-input::placeholder{color:var(--fog-3)}
 .table-meta{font-size:0.75rem;line-height:1.35;color:var(--fog-3);font-family:'DM Sans',sans-serif}
 .table-meta span{font-weight:600;color:var(--fog-2)}
-/* overflow-y visible so sticky <th> isn't trapped in a scrollport (breaks WebKit paint order) */
-.tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow-x:auto;overflow-y:visible;background:rgba(5,13,24,0.5)}
-/* separate + 0 spacing: collapse + sticky th breaks row order in Safari/WebKit */
-.data-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.78rem;font-family:'DM Sans',sans-serif}
+.tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:auto;background:rgba(5,13,24,0.5)}
+/* No sticky on <th>: Safari/WebKit still mis-orders thead vs first tbody row with sticky table cells */
+.data-table{width:100%;border-collapse:collapse;border-spacing:0;font-size:0.78rem;font-family:'DM Sans',sans-serif}
 .data-table thead{background:transparent}
 .data-table thead th{
-  position:sticky;top:62px;z-index:11;
   padding:0.12rem 0.875rem 0.14rem;
   line-height:1.15;
   vertical-align:middle;
