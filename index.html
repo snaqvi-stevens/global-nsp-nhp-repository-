@@ -1072,7 +1072,7 @@ const policyData = [
   {country:"Togo",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"TGO_Togo_Plan-National-de-D\u00e9veloppement-Sanitaire 2017-2022.pdf"},
   {country:"Uganda",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"UGA_Uganda_Ministry-of-Health-Strategic-Plan_2020-2025.pdf"},
   {country:"Zimbabwe",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"revised_National_Health_Policy.pdf"},
-  {country:"Afghanistan",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2016",file:"afghanistan_mophstrategy2016-2020.pdf"},
+  {country:"Afghanistan",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2016",file:"afghanistan_mophstrategy2016-2020_final09september2016111201614508950553325325.pdf"},
   {country:"Bahrain",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2016",file:"BHR_Barhain_National-Health-Plan_2016-2025.pdf"},
   {country:"Iran",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2017",file:"iran_6th_five_year_development_plan_2017-2021.pdf"},
   {country:"Iraq",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2021",file:"Iraq Reconstruction and Investment.pdf"},
@@ -1168,8 +1168,8 @@ const policyData = [
   {country:"Republic of Korea",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2021",file:"Republic of Korea NHP Summary 2021-2030.pdf"},
   {country:"Samoa",region:"Western Pacific",whoRegion:"WPR",status:"nsp",docType:"NSP",year:"2019",file:"Samoa NHP (Obstetrics) 2019-2030.pdf"},
   {country:"Singapore",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2022",file:"Singapore NHP 2022.pdf"},
-  {country:"Solomon Islands",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2022",file:"Solomon Islands NHSP 2022-2031.pdf"},
-  {country:"Tonga",region:"Western Pacific",whoRegion:"WPR",status:"nsp",docType:"NSP",year:"2023",file:"Tonga NSP 2023-2030.pdf"},
+  {country:"Solomon Islands",region:"Western Pacific",whoRegion:"WPR",docSubfolder:"SEARO",status:"nhp",docType:"NHP",year:"2022",file:"Solomon Islands NHSP 2022-2031.pdf"},
+  {country:"Tonga",region:"Western Pacific",whoRegion:"WPR",docSubfolder:"SEARO",status:"nsp",docType:"NSP",year:"2023",file:"Tonga NSP 2023-2030.pdf"},
   {country:"Vietnam",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2026",file:"National Surgical Obstetric and Anaesthesia Plan 20262031.pdf"},
 ];
 
@@ -1330,19 +1330,22 @@ function applyFilters(){
 function getFiltered(){
   const si = document.getElementById('search-input');
   const q = si && si.value ? si.value.toLowerCase() : '';
-  return policyData.filter(d=>{
+  const rows = policyData.filter(d=>{
     const typeOk = activeFilter==='all'||d.status===activeFilter;
     const regionOk = activeRegion==='all'||d.whoRegion===activeRegion;
     const searchOk = !q||d.country.toLowerCase().includes(q)||d.region.toLowerCase().includes(q)||d.whoRegion.toLowerCase().includes(q);
     return typeOk&&regionOk&&searchOk;
   });
+  rows.sort((a,b)=>a.country.localeCompare(b.country,'en',{sensitivity:'base'}));
+  return rows;
 }
 
 const REPO_SUBFOLDERS = {'AFRO':'AFRO','EMR':'EMR NSP-NHP Documents','EURO':'EURO','SEARO':'SEARO','WPR':'WPR NSP-NHP Documents'};
 
 function getDocHref(d) {
-  const sub = REPO_SUBFOLDERS[d.whoRegion] || d.whoRegion;
-  return ['Region-wise NSP-NHP documents [Living Repository', sub, d.file]
+  const sub = d.docSubfolder || REPO_SUBFOLDERS[d.whoRegion] || d.whoRegion;
+  const fileSeg = typeof d.file === 'string' ? d.file.normalize('NFD') : '';
+  return ['Region-wise NSP-NHP documents [Living Repository', sub, fileSeg]
     .map(encodeURIComponent).join('/');
 }
 
