@@ -120,7 +120,7 @@ async function main() {
       'https://api.worldbank.org/v2/country/all/indicator/NY.GNP.PCAP.CD?format=json&per_page=400&date=2020:2024&MRV=1',
     ),
     fetchJson(
-      'https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/slim-2/slim-2.json',
+      'https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/slim-3/slim-3.json',
     ),
     fs.promises.readFile(path.join(ROOT, 'countries-110m.json'), 'utf8').then(JSON.parse),
   ]);

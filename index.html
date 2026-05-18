@@ -2014,10 +2014,7 @@ function updateMapFilters() {
     const who = countryToWHO[name];
     const typeOk = mapFilterStatus === 'all' || status === mapFilterStatus;
     const regionOk = mapFilterRegion === 'all' || who === mapFilterRegion;
-    if (mapViewMode === 'income') {
-      if (!status) return 1;
-      return typeOk && regionOk ? 1 : 0.4;
-    }
+    if (mapViewMode === 'income') return 1;
     if (!status) return 0.35;
     return typeOk && regionOk ? 1 : 0.08;
   });
