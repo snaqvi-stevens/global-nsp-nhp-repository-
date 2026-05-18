@@ -1,136 +1,129 @@
 # Hosting on Hostinger — globalsurgeryconnect.org
 
-Full guide to connect this repository to **https://globalsurgeryconnect.org/**, upload PDFs, and keep the site updated on Hostinger.
+Deploy the atlas to **https://globalsurgeryconnect.org/atlas/** by connecting this GitHub repo to Hostinger with **auto-deploy** enabled.
 
-**Related:** general maintainer workflow (GitHub / catalogue build) is in [README.md](README.md).
-
----
-
-## What you are hosting
-
-This project is a **static website** (HTML + JSON + images + PDFs). Hostinger serves files from disk; visitors’ browsers run the map and table. You do **not** need Node.js on Hostinger for the live site.
-
-| Needed on Hostinger | Not needed on Hostinger |
-|---------------------|-------------------------|
-| `index.html` | `node_modules/` |
-| `catalogue.json` | `scripts/` (unless you want them for reference) |
-| `summaries.json` (optional, for map excerpts) | `.git/` |
-| `countries-110m.json` (world map data) | Running `npm run catalogue` on the server |
-| `logo.png` | |
-| Folder `Region-wise NSP-NHP documents [Living Repository]/` and all PDFs inside | |
+**Related:** day-to-day PDF and catalogue steps are in [README.md](README.md).
 
 ---
 
-## Recommended URL layout
+## Recommended approach: GitHub → Hostinger (auto-deploy)
 
-Because **globalsurgeryconnect.org** is likely already your main Global Surgery Connect site, host the atlas in a **subfolder** (safest):
+| Layer | Role |
+|-------|------|
+| **GitHub** (`main` branch) | Single source of truth — PDFs, `catalogue.json`, `index.html`, all site files |
+| **GitHub Actions** | Optionally regenerates `catalogue.json` when PDFs change (see [build-catalogue.yml](.github/workflows/build-catalogue.yml)) |
+| **Hostinger Git** | Pulls from GitHub on each push and deploys to `public_html/atlas/` |
+| **Live site** | **https://globalsurgeryconnect.org/atlas/** |
 
-| Public URL | Folder on server |
-|------------|------------------|
-| **https://globalsurgeryconnect.org/atlas/** | `public_html/atlas/` |
-
-If the atlas should be the **only** thing on the domain (no separate GSC homepage), use `public_html/` as the root instead of `public_html/atlas/`. The steps below use **`/atlas/`**; for root hosting, replace `atlas` with `public_html` everywhere.
-
----
-
-## Part 1 — One-time setup on Hostinger
-
-### 1. Log in
-
-1. Go to [https://www.hostinger.com](https://www.hostinger.com) and sign in.
-2. Open **hPanel**.
-3. Under **Websites**, select **globalsurgeryconnect.org**.
-
-### 2. Confirm hosting is active
-
-- You should see **File Manager**, **FTP**, and **SSL** for this domain.
-- If you only bought the domain and have no hosting plan, add **Web Hosting** in hPanel and attach **globalsurgeryconnect.org** to it.
-
-### 3. Turn on HTTPS (SSL)
-
-1. In hPanel → **SSL** (or **Security** → SSL).
-2. Enable **Free SSL** (Let’s Encrypt) for **globalsurgeryconnect.org**.
-3. Wait a few minutes, then test **https://globalsurgeryconnect.org** (not `http://`).
-
-### 4. Create the atlas folder
-
-1. **Files** → **File Manager**.
-2. Open **`public_html`**.
-3. Click **New folder** → name it **`atlas`**.
-4. Open the **`atlas`** folder. All repository files go **inside** this folder.
-
-Your structure should look like:
+You **do not** upload each file to Hostinger by hand after setup. You **commit and push to GitHub**; Hostinger updates the live site.
 
 ```
-public_html/
-├── (existing GSC site files — index.php, WordPress, etc. — if any)
-└── atlas/
-    ├── index.html
-    ├── catalogue.json
-    ├── summaries.json
-    ├── countries-110m.json
-    ├── logo.png
-    └── Region-wise NSP-NHP documents [Living Repository]/
-        ├── AFRO/
-        ├── EMR NSP-NHP Documents/
-        ├── EURO/
-        ├── SEARO/
-        └── WPR NSP-NHP Documents/
+Maintainer → push to GitHub (main)
+                ↓
+     GitHub Actions (optional) → updates catalogue.json
+                ↓
+     Hostinger webhook / auto-deploy → public_html/atlas/
+                ↓
+     https://globalsurgeryconnect.org/atlas/
 ```
 
 ---
 
-## Part 2 — Connect / upload the repository (first time)
+## What gets deployed
 
-You are **copying files** from your computer (or GitHub) to Hostinger. The domain does not “clone” Git automatically unless you set up Hostinger’s Git feature (optional, see Part 5).
+Hostinger copies the repo into **`public_html/atlas/`**. Required for the site:
 
-### Option A — File Manager (good for first try, smaller uploads)
+- `index.html`
+- `catalogue.json`
+- `countries-110m.json`
+- `summaries.json` (optional)
+- `logo.png`
+- `Region-wise NSP-NHP documents [Living Repository]/` (all PDFs)
 
-1. On your computer, open the project folder (clone from GitHub or use your Desktop copy).
-2. In hPanel → **File Manager** → `public_html/atlas/`.
-3. Click **Upload** and upload:
-   - `index.html`
-   - `catalogue.json`
-   - `summaries.json`
-   - `countries-110m.json`
-   - `logo.png`
-4. Upload the entire folder **`Region-wise NSP-NHP documents [Living Repository]`** (keep the **exact name**).
-   - If the uploader struggles, zip the folder on your Mac/PC, upload the `.zip`, then **Extract** in File Manager inside `atlas/`.
+Not required on the server: `node_modules/`, `.git/` (Hostinger usually omits these automatically).
 
-5. Visit **https://globalsurgeryconnect.org/atlas/** and hard-refresh (`Cmd+Shift+R` / `Ctrl+Shift+R`).
+Hostinger does **not** run `npm run catalogue` — that runs on your computer or in GitHub Actions. The deployed site only needs the committed **`catalogue.json`**.
 
-### Option B — FTP (recommended for many or large PDFs)
+---
 
-1. hPanel → **Files** → **FTP Accounts**.
-2. Create an FTP account (or use the main account). Note:
-   - **Host:** often `ftp.globalsurgeryconnect.org` (shown in hPanel)
-   - **Username** / **Password**
-   - **Directory:** should point at `public_html` or `public_html/atlas`
-3. Install **FileZilla** (free): [https://filezilla-project.org](https://filezilla-project.org)
-4. Connect (try **SFTP** on port **22** if FTP is slow; Hostinger shows which to use).
-5. On the **remote** side, go to `public_html/atlas/`.
-6. On the **local** side, open your repo folder.
-7. Drag these to `atlas/`:
-   - `index.html`, `catalogue.json`, `summaries.json`, `countries-110m.json`, `logo.png`
-   - The whole `Region-wise NSP-NHP documents [Living Repository]` folder
-8. Wait until all transfers finish (PDFs can take a while).
-9. Test **https://globalsurgeryconnect.org/atlas/**
+## Part 1 — One-time Hostinger setup
 
-### Option C — Download from GitHub, then upload
+### 1. Log in and open the site
 
-1. Open: `https://github.com/SNaqvi-Stevens/Global-NSP-NHP-Repository-`
-2. **Code** → **Download ZIP**.
-3. Unzip on your computer.
-4. Upload the files listed above into `public_html/atlas/` (File Manager or FTP).
+1. [hostinger.com](https://www.hostinger.com) → **hPanel**.
+2. **Websites** → **globalsurgeryconnect.org**.
 
-### Link from your main GSC site
+### 2. Enable SSL
 
-Add a menu or button on globalsurgeryconnect.org, for example:
+1. **SSL** → enable free SSL (Let’s Encrypt) for **globalsurgeryconnect.org**.
+2. Use **https://** when testing.
 
-- **Label:** National Surgical & Health Policy Atlas  
+### 3. Create the atlas folder (before first deploy)
+
+1. **Files** → **File Manager** → **`public_html`**.
+2. Create folder **`atlas`** if it does not exist.
+3. If an old manual upload is inside `atlas/`, you can clear it before the first Git deploy (optional; Git deploy will overwrite/add files).
+
+**Deploy target path:** `public_html/atlas/`  
+**Public URL:** `https://globalsurgeryconnect.org/atlas/`
+
+---
+
+## Part 2 — Connect GitHub and turn on auto-deploy
+
+Exact menu names can vary slightly by Hostinger plan. Look for **Git** under the website or **Advanced**.
+
+### Step A — Open Git in hPanel
+
+1. **Websites** → **globalsurgeryconnect.org** → **Manage**.
+2. Open **Git** (or **Advanced** → **Git**).
+
+### Step B — Create / import the repository
+
+1. Choose **Create a new repository** or **Import Git Repository**.
+2. Connect your **GitHub** account when prompted (authorize Hostinger).
+3. Select repository:  
+   **`SNaqvi-Stevens/Global-NSP-NHP-Repository-`**
+4. **Branch:** `main`
+
+### Step C — Set the deployment directory
+
+Set the directory where files should land (critical):
+
+| Setting | Value |
+|---------|--------|
+| **Repository path / Deploy directory** | `domains/globalsurgeryconnect.org/public_html/atlas` |
+| Or relative path | `public_html/atlas` |
+
+The repo root (including `index.html`) must end up **inside** `atlas/`, not in `public_html/` root, so you do not overwrite the main GSC homepage.
+
+### Step D — Enable auto-deployment
+
+1. Turn **Auto Deployment** **ON** (toggle or checkbox).
+2. Hostinger shows a **Webhook URL** — copy it.
+
+### Step E — Add the webhook on GitHub
+
+1. Open [github.com/SNaqvi-Stevens/Global-NSP-NHP-Repository-/settings/hooks](https://github.com/SNaqvi-Stevens/Global-NSP-NHP-Repository-/settings/hooks).
+2. **Add webhook**.
+3. **Payload URL:** paste Hostinger’s webhook URL.
+4. **Content type:** `application/json`.
+5. **Events:** “Just the push event” (or “Let me select” → **Pushes** only).
+6. **Active:** checked → **Add webhook**.
+
+### Step F — First deploy
+
+1. In Hostinger Git, click **Deploy** (or **Pull** / **Deploy now**) once manually.
+2. Wait until the deploy finishes (first run can take **several minutes** because of many PDFs).
+3. Open **https://globalsurgeryconnect.org/atlas/** — map, table, and a sample PDF download should work.
+
+### Step G — Link from the main GSC site
+
+Add a menu item or button:
+
 - **URL:** `https://globalsurgeryconnect.org/atlas/`
 
-**Embed on one page** (optional):
+**Embed on one page (optional):**
 
 ```html
 <iframe
@@ -144,92 +137,81 @@ Add a menu or button on globalsurgeryconnect.org, for example:
 
 ---
 
-## Part 3 — How to upload new PDFs (ongoing)
+## Part 3 — How to add or update PDFs (ongoing, via GitHub)
 
-PDFs are **not** uploaded through the website UI. Maintainers add files to the server (or Git), then refresh the catalogue.
+PDFs must be **in the GitHub repository** (not only on your laptop). After auto-deploy is on, Hostinger mirrors GitHub.
 
-### Step 1 — Choose the WHO region folder
+### Option 1 — On your computer (recommended)
 
-| Region | Upload into this folder (inside `atlas/`) |
-|--------|-------------------------------------------|
+1. **Clone** (first time only):
+   ```bash
+   git clone https://github.com/SNaqvi-Stevens/Global-NSP-NHP-Repository-.git
+   cd Global-NSP-NHP-Repository-
+   npm install
+   ```
+2. **Add the PDF** to the correct WHO folder, e.g.  
+   `Region-wise NSP-NHP documents [Living Repository]/AFRO/`
+3. **Regenerate the catalogue:**
+   ```bash
+   npm run catalogue
+   ```
+4. **Commit and push:**
+   ```bash
+   git add "Region-wise NSP-NHP documents [Living Repository]/AFRO/YourFile.pdf" catalogue.json
+   git commit -m "Add country PDF and refresh catalogue"
+   git push origin main
+   ```
+5. **Wait 2–5 minutes** — GitHub Actions may commit `catalogue.json` again if you only pushed the PDF; Hostinger may deploy twice. That is normal.
+6. **Check** https://globalsurgeryconnect.org/atlas/
+
+### Option 2 — GitHub website (no local Git)
+
+1. Open the repo on GitHub → navigate to the correct regional folder (e.g. `AFRO/`).
+2. **Add file** → **Upload files** → upload the PDF → **Commit directly to `main`**.
+3. GitHub Actions runs `npm run catalogue` and commits an updated **`catalogue.json`** (if the workflow is enabled).
+4. If Actions does not run (e.g. path filter), a maintainer must run `npm run catalogue` locally and push `catalogue.json` separately.
+5. Hostinger auto-deploys after each push to `main`.
+
+### Filename tips
+
+- Include **country name** and **NSP** or **NHP** (or *surgical*, *health policy*, *PNDS*).
+- Examples: `KEN_Kenya_NSP_2024-2030.pdf`, `BEN_Benin_NHP_2018-2022.pdf`
+
+### Regional folders
+
+| Region | Path in repo |
+|--------|----------------|
 | Africa | `Region-wise NSP-NHP documents [Living Repository]/AFRO/` |
 | Eastern Mediterranean | `.../EMR NSP-NHP Documents/` |
 | Europe | `.../EURO/` |
 | South-East Asia | `.../SEARO/` |
 | Western Pacific | `.../WPR NSP-NHP Documents/` |
 
-Use a clear filename, e.g. `KEN_Kenya_NSP_2024-2030.pdf` or `BEN_Benin_NHP_2018-2022.pdf`. Include **country name** and **NSP** or **NHP** (or words like *surgical*, *health policy*) in the name.
+---
 
-### Step 2 — Upload the PDF to Hostinger
+## Part 4 — Other updates (also via GitHub)
 
-**File Manager:** `public_html/atlas/` → open the correct regional folder → **Upload** → select the PDF.
+| Change | What to do |
+|--------|------------|
+| Site UI / map | Edit `index.html` → commit → push → Hostinger deploys |
+| Country list / years | Run `npm run catalogue` → commit `catalogue.json` → push |
+| Map hover excerpts | Run `npm run summaries` → commit `summaries.json` → push |
+| Logo | Replace `logo.png`, bump `?v=` in `index.html` → push |
+| Wrong NSP/NHP guess | `catalogue-overrides.json` → `npm run catalogue` → push |
 
-**FTP:** Connect → navigate to the same regional folder on the server → upload the file.
-
-### Step 3 — Regenerate `catalogue.json` on your computer
-
-Hostinger does not run the build for you. On a Mac/PC with [Node.js](https://nodejs.org) installed:
-
-```bash
-cd /path/to/Global-NSP-NHP-Repository-
-npm run catalogue
-```
-
-This rewrites **`catalogue.json`** from all PDFs in the regional folders.
-
-### Step 4 — Upload the new `catalogue.json`
-
-Upload **only** the updated `catalogue.json` to:
-
-`public_html/atlas/catalogue.json`
-
-(overwrite the old file).
-
-### Step 5 — Verify
-
-Open **https://globalsurgeryconnect.org/atlas/** → check the country appears in the table and map → test the PDF download link.
-
-### Optional — Also update GitHub
-
-If you use GitHub as the source of truth:
-
-1. Add the PDF to the repo in the correct regional folder.
-2. Run `npm run catalogue`.
-3. Commit and push the PDF + `catalogue.json`.
-4. Still upload the same PDF + `catalogue.json` to Hostinger (unless you automate sync later).
+No separate Hostinger upload needed when auto-deploy is working.
 
 ---
 
-## Part 4 — How to make other updates on Hostinger
+## Part 5 — Fallback: manual upload (FTP / File Manager)
 
-| What changed | What to upload to `public_html/atlas/` |
-|--------------|----------------------------------------|
-| New or replaced PDF | PDF file(s) + updated `catalogue.json` (after `npm run catalogue`) |
-| Site design / map behaviour | `index.html` (and any changed assets) |
-| Map hover excerpts | `summaries.json` (after `npm run summaries` on your computer) |
-| Logo | `logo.png` — then in `index.html` bump `logo.png?v=2` to `?v=3` and upload `index.html` too |
-| Wrong country/type from filename | Fix via `catalogue-overrides.json` locally, `npm run catalogue`, upload `catalogue.json` |
+Use only if Git deploy is unavailable, webhook failed, or you need an emergency fix.
 
-You only need to re-upload **files that changed**, not the whole site every time.
+1. Upload files to **`public_html/atlas/`** (same layout as the repo).
+2. After adding PDFs, still run **`npm run catalogue`** locally and upload **`catalogue.json`**.
+3. Re-enable Git deploy when possible so GitHub and Hostinger match again.
 
-### Typical “monthly update” workflow
-
-1. Receive approved PDF(s) from the submission form / reviewers.
-2. Upload PDF(s) to the correct regional folder on Hostinger (FTP is fastest).
-3. On your computer: pull latest repo (if using Git) → add same PDF(s) → `npm run catalogue`.
-4. Upload new `catalogue.json` to Hostinger.
-5. Spot-check the live site.
-
----
-
-## Part 5 — Optional: Git on Hostinger
-
-Some Hostinger plans support **Git** in hPanel (**Advanced** → **Git**):
-
-- You can connect the GitHub repository and deploy into a directory.
-- After setup, a **push to GitHub** might deploy automatically.
-
-If Git is not available on your plan, use **FTP/File Manager** as above. GitHub can remain the backup; Hostinger is the live copy for **globalsurgeryconnect.org**.
+See [Hostinger File Manager / FTP](https://support.hostinger.com/en/articles/1580985-how-to-upload-files-using-file-manager) in Hostinger help docs.
 
 ---
 
@@ -237,35 +219,39 @@ If Git is not available on your plan, use **FTP/File Manager** as above. GitHub 
 
 | Problem | What to check |
 |---------|----------------|
-| **404** on `catalogue.json` | File must sit next to `index.html` in `atlas/` |
-| **404** on PDF download | Folder name must be exactly `Region-wise NSP-NHP documents [Living Repository]`; PDF must be in the correct subfolder |
-| Map is empty | Upload `countries-110m.json` into `atlas/` |
-| Country missing after PDF upload | Run `npm run catalogue` locally; upload new `catalogue.json` |
-| Old content after update | Hard refresh; clear browser cache |
-| Upload fails / times out | Use FTP; or zip folder, upload, extract in File Manager |
-| Main site works, `/atlas/` does not | Confirm files are in `public_html/atlas/`, not only in `public_html/` root |
-| WordPress / builder on main site | Keep atlas in **`/atlas/`** subfolder; do not replace root `index.php` unless intentional |
+| Push to GitHub but site unchanged | Auto-deploy ON? Webhook active in GitHub → Recent Deliveries? Manual **Deploy** in hPanel Git |
+| Webhook 404 / failed | Re-copy webhook URL from Hostinger; ensure repo is `Global-NSP-NHP-Repository-` |
+| Site at wrong path | Deploy directory must be `public_html/atlas`, not `public_html` alone |
+| Country missing after PDF push | Is **`catalogue.json`** on `main`? Run `npm run catalogue` and push, or check Actions tab |
+| PDF 404 on live site | PDF committed to GitHub? Deploy finished? Folder name spelled exactly `Region-wise NSP-NHP documents [Living Repository]` |
+| Deploy very slow / timeout | Large PDF batch — retry deploy; or use FTP once, then fix Git |
+| `catalogue.json` 404 | File must be at `atlas/catalogue.json` next to `index.html` |
+| Map blank | `countries-110m.json` missing from deploy — confirm it is in the repo and deployed |
+| Old page in browser | Hard refresh (`Cmd+Shift+R` / `Ctrl+Shift+R`) |
 
 ---
 
-## Part 7 — Checklist
+## Part 7 — Checklists
 
-### First-time go-live
+### One-time go-live (GitHub + Hostinger)
 
-- [ ] SSL enabled for globalsurgeryconnect.org  
-- [ ] Folder `public_html/atlas/` created  
-- [ ] `index.html`, `catalogue.json`, `summaries.json`, `countries-110m.json`, `logo.png` uploaded  
-- [ ] Full `Region-wise NSP-NHP documents [Living Repository]` tree uploaded  
-- [ ] **https://globalsurgeryconnect.org/atlas/** loads map and table  
-- [ ] Sample PDF download works  
-- [ ] Link or iframe added on main GSC site  
+- [ ] SSL on for globalsurgeryconnect.org  
+- [ ] Folder `public_html/atlas/` exists  
+- [ ] Hostinger Git connected to `SNaqvi-Stevens/Global-NSP-NHP-Repository-`, branch `main`  
+- [ ] Deploy path = `public_html/atlas`  
+- [ ] **Auto-deployment ON**  
+- [ ] GitHub webhook added and delivering  
+- [ ] First manual deploy succeeded  
+- [ ] https://globalsurgeryconnect.org/atlas/ works (map, table, PDF)  
+- [ ] Link or iframe on main GSC site  
 
 ### Each new country PDF
 
-- [ ] PDF in correct WHO regional folder on Hostinger  
-- [ ] `npm run catalogue` run locally  
-- [ ] Updated `catalogue.json` uploaded to Hostinger  
-- [ ] Country visible on live site  
+- [ ] PDF added under correct regional folder **in GitHub**  
+- [ ] `catalogue.json` updated (`npm run catalogue` or GitHub Action)  
+- [ ] Changes **pushed to `main`**  
+- [ ] Hostinger deploy completed (hPanel Git log / webhook)  
+- [ ] Country visible on https://globalsurgeryconnect.org/atlas/  
 
 ---
 
@@ -273,12 +259,13 @@ If Git is not available on your plan, use **FTP/File Manager** as above. GitHub 
 
 | Item | Value |
 |------|--------|
-| Domain | **globalsurgeryconnect.org** |
-| Recommended atlas URL | **https://globalsurgeryconnect.org/atlas/** |
+| Production URL | **https://globalsurgeryconnect.org/atlas/** |
+| GitHub repo | [Global-NSP-NHP-Repository-](https://github.com/SNaqvi-Stevens/Global-NSP-NHP-Repository-) |
+| Branch to deploy | **`main`** |
 | Server folder | `public_html/atlas/` |
-| Regenerate country list | `npm run catalogue` (on your computer) |
-| Public submission form | [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97SoSObe_IiwPr7bscEgK33IXQ0HI-yHDOo0Fw/viewform) |
-| GitHub repo (backup / source) | [Global-NSP-NHP-Repository-](https://github.com/SNaqvi-Stevens/Global-NSP-NHP-Repository-) |
+| Regenerate country list | `npm run catalogue` (local or GitHub Actions) |
+| Backup / staging URL | [GitHub Pages](https://snaqvi-stevens.github.io/Global-NSP-NHP-Repository-/) |
+| Submission form | [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97SoSObe_IiwPr7bscEgK33IXQ0HI-yHDOo0Fw/viewform) |
 
 ---
 
@@ -288,7 +275,5 @@ If Git is not available on your plan, use **FTP/File Manager** as above. GitHub 
 |------|--------|
 | **Public contributor** | Submission form only |
 | **Regional reviewer** | Approves document |
-| **Maintainer** | Upload PDF → `npm run catalogue` → upload `catalogue.json` to Hostinger (and optionally push to GitHub) |
-| **GSC web lead** | Hostinger access, SSL, menu link or iframe on main site |
-
-For catalogue overrides, scripts, and GitHub Actions, see [README.md](README.md).
+| **Maintainer** | Add PDF to GitHub → `npm run catalogue` (or rely on Action) → **push to `main`** → Hostinger updates automatically |
+| **GSC web lead** | Hostinger Git setup, SSL, webhook, menu link |
