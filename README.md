@@ -4,6 +4,8 @@ Living catalogue of national surgical plans (NSP) and national health policies (
 
 **Live site:** [Global NSP-NHP Repository](https://snaqvi-stevens.github.io/Global-NSP-NHP-Repository-/)
 
+**Hostinger (globalsurgeryconnect.org):** see [Hostinger_README.md](Hostinger_README.md) for upload, PDF, and update instructions.
+
 ---
 
 ## Add or update a country PDF (maintainers)
