@@ -18,6 +18,32 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
 
+/** Load OPENAI_API_KEY from .env / .env.local (gitignored) if not already set. */
+function loadDotEnv() {
+  for (const name of ['.env.local', '.env']) {
+    const p = path.join(ROOT, name);
+    if (!fs.existsSync(p)) continue;
+    const lines = fs.readFileSync(p, 'utf8').split(/\r?\n/);
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eq = trimmed.indexOf('=');
+      if (eq <= 0) continue;
+      const key = trimmed.slice(0, eq).trim();
+      let val = trimmed.slice(eq + 1).trim();
+      if (
+        (val.startsWith('"') && val.endsWith('"')) ||
+        (val.startsWith("'") && val.endsWith("'"))
+      ) {
+        val = val.slice(1, -1);
+      }
+      if (!process.env[key]) process.env[key] = val;
+    }
+  }
+}
+
+loadDotEnv();
+
 /** Shown when a PDF is missing, unreadable, or not summarizable extractively. */
 const LINK_FALLBACK_SUMMARY =
   'For more information, refer to the attached policy documents in this repository.';

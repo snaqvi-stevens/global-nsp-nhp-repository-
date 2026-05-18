@@ -1,0 +1,1457 @@
+[
+  {
+    "country": "Afghanistan",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "afghanistan_mophstrategy2016-2020_final09september2016111201614508950553325325.pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Albania",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Albania NHP 2021-2030 (Albanian).pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Algeria",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "algeria.pdf",
+    "year": ""
+  },
+  {
+    "country": "Andorra",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Andorra NHP (Catalan).pdf",
+    "year": ""
+  },
+  {
+    "country": "Angola",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "AGO_Angola_PNDS_vol.2_2012-2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Australia",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Australia NHP 2020-25.pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Austria",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Austria National Health Plan 2023-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Azerbaijan",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Azerbaijan NHP 2014-2020 (Azerbaijani).pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Bahrain",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "BHR_Barhain_National-Health-Plan_2016-2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Bangladesh",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "Bangladesh NHP 2011.pdf",
+    "year": "2011"
+  },
+  {
+    "country": "Belarus",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Belarus NHP 2016-2020 (Belarusian).pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Belgium",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Belgium Health Plan 2019-2025 (French).pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Benin",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "BEN_Benin-Plan-National-de-Développement_Sanitaire-2018-2022.pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Bhutan",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "Bhutan NHP 2015-2023.pdf",
+    "year": "2023"
+  },
+  {
+    "country": "Bosnia and Herzegovina",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Bosnia NHP 2008-2018 (Bosnian).pdf",
+    "year": "2018"
+  },
+  {
+    "country": "Botswana",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "BOS_Botswana_IHSP-NHSP_2010-2020.pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Brunei",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Brunei NHP 2015-2035.pdf",
+    "year": "2035"
+  },
+  {
+    "country": "Bulgaria",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Bulgaria NHP 2015-2020.pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Burkina Faso",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "BFA_Burkina-Faso_PNDS_2021-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Cambodia",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "both",
+    "docType": "NSP + NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "yearNhp": "2027",
+    "yearNsp": "2035",
+    "year": "2027",
+    "fileNhp": "Cambodia NHP 2018-2027.pdf",
+    "fileNsp": "Cambodia NSOAP 2026-2035.pdf"
+  },
+  {
+    "country": "Cameroon",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "cameroon_-_sss_validee_par_le_ccss_5_janvier.pdf",
+    "year": ""
+  },
+  {
+    "country": "Cape Verde",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "CAV_Cape_Verde_PNDS 2017-2021 -VOL.1.pdf",
+    "year": "2021"
+  },
+  {
+    "country": "Chad",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "TCD_Chad_Plan-National-de-Developpement-Sanitaire_2018-2021.pdf",
+    "year": "2021"
+  },
+  {
+    "country": "China",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "China NSP 2023-2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Comoros",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "COM_Comoros_National-Health-Policy__2015-2024_fr.pdf",
+    "year": "2024"
+  },
+  {
+    "country": "Congo",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "COG_Congo_Politique-Nationale-de-Santé_PNS_2018-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Congo (DRC)",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "COD_Democratic-Republic-of-Congo_PNDS_2019-2022.pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Côte d'Ivoire",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "CIV_Cote-d-Ivoire_Plan-National-de-Développement-Sanitaire_2021-2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Croatia",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Croatia NHP 2021-2027 (Croatian).pdf",
+    "year": "2027"
+  },
+  {
+    "country": "Cyprus",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Cyprus NHP 2024-2026 (English).pdf",
+    "year": "2026"
+  },
+  {
+    "country": "Czech Republic",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Czech NHP 2030 (Czech).pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Denmark",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Denmark NSP.pdf",
+    "year": ""
+  },
+  {
+    "country": "Djibouti",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "Djibouti pnds_2013_2017_djibouti.pdf",
+    "year": "2017"
+  },
+  {
+    "country": "DPR Korea",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "DPR KOREA NHP 2016 – 2020.pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Egypt",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "EGY_Egypt_National-Health-Strategy_2010-2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "English",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "HSS_english_0.pdf",
+    "year": ""
+  },
+  {
+    "country": "Eritrea",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "eritrea_hssdp_ii_21022017.pdf",
+    "year": "2017"
+  },
+  {
+    "country": "Estonia",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Estonia National Health Plan 2020-2030 (Estonian).pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Eswatini",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "Eswatini-Strategic-Direction-Summary-2023.pdf",
+    "year": "2023"
+  },
+  {
+    "country": "Ethiopia",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "both",
+    "docType": "NSP + NHP",
+    "docSubfolder": "AFRO",
+    "yearNhp": "2026",
+    "yearNsp": "",
+    "year": "2026",
+    "fileNhp": "ETH_Ethiopia_Health-Sector-Transformation-Plan-II_2021-2026.pdf",
+    "fileNsp": "Ethiopia SALTS II _ National Surgical Care Strategic Plan.pdf"
+  },
+  {
+    "country": "Fiji",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Fiji NSP 2020-2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Finland",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Finland NHP 2023–2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "France",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "France National Health Strategy 2023-2033 (French).pdf",
+    "year": "2033"
+  },
+  {
+    "country": "Gabon",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "GAB_Plan_national_de_développement_sanitaire_2017-2021.pdf",
+    "year": "2021"
+  },
+  {
+    "country": "Gambia",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "GMB_Gambia_National-Health-Policy_2021-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Georgia",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Georgia OB Plan 2017-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Ghana",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "AFRO",
+    "file": "Ghana-FINAL-NSOAP-for-press-2.pdf",
+    "year": ""
+  },
+  {
+    "country": "Gosl",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "GoSL-NHSSP-2021-2025-Version-Final-Expert-edited-19-11-21.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Greece",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Greece NHP 2021-2025 (Greek).pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Guinea",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "GIN_Guinea_Plan-national-de-developmment-sanitaire_2015-2024.pdf",
+    "year": "2024"
+  },
+  {
+    "country": "Guinea-Bissau",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "GNB_Guinea-Bissau_Plano-Nacional-de-Desenvolvimento-Sanitário_2018-2022.pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Hssp",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "HSSP-III-Print-Version-2023-01-09_v1_Cleaned.pdf",
+    "year": "2023"
+  },
+  {
+    "country": "Hungary",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Hungary Health Strategy 2021-2027 (Hungarian).pdf",
+    "year": "2027"
+  },
+  {
+    "country": "Iceland",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Iceland Health Policy 2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "India",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "India NHP 2017.pdf",
+    "year": "2017"
+  },
+  {
+    "country": "Indonesia",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "Indonesia NHP 2015-2019.pdf",
+    "year": "2019"
+  },
+  {
+    "country": "Iran",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "iran_6th_five_year_development_plan_2017-2021.pdf",
+    "year": "2021"
+  },
+  {
+    "country": "Iraq",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "Iraq Reconstruction and Investment.pdf",
+    "year": ""
+  },
+  {
+    "country": "Ireland",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "both",
+    "docType": "NSP + NHP",
+    "docSubfolder": "EURO",
+    "yearNhp": "2026",
+    "yearNsp": "",
+    "year": "2026",
+    "fileNhp": "Ireland Cancer Strategy 2017-2026.pdf",
+    "fileNsp": "Ireland Surgical Hubs Guidance Report.pdf"
+  },
+  {
+    "country": "Israel",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Israel NHP 2023-2048.pdf",
+    "year": "2048"
+  },
+  {
+    "country": "Italy",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Italy Health Pacts (not NHP) 2018-2022.pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Japan",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Japan NHP (2020, English).pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Kenya",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "kenya_health_policy_2014_to_2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Kiribati",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Kiribati NHP 2020-2023.pdf",
+    "year": "2023"
+  },
+  {
+    "country": "Kuwait",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "Kuwait Surgical Suite Operational Policy 2024-2026.pdf",
+    "year": "2026"
+  },
+  {
+    "country": "Latvia",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Latvia National Healthcare Plan.pdf",
+    "year": ""
+  },
+  {
+    "country": "Lebanon",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "LBN_Lebanon_National-Health-Strategy_2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Lesotho",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "LSO_Lesotho_National-Health-Policy_2017.pdf",
+    "year": "2017"
+  },
+  {
+    "country": "Liberia",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "National-Operational-Plan-2024 Liberia.pdf",
+    "year": "2024"
+  },
+  {
+    "country": "Long",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "UK NHS Long term plan 2019.pdf",
+    "year": "2019"
+  },
+  {
+    "country": "Luxembourg",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Luxembourg NHP 2020-2030 (French).pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Madagascar",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "MDG_Madagascar_Plan-de-développement-du-secteur-Santé_2020-2024.pdf",
+    "year": "2024"
+  },
+  {
+    "country": "Malawi",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "MAL_Malawi_HSSP_II_2017-2022.pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Malaysia",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Malaysia NHP 2022-2026.pdf",
+    "year": "2026"
+  },
+  {
+    "country": "Maldives",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "Maldives NHP 2016-2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Mali",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "MLI_Mali_Plan-Décennal-De-Développement-Sanitaire-Et-Social_2014-2023.pdf",
+    "year": "2023"
+  },
+  {
+    "country": "Malta",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Malta National Health Strategy 2023-2030 (ENG).pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Marino",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "San Marino NHP 2021-2023.pdf",
+    "year": "2023"
+  },
+  {
+    "country": "Marshall",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Marshall Islands NHP 2020-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Mauritania",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "MRT_Mauritania_Poltique-Nationale-de-Santé-horizon-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Mauritius",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "MSU_Mauritius_Health-Sector-Strategic-Plan_2020-2024.pdf",
+    "year": "2024"
+  },
+  {
+    "country": "Micronesia",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Micronesia NHP 2019-2024.pdf",
+    "year": "2024"
+  },
+  {
+    "country": "Moldova",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Moldova NHP 2020-2023.pdf",
+    "year": "2023"
+  },
+  {
+    "country": "Mongolia",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Mongolian NHP (English).pdf",
+    "year": ""
+  },
+  {
+    "country": "Montenegro",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Montenegro Health Plan 2023-2027 (MNE).pdf",
+    "year": "2027"
+  },
+  {
+    "country": "Morocco",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "MAR_Morocco_Plan-de-santé-2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Myanmar",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "MYANMAR NHP 2017 - 2021.pdf",
+    "year": "2021"
+  },
+  {
+    "country": "Namibia",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "AFRO",
+    "file": "Namibia NSOAP final documnet_31 Oct 2023.pdf",
+    "year": "2023"
+  },
+  {
+    "country": "Nepal",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "Nepal NHP 2023-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "New Zealand",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "New Zealand NHP 2022.pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Niger",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "Nigeria_NSOANP.pdf",
+    "year": ""
+  },
+  {
+    "country": "Niue",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Niue NHP 2011-2021.pdf",
+    "year": "2021"
+  },
+  {
+    "country": "North Macedonia",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "North Macedonia NHP 2021-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Northern Ireland",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "EURO",
+    "file": "Northern Ireland Surgical Action Plan.pdf",
+    "year": ""
+  },
+  {
+    "country": "Norway",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Norway NHPs 2018-2033.pdf",
+    "year": "2033"
+  },
+  {
+    "country": "Oman",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Romania NHP 2022-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Pakistan",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "Pakistan NSOAP+Manual_20200921.pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Papua New Guinea",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Papua New Guinea NHP Indicators 2021-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Philippines",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Philippines NHP 2023-2028.pdf",
+    "year": "2028"
+  },
+  {
+    "country": "Pnds",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "p4h_PNDS-2023-2032_Sao-Tome-et-Principe.x23411.pdf",
+    "year": "2032"
+  },
+  {
+    "country": "Poland",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Poland Healthy Future 2021-2027.pdf",
+    "year": "2027"
+  },
+  {
+    "country": "Policy",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "National-Health-Policy_2020.pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Portugal",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Portugal NHP 2021-2030 (English).pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Ptss",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "rca_-ptss_revise_final.pdf",
+    "year": ""
+  },
+  {
+    "country": "Qatar",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "QAT_Qatar_National-Health-strategy_2018-2022.pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Reform",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "UK Health Reform Proposals 2021.pdf",
+    "year": "2021"
+  },
+  {
+    "country": "Republic of Korea",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Republic of Korea NHP Summary 2021-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Revised",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "revised_National_Health_Policy.pdf",
+    "year": ""
+  },
+  {
+    "country": "Russia",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Russia NHP 2018-2024.pdf",
+    "year": "2024"
+  },
+  {
+    "country": "Rwanda",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "Rwanda_NSOAP_Approved.pdf",
+    "year": ""
+  },
+  {
+    "country": "S12630",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "s12630-023-02500-8.pdf",
+    "year": ""
+  },
+  {
+    "country": "Salts",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "AFRO",
+    "file": "2018 SaLTS Five Year Strategic Plan_format_FINAL.pdf",
+    "year": "2018"
+  },
+  {
+    "country": "Samoa",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Samoa NHP (Obstetrics) 2019-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "São Tomé and Príncipe",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "STP_Sao-Tome-and-Principe_PNDS_2017-2021.pdf",
+    "year": "2021"
+  },
+  {
+    "country": "Saudi Arabia",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "Saudi Arabia 2021-2025-health-sector-transformation-program-delivery-plan-en.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Senegal",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "SEN_Senegal_PNDSS_2019-2028.pdf",
+    "year": "2028"
+  },
+  {
+    "country": "Serbia",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Serbia Public Health Strategy 2018-2026 (English).pdf",
+    "year": "2026"
+  },
+  {
+    "country": "Seychelles",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "SYC_Seychelles_National-Health-Strategic-Plan-2022-2026.pdf",
+    "year": "2026"
+  },
+  {
+    "country": "Sierra Leone",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "AFRO",
+    "file": "REPUBLIC OF SIERRA LEONE NSOAP 2026-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Singapore",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "Singapore NHP 2022.pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Slovakia",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Slovakia NHP (2014-2030).pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Slovenia",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Slovenia National Strategy for Quality and Safety 2023-2031.pdf",
+    "year": "2031"
+  },
+  {
+    "country": "Solomon Islands",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "Solomon Islands NHSP 2022-2031.pdf",
+    "year": "2031"
+  },
+  {
+    "country": "South Africa",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "ZAF_South-Africa_National-Health-Strategic-Plan_2021-2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Spain",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Spain NSP (Spanish).pdf",
+    "year": ""
+  },
+  {
+    "country": "Sri Lanka",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "Sri Lanka NHP 2016 - 2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Sudan",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "SDN_Sudan_National-Health Policy_2017-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Surgical",
+    "region": "Western Pacific",
+    "whoRegion": "WPR",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "WPR NSP-NHP Documents",
+    "file": "National Surgical Obstetric and Anaesthesia Plan 20262031.pdf",
+    "year": "2031"
+  },
+  {
+    "country": "Sweden",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "both",
+    "docType": "NSP + NHP",
+    "docSubfolder": "EURO",
+    "yearNhp": "2024",
+    "yearNsp": "",
+    "year": "2024",
+    "fileNhp": "Sweden National Action Plan for Patient Safety 2020–2024.pdf",
+    "fileNsp": "Sweden NSP (Anesthesia).pdf"
+  },
+  {
+    "country": "Switzerland",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "both",
+    "docType": "NSP + NHP",
+    "docSubfolder": "EURO",
+    "yearNhp": "2030",
+    "yearNsp": "2012",
+    "year": "2030",
+    "fileNhp": "Switzerland Health Plan 2020-2030 (French).pdf",
+    "fileNsp": "Switzerland NSP 2012 (Safe Surgery Program).pdf"
+  },
+  {
+    "country": "Syria",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "Ministry of Health _ Health Districts Program syria.pdf",
+    "year": ""
+  },
+  {
+    "country": "Tanzania",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "Tanzania_NSOAP_FINAL.pdf",
+    "year": ""
+  },
+  {
+    "country": "Thailand",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "Thailand NHP 2017-2036.pdf",
+    "year": "2036"
+  },
+  {
+    "country": "Timor-Leste",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "Timor Leste NHP 2011-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Togo",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "TGO_Togo_Plan-National-de-Développement-Sanitaire 2017-2022.pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Tonga",
+    "region": "South-East Asia",
+    "whoRegion": "SEARO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "SEARO",
+    "file": "Tonga NSP 2023-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Tunisia",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "s12961-023-00996-6 Tunisia.pdf",
+    "year": ""
+  },
+  {
+    "country": "Turkey",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Turkey NHP 2024-2028.pdf",
+    "year": "2028"
+  },
+  {
+    "country": "Turkmenistan",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Turkmenistan NHP 2015 (Turkmen).pdf",
+    "year": "2015"
+  },
+  {
+    "country": "UAE",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "UAE One day surgery center regulation.pdf",
+    "year": ""
+  },
+  {
+    "country": "Uganda",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AFRO",
+    "file": "UGA_Uganda_Ministry-of-Health-Strategic-Plan_2020-2025.pdf",
+    "year": "2025"
+  },
+  {
+    "country": "Ukraine",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Ukraine NHP (Cancer Control) 2020-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Uzbekistan",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Uzbekistan NHP 2019-2022 (Uzbek, scan).pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Yemen",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "nat_health_strategy_-_yemen_eng.pdf",
+    "year": ""
+  }
+]

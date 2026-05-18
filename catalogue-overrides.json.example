@@ -1,0 +1,8 @@
+{
+  "byFilename": {
+    "EXAMPLE_Country_ambiguous-name.pdf": {
+      "country": "Example Country",
+      "kind": "nhp"
+    }
+  }
+}

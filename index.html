@@ -539,7 +539,13 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .doc-kind{font-size:0.58rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-subtle)}
 .doc-kind--nsp{color:var(--teal-dark)}
 .doc-kind--nhp{color:#b45309}
-.policy-years-legend{display:block;margin-top:0.12rem;font-size:0.62rem;color:var(--fog-3);letter-spacing:0.04em}
+.policy-years-stack{display:flex;flex-direction:column;gap:0.2rem;font-variant-numeric:tabular-nums}
+.policy-year-line{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--fog-3)}
+.policy-year-line .doc-kind{font-size:0.55rem;padding:0.05rem 0.3rem}
+.table-year-note{
+  font-size:0.78rem;color:var(--text-subtle);line-height:1.55;margin:0 0 1rem;max-width:var(--measure);
+  font-family:'DM Sans',sans-serif;
+}
 .doc-btn{
   display:inline-flex;align-items:center;gap:0.3rem;
   padding:0.22rem 0.6rem;border-radius:3px;
@@ -822,6 +828,7 @@ footer{
     <div class="section-wrap">
       <div class="section-eye reveal">Repository</div>
       <h2 class="section-h2 reveal reveal-d1">Policy Documents</h2>
+      <p class="table-year-note reveal reveal-d2" id="table-year-note">The <strong>Years</strong> column lists the catalogue year for each document. Countries with both NSP and NHP show <strong>two years</strong>—one per file—not the newest year only.</p>
       <div class="table-header reveal reveal-d2">
         <p class="table-meta" id="table-meta" aria-live="polite"></p>
         <div class="search-wrap">
@@ -836,7 +843,7 @@ footer{
               <div class="policy-th" role="columnheader">Country</div>
               <div class="policy-th" role="columnheader">WHO Region</div>
               <div class="policy-th" role="columnheader">Document Type</div>
-              <div class="policy-th" role="columnheader">Year</div>
+              <div class="policy-th" role="columnheader">Years</div>
               <div class="policy-th" role="columnheader">Access</div>
             </div>
           </div>
@@ -946,6 +953,7 @@ footer{
       <a href="#map-section">Map</a>
       <a href="#table-section">Repository</a>
       <a href="#how-section">How It Works</a>
+      <a href="https://github.com/SNaqvi-Stevens/Global-NSP-NHP-Repository-/blob/main/README.md" target="_blank" rel="noopener noreferrer">Adding documents</a>
       <a href="#contribute-section">Contribute</a>
     </div>
   </div>
@@ -1100,157 +1108,8 @@ footer{
 /* ═══════════════════════════════════════════════════════════════════
    DATA — 145 catalogue entries (countries / documents) from uploaded files
 ═══════════════════════════════════════════════════════════════════ */
-const policyData = [
-  {country:"Algeria",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"algeria.pdf"},
-  {country:"Angola",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2012",file:"AGO_Angola_PNDS_vol.2_2012-2025.pdf"},
-  {country:"Benin",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2018",file:"BEN_Benin-Plan-National-de-D\u00e9veloppement_Sanitaire-2018-2022.pdf"},
-  {country:"Burkina Faso",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2021",file:"BFA_Burkina-Faso_PNDS_2021-2030.pdf"},
-  {country:"Botswana",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2010",file:"BOS_Botswana_IHSP-NHSP_2010-2020.pdf"},
-  {country:"Cameroon",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"cameroon_-_sss_validee_par_le_ccss_5_janvier.pdf"},
-  {country:"Cape Verde",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"CAV_Cape_Verde_PNDS 2017-2021 -VOL.1.pdf"},
-  {country:"Central African Republic",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2018",file:"rca_-ptss_revise_final.pdf"},
-  {country:"Chad",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2018",file:"TCD_Chad_Plan-National-de-Developpement-Sanitaire_2018-2021.pdf"},
-  {country:"Comoros",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2015",file:"COM_Comoros_National-Health-Policy__2015-2024_fr.pdf"},
-  {country:"Congo",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2018",file:"COG_Congo_Politique-Nationale-de-Sant\u00e9_PNS_2018-2030.pdf"},
-  {country:"Congo (DRC)",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2019",file:"COD_Democratic-Republic-of-Congo_PNDS_2019-2022.pdf"},
-  {country:"Djibouti",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2013",file:"Djibouti pnds_2013_2017_djibouti.pdf"},
-  {country:"Egypt",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2010",file:"EGY_Egypt_National-Health-Strategy_2010-2025.pdf"},
-  {country:"Eritrea",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"eritrea_hssdp_ii_21022017.pdf"},
-  {country:"Eswatini",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2023",file:"Eswatini-Strategic-Direction-Summary-2023.pdf"},
-  {country:"Ethiopia",region:"Africa",whoRegion:"AFRO",status:"both",docType:"NSP + NHP",year:"2021",yearNhp:"2021",yearNsp:"",fileNhp:"ETH_Ethiopia_Health-Sector-Transformation-Plan-II_2021-2026.pdf",fileNsp:"Ethiopia SALTS II _ National Surgical Care Strategic Plan.pdf"},
-  {country:"Gabon",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"GAB_Plan_national_de_d\u00e9veloppement_sanitaire_2017-2021.pdf"},
-  {country:"Gambia",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2021",file:"GMB_Gambia_National-Health-Policy_2021-2030.pdf"},
-  {country:"Ghana",region:"Africa",whoRegion:"AFRO",status:"nsp",docType:"NSP",year:"2025",file:"Ghana-FINAL-NSOAP-for-press-2.pdf"},
-  {country:"Guinea",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2015",file:"GIN_Guinea_Plan-national-de-developmment-sanitaire_2015-2024.pdf"},
-  {country:"Guinea-Bissau",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2018",file:"GNB_Guinea-Bissau_Plano-Nacional-de-Desenvolvimento-Sanit\u00e1rio_2018-2022.pdf"},
-  {country:"Kenya",region:"Africa",whoRegion:"AFRO",status:"both",docType:"NSP + NHP",year:"2014",yearNhp:"2014",yearNsp:"",fileNhp:"kenya_health_policy_2014_to_2030.pdf",fileNsp:"Kenya NSP- open link- interactive website.pdf"},
-  {country:"Lesotho",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"LSO_Lesotho_National-Health-Policy_2017.pdf"},
-  {country:"Liberia",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2024",file:"National-Operational-Plan-2024 Liberia.pdf"},
-  {country:"Madagascar",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"MDG_Madagascar_Plan-de-d\u00e9veloppement-du-secteur-Sant\u00e9_2020-2024.pdf"},
-  {country:"Malawi",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"MAL_Malawi_HSSP_II_2017-2022.pdf"},
-  {country:"Mali",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2014",file:"MLI_Mali_Plan-D\u00e9cennal-De-D\u00e9veloppement-Sanitaire-Et-Social_2014-2023.pdf"},
-  {country:"Mauritania",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"MRT_Mauritania_Poltique-Nationale-de-Sant\u00e9-horizon-2030.pdf"},
-  {country:"Mauritius",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"MSU_Mauritius_Health-Sector-Strategic-Plan_2020-2024.pdf"},
-  {country:"Morocco",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2025",file:"MAR_Morocco_Plan-de-sant\u00e9-2025.pdf"},
-  {country:"Mozambique",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"MOZ_Mozambique_PESS_2020-2024.docx"},
-  {country:"Namibia",region:"Africa",whoRegion:"AFRO",status:"nsp",docType:"NSP",year:"2023",file:"Namibia NSOAP final documnet_31 Oct 2023.pdf"},
-  {country:"Nigeria",region:"Africa",whoRegion:"AFRO",status:"nsp",docType:"NSP",year:"2021",file:"Nigeria_NSOANP.pdf"},
-  {country:"Rwanda",region:"Africa",whoRegion:"AFRO",status:"nsp",docType:"NSP",year:"2021",file:"Rwanda_NSOAP_Approved.pdf"},
-  {country:"S\u00e3o Tom\u00e9 and Pr\u00edncipe",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"STP_Sao-Tome-and-Principe_PNDS_2017-2021.pdf"},
-  {country:"Senegal",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2019",file:"SEN_Senegal_PNDSS_2019-2028.pdf"},
-  {country:"Seychelles",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2022",file:"SYC_Seychelles_National-Health-Strategic-Plan-2022-2026.pdf"},
-  {country:"Sierra Leone",region:"Africa",whoRegion:"AFRO",status:"nsp",docType:"NSP",year:"2026",file:"REPUBLIC OF SIERRA LEONE NSOAP 2026-2030.pdf"},
-  {country:"South Africa",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2021",file:"ZAF_South-Africa_National-Health-Strategic-Plan_2021-2025.pdf"},
-  {country:"South Sudan",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2016",file:"south_sudan_national_health_policy_2016_to_2025_2.pdf"},
-  {country:"Sudan",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"SDN_Sudan_National-Health Policy_2017-2030.pdf"},
-  {country:"Tanzania",region:"Africa",whoRegion:"AFRO",status:"nsp",docType:"NSP",year:"2021",file:"Tanzania_NSOAP_FINAL.pdf"},
-  {country:"Togo",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2017",file:"TGO_Togo_Plan-National-de-D\u00e9veloppement-Sanitaire 2017-2022.pdf"},
-  {country:"Uganda",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"UGA_Uganda_Ministry-of-Health-Strategic-Plan_2020-2025.pdf"},
-  {country:"Zimbabwe",region:"Africa",whoRegion:"AFRO",status:"nhp",docType:"NHP",year:"2020",file:"revised_National_Health_Policy.pdf"},
-  {country:"Afghanistan",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2016",file:"afghanistan_mophstrategy2016-2020_final09september2016111201614508950553325325.pdf"},
-  {country:"Bahrain",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2016",file:"BHR_Barhain_National-Health-Plan_2016-2025.pdf"},
-  {country:"Iran",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2017",file:"iran_6th_five_year_development_plan_2017-2021.pdf"},
-  {country:"Iraq",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2021",file:"Iraq Reconstruction and Investment.pdf"},
-  {country:"Kuwait",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nsp",docType:"NSP",year:"2024",file:"Kuwait Surgical Suite Operational Policy 2024-2026.pdf"},
-  {country:"Lebanon",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2020",file:"LBN_Lebanon_National-Health-Strategy_2030.pdf"},
-  {country:"Morocco (EMR)",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2025",file:"MAR_Morocco_Plan-de-sant\u00e9-2025.pdf"},
-  {country:"Oman",region:"Eastern Mediterranean",whoRegion:"EMR",status:"both",docType:"NSP + NHP",year:"2021",yearNhp:"2021",yearNsp:"2017",fileNhp:"OMN_Oman_10th-Five-year-Plan-for-Health-development_2021-2025.docx",fileNsp:"OMAN NSP 2017.pdf"},
-  {country:"Pakistan",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nsp",docType:"NSP",year:"2020",file:"Pakistan NSOAP+Manual_20200921.pdf"},
-  {country:"Qatar",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2018",file:"QAT_Qatar_National-Health-strategy_2018-2022.pdf"},
-  {country:"Saudi Arabia",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2021",file:"Saudi Arabia 2021-2025-health-sector-transformation-program-delivery-plan-en.pdf"},
-  {country:"Somalia",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2020",file:"Somalia Health-Sector-Strategy-Plan-III.pdf"},
-  {country:"Syria",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2020",file:"Ministry of Health _ Health Districts Program syria.pdf"},
-  {country:"Tunisia",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2023",file:"s12961-023-00996-6 Tunisia.pdf"},
-  {country:"UAE",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nsp",docType:"NSP",year:"2024",file:"UAE One day surgery center regulation.pdf"},
-  {country:"Yemen",region:"Eastern Mediterranean",whoRegion:"EMR",status:"nhp",docType:"NHP",year:"2018",file:"nat_health_strategy_-_yemen_eng.pdf"},
-  {country:"Albania",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"Albania NHP 2021-2030 (Albanian).pdf"},
-  {country:"Andorra",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"Andorra NHP (English).pdf"},
-  {country:"Armenia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2020",file:"Armenia NHP 2020-2025.docx"},
-  {country:"Austria",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2023",file:"Austria National Health Plan 2023-2030.pdf"},
-  {country:"Azerbaijan",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2014",file:"Azerbaijan NHP 2014-2020 (Azerbaijani).pdf"},
-  {country:"Belarus",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2016",file:"Belarus NHP 2016-2020 (English).pdf"},
-  {country:"Belgium",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2019",file:"Belgium Health Plan 2019-2025 (French).pdf"},
-  {country:"Bosnia and Herzegovina",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2008",file:"Bosnia NHP 2008-2018 (Bosnian).pdf"},
-  {country:"Bulgaria",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2015",file:"Bulgaria NHP 2015-2020.pdf"},
-  {country:"Croatia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"Croatia NHP 2021-2027 (Croatian).pdf"},
-  {country:"Cyprus",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2024",file:"Cyprus NHP 2024-2026 (English).pdf"},
-  {country:"Czech Republic",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2020",file:"Czech NHP 2030 (Czech).pdf"},
-  {country:"Denmark",region:"Europe",whoRegion:"EURO",status:"nsp",docType:"NSP",year:"2020",file:"Denmark NSP.pdf"},
-  {country:"Estonia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2020",file:"Estonia National Health Plan 2020-2030 (Estonian).pdf"},
-  {country:"Finland",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2023",file:"Finland NHP 2023\u20132025.pdf"},
-  {country:"France",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2023",file:"France National Health Strategy 2023-2033 (French).pdf"},
-  {country:"Georgia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2017",file:"Georgia OB Plan 2017-2030.pdf"},
-  {country:"Greece",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"Greece NHP 2021-2025 (Greek).pdf"},
-  {country:"Hungary",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"Hungary Health Strategy 2021-2027 (Hungarian).pdf"},
-  {country:"Iceland",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"Iceland Health Policy 2030.pdf"},
-  {country:"Ireland",region:"Europe",whoRegion:"EURO",status:"nsp",docType:"NSP",year:"2023",file:"Ireland Surgical Hubs Guidance Report.pdf"},
-  {country:"Israel",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2023",file:"Israel NHP 2023-2048.pdf"},
-  {country:"Italy",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2022",file:"Italy Health System Review 2022.pdf"},
-  {country:"Kazakhstan",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2023",file:"Kazakhstan NHP 2023-2027.docx"},
-  {country:"Kyrgyzstan",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2019",file:"Kyrgyzstan NHP 2019-2030.docx"},
-  {country:"Latvia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"Latvia National Healthcare Plan.pdf"},
-  {country:"Lithuania",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"Lithuania NHP 2021-2030.docx"},
-  {country:"Luxembourg",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2020",file:"Luxembourg NHP 2020-2030 (French).pdf"},
-  {country:"Malta",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2023",file:"Malta National Health Strategy 2023-2030 (ENG).pdf"},
-  {country:"Moldova",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2020",file:"Moldova NHP 2020-2023.pdf"},
-  {country:"Montenegro",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2023",file:"Montenegro Health Plan 2023-2027 (MNE).pdf"},
-  {country:"North Macedonia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"North Macedonia NHP 2021-2030.pdf"},
-  {country:"Northern Ireland",region:"Europe",whoRegion:"EURO",status:"nsp",docType:"NSP",year:"2022",file:"Northern Ireland Surgical Action Plan.pdf"},
-  {country:"Norway",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2024",file:"Norway NHP 2024-2027.docx"},
-  {country:"Poland",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2022",file:"Poland National Plan 2022-2026 (ENG).pdf"},
-  {country:"Portugal",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"Portugal NHP 2021-2030 (English).pdf"},
-  {country:"Romania",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2022",file:"Romania NHP 2022-2030.pdf"},
-  {country:"Russia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2018",file:"Russia NHP 2018-2024.pdf"},
-  {country:"San Marino",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2021",file:"San Marino NHP 2021-2023.pdf"},
-  {country:"Serbia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2018",file:"Serbia Public Health Strategy 2018-2026 (English).pdf"},
-  {country:"Slovakia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2014",file:"Slovakia NHP (2014-2030).pdf"},
-  {country:"Slovenia",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2016",file:"Slovenia National Health Plan 2016-2025.pdf"},
-  {country:"Spain",region:"Europe",whoRegion:"EURO",status:"nsp",docType:"NSP",year:"2020",file:"Spain NSP (Spanish).pdf"},
-  {country:"Sweden",region:"Europe",whoRegion:"EURO",status:"nsp",docType:"NSP",year:"2020",file:"Sweden NSP (Anesthesia).pdf"},
-  {country:"Switzerland",region:"Europe",whoRegion:"EURO",status:"both",docType:"NSP + NHP",year:"2020",yearNhp:"2020",yearNsp:"2012",fileNhp:"Switzerland Health Plan 2020-2030 (French).pdf",fileNsp:"Switzerland NSP 2012 (Safe Surgery Program).pdf"},
-  {country:"Tajikistan",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2022",file:"Tajikistan NHP 2022-2025.docx"},
-  {country:"Turkey",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2024",file:"Turkey NHP 2024-2028.pdf"},
-  {country:"Turkmenistan",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2015",file:"Turkmenistan NHP 2015 (Turkmen).pdf"},
-  {country:"Ukraine",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2020",file:"Ukraine NHP (Cancer Control) 2020-2030.pdf"},
-  {country:"United Kingdom",region:"Europe",whoRegion:"EURO",status:"both",docType:"NSP + NHP",year:"2022",yearNhp:"2021",yearNsp:"2022",fileNhp:"UK Health Reform Proposals 2021.pdf",fileNsp:"Northern Ireland Surgical Action Plan.pdf"},
-  {country:"Uzbekistan",region:"Europe",whoRegion:"EURO",status:"nhp",docType:"NHP",year:"2019",file:"Uzbekistan NHP 2019-2022 (Uzbek, scan).pdf"},
-  {country:"Bangladesh",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2011",file:"Bangladesh NHP 2011.pdf"},
-  {country:"Bhutan",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2015",file:"Bhutan NHP 2015-2023.pdf"},
-  {country:"DPR Korea",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2016",file:"DPR KOREA NHP 2016 \u2013 2020.pdf"},
-  {country:"India",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2017",file:"India NHP 2017.pdf"},
-  {country:"Indonesia",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2015",file:"Indonesia NHP 2015-2019.pdf"},
-  {country:"Maldives",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2016",file:"Maldives NHP 2016-2025.pdf"},
-  {country:"Myanmar",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2017",file:"MYANMAR NHP 2017 - 2021.pdf"},
-  {country:"Nepal",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2023",file:"Nepal NHP 2023-2030.pdf"},
-  {country:"Sri Lanka",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2016",file:"Sri Lanka NHP 2016 - 2025.pdf"},
-  {country:"Thailand",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2023",file:"Thailand NHP 2023-2027.pdf"},
-  {country:"Timor-Leste",region:"South-East Asia",whoRegion:"SEARO",status:"nhp",docType:"NHP",year:"2011",file:"Timor Leste NHP 2011-2030.pdf"},
-  {country:"Australia",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2020",file:"Australia NHP 2020-25.pdf"},
-  {country:"Brunei",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2015",file:"Brunei NHP 2015-2035.pdf"},
-  {country:"Cambodia",region:"Western Pacific",whoRegion:"WPR",status:"both",docType:"NSP + NHP",year:"2026",yearNhp:"2018",yearNsp:"2026",fileNhp:"Cambodia NHP 2018-2027.pdf",fileNsp:"Cambodia NSOAP 2026-2035.pdf"},
-  {country:"China",region:"Western Pacific",whoRegion:"WPR",status:"nsp",docType:"NSP",year:"2023",file:"China NSP 2023-2025.pdf"},
-  {country:"Fiji",region:"Western Pacific",whoRegion:"WPR",status:"nsp",docType:"NSP",year:"2020",file:"Fiji NSP 2020-2025.pdf"},
-  {country:"Japan",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2020",file:"Japan NHP (2020, English).pdf"},
-  {country:"Kiribati",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2020",file:"Kiribati NHP 2020-2023.pdf"},
-  {country:"Malaysia",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2022",file:"Malaysia NHP 2022-2026.pdf"},
-  {country:"Marshall Islands",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2020",file:"Marshall Islands NHP 2020-2030.pdf"},
-  {country:"Micronesia",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2019",file:"Micronesia NHP 2019-2024.pdf"},
-  {country:"Mongolia",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2020",file:"Mongolian NHP (English).pdf"},
-  {country:"New Zealand",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2022",file:"New Zealand NHP 2022.pdf"},
-  {country:"Niue",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2011",file:"Niue NHP 2011-2021.pdf"},
-  {country:"Papua New Guinea",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2021",file:"Papua New Guinea NHP Indicators 2021-2030.pdf"},
-  {country:"Philippines",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2023",file:"Philippines NHP 2023-2028.pdf"},
-  {country:"Republic of Korea",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2021",file:"Republic of Korea NHP Summary 2021-2030.pdf"},
-  {country:"Samoa",region:"Western Pacific",whoRegion:"WPR",status:"nsp",docType:"NSP",year:"2019",file:"Samoa NHP (Obstetrics) 2019-2030.pdf"},
-  {country:"Singapore",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2022",file:"Singapore NHP 2022.pdf"},
-  {country:"Solomon Islands",region:"Western Pacific",whoRegion:"WPR",docSubfolder:"SEARO",status:"nhp",docType:"NHP",year:"2022",file:"Solomon Islands NHSP 2022-2031.pdf"},
-  {country:"Tonga",region:"Western Pacific",whoRegion:"WPR",docSubfolder:"SEARO",status:"nsp",docType:"NSP",year:"2023",file:"Tonga NSP 2023-2030.pdf"},
-  {country:"Vietnam",region:"Western Pacific",whoRegion:"WPR",status:"nhp",docType:"NHP",year:"2026",file:"National Surgical Obstetric and Anaesthesia Plan 20262031.pdf"},
-];
+let policyData = [];
 
-/* ═══════════════════════════════════════════════════════════════════
-   STATUS CONFIG
-═══════════════════════════════════════════════════════════════════ */
 const SC = {
   both:    {label:'NSP + NHP', color:'var(--c-both)'},
   nsp:     {label:'NSP Only',  color:'var(--c-nsp)'},
@@ -1267,9 +1126,6 @@ const WHO_REGIONS = [
   {key:'WPR',   label:'Western Pacific'},
 ];
 
-/* ═══════════════════════════════════════════════════════════════════
-   HERO STATS COUNT-UP
-═══════════════════════════════════════════════════════════════════ */
 function countUp(el, target, dur=1200){
   if (!el) return;
   let start=null;
@@ -1287,54 +1143,59 @@ function setText(id, text) {
   if (el) el.textContent = text;
 }
 
-const nsp = policyData.filter(d=>d.status==='nsp').length;
-const nhp = policyData.filter(d=>d.status==='nhp').length;
-const both = policyData.filter(d=>d.status==='both').length;
-const total = policyData.length;
+let countryStatus = {};
+const ourToTopo = {
+  'Congo (DRC)':'Dem. Rep. Congo','Czech Republic':'Czechia',
+  'Bosnia and Herzegovina':'Bosnia and Herz.','North Macedonia':'Macedonia',
+  'Republic of Korea':'South Korea','DPR Korea':'North Korea',
+  'South Sudan':'S. Sudan','Central African Republic':'Central African Rep.',
+  'Eswatini':'eSwatini','Solomon Islands':'Solomon Is.',
+  'UAE':'United Arab Emirates',
+};
+const lookup = {};
+let countryToWHO = {};
 
-const regionCounts = {};
-WHO_REGIONS.forEach(r=> regionCounts[r.key] = policyData.filter(d=>d.whoRegion===r.key).length);
-const maxCount = Math.max(1, ...Object.values(regionCounts));
+/* Built automatically from PDFs — see npm run catalogue */
+async function loadCatalogue() {
+  const res = await fetch('catalogue.json', { cache: 'no-store' });
+  if (!res.ok) throw new Error('catalogue.json HTTP ' + res.status);
+  return res.json();
+}
 
-/* Sidebar + filter state first so IntersectionObserver or hero DOM issues cannot strand the map. */
-let activeFilter = 'all';
-let activeRegion = 'all';
-let mapFilterStatus = 'all';
-let mapFilterRegion = 'all';
-/* D3 selections live on this object so filter callbacks never touch a let TDZ. */
-const mapD3 = { d3zoom: null, svgSel: null, pathSel: null };
-const fc = {all:total, both, nsp, nhp};
-setText('fc-all', String(total));
-setText('fc-both', String(both));
-setText('fc-nsp', String(nsp));
-setText('fc-nhp', String(nhp));
-setText('map-title-label', 'All Types — ' + total + ' countr' + (total === 1 ? 'y' : 'ies'));
-syncTableMeta(total, total);
-
-const rfList = document.getElementById('region-filters');
-if (rfList) {
-  rfList.innerHTML = `<button class="region-pill active" data-region="all"><span class="region-pip"></span>All Regions</button>`;
-  WHO_REGIONS.forEach(r=>{
-    rfList.innerHTML += `<button class="region-pill" data-region="${r.key}"><span class="region-pip"></span>${r.label}</button>`;
-  });
-  rfList.querySelectorAll('.region-pill').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      rfList.querySelectorAll('.region-pill').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      activeRegion = btn.dataset.region;
-      applyFilters();
-    });
+function rebuildCatalogueIndexes() {
+  Object.keys(lookup).forEach((k) => delete lookup[k]);
+  policyData.forEach((d) => { lookup[d.country.toLowerCase()] = d; });
+  Object.keys(countryStatus).forEach((k) => delete countryStatus[k]);
+  Object.keys(countryToWHO).forEach((k) => delete countryToWHO[k]);
+  policyData.forEach((d) => {
+    const topo = ourToTopo[d.country] || d.country;
+    countryStatus[topo] = d.status;
+    countryToWHO[topo] = d.whoRegion;
   });
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   HERO REGION BARS
-═══════════════════════════════════════════════════════════════════ */
-const regionBars = document.getElementById('region-bars');
-if (regionBars) {
-  WHO_REGIONS.forEach(r=>{
-    const c = regionCounts[r.key];
-    regionBars.innerHTML += `
+function refreshHeroAndFilters() {
+  const nsp = policyData.filter((d) => d.status === 'nsp').length;
+  const nhp = policyData.filter((d) => d.status === 'nhp').length;
+  const both = policyData.filter((d) => d.status === 'both').length;
+  const total = policyData.length;
+  const regionCounts = {};
+  WHO_REGIONS.forEach((r) => {
+    regionCounts[r.key] = policyData.filter((d) => d.whoRegion === r.key).length;
+  });
+  const maxCount = Math.max(1, ...Object.values(regionCounts));
+  setText('fc-all', String(total));
+  setText('fc-both', String(both));
+  setText('fc-nsp', String(nsp));
+  setText('fc-nhp', String(nhp));
+  setText('map-title-label', 'All Types — ' + total + ' countr' + (total === 1 ? 'y' : 'ies'));
+  syncTableMeta(total, total);
+  const regionBars = document.getElementById('region-bars');
+  if (regionBars) {
+    regionBars.innerHTML = '';
+    WHO_REGIONS.forEach((r) => {
+      const c = regionCounts[r.key];
+      regionBars.innerHTML += `
     <div class="region-row">
       <div class="region-row-head">
         <span class="region-label">${r.label}</span>
@@ -1342,37 +1203,66 @@ if (regionBars) {
       </div>
       <div class="region-track"><div class="region-fill" data-pct="${c/maxCount}" style="width:${c/maxCount*100}%"></div></div>
     </div>`;
-  });
-  if (typeof IntersectionObserver !== 'undefined') {
-    const barObs = new IntersectionObserver(entries=>{
+    });
+    document.querySelectorAll('.region-fill').forEach((f) => f.classList.add('animate'));
+  }
+  window.__atlasCounts = { total, nsp, nhp, both };
+}
+
+async function bootstrapAtlas() {
+  policyData = await loadCatalogue();
+  rebuildCatalogueIndexes();
+  refreshHeroAndFilters();
+  applyFilters();
+  if (mapD3.pathSel) updateMapFilters();
+  else initD3Map();
+  setupHeroCountUpObserver();
+}
+
+function runHeroCountUpFromCatalogue() {
+  const c = window.__atlasCounts || { total: 0, nsp: 0, nhp: 0, both: 0 };
+  countUp(document.getElementById('s-countries'), c.total);
+  countUp(document.getElementById('s-nsp'), c.nsp + c.both);
+  countUp(document.getElementById('s-nhp'), c.nhp + c.both);
+}
+
+function setupHeroCountUpObserver() {
+  const heroStatsEl = document.querySelector('.hero-stats');
+  if (typeof IntersectionObserver !== 'undefined' && heroStatsEl) {
+    const heroObs = new IntersectionObserver(entries=>{
       if(entries[0] && entries[0].isIntersecting){
-        document.querySelectorAll('.region-fill').forEach(f=>f.classList.add('animate'));
-        barObs.disconnect();
+        runHeroCountUpFromCatalogue();
+        heroObs.disconnect();
       }
-    },{threshold:0.5});
-    barObs.observe(regionBars);
+    },{threshold:0.3});
+    heroObs.observe(heroStatsEl);
   } else {
-    document.querySelectorAll('.region-fill').forEach(f=>f.classList.add('animate'));
+    runHeroCountUpFromCatalogue();
   }
 }
 
-function runHeroCountUp(){
-  countUp(document.getElementById('s-countries'), total);
-  countUp(document.getElementById('s-nsp'), nsp+both);
-  countUp(document.getElementById('s-nhp'), nhp+both);
-}
-const heroStatsEl = document.querySelector('.hero-stats');
-if (typeof IntersectionObserver !== 'undefined' && heroStatsEl) {
-  const heroObs = new IntersectionObserver(entries=>{
-    if(entries[0] && entries[0].isIntersecting){
-      runHeroCountUp();
-      heroObs.disconnect();
-    }
-  },{threshold:0.3});
-  heroObs.observe(heroStatsEl);
-} else {
-  runHeroCountUp();
-}
+let activeFilter = 'all';
+let activeRegion = 'all';
+let mapFilterStatus = 'all';
+let mapFilterRegion = 'all';
+const mapD3 = { d3zoom: null, svgSel: null, pathSel: null };
+
+(function initRegionFilterPills() {
+  const rfList = document.getElementById('region-filters');
+  if (!rfList) return;
+  rfList.innerHTML = '<button class="region-pill active" data-region="all"><span class="region-pip"></span>All Regions</button>';
+  WHO_REGIONS.forEach((r) => {
+    rfList.innerHTML += `<button class="region-pill" data-region="${r.key}"><span class="region-pip"></span>${r.label}</button>`;
+  });
+  rfList.querySelectorAll('.region-pill').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      rfList.querySelectorAll('.region-pill').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeRegion = btn.dataset.region;
+      applyFilters();
+    });
+  });
+})();
 
 /* ═══════════════════════════════════════════════════════════════════
    TYPE FILTER PILLS
@@ -1445,23 +1335,6 @@ function docLinkButtonLabel(fileName) {
   return 'Open file';
 }
 
-function indicatedYearToNumber(y) {
-  if (y == null || y === '' || y === '\u2014') return null;
-  const n = parseInt(String(y).trim(), 10);
-  return !isNaN(n) && n >= 1990 && n <= 2040 ? n : null;
-}
-
-/** For NSP + NHP rows: max of indicated NHP/NSP years (ignores blank NSP/NHP years). */
-function latestIndicatedCatalogueYear(d) {
-  if (d.status === 'both' && d.fileNsp) {
-    const yh = indicatedYearToNumber(d.yearNhp != null && d.yearNhp !== '' ? d.yearNhp : d.year);
-    const ys = indicatedYearToNumber(d.yearNsp);
-    const nums = [yh, ys].filter(function (n) { return n != null; });
-    if (nums.length) return String(Math.max.apply(null, nums));
-  }
-  return String(d.year);
-}
-
 function dualYearBreakdownLabel(d) {
   if (d.status !== 'both' || !d.fileNsp) return '';
   const parts = [];
@@ -1472,10 +1345,14 @@ function dualYearBreakdownLabel(d) {
 
 function formatCatalogueYearCell(d) {
   if (d.status === 'both' && d.fileNsp) {
-    const latest = latestIndicatedCatalogueYear(d);
-    const breakdown = dualYearBreakdownLabel(d);
-    const title = breakdown ? ' title="' + escHtml(breakdown) + '"' : '';
-    return '<span' + title + ' style="font-variant-numeric:tabular-nums;color:var(--fog-3)">' + escHtml(latest) + '</span><span class="policy-years-legend">Latest indicated</span>';
+    const yh = d.yearNhp != null && d.yearNhp !== '' ? d.yearNhp : d.year;
+    const ys = d.yearNsp != null && d.yearNsp !== '' ? d.yearNsp : '\u2014';
+    return (
+      '<div class="policy-years-stack">' +
+      '<span class="policy-year-line"><span class="doc-kind doc-kind--nhp">NHP</span> ' + escHtml(String(yh)) + '</span>' +
+      '<span class="policy-year-line"><span class="doc-kind doc-kind--nsp">NSP</span> ' + escHtml(String(ys)) + '</span>' +
+      '</div>'
+    );
   }
   return '<span style="font-variant-numeric:tabular-nums;color:var(--fog-3)">' + escHtml(String(d.year)) + '</span>';
 }
@@ -1504,11 +1381,9 @@ function buildPolicySummaryHtml(d) {
   }
   let yearLine;
   if (d.status === 'both' && d.fileNsp) {
-    const latest = latestIndicatedCatalogueYear(d);
     const bd = dualYearBreakdownLabel(d);
     yearLine =
-      '<strong>Latest indicated year</strong> ' + escHtml(latest) +
-      (bd ? ' <span class="fn">(' + escHtml(bd) + ')</span>' : '') +
+      '<strong>Catalogue years</strong> ' + escHtml(bd || String(d.year)) +
       ', <strong>WHO</strong> ' + escHtml(d.whoRegion) + ' · ' + escHtml(d.region) + '.';
   } else {
     yearLine =
@@ -1574,13 +1449,11 @@ function openCountryDocumentTab(d) {
     w.document.write('<h1>' + escHtml(d.country) + '</h1>');
     w.document.write(
       '<p class="intro">Catalogue entry for this country in the <strong>National Surgical &amp; Health Policy Atlas</strong>. ' +
-      'Metadata and repository file names are listed below. ' +
-      'Use the buttons to open each document. ' +
-      'When <code>summaries.json</code> includes this country, an excerpt from the indexed PDF appears under <strong>From the policy file</strong>.</p>'
+      'Use the buttons below to open each document in the repository.</p>'
     );
     w.document.write(buildPolicySummaryHtml(d));
     if (extra) {
-      w.document.write('<h2 class="sum">From the policy file</h2>');
+      w.document.write('<h2 class="sum">Policy excerpt</h2>');
       w.document.write('<div class="doc-sum"><p>' + escHtml(extra) + '</p></div>');
     }
     const links = items.map(function (it) {
@@ -1590,7 +1463,7 @@ function openCountryDocumentTab(d) {
       return '<a class="btn" href="' + escHtml(absUrl) + '" target="_blank" rel="noopener noreferrer"><span class="f">' + escHtml(it.short) + '</span>' + escHtml(verb) + '</a>';
     }).join('');
     w.document.write('<div class="actions">' + links + '</div>');
-    w.document.write('<p class="note">Optional: regenerate excerpt text locally with <code>npm install</code> and <code>npm run summaries</code> (add <code>OPENAI_API_KEY</code> for richer narratives). Links assume this site is served from the repository root or GitHub Pages.</p></body></html>');
+    w.document.write('</body></html>');
     w.document.close();
   });
 }
@@ -1676,57 +1549,10 @@ function goPage(n){
   document.getElementById('table-section').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-applyFilters();
 
 /* ═══════════════════════════════════════════════════════════════════
    D3 WORLD MAP — accurate country boundaries from real TopoJSON
 ═══════════════════════════════════════════════════════════════════ */
-
-// Status lookup: topojson country name -> status
-const countryStatus = {
-  'Afghanistan': 'nhp', 'Albania': 'nhp', 'Algeria': 'nhp', 'Angola': 'nhp',
-  'Armenia': 'nhp', 'Australia': 'nhp', 'Austria': 'nhp', 'Azerbaijan': 'nhp',
-  'Bangladesh': 'nhp', 'Belarus': 'nhp', 'Belgium': 'nhp', 'Benin': 'nhp',
-  'Bhutan': 'nhp', 'Bosnia and Herz.': 'nhp', 'Botswana': 'nhp', 'Brunei': 'nhp',
-  'Bulgaria': 'nhp', 'Burkina Faso': 'nhp', 'Cambodia': 'both', 'Cameroon': 'nhp',
-  'Central African Rep.': 'nhp', 'Chad': 'nhp', 'China': 'nsp', 'Congo': 'nhp',
-  'Croatia': 'nhp', 'Cyprus': 'nhp', 'Czechia': 'nhp', 'Dem. Rep. Congo': 'nhp',
-  'Denmark': 'nsp', 'Djibouti': 'nhp', 'Egypt': 'nhp', 'Eritrea': 'nhp',
-  'Estonia': 'nhp', 'Ethiopia': 'both', 'Fiji': 'nsp', 'Finland': 'nhp',
-  'France': 'nhp', 'Gabon': 'nhp', 'Gambia': 'nhp', 'Georgia': 'nhp',
-  'Ghana': 'nsp', 'Greece': 'nhp', 'Guinea': 'nhp', 'Guinea-Bissau': 'nhp',
-  'Hungary': 'nhp', 'Iceland': 'nhp', 'India': 'nhp', 'Indonesia': 'nhp',
-  'Iran': 'nhp', 'Iraq': 'nhp', 'Ireland': 'nsp', 'Israel': 'nhp', 'Italy': 'nhp',
-  'Japan': 'nhp', 'Kazakhstan': 'nhp', 'Kenya': 'both', 'Kuwait': 'nsp',
-  'Kyrgyzstan': 'nhp', 'Latvia': 'nhp', 'Lebanon': 'nhp', 'Lesotho': 'nhp',
-  'Liberia': 'nhp', 'Lithuania': 'nhp', 'Luxembourg': 'nhp', 'Macedonia': 'nhp',
-  'Madagascar': 'nhp', 'Malawi': 'nhp', 'Malaysia': 'nhp', 'Mali': 'nhp',
-  'Mauritania': 'nhp', 'Moldova': 'nhp', 'Mongolia': 'nhp', 'Montenegro': 'nhp',
-  'Morocco': 'nhp', 'Mozambique': 'nhp', 'Myanmar': 'nhp', 'Namibia': 'nsp',
-  'Nepal': 'nhp', 'New Zealand': 'nhp', 'Nigeria': 'nsp', 'North Korea': 'nhp',
-  'Norway': 'nhp', 'Oman': 'both', 'Pakistan': 'nsp', 'Papua New Guinea': 'nhp',
-  'Philippines': 'nhp', 'Poland': 'nhp', 'Portugal': 'nhp', 'Qatar': 'nhp',
-  'Romania': 'nhp', 'Russia': 'nhp', 'Rwanda': 'nsp', 'S. Sudan': 'nhp',
-  'Saudi Arabia': 'nhp', 'Senegal': 'nhp', 'Serbia': 'nhp', 'Sierra Leone': 'nsp',
-  'Slovakia': 'nhp', 'Slovenia': 'nhp', 'Solomon Is.': 'nhp', 'Somalia': 'nhp',
-  'South Africa': 'nhp', 'South Korea': 'nhp', 'Spain': 'nsp', 'Sri Lanka': 'nhp',
-  'Sudan': 'nhp', 'Sweden': 'nsp', 'Switzerland': 'both', 'Syria': 'nhp',
-  'Tajikistan': 'nhp', 'Tanzania': 'nsp', 'Thailand': 'nhp', 'Timor-Leste': 'nhp',
-  'Togo': 'nhp', 'Tunisia': 'nhp', 'Turkey': 'nhp', 'Turkmenistan': 'nhp',
-  'Uganda': 'nhp', 'Ukraine': 'nhp', 'United Arab Emirates': 'nsp',
-  'United Kingdom': 'both', 'Uzbekistan': 'nhp', 'Vietnam': 'nhp', 'Yemen': 'nhp',
-  'Zimbabwe': 'nhp', 'eSwatini': 'nhp',
-};
-
-// Reverse lookup: our dataset country name -> topojson name
-const ourToTopo = {
-  'Congo (DRC)':'Dem. Rep. Congo','Czech Republic':'Czechia',
-  'Bosnia and Herzegovina':'Bosnia and Herz.','North Macedonia':'Macedonia',
-  'Republic of Korea':'South Korea','DPR Korea':'North Korea',
-  'South Sudan':'S. Sudan','Central African Republic':'Central African Rep.',
-  'Eswatini':'eSwatini','Solomon Islands':'Solomon Is.',
-  'UAE':'United Arab Emirates',
-};
 
 const tip = document.getElementById('map-tip');
 let tipTimeout;
@@ -1757,10 +1583,6 @@ function fillMapTipSummaryForKey(countryKey) {
   }
 }
 
-// Build lookup: our dataset country name -> data row
-const lookup = {};
-policyData.forEach(d => { lookup[d.country.toLowerCase()] = d; });
-
 function resolveDataRowForTopoName(topoName) {
   let row = lookup[topoName.toLowerCase()];
   if (row) return row;
@@ -1775,13 +1597,6 @@ function getStatusColor(status) {
   };
   return colors[status] || colors.none;
 }
-
-// WHO region by topojson country name (approximate)
-const countryToWHO = {};
-policyData.forEach(d => {
-  const topo = ourToTopo[d.country] || d.country;
-  countryToWHO[topo] = d.whoRegion;
-});
 
 // D3 map setup
 const svgEl = document.getElementById('world-map');
@@ -1884,7 +1699,8 @@ function initD3Map() {
           if (dataRow) {
             if (tm) {
               if (dataRow.status === 'both' && dataRow.fileNsp) {
-                tm.textContent = 'Latest indicated year: ' + latestIndicatedCatalogueYear(dataRow);
+                const yrs = dualYearBreakdownLabel(dataRow);
+                tm.textContent = yrs ? 'Catalogue years: ' + yrs.replace(/, /g, ' · ') : 'Document year: ' + dataRow.year;
               } else {
                 tm.textContent = 'Document year: ' + dataRow.year;
               }
@@ -1963,6 +1779,10 @@ window.addEventListener('resize', () => {
 
 // Initialize map
 ensurePolicySummariesLoaded();
-initD3Map();
+bootstrapAtlas().catch(function (err) {
+  console.error('Atlas catalogue load failed:', err);
+  var meta = document.getElementById('table-meta');
+  if (meta) meta.textContent = 'Could not load catalogue.json. See README.md in the repository for how to add PDFs.';
+});
 
 </script></body></html>

@@ -1,0 +1,31 @@
+name: Build catalogue
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Region-wise NSP-NHP documents [Living Repository]/**'
+      - 'scripts/build-catalogue.mjs'
+      - 'catalogue-overrides.json'
+  workflow_dispatch:
+
+jobs:
+  catalogue:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Regenerate catalogue.json
+        run: npm run catalogue
+
+      - name: Commit catalogue if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: regenerate catalogue.json from PDFs'
+          file_pattern: catalogue.json
