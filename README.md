@@ -58,23 +58,6 @@ Use the [submission form](https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97
 | Country missing on the map but listed in the table | Rare name mismatch — add an entry to `ourToTopo` in `index.html`. |
 | No hover summary on the map | Optional: run `npm run summaries` (needs PDF text extraction; OpenAI key only for translation). |
 
----
-
-## Other maintainer notes
-
-**Change the logo** — Replace `logo.png` in the repo root, bump the `?v=` query on logo URLs in `index.html`, commit, push.
-
-**Embed on another site** — Point an iframe at the live site URL, for example:
-
-```html
-<iframe
-  src="https://snaqvi-stevens.github.io/Global-NSP-NHP-Repository-/"
-  title="NSP/NHP Atlas"
-  width="100%"
-  height="900"
-  style="border:0"
-></iframe>
-```
 
 ---
 
