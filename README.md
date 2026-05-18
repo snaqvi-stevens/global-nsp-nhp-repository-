@@ -1,112 +1,169 @@
 # National Surgical & Health Policy Repository
 
-Living catalogue of national surgical plans (NSP) and national health policies (NHP), with an interactive map and download table.
+A global library of **National Surgical Plans (NSPs)** and **National Health Policies (NHPs)**. The public sees an interactive map and a table of countries with download links.
 
-| Site | URL |
-|------|-----|
-| **Production (Hostinger)** | https://globalsurgeryconnect.org/atlas/ *(after Git deploy is configured)* |
-| **Staging / backup (GitHub Pages)** | https://snaqvi-stevens.github.io/Global-NSP-NHP-Repository-/ |
+**Live atlas (main website):**  
+https://globalsurgeryconnect.org/atlas/
 
-**GitHub is the source of truth.** PDFs and `catalogue.json` live in this repo. With Hostinger Git + auto-deploy, a **push to `main`** updates the live domain. Setup: [Hostinger_README.md](Hostinger_README.md).
+**Backup copy:**  
+https://snaqvi-stevens.github.io/Global-NSP-NHP-Repository-/
 
 ---
 
-## Add or update a country PDF (maintainers)
+## Who this guide is for
 
-You **do not** edit the country list in `index.html`. Add the PDF to GitHub, refresh the catalogue, and push.
+This guide is for **regional reviewers and maintainers** who add approved PDFs. You do **not** need to be a programmer. If you can upload a file to a website (like email attachments or Google Drive), you can do this using **GitHub in your web browser**.
 
-### Step 1 — Add the PDF to the repo
+**You do not need to edit the website code** to add a new country document.
 
-Put the file in the correct WHO region folder:
+**Technical setup** (connecting the website to GitHub, Hostinger, etc.) is in [Hostinger_README.md](Hostinger_README.md) — usually done once by whoever manages the domain.
 
-```
-Region-wise NSP-NHP documents [Living Repository]/
-├── AFRO/                          ← Africa
-├── EMR NSP-NHP Documents/         ← Eastern Mediterranean
-├── EURO/                          ← Europe
-├── SEARO/                         ← South-East Asia
-└── WPR NSP-NHP Documents/         ← Western Pacific
-```
+---
 
-**Ways to add the file:**
+## The simple idea
 
-- **Locally:** copy PDF into the folder → commit (see Step 3).
-- **On GitHub:** repo → regional folder → **Add file** → **Upload files** → commit to `main`.
+1. Approved PDFs are stored in **GitHub** (our online filing cabinet).
+2. When files are added or updated there, the **live map and table update automatically** within a few minutes.
+3. You **upload the PDF to the correct regional folder** on GitHub. The system updates the country list for you.
 
-Use a clear filename, for example:
+You should **not** log into Hostinger to upload each PDF if GitHub is already connected (see [Hostinger_README.md](Hostinger_README.md)).
 
-- `KEN_Kenya_NSP_2024-2030.pdf`
+---
+
+## How to add a new country PDF (easiest way — in your browser)
+
+You need:
+
+- A **GitHub account** with permission to edit this repository  
+- The **approved PDF** on your computer  
+- About **10 minutes**
+
+### Step 1 — Open the repository
+
+1. Go to: https://github.com/SNaqvi-Stevens/Global-NSP-NHP-Repository-  
+2. Sign in to GitHub if asked.
+
+### Step 2 — Open the right regional folder
+
+Click into this folder (one click at a time):
+
+**`Region-wise NSP-NHP documents [Living Repository]`**
+
+Then open **one** of these folders based on the country’s WHO region:
+
+| If the country is in… | Open this folder |
+|------------------------|------------------|
+| Africa | **AFRO** |
+| Eastern Mediterranean | **EMR NSP-NHP Documents** |
+| Europe | **EURO** |
+| South-East Asia | **SEARO** |
+| Western Pacific | **WPR NSP-NHP Documents** |
+
+### Step 3 — Upload the PDF
+
+1. Click the **Add file** button (near the top right).  
+2. Choose **Upload files**.  
+3. Drag your PDF into the box, or click **choose your files**.  
+4. Wait until the upload finishes.
+
+### Step 4 — Name the file clearly (before you save)
+
+Use a name that includes:
+
+- **Country name** (e.g. Kenya, Benin)  
+- Whether it is an **NSP** or **NHP** (or words like *surgical*, *health policy*, *national plan*)  
+- **Years** if you know them (e.g. 2018-2022)
+
+**Good examples:**
+
+- `KEN_Kenya_NSP_2024-2030.pdf`  
 - `BEN_Benin_NHP_2018-2022.pdf`
 
-Include the **country name** and **NSP** or **NHP** (or words like *surgical*, *health policy*, *PNDS*) so the build script can classify it.
+**Avoid vague names** like `document.pdf` or `final_version2.pdf`.
 
-### Step 2 — Regenerate `catalogue.json`
+### Step 5 — Save on GitHub
 
-**On your computer** (Node.js installed):
+1. Scroll down to **Commit changes**.  
+2. In the short message box, type something plain, e.g. `Add Kenya NSP 2024`.  
+3. Leave **Commit directly to the `main` branch** selected.  
+4. Click **Commit changes**.
 
-```bash
-npm install
-npm run catalogue
-```
+### Step 6 — Wait, then check the live site
 
-**Or:** push only the PDF to `main` and let **GitHub Actions** regenerate `catalogue.json` (runs when files under `Region-wise NSP-NHP documents [Living Repository]/` change). Check the **Actions** tab; a follow-up commit may appear on `main`.
+1. Wait **about 5–10 minutes** (the site needs time to refresh).  
+2. Open https://globalsurgeryconnect.org/atlas/  
+3. Search for the country or find it on the map.  
+4. Click the country and try **opening the PDF**.
 
-Always ensure an up-to-date **`catalogue.json`** is on `main` before expecting the live site to list the country.
-
-### Step 3 — Commit and push to `main`
-
-```bash
-git add "Region-wise NSP-NHP documents [Living Repository]/…/YourFile.pdf" catalogue.json
-git commit -m "Add PDF and refresh catalogue"
-git push origin main
-```
-
-**What happens next:**
-
-| Target | Update |
-|--------|--------|
-| **GitHub Pages** | Rebuilds from `main` (usually within a few minutes) |
-| **globalsurgeryconnect.org/atlas/** | Updates automatically if Hostinger Git + auto-deploy is configured ([Hostinger_README.md](Hostinger_README.md)) |
-
-You do **not** need a separate Hostinger upload when auto-deploy is working.
+**Done.** You do not need to upload the same file again on Hostinger.
 
 ---
 
-## Public submissions (no repo access)
+## What happens behind the scenes (you don’t have to do this)
 
-Use the [submission form](https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97SoSObe_IiwPr7bscEgK33IXQ0HI-yHDOo0Fw/viewform). Regional reviewers validate the document; a maintainer adds the PDF to GitHub and follows the three steps above.
+After you upload a PDF, GitHub can **automatically rebuild the country list** file the website uses. That is normal. You might see an extra automatic update in the repository — no action needed from you.
 
----
-
-## When something looks wrong
-
-| Problem | Fix |
-|--------|-----|
-| Country or NSP/NHP type guessed wrong | Copy `catalogue-overrides.json.example` to `catalogue-overrides.json`, add your filename, run `npm run catalogue`, push |
-| Country missing on the map but in the table | Rare name mismatch — add an entry to `ourToTopo` in `index.html`, push |
-| No hover summary on the map | Optional: `npm run summaries`, commit `summaries.json`, push |
-| Live domain not updating after push | See [Hostinger_README.md](Hostinger_README.md) — webhook, auto-deploy, deploy path `public_html/atlas` |
+If the country **still does not appear** after 15 minutes, ask a technical teammate to help (see **When something goes wrong** below).
 
 ---
 
-## Scripts
+## Updating or replacing a PDF
 
-| Command | What it does |
-|---------|----------------|
-| `npm run catalogue` | Scan PDF folders → write `catalogue.json` |
-| `npm run summaries` | Build `summaries.json` from PDF text (optional) |
-| `npm run summaries:translate` | Translate non-English summaries (needs `OPENAI_API_KEY`) |
+1. Go to the same regional folder on GitHub.  
+2. Click the **existing file** you want to replace.  
+3. Click the **pencil (Edit)** icon or **Delete** the old file, then upload the new one using **Add file → Upload files**.  
+4. **Commit changes** with a short message (e.g. `Replace Benin NHP with 2024 version`).  
+5. Check the live site after a few minutes.
 
 ---
 
-## Repository layout (short)
+## Public submissions (people without GitHub access)
 
-| Path | Purpose |
-|------|---------|
-| `index.html` | Site UI (loads `catalogue.json`) |
-| `catalogue.json` | Generated country list — **commit after** `npm run catalogue` |
-| `scripts/build-catalogue.mjs` | Catalogue generator |
-| `summaries.json` | Optional map hover text |
-| `countries-110m.json` | Map geography data |
-| `Region-wise NSP-NHP documents [Living Repository]/` | Source PDFs by WHO region |
-| `Hostinger_README.md` | Connect GitHub → Hostinger, auto-deploy, production URL |
+Anyone can suggest a document using the **submission form**:
+
+https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97SoSObe_IiwPr7bscEgK33IXQ0HI-yHDOo0Fw/viewform
+
+**Workflow:**
+
+1. Someone submits via the form.  
+2. Regional reviewers check and approve.  
+3. A maintainer (you) uploads the approved PDF to GitHub using the steps above.
+
+---
+
+## When something goes wrong
+
+| What you see | What to do |
+|--------------|------------|
+| Country **not on the map** after 15 minutes | Wait a bit longer, hard-refresh the page (Ctrl+Shift+R or Cmd+Shift+R). If still missing, contact someone with “technical” access — the country list file may need a manual refresh. |
+| **Wrong label** (NSP shown as NHP or vice versa) | Rename the file to include **NSP** or **NHP** clearly, re-upload, or ask a technical teammate to fix the filename rules file. |
+| **PDF won’t open** | Check the file uploaded fully on GitHub (open it there and try to view). Re-upload if needed. |
+| **Live site never changes** | GitHub may not be connected to the website yet — see [Hostinger_README.md](Hostinger_README.md) or ask your web lead. |
+| You **don’t have GitHub access** | Ask your team lead for access, or send the approved PDF to whoever maintains the repository. |
+
+---
+
+## Quick checklist (print-friendly)
+
+- [ ] PDF is reviewed and approved  
+- [ ] Logged into GitHub  
+- [ ] Opened correct **WHO region** folder  
+- [ ] Uploaded PDF with a **clear filename**  
+- [ ] Clicked **Commit changes** to **main**  
+- [ ] Waited 5–10 minutes  
+- [ ] Checked https://globalsurgeryconnect.org/atlas/  
+
+---
+
+## For technical teammates only
+
+These items are **not** required for everyday PDF uploads:
+
+| Topic | Where to read |
+|--------|----------------|
+| Connect GitHub to Hostinger, auto-deploy, webhooks | [Hostinger_README.md](Hostinger_README.md) |
+| Refresh country list manually on a computer | Run `npm run catalogue` in the project folder |
+| Optional map hover text from PDFs | Run `npm run summaries` |
+| Fix rare map name mismatches | Edit `index.html` (`ourToTopo`) |
+
+Repository link for developers: https://github.com/SNaqvi-Stevens/Global-NSP-NHP-Repository-
