@@ -163,6 +163,7 @@ These items are **not** required for everyday PDF uploads:
 |--------|----------------|
 | Connect GitHub to Hostinger, auto-deploy, webhooks | [Hostinger_README.md](Hostinger_README.md) |
 | Refresh country list manually on a computer | Run `npm run catalogue` in the project folder |
+| Refresh World Bank income / GNI data (yearly) | Run `npm run country-meta` and commit `country-meta.json` |
 | Optional map hover text from PDFs | Run `npm run summaries` |
 | Fix rare map name mismatches | Edit `index.html` (`ourToTopo`) |
 

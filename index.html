@@ -64,6 +64,11 @@ button,.nav-links a,.footer-links a,a.btn,a.doc-btn,a.nav-cta,a.champion-link{te
   --c-nhp:      #b45309;
   --c-none:     #94a3b8;
   --c-unknown:  #64748b;
+  --c-inc-lic:  #b45309;
+  --c-inc-lmc:  #d97706;
+  --c-inc-umc:  #0d9488;
+  --c-inc-hic:  #1e40af;
+  --c-inc-inx:  #94a3b8;
   --ease:       cubic-bezier(0.16,1,0.3,1);
   --ease-std:   cubic-bezier(0.4,0,0.2,1);
   --t-fast:     140ms;
@@ -384,6 +389,27 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
   transition:background var(--t-fast),color var(--t-fast);
 }
 .filter-pill.active .filter-pill-count{background:rgba(13,148,136,0.15);color:var(--teal-dark)}
+.map-view-toggle{display:flex;flex-direction:column;gap:0.35rem;padding:0.35rem}
+.map-view-btn{
+  width:100%;text-align:left;padding:0.5rem 0.65rem;border-radius:5px;border:1px solid var(--rule);
+  background:var(--white);color:var(--text-muted);font-family:'DM Sans',sans-serif;
+  font-size:0.72rem;font-weight:500;cursor:pointer;transition:background var(--t-fast),border-color var(--t-fast),color var(--t-fast);
+}
+.map-view-btn:hover{border-color:rgba(13,148,136,0.35);color:var(--text)}
+.map-view-btn.active{background:rgba(13,148,136,0.1);border-color:rgba(13,148,136,0.45);color:var(--teal-dark);font-weight:600}
+.map-source-note{
+  font-size:0.62rem;color:var(--text-subtle);line-height:1.5;margin-top:0.5rem;padding:0 0.35rem;
+  font-family:'DM Sans',sans-serif;
+}
+.meta-na{color:var(--text-subtle);font-size:0.78rem}
+.dev-tag{font-size:0.62rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-subtle)}
+.dev-tag--developed{color:#1e40af}
+.dev-tag--developing{color:#0f766e}
+.dev-tag--undeveloped{color:#b45309}
+#map-legend-policy{display:flex;flex-wrap:wrap}
+#map-legend-income{display:none;flex-wrap:wrap}
+#map-legend-income .leg-item{flex:1 1 45%}
+.country.status-has-doc{stroke-width:1.2px!important;stroke:#0f172a!important}
 .region-pill{
   display:flex;align-items:center;gap:0.4rem;width:100%;
   padding:0.38rem 0.6rem;border-radius:5px;border:none;
@@ -491,7 +517,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:auto;background:rgba(248,250,252,0.95)}
 /* Grid sheet (not HTML table): avoids Chrome/Safari thead/tbody paint-order bugs */
 .policy-sheet{
-  width:100%;min-width:720px;font-size:0.78rem;font-family:'DM Sans',sans-serif;
+  width:100%;min-width:960px;font-size:0.78rem;font-family:'DM Sans',sans-serif;
 }
 .policy-sheet .policy-rowgroup{display:block}
 .policy-row{
@@ -767,10 +793,26 @@ footer{
     <div class="section-wrap">
       <div class="section-eye reveal">Interactive Map</div>
       <h2 class="section-h2 reveal reveal-d1">Global NSP / NHP Status</h2>
-      <p class="section-sub reveal reveal-d2">Click a highlighted country to open a short summary in a new tab and link to its file in this repository. Filter by type or WHO region.</p>
+      <p class="section-sub reveal reveal-d2">Switch the map between policy document status and World Bank income level. All countries appear on the income map; a darker border marks countries with documents in this repository.</p>
       <div class="map-layout">
         <div class="map-sidebar reveal">
           <div class="sidebar-block">
+            <div class="sidebar-head">Map view</div>
+            <div class="map-view-toggle" id="map-view-toggle" role="group" aria-label="Map view">
+              <button type="button" class="map-view-btn active" data-map-view="policy">Policy documents (NSP / NHP)</button>
+              <button type="button" class="map-view-btn" data-map-view="income">World Bank income level</button>
+            </div>
+            <p class="map-source-note">Income &amp; GNI: World Bank. Development: high income = developed; UN LDC = least developed; other incomes = developing.</p>
+          </div>
+          <div class="sidebar-block" id="income-filter-block">
+            <div class="sidebar-head">Income group</div>
+            <div class="filter-list" id="income-filters"></div>
+          </div>
+          <div class="sidebar-block" id="development-filter-block">
+            <div class="sidebar-head">Development status</div>
+            <div class="filter-list" id="development-filters"></div>
+          </div>
+          <div class="sidebar-block" id="policy-filter-block">
             <div class="sidebar-head">Document Type</div>
             <div class="filter-list">
               <button class="filter-pill active" data-filter="all">
@@ -791,7 +833,7 @@ footer{
               </button>
             </div>
           </div>
-          <div class="sidebar-block">
+          <div class="sidebar-block" id="who-filter-block">
             <div class="sidebar-head">WHO Region</div>
             <div class="region-filter-list" id="region-filters"></div>
           </div>
@@ -811,12 +853,13 @@ footer{
                 <!-- D3 renders here -->
               </svg>
             </div>
-            <div class="map-legend">
+            <div class="map-legend" id="map-legend-policy">
               <div class="leg-item"><div class="leg-swatch" style="background:var(--c-both)"></div>NSP + NHP</div>
               <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nsp)"></div>NSP Only</div>
               <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nhp)"></div>NHP Only</div>
               <div class="leg-item"><div class="leg-swatch" style="background:var(--c-none)"></div>Not in repository</div>
             </div>
+            <div class="map-legend" id="map-legend-income"></div>
           </div>
         </div>
       </div>
@@ -828,7 +871,7 @@ footer{
     <div class="section-wrap">
       <div class="section-eye reveal">Repository</div>
       <h2 class="section-h2 reveal reveal-d1">Policy Documents</h2>
-      <p class="table-year-note reveal reveal-d2" id="table-year-note">The <strong>Years</strong> column lists the catalogue year for each document. Countries with both NSP and NHP show <strong>two years</strong>—one per file—not the newest year only.</p>
+      <p class="table-year-note reveal reveal-d2" id="table-year-note">The <strong>Income</strong> and <strong>Development</strong> columns use World Bank income groups and UN least-developed status. <strong>Years</strong> lists the catalogue year per document. Countries with both NSP and NHP show <strong>two years</strong>—one per file—not the newest year only.</p>
       <div class="table-header reveal reveal-d2">
         <p class="table-meta" id="table-meta" aria-live="polite"></p>
         <div class="search-wrap">
@@ -842,6 +885,9 @@ footer{
             <div class="policy-row policy-row--head" role="row">
               <div class="policy-th" role="columnheader">Country</div>
               <div class="policy-th" role="columnheader">WHO Region</div>
+              <div class="policy-th" role="columnheader">Income</div>
+              <div class="policy-th" role="columnheader">GNI/cap</div>
+              <div class="policy-th" role="columnheader">Development</div>
               <div class="policy-th" role="columnheader">Document Type</div>
               <div class="policy-th" role="columnheader">Years</div>
               <div class="policy-th" role="columnheader">Access</div>
@@ -1154,6 +1200,222 @@ const ourToTopo = {
 const lookup = {};
 let countryToWHO = {};
 
+/* ── Phase 1: World Bank income, development status, map modes ── */
+let countryMeta = null;
+let mapViewMode = 'policy';
+let activeIncomeFilter = 'all';
+let activeDevelopmentFilter = 'all';
+
+const DEVELOPMENT_FILTERS = [
+  { id: 'all', label: 'All' },
+  { id: 'developed', label: 'Developed' },
+  { id: 'developing', label: 'Developing' },
+  { id: 'undeveloped', label: 'Least developed' },
+];
+
+async function loadCountryMeta() {
+  const res = await fetch('country-meta.json', { cache: 'no-store' });
+  if (!res.ok) throw new Error('country-meta.json HTTP ' + res.status);
+  return res.json();
+}
+
+function getMetaForCatalogueCountry(country) {
+  if (!countryMeta) return null;
+  if (countryMeta.byCatalogueCountry && countryMeta.byCatalogueCountry[country]) {
+    return countryMeta.byCatalogueCountry[country];
+  }
+  const topo = ourToTopo[country] || country;
+  if (countryMeta.byTopoName && countryMeta.byTopoName[topo]) return countryMeta.byTopoName[topo];
+  return null;
+}
+
+function getMetaForTopoName(topoName) {
+  if (!countryMeta || !countryMeta.byTopoName) return null;
+  return countryMeta.byTopoName[topoName] || null;
+}
+
+function formatGniCell(meta) {
+  if (!meta || meta.gniPerCapita == null) return '<span class="meta-na">—</span>';
+  const usd = meta.gniPerCapita.toLocaleString('en-US');
+  const yr = meta.gniYear ? ' <span style="font-size:0.68rem;color:var(--text-subtle)">(' + meta.gniYear + ')</span>' : '';
+  return '<span style="font-variant-numeric:tabular-nums">$' + usd + '</span>' + yr;
+}
+
+function formatIncomeCell(meta) {
+  if (!meta || !meta.incomeLabel) return '<span class="meta-na">—</span>';
+  return '<span style="font-size:0.78rem">' + escHtml(meta.incomeLabel) + '</span>';
+}
+
+function formatDevelopmentCell(meta) {
+  if (!meta || !meta.development) return '<span class="meta-na">—</span>';
+  const cls =
+    meta.development === 'developed'
+      ? 'dev-tag--developed'
+      : meta.development === 'undeveloped'
+      ? 'dev-tag--undeveloped'
+      : meta.development === 'developing'
+      ? 'dev-tag--developing'
+      : '';
+  return '<span class="dev-tag ' + cls + '">' + escHtml(meta.developmentLabel || meta.development) + '</span>';
+}
+
+function getIncomeColor(incomeId) {
+  const map = { LIC: 'var(--c-inc-lic)', LMC: 'var(--c-inc-lmc)', UMC: 'var(--c-inc-umc)', HIC: 'var(--c-inc-hic)' };
+  return map[incomeId] || 'var(--c-inc-inx)';
+}
+
+function countryPassesIncomeDevFilters(meta) {
+  if (!meta) return activeIncomeFilter === 'all' && activeDevelopmentFilter === 'all';
+  const incomeOk = activeIncomeFilter === 'all' || meta.income === activeIncomeFilter;
+  const devOk = activeDevelopmentFilter === 'all' || meta.development === activeDevelopmentFilter;
+  return incomeOk && devOk;
+}
+
+function initIncomeFilterPills() {
+  const list = document.getElementById('income-filters');
+  if (!list || !countryMeta) return;
+  list.innerHTML =
+    '<button class="filter-pill active" data-income="all"><span class="filter-pill-dot" style="background:rgba(100,116,139,0.45)"></span>All incomes</button>';
+  (countryMeta.incomeLegend || []).forEach((item) => {
+    if (item.id === 'INX') return;
+    list.innerHTML +=
+      '<button class="filter-pill" data-income="' +
+      item.id +
+      '"><span class="filter-pill-dot" style="background:' +
+      item.color +
+      '"></span>' +
+      escHtml(item.label) +
+      '</button>';
+  });
+  list.querySelectorAll('.filter-pill').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      list.querySelectorAll('.filter-pill').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeIncomeFilter = btn.dataset.income;
+      applyFilters();
+    });
+  });
+}
+
+function initDevelopmentFilterPills() {
+  const list = document.getElementById('development-filters');
+  if (!list) return;
+  list.innerHTML = '';
+  DEVELOPMENT_FILTERS.forEach((item, i) => {
+    list.innerHTML +=
+      '<button class="filter-pill' +
+      (i === 0 ? ' active' : '') +
+      '" data-development="' +
+      item.id +
+      '"><span class="filter-pill-dot" style="background:rgba(100,116,139,0.35)"></span>' +
+      escHtml(item.label) +
+      '</button>';
+  });
+  list.querySelectorAll('.filter-pill').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      list.querySelectorAll('.filter-pill').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeDevelopmentFilter = btn.dataset.development;
+      applyFilters();
+    });
+  });
+}
+
+function buildIncomeLegend() {
+  const leg = document.getElementById('map-legend-income');
+  if (!leg || !countryMeta) return;
+  leg.innerHTML = '';
+  (countryMeta.incomeLegend || []).forEach((item) => {
+    leg.innerHTML +=
+      '<div class="leg-item"><motion class="leg-swatch" style="background:' +
+      item.color +
+      '"></div>' +
+      escHtml(item.label) +
+      '</div>';
+  });
+  leg.innerHTML = leg.innerHTML.replace(/<motion class="leg-swatch"/g, '<div class="leg-swatch"').replace(/<\/motion>/g, '');
+  leg.innerHTML +=
+    '<div class="leg-item" style="flex:1 1 100%;font-size:0.62rem;color:var(--text-subtle);margin-top:0.25rem">Bold border = document in repository</div>';
+}
+
+function setMapViewMode(mode) {
+  mapViewMode = mode === 'income' ? 'income' : 'policy';
+  document.querySelectorAll('.map-view-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.mapView === mapViewMode);
+  });
+  const legPolicy = document.getElementById('map-legend-policy');
+  const legIncome = document.getElementById('map-legend-income');
+  if (legPolicy) legPolicy.style.display = mapViewMode === 'policy' ? 'flex' : 'none';
+  if (legIncome) legIncome.style.display = mapViewMode === 'income' ? 'flex' : 'none';
+  paintMapCountries();
+  updateMapFilters();
+  updateMapTitleLabel();
+}
+
+function initMapViewToggle() {
+  const wrap = document.getElementById('map-view-toggle');
+  if (!wrap) return;
+  wrap.querySelectorAll('.map-view-btn').forEach((btn) => {
+    btn.addEventListener('click', () => setMapViewMode(btn.dataset.mapView));
+  });
+  buildIncomeLegend();
+  setMapViewMode('policy');
+}
+
+function paintMapCountries() {
+  if (!mapD3.pathSel) return;
+  mapD3.pathSel
+    .attr('class', (d) => {
+      const name = d.properties.name;
+      const status = countryStatus[name];
+      let cls = 'country';
+      if (status) cls += ' status-' + status + ' status-has-doc';
+      return cls;
+    })
+    .style('fill', (d) => {
+      const name = d.properties.name;
+      if (mapViewMode === 'income') {
+        const meta = getMetaForTopoName(name);
+        return meta && meta.incomeColor ? meta.incomeColor : getIncomeColor('INX');
+      }
+      const status = countryStatus[name] || 'none';
+      return getStatusColor(status);
+    })
+    .style('cursor', (d) => {
+      if (mapViewMode === 'income') {
+        return resolveDataRowForTopoName(d.properties.name) ? 'pointer' : 'default';
+      }
+      return countryStatus[d.properties.name] ? 'pointer' : 'default';
+    })
+    .style('stroke-width', (d) => (countryStatus[d.properties.name] ? 1.15 : 0.5) + 'px')
+    .style('stroke', (d) => (countryStatus[d.properties.name] ? '#0f172a' : '#cbd5e1'));
+}
+
+function updateMapTitleLabel() {
+  const mapTitle = document.getElementById('map-title-label');
+  if (!mapTitle) return;
+  if (mapViewMode === 'income') {
+    const parts = ['Income map'];
+    if (activeIncomeFilter !== 'all') {
+      const item = (countryMeta.incomeLegend || []).find((x) => x.id === activeIncomeFilter);
+      parts.push(item ? item.label : activeIncomeFilter);
+    }
+    if (activeDevelopmentFilter !== 'all') {
+      const d = DEVELOPMENT_FILTERS.find((x) => x.id === activeDevelopmentFilter);
+      parts.push(d ? d.label : activeDevelopmentFilter);
+    }
+    mapTitle.textContent = parts.join(' · ');
+    return;
+  }
+  const showing = getFiltered().length;
+  const sc = SC[activeFilter];
+  const typeLabel = activeFilter === 'all' ? 'All Types' : (sc && sc.label) || activeFilter;
+  const reg =
+    activeRegion === 'all' ? '' : ', ' + ((WHO_REGIONS.find((r) => r.key === activeRegion) || {}).label || activeRegion);
+  mapTitle.textContent = typeLabel + reg + ' — ' + showing + ' countr' + (showing === 1 ? 'y' : 'ies');
+}
+
+
 /* Built automatically from PDFs — see npm run catalogue */
 async function loadCatalogue() {
   const res = await fetch('catalogue.json', { cache: 'no-store' });
@@ -1209,12 +1471,19 @@ function refreshHeroAndFilters() {
 }
 
 async function bootstrapAtlas() {
-  policyData = await loadCatalogue();
+  const [catalogue, meta] = await Promise.all([loadCatalogue(), loadCountryMeta()]);
+  policyData = catalogue;
+  countryMeta = meta;
   rebuildCatalogueIndexes();
+  initIncomeFilterPills();
+  initDevelopmentFilterPills();
+  initMapViewToggle();
   refreshHeroAndFilters();
   applyFilters();
-  if (mapD3.pathSel) updateMapFilters();
-  else initD3Map();
+  if (mapD3.pathSel) {
+    paintMapCountries();
+    updateMapFilters();
+  } else initD3Map();
   setupHeroCountUpObserver();
 }
 
@@ -1278,17 +1547,11 @@ document.querySelectorAll('.filter-pill').forEach(btn=>{
 function applyFilters(){
   mapFilterStatus = activeFilter;
   mapFilterRegion = activeRegion;
+  paintMapCountries();
   updateMapFilters();
   currentPage=1;
   renderTable();
-  const showing = getFiltered().length;
-  const mapTitle = document.getElementById('map-title-label');
-  if (mapTitle) {
-    const sc = SC[activeFilter];
-    const typeLabel = activeFilter==='all' ? 'All Types' : (sc && sc.label) || activeFilter;
-    const reg = activeRegion==='all' ? '' : ', ' + ((WHO_REGIONS.find(r=>r.key===activeRegion) || {}).label || activeRegion);
-    mapTitle.textContent = typeLabel + reg + ' — ' + showing + ' countr' + (showing===1?'y':'ies');
-  }
+  updateMapTitleLabel();
 }
 
 function getFiltered(){
@@ -1298,7 +1561,10 @@ function getFiltered(){
     const typeOk = activeFilter==='all'||d.status===activeFilter;
     const regionOk = activeRegion==='all'||d.whoRegion===activeRegion;
     const searchOk = !q||d.country.toLowerCase().includes(q)||d.region.toLowerCase().includes(q)||d.whoRegion.toLowerCase().includes(q);
-    return typeOk&&regionOk&&searchOk;
+    const meta = getMetaForCatalogueCountry(d.country);
+    const incomeOk = activeIncomeFilter==='all'|| (meta && meta.income===activeIncomeFilter);
+    const devOk = activeDevelopmentFilter==='all'|| (meta && meta.development===activeDevelopmentFilter);
+    return typeOk&&regionOk&&searchOk&&incomeOk&&devOk;
   });
   rows.sort((a,b)=>a.country.localeCompare(b.country,'en',{sensitivity:'base'}));
   return rows;
@@ -1488,9 +1754,13 @@ function renderTable(){
       const al = escHtml(d.country + ' — ' + items[0].short + ' document');
       docCell = '<a class="doc-btn" href="' + pdfPath + '" target="_blank" rel="noopener noreferrer" aria-label="' + al + '">' + svg + docLinkButtonLabel(items[0].file) + '</a>';
     }
+    const cmeta = getMetaForCatalogueCountry(d.country);
     return `<div class="policy-row" role="row">
       <div class="policy-td" role="cell"><strong>${d.country}</strong></div>
       <div class="policy-td" role="cell"><span class="who-tag">${d.whoRegion}</span> <span style="font-size:0.78rem;color:var(--fog-3)">${d.region}</span></div>
+      <div class="policy-td" role="cell">${formatIncomeCell(cmeta)}</div>
+      <div class="policy-td" role="cell">${formatGniCell(cmeta)}</div>
+      <div class="policy-td" role="cell">${formatDevelopmentCell(cmeta)}</div>
       <div class="policy-td" role="cell"><span class="badge ${d.status}"><span class="dot"></span>${d.docType}</span></div>
       <div class="policy-td" role="cell">${formatCatalogueYearCell(d)}</div>
       <div class="policy-td" role="cell">${docCell}</div>
@@ -1635,21 +1905,10 @@ function initD3Map() {
         .data(countries.features)
         .enter()
         .append('path')
-        .attr('class', d => {
-          const name = d.properties.name;
-          const status = countryStatus[name];
-          return 'country' + (status ? ' status-' + status : '');
-        })
         .attr('data-name', d => d.properties.name)
         .attr('d', pathGen)
-        .style('fill', d => {
-          const name = d.properties.name;
-          const status = countryStatus[name] || 'none';
-          return getStatusColor(status);
-        })
         .style('stroke', '#cbd5e1')
-        .style('stroke-width', '0.5px')
-        .style('cursor', d => countryStatus[d.properties.name] ? 'pointer' : 'default')
+        .style('stroke-width', d => (countryStatus[d.properties.name] ? 1.1 : 0.5) + 'px')
         .style('transition', 'opacity 200ms, fill 200ms');
 
       // Attach interactions
@@ -1669,8 +1928,14 @@ function initD3Map() {
           const tm = document.getElementById('tip-meta');
           const tr = document.getElementById('tip-region');
           if (tc) tc.textContent = name;
-          if (tst) tst.textContent = sc.label;
-          if (td) td.style.background = sc.color;
+          const topoMeta = getMetaForTopoName(name);
+          if (mapViewMode === 'income' && topoMeta) {
+            if (tst) tst.textContent = topoMeta.incomeLabel || 'Income';
+            if (td) td.style.background = topoMeta.incomeColor || getIncomeColor('INX');
+          } else {
+            if (tst) tst.textContent = sc.label;
+            if (td) td.style.background = sc.color;
+          }
 
           if (dataRow) {
             if (tm) {
@@ -1682,6 +1947,12 @@ function initD3Map() {
               }
             }
             if (tr) tr.textContent = dataRow.region + ' · ' + dataRow.whoRegion;
+          } else if (topoMeta) {
+            if (tm) {
+              const gni = topoMeta.gniPerCapita != null ? '$' + topoMeta.gniPerCapita.toLocaleString() + ' GNI/cap · ' : '';
+              tm.textContent = gni + topoMeta.developmentLabel + (topoMeta.incomeLabel ? ' · ' + topoMeta.incomeLabel : '');
+            }
+            if (tr) tr.textContent = '';
           } else {
             if (tm) tm.textContent = 'Not in current repository';
             if (tr) tr.textContent = '';
@@ -1709,7 +1980,7 @@ function initD3Map() {
           if (dataRow) openCountryDocumentTab(dataRow);
         });
 
-      // Apply initial filter state
+      paintMapCountries();
       updateMapFilters();
     })
     .catch(err => {
@@ -1737,12 +2008,18 @@ function updateMapFilters() {
   if (!mapD3.pathSel) return;
   mapD3.pathSel.style('opacity', d => {
     const name = d.properties.name;
+    const meta = getMetaForTopoName(name);
+    if (!countryPassesIncomeDevFilters(meta)) return 0.1;
     const status = countryStatus[name];
     const who = countryToWHO[name];
     const typeOk = mapFilterStatus === 'all' || status === mapFilterStatus;
     const regionOk = mapFilterRegion === 'all' || who === mapFilterRegion;
-    if (!status) return 0.35; // not in repo
-    return (typeOk && regionOk) ? 1 : 0.08;
+    if (mapViewMode === 'income') {
+      if (!status) return 1;
+      return typeOk && regionOk ? 1 : 0.4;
+    }
+    if (!status) return 0.35;
+    return typeOk && regionOk ? 1 : 0.08;
   });
 }
 

@@ -4,6 +4,7 @@
   "description": "Generate summaries.json from policy PDFs (optional OpenAI refinement)",
   "scripts": {
     "catalogue": "node scripts/build-catalogue.mjs",
+    "country-meta": "node scripts/build-country-meta.mjs",
     "summaries": "node scripts/generate-summaries.mjs",
     "summaries:translate": "node scripts/generate-summaries.mjs --translate-only"
   },
