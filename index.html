@@ -727,10 +727,12 @@ footer{
   width:100%;margin:0;padding-top:1rem;border-top:1px solid var(--rule);
   font-family:'DM Sans',sans-serif;font-size:0.68rem;color:var(--text-subtle);line-height:1.5;
 }
-.footer-credit strong{
+.footer-credit a{
   font-family:'Cinzel',serif;font-weight:500;font-size:0.62rem;letter-spacing:0.08em;
-  color:var(--text-muted);
+  color:var(--text-muted);text-decoration:none;
+  transition:color var(--t-fast);
 }
+.footer-credit a:hover{color:var(--teal-dark)}
 .footer-brand{display:flex;align-items:center;gap:10px}
 .footer-logo{height:36px;width:auto;max-width:220px;object-fit:contain;opacity:0.9;filter:drop-shadow(0 1px 2px rgba(15,23,42,0.08))}
 .footer-text{font-size:0.72rem;color:var(--text-subtle);line-height:1.65;max-width:var(--measure);font-family:'DM Sans',sans-serif}
@@ -1068,7 +1070,7 @@ footer{
         <a href="#contribute-section">Contribute</a>
       </div>
     </div>
-    <p class="footer-credit">Atlas built by <strong>Saanie Naqvi</strong></p>
+    <p class="footer-credit">Atlas built by <a href="https://www.linkedin.com/in/saanie-naqvi-1256012b6" target="_blank" rel="noopener noreferrer">Saanie Naqvi</a></p>
   </div>
 </footer>
 
