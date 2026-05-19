@@ -95,7 +95,7 @@ button,.nav-links a,.footer-links a,a.btn,a.doc-btn,a.nav-cta,a.champion-link{te
   outline:3px solid var(--navy);
   outline-offset:2px;
 }
-a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.nav-cta:focus-visible,.champion-link:focus-visible,.zoom-btn:focus-visible,.pg-btn:focus-visible,.filter-pill:focus-visible,.region-pill:focus-visible,#search-input:focus-visible,.form-control:focus-visible{
+a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.nav-cta:focus-visible,.champion-link:focus-visible,.zoom-btn:focus-visible,.pg-btn:focus-visible,.filter-pill:focus-visible,.region-pill:focus-visible,#search-input:focus-visible{
   outline:3px solid var(--focus-ring);
   outline-offset:2px;
 }
@@ -688,7 +688,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 
 /* ── CONTRIBUTE ── */
 #contribute-section{padding:5rem 0;border-top:1px solid var(--rule-2)}
-.contribute-layout{display:grid;grid-template-columns:1fr 380px;gap:3.5rem;align-items:start}
+.contribute-layout{max-width:var(--measure)}
 .contribute-body{
   max-width:var(--measure);
 }
@@ -708,23 +708,6 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 }
 .champion-link:hover{color:var(--navy);gap:0.6rem}
 .champion-link svg{width:10px;height:10px;stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.form-card-title{
-  font-family:'Cinzel',serif;font-size:0.58rem;font-weight:500;letter-spacing:0.18em;
-  text-transform:uppercase;color:var(--teal-dark);
-  padding-bottom:0.875rem;margin-bottom:0.875rem;border-bottom:1px solid var(--rule);
-}
-.form-field{margin-bottom:0.8rem}
-.form-label{display:block;font-family:'DM Sans',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-subtle);margin-bottom:0.3rem}
-.form-control{
-  width:100%;padding:0.5rem 0.7rem;
-  border:1px solid var(--rule);border-radius:3px;
-  font-size:0.78rem;color:var(--text);font-family:'DM Sans',sans-serif;
-  background:var(--bg-2);outline:none;-webkit-appearance:none;
-  transition:border-color var(--t-fast),background var(--t-fast);
-}
-.form-control:focus{border-color:rgba(13,148,136,0.45);background:var(--white)}
-.form-control option{background:var(--white);color:var(--text)}
-.form-note{font-size:0.68rem;color:var(--text-subtle);margin-top:0.875rem;line-height:1.65;max-width:var(--measure);font-style:italic;font-family:'DM Sans',sans-serif}
 
 /* ── FOOTER ── */
 footer{
@@ -734,8 +717,19 @@ footer{
 }
 .footer-inner{
   max-width:1280px;margin:0 auto;padding:0 2.5rem;
+  display:flex;flex-direction:column;gap:1.25rem;
+}
+.footer-main{
   display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:1.5rem;
+  flex-wrap:wrap;gap:1.5rem;width:100%;
+}
+.footer-credit{
+  width:100%;margin:0;padding-top:1rem;border-top:1px solid var(--rule);
+  font-family:'DM Sans',sans-serif;font-size:0.68rem;color:var(--text-subtle);line-height:1.5;
+}
+.footer-credit strong{
+  font-family:'Cinzel',serif;font-weight:500;font-size:0.62rem;letter-spacing:0.08em;
+  color:var(--text-muted);
 }
 .footer-brand{display:flex;align-items:center;gap:10px}
 .footer-logo{height:36px;width:auto;max-width:220px;object-fit:contain;opacity:0.9;filter:drop-shadow(0 1px 2px rgba(15,23,42,0.08))}
@@ -761,7 +755,6 @@ footer{
   .map-filters-top,.map-filters-meta{grid-template-columns:1fr}
   #discipline-filter-block .discipline-filter-list{grid-template-columns:1fr}
   .how-grid{grid-template-columns:repeat(2,1fr)}
-  .contribute-layout{grid-template-columns:1fr}
 }
 @media(max-width:899px){
   .policy-table thead{display:none}
@@ -1042,34 +1035,14 @@ footer{
             <li>Stay updated on new policies and collaboration opportunities</li>
             <li>6-month internal policy review cycle ensures ongoing accuracy</li>
           </ul>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97SoSObe_IiwPr7bscEgK33IXQ0HI-yHDOo0Fw/viewform" target="_blank" class="btn btn-primary" style="display:inline-flex">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeLDdphTpkC97SoSObe_IiwPr7bscEgK33IXQ0HI-yHDOo0Fw/viewform" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display:inline-flex">
             Open Submission Form
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
-          <a href="https://forms.gle/TkdTGmxjJAMUtTvL7" target="_blank" class="champion-link">
+          <a href="https://forms.gle/TkdTGmxjJAMUtTvL7" target="_blank" rel="noopener noreferrer" class="champion-link">
             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             Become a Global NSP Champion
           </a>
-        </div>
-        <div class="glass-card reveal reveal-d1" style="padding:1.75rem">
-          <div class="form-card-title">Form Preview</div>
-          <div class="form-field">
-            <label class="form-label">Country / Territory</label>
-            <select class="form-control"><option>Select your country…</option><option>Ethiopia</option><option>Nigeria</option><option>India</option><option>Indonesia</option><option>Other / Territory</option></select>
-          </div>
-          <div class="form-field">
-            <label class="form-label">Document Type</label>
-            <select class="form-control"><option>National Surgical Plan (NSP)</option><option>National Health Policy (NHP)</option><option>Both NSP and NHP</option><option>Other Policy Document</option></select>
-          </div>
-          <div class="form-field">
-            <label class="form-label">Document Link (URL)</label>
-            <input type="text" class="form-control" placeholder="https://…"/>
-          </div>
-          <div class="form-field">
-            <label class="form-label">Submitter Role</label>
-            <select class="form-control"><option>My details</option><option>Representative's details</option><option>Both</option><option>Anonymous</option></select>
-          </div>
-          <p class="form-note">Full form includes PDF upload, branching logic, anonymity controls, and opt-in for the Global NSP Hub-and-Spokes Network.</p>
         </div>
       </div>
     </div>
@@ -1077,22 +1050,25 @@ footer{
 
 </main>
 
-<!-- FOOTER (public links only — maintainer docs on GitHub repo) -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="logo.png?v=2" alt="National Surgical and Health Policy logo" class="footer-logo"/>
-      <div class="footer-text">
-        <strong>National Surgical & Health Policy Repository</strong><br/>
-        A WHO-affiliated living repository · Maintained by a global team of surgical policy researchers
+    <div class="footer-main">
+      <div class="footer-brand">
+        <img src="logo.png?v=2" alt="National Surgical and Health Policy logo" class="footer-logo"/>
+        <div class="footer-text">
+          <strong>National Surgical & Health Policy Repository</strong><br/>
+          A WHO-affiliated living repository · Maintained by a global team of surgical policy researchers
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#map-section">Map</a>
+        <a href="#table-section">Repository</a>
+        <a href="#how-section">How It Works</a>
+        <a href="#contribute-section">Contribute</a>
       </div>
     </div>
-    <div class="footer-links">
-      <a href="#map-section">Map</a>
-      <a href="#table-section">Repository</a>
-      <a href="#how-section">How It Works</a>
-      <a href="#contribute-section">Contribute</a>
-    </div>
+    <p class="footer-credit">Atlas built by <strong>Saanie Naqvi</strong></p>
   </div>
 </footer>
 
