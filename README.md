@@ -165,7 +165,7 @@ Besides NSP/NHP status, the live map and table can show:
 | **World Bank income level** | Income group and GNI per capita for every country (not only countries with a PDF). |
 | **Development status** | Developed / developing / least developed (from World Bank + UN lists). |
 | **Health financing** | Whether health spending is mostly **public**, **private**, or **mixed** (World Bank data). |
-| **Surgical disciplines** | Which topics (anesthesia, nursing, OBGYN, general surgery, trauma, etc.) appear in the **PDF text** — used for filters on the table and map. |
+| **Surgical disciplines** | Which topics (anesthesia, nursing, OBGYN, general surgery, trauma, pediatrics, plastics, etc.) appear in the **PDF text** — used for filters on the table and map. |
 
 Striped countries on the map = a document is in this repository. Light borders on all countries.
 
@@ -219,7 +219,7 @@ Example:
 
 ### Fix wrong surgical discipline tags
 
-Disciplines are detected by scanning PDF text for keywords (anesthesia, nursing, OBGYN, general surgery, trauma, cardio, vascular, ortho, ENT, GI). Automated scans are not perfect.
+Disciplines are detected by scanning PDF text for keywords (anesthesia, nursing, OBGYN, general surgery, trauma, cardio, vascular, ortho, ENT, GI, pediatrics, plastics). Automated scans are not perfect.
 
 1. Edit **`discipline-overrides.json`** in the project root.  
 2. Run `npm run disciplines`.  
@@ -254,7 +254,7 @@ Disciplines are detected by scanning PDF text for keywords (anesthesia, nursing,
 
 Use `"set"` to replace all tags for that file, or `"add"` / `"remove"` on a country to adjust the merged list.
 
-Valid discipline ids: `anesthesia`, `nursing`, `obgyn`, `gensurg`, `trauma`, `cardio`, `vascular`, `ortho`, `ent`, `gi`.
+Valid discipline ids: `anesthesia`, `nursing`, `obgyn`, `gensurg`, `trauma`, `cardio`, `vascular`, `ortho`, `ent`, `gi`, `pediatrics`, `plastics`.
 
 ### Other technical notes
 

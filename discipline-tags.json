@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-19T03:06:33.959Z",
+  "generatedAt": "2026-05-19T03:14:18.727Z",
   "method": "Keyword scan of PDF text (pdf-parse, first 50 pages) with filename fallback; optional discipline-overrides.json",
   "disciplines": [
     {
@@ -41,6 +41,14 @@
     {
       "id": "gi",
       "label": "GI"
+    },
+    {
+      "id": "pediatrics",
+      "label": "Pediatrics"
+    },
+    {
+      "id": "plastics",
+      "label": "Plastics"
     }
   ],
   "byCountry": {
@@ -213,6 +221,7 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
         "trauma"
       ],
       "byFile": {
@@ -222,6 +231,7 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
           "trauma"
         ]
       }
@@ -306,13 +316,15 @@
       "disciplines": [
         "anesthesia",
         "nursing",
-        "obgyn"
+        "obgyn",
+        "plastics"
       ],
       "byFile": {
         "Cyprus NHP 2024-2026 (English).pdf": [
           "anesthesia",
           "nursing",
-          "obgyn"
+          "obgyn",
+          "plastics"
         ]
       }
     },
@@ -399,6 +411,7 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
         "trauma"
       ],
       "byFile": {
@@ -408,6 +421,7 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
           "trauma"
         ],
         "ETH_Ethiopia_Health-Sector-Transformation-Plan-II_2021-2026.pdf": [
@@ -497,6 +511,8 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
+        "plastics",
         "trauma"
       ],
       "byFile": {
@@ -507,6 +523,8 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
+          "plastics",
           "trauma"
         ]
       }
@@ -713,6 +731,8 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
+        "plastics",
         "trauma"
       ],
       "byFile": {
@@ -724,6 +744,8 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
+          "plastics",
           "trauma"
         ]
       }
@@ -975,6 +997,7 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
         "trauma"
       ],
       "byFile": {
@@ -984,6 +1007,7 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
           "trauma"
         ]
       }
@@ -1022,6 +1046,8 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
+        "plastics",
         "trauma"
       ],
       "byFile": {
@@ -1034,6 +1060,8 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
+          "plastics",
           "trauma"
         ]
       }
@@ -1061,6 +1089,8 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
+        "plastics",
         "trauma",
         "vascular"
       ],
@@ -1073,6 +1103,8 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
+          "plastics",
           "trauma",
           "vascular"
         ]
@@ -1120,6 +1152,8 @@
         "gi",
         "nursing",
         "obgyn",
+        "pediatrics",
+        "plastics",
         "trauma"
       ],
       "byFile": {
@@ -1130,6 +1164,8 @@
           "gi",
           "nursing",
           "obgyn",
+          "pediatrics",
+          "plastics",
           "trauma"
         ]
       }
@@ -1285,6 +1321,8 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
+        "plastics",
         "trauma"
       ],
       "byFile": {
@@ -1296,6 +1334,8 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
+          "plastics",
           "trauma"
         ]
       }
@@ -1306,6 +1346,7 @@
         "gensurg",
         "nursing",
         "obgyn",
+        "plastics",
         "trauma"
       ],
       "byFile": {
@@ -1314,6 +1355,7 @@
           "gensurg",
           "nursing",
           "obgyn",
+          "plastics",
           "trauma"
         ]
       }
@@ -1325,6 +1367,8 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
+        "plastics",
         "trauma"
       ],
       "byFile": {
@@ -1334,6 +1378,8 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
+          "plastics",
           "trauma"
         ]
       }
@@ -1413,6 +1459,7 @@
         "gensurg",
         "nursing",
         "obgyn",
+        "pediatrics",
         "trauma"
       ],
       "byFile": {
@@ -1422,6 +1469,7 @@
           "gensurg",
           "nursing",
           "obgyn",
+          "pediatrics",
           "trauma"
         ]
       }
@@ -1577,6 +1625,8 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
+        "plastics",
         "trauma",
         "vascular"
       ],
@@ -1587,6 +1637,8 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
+          "plastics",
           "trauma",
           "vascular"
         ],
@@ -1612,6 +1664,8 @@
         "nursing",
         "obgyn",
         "ortho",
+        "pediatrics",
+        "plastics",
         "trauma"
       ],
       "byFile": {
@@ -1621,6 +1675,8 @@
           "nursing",
           "obgyn",
           "ortho",
+          "pediatrics",
+          "plastics",
           "trauma"
         ]
       }
@@ -1719,12 +1775,14 @@
       "disciplines": [
         "anesthesia",
         "obgyn",
+        "pediatrics",
         "trauma"
       ],
       "byFile": {
         "UGA_Uganda_Ministry-of-Health-Strategic-Plan_2020-2025.pdf": [
           "anesthesia",
           "obgyn",
+          "pediatrics",
           "trauma"
         ]
       }

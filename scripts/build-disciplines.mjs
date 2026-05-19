@@ -157,6 +157,37 @@ const DISCIPLINE_DEFS = [
       /\bbariatric surgery\b/i,
     ],
   },
+  {
+    id: 'pediatrics',
+    label: 'Pediatrics',
+    patterns: [
+      /\bpediatric surgery\b/i,
+      /\bpaediatric surgery\b/i,
+      /\bpediatric surgical\b/i,
+      /\bpaediatric surgical\b/i,
+      /\bpaediatric surgeon/i,
+      /\bpediatric surgeon/i,
+      /\bneonatal surgery\b/i,
+      /\bchildren(?:'s)? surgery\b/i,
+      /\bchild surgical\b/i,
+      /\bchirurgie pédiatrique/i,
+      /\bchirurgie pediatrique/i,
+    ],
+  },
+  {
+    id: 'plastics',
+    label: 'Plastics',
+    patterns: [
+      /\bplastic surgery\b/i,
+      /\bplastic surgical\b/i,
+      /\bplastic surgeon/i,
+      /\breconstructive surgery\b/i,
+      /\bburn surgery\b/i,
+      /\bcraniofacial\b/i,
+      /\bchirurgie plastique/i,
+      /\bmaxillofacial surgery\b/i,
+    ],
+  },
 ];
 
 const FILENAME_HINTS = {
@@ -170,6 +201,8 @@ const FILENAME_HINTS = {
   ortho: [/orthop/i],
   ent: [/otolaryng/i, /\bent\b/i],
   gi: [/gastro/i, /colorectal/i],
+  pediatrics: [/pediatric/i, /paediatric/i, /neonatal/i],
+  plastics: [/plastic/i, /reconstructive/i, /craniofacial/i],
 };
 
 function loadOverrides() {
