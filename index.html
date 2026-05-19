@@ -409,7 +409,6 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 #map-legend-policy{display:flex;flex-wrap:wrap}
 #map-legend-income{display:none;flex-wrap:wrap}
 #map-legend-income .leg-item{flex:1 1 45%}
-.country.status-has-doc{stroke-width:1.2px!important;stroke:#0f172a!important}
 .region-pill{
   display:flex;align-items:center;gap:0.4rem;width:100%;
   padding:0.38rem 0.6rem;border-radius:5px;border:none;
@@ -451,6 +450,17 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .country.status-nsp{fill:var(--c-nsp)}
 .country.status-nhp{fill:var(--c-nhp)}
 .country.status-both{fill:var(--c-both)}
+.country-stripe{pointer-events:none;transition:opacity var(--t-mid)}
+.leg-swatch--striped{
+  background:var(--c-none);
+  background-image:repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 2px,
+    rgba(15,23,42,0.32) 2px,
+    rgba(15,23,42,0.32) 3px
+  );
+}
 .map-legend{
   display:flex;gap:1.25rem;flex-wrap:wrap;
   padding:0.7rem 1.25rem;border-top:1px solid var(--rule-2);
@@ -793,7 +803,7 @@ footer{
     <div class="section-wrap">
       <div class="section-eye reveal">Interactive Map</div>
       <h2 class="section-h2 reveal reveal-d1">Global NSP / NHP Status</h2>
-      <p class="section-sub reveal reveal-d2">Switch the map between policy document status and World Bank income level. All countries appear on the income map; a darker border marks countries with documents in this repository.</p>
+      <p class="section-sub reveal reveal-d2">Switch the map between policy document status and World Bank income level. All countries appear on the income map; diagonal stripes mark countries with NSP or NHP documents in this repository.</p>
       <div class="map-layout">
         <div class="map-sidebar reveal">
           <div class="sidebar-block">
@@ -857,6 +867,7 @@ footer{
               <div class="leg-item"><div class="leg-swatch" style="background:var(--c-both)"></div>NSP + NHP</div>
               <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nsp)"></div>NSP Only</div>
               <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nhp)"></div>NHP Only</div>
+              <div class="leg-item"><div class="leg-swatch leg-swatch--striped"></div>In this repository (striped)</div>
               <div class="leg-item"><div class="leg-swatch" style="background:var(--c-none)"></div>Not in repository</div>
             </div>
             <div class="map-legend" id="map-legend-income"></div>
@@ -1335,7 +1346,7 @@ function buildIncomeLegend() {
   });
   leg.innerHTML = leg.innerHTML.replace(/<motion class="leg-swatch"/g, '<div class="leg-swatch"').replace(/<\/motion>/g, '');
   leg.innerHTML +=
-    '<div class="leg-item" style="flex:1 1 100%;font-size:0.62rem;color:var(--text-subtle);margin-top:0.25rem">Bold border = document in repository</div>';
+    '<div class="leg-item"><div class="leg-swatch leg-swatch--striped"></div>In this repository (striped)</div>';
 }
 
 function setMapViewMode(mode) {
@@ -1387,8 +1398,8 @@ function paintMapCountries() {
       }
       return countryStatus[d.properties.name] ? 'pointer' : 'default';
     })
-    .style('stroke-width', (d) => (countryStatus[d.properties.name] ? 1.15 : 0.5) + 'px')
-    .style('stroke', (d) => (countryStatus[d.properties.name] ? '#0f172a' : '#cbd5e1'));
+    .style('stroke-width', '0.5px')
+    .style('stroke', 'rgba(15, 23, 42, 0.22)');
 }
 
 function updateMapTitleLabel() {
@@ -1513,7 +1524,7 @@ let activeFilter = 'all';
 let activeRegion = 'all';
 let mapFilterStatus = 'all';
 let mapFilterRegion = 'all';
-const mapD3 = { d3zoom: null, svgSel: null, pathSel: null };
+const mapD3 = { d3zoom: null, svgSel: null, pathSel: null, stripeSel: null };
 
 (function initRegionFilterPills() {
   const rfList = document.getElementById('region-filters');
@@ -1863,7 +1874,25 @@ function initD3Map() {
   mapD3.svgSel = d3.select('#world-map');
   mapD3.svgSel.selectAll('*').remove();
 
+  mapD3.svgSel
+    .append('defs')
+    .append('pattern')
+    .attr('id', 'repo-doc-stripe')
+    .attr('width', 5)
+    .attr('height', 5)
+    .attr('patternUnits', 'userSpaceOnUse')
+    .attr('patternTransform', 'rotate(45)')
+    .append('line')
+    .attr('x1', 0)
+    .attr('y1', 0)
+    .attr('x2', 0)
+    .attr('y2', 5)
+    .attr('stroke', 'rgba(15, 23, 42, 0.32)')
+    .attr('stroke-width', 1.4);
+
   const g = mapD3.svgSel.append('g').attr('id', 'map-g');
+  const countriesG = g.append('g').attr('class', 'map-countries');
+  const stripesG = g.append('g').attr('class', 'map-stripes');
 
   const projection = d3.geoNaturalEarth1()
     .scale(W / 6.28)
@@ -1901,15 +1930,27 @@ function initD3Map() {
     .then(world => {
       const countries = topojson.feature(world, world.objects.countries);
 
-      mapD3.pathSel = g.selectAll('.country')
+      mapD3.pathSel = countriesG
+        .selectAll('.country')
         .data(countries.features)
         .enter()
         .append('path')
-        .attr('data-name', d => d.properties.name)
+        .attr('class', 'country')
+        .attr('data-name', (d) => d.properties.name)
         .attr('d', pathGen)
-        .style('stroke', '#cbd5e1')
-        .style('stroke-width', d => (countryStatus[d.properties.name] ? 1.1 : 0.5) + 'px')
+        .style('stroke', 'rgba(15, 23, 42, 0.22)')
+        .style('stroke-width', '0.5px')
         .style('transition', 'opacity 200ms, fill 200ms');
+
+      mapD3.stripeSel = stripesG
+        .selectAll('.country-stripe')
+        .data(countries.features)
+        .enter()
+        .append('path')
+        .attr('class', 'country-stripe')
+        .attr('d', pathGen)
+        .attr('fill', 'url(#repo-doc-stripe)')
+        .style('opacity', 0);
 
       // Attach interactions
       mapD3.pathSel
@@ -2004,20 +2045,28 @@ function positionTip(event) {
   tip.style.top = ty + 'px';
 }
 
+function getMapCountryOpacity(d) {
+  const name = d.properties.name;
+  const meta = getMetaForTopoName(name);
+  if (!countryPassesIncomeDevFilters(meta)) return 0.1;
+  const status = countryStatus[name];
+  const who = countryToWHO[name];
+  const typeOk = mapFilterStatus === 'all' || status === mapFilterStatus;
+  const regionOk = mapFilterRegion === 'all' || who === mapFilterRegion;
+  if (mapViewMode === 'income') return 1;
+  if (!status) return 0.35;
+  return typeOk && regionOk ? 1 : 0.08;
+}
+
 function updateMapFilters() {
   if (!mapD3.pathSel) return;
-  mapD3.pathSel.style('opacity', d => {
-    const name = d.properties.name;
-    const meta = getMetaForTopoName(name);
-    if (!countryPassesIncomeDevFilters(meta)) return 0.1;
-    const status = countryStatus[name];
-    const who = countryToWHO[name];
-    const typeOk = mapFilterStatus === 'all' || status === mapFilterStatus;
-    const regionOk = mapFilterRegion === 'all' || who === mapFilterRegion;
-    if (mapViewMode === 'income') return 1;
-    if (!status) return 0.35;
-    return typeOk && regionOk ? 1 : 0.08;
-  });
+  mapD3.pathSel.style('opacity', (d) => getMapCountryOpacity(d));
+  if (mapD3.stripeSel) {
+    mapD3.stripeSel.style('opacity', (d) => {
+      if (!countryStatus[d.properties.name]) return 0;
+      return getMapCountryOpacity(d);
+    });
+  }
 }
 
 // Resize handler
