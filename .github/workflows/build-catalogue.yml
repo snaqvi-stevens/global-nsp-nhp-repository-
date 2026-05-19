@@ -7,6 +7,8 @@ on:
       - 'Region-wise NSP-NHP documents [Living Repository]/**'
       - 'scripts/build-catalogue.mjs'
       - 'catalogue-overrides.json'
+      - 'discipline-overrides.json'
+      - 'scripts/build-disciplines.mjs'
   workflow_dispatch:
 
 jobs:
@@ -21,11 +23,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Regenerate catalogue.json
-        run: npm run catalogue
+      - name: Regenerate catalogue.json and discipline tags
+        run: |
+          npm run catalogue
+          npm run disciplines
 
       - name: Commit catalogue if changed
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'chore: regenerate catalogue.json from PDFs'
-          file_pattern: catalogue.json
+          commit_message: 'chore: regenerate catalogue and discipline tags from PDFs'
+          file_pattern: catalogue.json discipline-tags.json

@@ -1,0 +1,1759 @@
+{
+  "generatedAt": "2026-05-19T03:06:33.959Z",
+  "method": "Keyword scan of PDF text (pdf-parse, first 50 pages) with filename fallback; optional discipline-overrides.json",
+  "disciplines": [
+    {
+      "id": "anesthesia",
+      "label": "Anesthesia"
+    },
+    {
+      "id": "nursing",
+      "label": "Nursing"
+    },
+    {
+      "id": "obgyn",
+      "label": "OBGYN"
+    },
+    {
+      "id": "gensurg",
+      "label": "General surgery"
+    },
+    {
+      "id": "trauma",
+      "label": "Trauma"
+    },
+    {
+      "id": "cardio",
+      "label": "Cardio"
+    },
+    {
+      "id": "vascular",
+      "label": "Vascular"
+    },
+    {
+      "id": "ortho",
+      "label": "Orthopedics"
+    },
+    {
+      "id": "ent",
+      "label": "ENT"
+    },
+    {
+      "id": "gi",
+      "label": "GI"
+    }
+  ],
+  "byCountry": {
+    "Afghanistan": {
+      "disciplines": [
+        "cardio",
+        "nursing",
+        "obgyn",
+        "ortho"
+      ],
+      "byFile": {
+        "afghanistan_mophstrategy2016-2020_final09september2016111201614508950553325325.pdf": [
+          "cardio",
+          "nursing",
+          "obgyn",
+          "ortho"
+        ]
+      }
+    },
+    "Albania": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Algeria": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Andorra": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Angola": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "AGO_Angola_PNDS_vol.2_2012-2025.pdf": [
+          "obgyn"
+        ]
+      }
+    },
+    "Australia": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "Australia NHP 2020-25.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "Austria": {
+      "disciplines": [
+        "trauma"
+      ],
+      "byFile": {
+        "Austria National Health Plan 2023-2030.pdf": [
+          "trauma"
+        ]
+      }
+    },
+    "Azerbaijan": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Bahrain": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "BHR_Barhain_National-Health-Plan_2016-2025.pdf": [
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Bangladesh": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Belarus": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Belgium": {
+      "disciplines": [
+        "gi",
+        "nursing"
+      ],
+      "byFile": {
+        "Belgium Health Plan 2019-2025 (French).pdf": [
+          "gi",
+          "nursing"
+        ]
+      }
+    },
+    "Benin": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "BEN_Benin-Plan-National-de-Développement_Sanitaire-2018-2022.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "Bhutan": {
+      "disciplines": [
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Bhutan NHP 2015-2023.pdf": [
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Bosnia and Herzegovina": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Botswana": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "BOS_Botswana_IHSP-NHSP_2010-2020.pdf": [
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Brunei": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Brunei NHP 2015-2035.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Bulgaria": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Burkina Faso": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "BFA_Burkina-Faso_PNDS_2021-2030.pdf": [
+          "obgyn"
+        ]
+      }
+    },
+    "Cambodia": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Cambodia NSOAP 2026-2035.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Cameroon": {
+      "disciplines": [
+        "trauma"
+      ],
+      "byFile": {
+        "cameroon_-_sss_validee_par_le_ccss_5_janvier.pdf": [
+          "trauma"
+        ]
+      }
+    },
+    "Cape Verde": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "CAV_Cape_Verde_PNDS 2017-2021 -VOL.1.pdf": [
+          "obgyn"
+        ]
+      }
+    },
+    "Chad": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "TCD_Chad_Plan-National-de-Developpement-Sanitaire_2018-2021.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "China": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Comoros": {
+      "disciplines": [
+        "anesthesia",
+        "nursing"
+      ],
+      "byFile": {
+        "COM_Comoros_National-Health-Policy__2015-2024_fr.pdf": [
+          "anesthesia",
+          "nursing"
+        ]
+      }
+    },
+    "Congo": {
+      "disciplines": [
+        "nursing",
+        "vascular"
+      ],
+      "byFile": {
+        "COG_Congo_Politique-Nationale-de-Santé_PNS_2018-2030.pdf": [
+          "nursing",
+          "vascular"
+        ]
+      }
+    },
+    "Congo (DRC)": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Côte d'Ivoire": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "CIV_Cote-d-Ivoire_Plan-National-de-Développement-Sanitaire_2021-2025.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "Croatia": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Cyprus": {
+      "disciplines": [
+        "anesthesia",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Cyprus NHP 2024-2026 (English).pdf": [
+          "anesthesia",
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Czech Republic": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Denmark": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Djibouti": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "DPR Korea": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "DPR KOREA NHP 2016 – 2020.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Egypt": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "English": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "HSS_english_0.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Eritrea": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "eritrea_hssdp_ii_21022017.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Estonia": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Eswatini": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Eswatini-Strategic-Direction-Summary-2023.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Ethiopia": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Ethiopia SALTS II _ National Surgical Care Strategic Plan.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ],
+        "ETH_Ethiopia_Health-Sector-Transformation-Plan-II_2021-2026.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Fiji": {
+      "disciplines": [
+        "gensurg",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Fiji NSP 2020-2025.pdf": [
+          "gensurg",
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Finland": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "France": {
+      "disciplines": [
+        "gi",
+        "nursing"
+      ],
+      "byFile": {
+        "France National Health Strategy 2023-2033 (French).pdf": [
+          "gi",
+          "nursing"
+        ]
+      }
+    },
+    "Gabon": {
+      "disciplines": [
+        "anesthesia",
+        "nursing"
+      ],
+      "byFile": {
+        "GAB_Plan_national_de_développement_sanitaire_2017-2021.pdf": [
+          "anesthesia",
+          "nursing"
+        ]
+      }
+    },
+    "Gambia": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "GMB_Gambia_National-Health-Policy_2021-2030.pdf": [
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Georgia": {
+      "disciplines": [
+        "anesthesia",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Georgia OB Plan 2017-2030.pdf": [
+          "anesthesia",
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Ghana": {
+      "disciplines": [
+        "anesthesia",
+        "ent",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Ghana-FINAL-NSOAP-for-press-2.pdf": [
+          "anesthesia",
+          "ent",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Gosl": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "GoSL-NHSSP-2021-2025-Version-Final-Expert-edited-19-11-21.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Greece": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Guinea": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "GIN_Guinea_Plan-national-de-developmment-sanitaire_2015-2024.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "Guinea-Bissau": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Hssp": {
+      "disciplines": [
+        "anesthesia",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "HSSP-III-Print-Version-2023-01-09_v1_Cleaned.pdf": [
+          "anesthesia",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Hungary": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Iceland": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "Iceland Health Policy 2030.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "India": {
+      "disciplines": [
+        "cardio",
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "India NHP 2017.pdf": [
+          "cardio",
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Indonesia": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Indonesia NHP 2015-2019.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Iran": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Iraq": {
+      "disciplines": [
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Iraq Reconstruction and Investment.pdf": [
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Ireland": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "gi",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Ireland Surgical Hubs Guidance Report.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ],
+        "Ireland Cancer Strategy 2017-2026.pdf": [
+          "gi",
+          "nursing"
+        ]
+      }
+    },
+    "Israel": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "Israel NHP 2023-2048.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "Italy": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Japan": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Japan NHP (2020, English).pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Kenya": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "kenya_health_policy_2014_to_2030.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Kiribati": {
+      "disciplines": [
+        "anesthesia",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Kiribati NHP 2020-2023.pdf": [
+          "anesthesia",
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Kuwait": {
+      "disciplines": [
+        "gensurg"
+      ],
+      "byFile": {
+        "Kuwait Surgical Suite Operational Policy 2024-2026.pdf": [
+          "gensurg"
+        ]
+      }
+    },
+    "Latvia": {
+      "disciplines": [
+        "anesthesia",
+        "cardio",
+        "gensurg",
+        "gi",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Latvia National Healthcare Plan.pdf": [
+          "anesthesia",
+          "cardio",
+          "gensurg",
+          "gi",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Lebanon": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "LBN_Lebanon_National-Health-Strategy_2030.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Lesotho": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "LSO_Lesotho_National-Health-Policy_2017.pdf": [
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Liberia": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "National-Operational-Plan-2024 Liberia.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Long": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "UK NHS Long term plan 2019.pdf": [
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Luxembourg": {
+      "disciplines": [
+        "gi",
+        "vascular"
+      ],
+      "byFile": {
+        "Luxembourg NHP 2020-2030 (French).pdf": [
+          "gi",
+          "vascular"
+        ]
+      }
+    },
+    "Madagascar": {
+      "disciplines": [
+        "nursing",
+        "trauma",
+        "vascular"
+      ],
+      "byFile": {
+        "MDG_Madagascar_Plan-de-développement-du-secteur-Santé_2020-2024.pdf": [
+          "nursing",
+          "trauma",
+          "vascular"
+        ]
+      }
+    },
+    "Malawi": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "ortho"
+      ],
+      "byFile": {
+        "MAL_Malawi_HSSP_II_2017-2022.pdf": [
+          "nursing",
+          "obgyn",
+          "ortho"
+        ]
+      }
+    },
+    "Malaysia": {
+      "disciplines": [
+        "anesthesia",
+        "ent",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho"
+      ],
+      "byFile": {
+        "Malaysia NHP 2022-2026.pdf": [
+          "anesthesia",
+          "ent",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho"
+        ]
+      }
+    },
+    "Maldives": {
+      "disciplines": [
+        "cardio",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Maldives NHP 2016-2025.pdf": [
+          "cardio",
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Mali": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Malta": {
+      "disciplines": [
+        "gensurg",
+        "gi",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Malta National Health Strategy 2023-2030 (ENG).pdf": [
+          "gensurg",
+          "gi",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Marino": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Marshall": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "Marshall Islands NHP 2020-2030.pdf": [
+          "obgyn"
+        ]
+      }
+    },
+    "Mauritania": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Mauritius": {
+      "disciplines": [
+        "gi",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "MSU_Mauritius_Health-Sector-Strategic-Plan_2020-2024.pdf": [
+          "gi",
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Micronesia": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Micronesia NHP 2019-2024.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Moldova": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Mongolia": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Mongolian NHP (English).pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Montenegro": {
+      "disciplines": [
+        "trauma"
+      ],
+      "byFile": {
+        "Montenegro Health Plan 2023-2027 (MNE).pdf": [
+          "trauma"
+        ]
+      }
+    },
+    "Morocco": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Myanmar": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "MYANMAR NHP 2017 - 2021.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Namibia": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Namibia NSOAP final documnet_31 Oct 2023.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Nepal": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "Nepal NHP 2023-2030.pdf": [
+          "obgyn"
+        ]
+      }
+    },
+    "New Zealand": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "ortho"
+      ],
+      "byFile": {
+        "New Zealand NHP 2022.pdf": [
+          "nursing",
+          "obgyn",
+          "ortho"
+        ]
+      }
+    },
+    "Niger": {
+      "disciplines": [
+        "anesthesia",
+        "cardio",
+        "ent",
+        "gensurg",
+        "gi",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Nigeria_NSOANP.pdf": [
+          "anesthesia",
+          "cardio",
+          "ent",
+          "gensurg",
+          "gi",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Niue": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Niue NHP 2011-2021.pdf": [
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "North Macedonia": {
+      "disciplines": [
+        "anesthesia",
+        "cardio",
+        "gensurg",
+        "gi",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma",
+        "vascular"
+      ],
+      "byFile": {
+        "North Macedonia NHP 2021-2030.pdf": [
+          "anesthesia",
+          "cardio",
+          "gensurg",
+          "gi",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma",
+          "vascular"
+        ]
+      }
+    },
+    "Northern Ireland": {
+      "disciplines": [
+        "anesthesia",
+        "cardio",
+        "gensurg",
+        "nursing",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Northern Ireland Surgical Action Plan.pdf": [
+          "anesthesia",
+          "cardio",
+          "gensurg",
+          "nursing",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Norway": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Oman": {
+      "disciplines": [
+        "trauma"
+      ],
+      "byFile": {
+        "Romania NHP 2022-2030.pdf": [
+          "trauma"
+        ]
+      }
+    },
+    "Pakistan": {
+      "disciplines": [
+        "anesthesia",
+        "cardio",
+        "gensurg",
+        "gi",
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Pakistan NSOAP+Manual_20200921.pdf": [
+          "anesthesia",
+          "cardio",
+          "gensurg",
+          "gi",
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Papua New Guinea": {
+      "disciplines": [
+        "anesthesia",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Papua New Guinea NHP Indicators 2021-2030.pdf": [
+          "anesthesia",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Philippines": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "Philippines NHP 2023-2028.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "Pnds": {
+      "disciplines": [
+        "vascular"
+      ],
+      "byFile": {
+        "p4h_PNDS-2023-2032_Sao-Tome-et-Principe.x23411.pdf": [
+          "vascular"
+        ]
+      }
+    },
+    "Poland": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Poland Healthy Future 2021-2027.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Policy": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "National-Health-Policy_2020.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Portugal": {
+      "disciplines": [
+        "obgyn",
+        "ortho"
+      ],
+      "byFile": {
+        "Portugal NHP 2021-2030 (English).pdf": [
+          "obgyn",
+          "ortho"
+        ]
+      }
+    },
+    "Ptss": {
+      "disciplines": [
+        "anesthesia",
+        "nursing",
+        "vascular"
+      ],
+      "byFile": {
+        "rca_-ptss_revise_final.pdf": [
+          "anesthesia",
+          "nursing",
+          "vascular"
+        ]
+      }
+    },
+    "Qatar": {
+      "disciplines": [
+        "gi",
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "QAT_Qatar_National-Health-strategy_2018-2022.pdf": [
+          "gi",
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Reform": {
+      "disciplines": [
+        "gensurg",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "UK Health Reform Proposals 2021.pdf": [
+          "gensurg",
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Republic of Korea": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Revised": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "revised_National_Health_Policy.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Russia": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Rwanda": {
+      "disciplines": [
+        "anesthesia",
+        "ent",
+        "gensurg",
+        "gi",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Rwanda_NSOAP_Approved.pdf": [
+          "anesthesia",
+          "ent",
+          "gensurg",
+          "gi",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "S12630": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "s12630-023-02500-8.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Salts": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "2018 SaLTS Five Year Strategic Plan_format_FINAL.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Samoa": {
+      "disciplines": [
+        "anesthesia",
+        "cardio",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Samoa NHP (Obstetrics) 2019-2030.pdf": [
+          "anesthesia",
+          "cardio",
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "São Tomé and Príncipe": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Saudi Arabia": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Saudi Arabia 2021-2025-health-sector-transformation-program-delivery-plan-en.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Senegal": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "SEN_Senegal_PNDSS_2019-2028.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "Serbia": {
+      "disciplines": [
+        "gi",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Serbia Public Health Strategy 2018-2026 (English).pdf": [
+          "gi",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Seychelles": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "SYC_Seychelles_National-Health-Strategic-Plan-2022-2026.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Sierra Leone": {
+      "disciplines": [
+        "anesthesia",
+        "cardio",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "REPUBLIC OF SIERRA LEONE NSOAP 2026-2030.pdf": [
+          "anesthesia",
+          "cardio",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Singapore": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "Singapore NHP 2022.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "Slovakia": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "ortho"
+      ],
+      "byFile": {
+        "Slovakia NHP (2014-2030).pdf": [
+          "nursing",
+          "obgyn",
+          "ortho"
+        ]
+      }
+    },
+    "Slovenia": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Solomon Islands": {
+      "disciplines": [
+        "gensurg",
+        "gi",
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Solomon Islands NHSP 2022-2031.pdf": [
+          "gensurg",
+          "gi",
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "South Africa": {
+      "disciplines": [
+        "gi",
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "ZAF_South-Africa_National-Health-Strategic-Plan_2021-2025.pdf": [
+          "gi",
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Spain": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Spain NSP (Spanish).pdf": [
+          "anesthesia",
+          "gensurg",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Sri Lanka": {
+      "disciplines": [
+        "trauma"
+      ],
+      "byFile": {
+        "Sri Lanka NHP 2016 - 2025.pdf": [
+          "trauma"
+        ]
+      }
+    },
+    "Sudan": {
+      "disciplines": [
+        "gensurg",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "SDN_Sudan_National-Health Policy_2017-2030.pdf": [
+          "gensurg",
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Surgical": {
+      "disciplines": [
+        "anesthesia",
+        "ent",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma",
+        "vascular"
+      ],
+      "byFile": {
+        "National Surgical Obstetric and Anaesthesia Plan 20262031.pdf": [
+          "anesthesia",
+          "ent",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma",
+          "vascular"
+        ]
+      }
+    },
+    "Sweden": {
+      "disciplines": [
+        "anesthesia",
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Sweden NSP (Anesthesia).pdf": [
+          "anesthesia",
+          "obgyn"
+        ],
+        "Sweden National Action Plan for Patient Safety 2020–2024.pdf": [
+          "nursing",
+          "trauma"
+        ]
+      }
+    },
+    "Switzerland": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma",
+        "vascular"
+      ],
+      "byFile": {
+        "Switzerland NSP 2012 (Safe Surgery Program).pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma",
+          "vascular"
+        ],
+        "Switzerland Health Plan 2020-2030 (French).pdf": [
+          "obgyn"
+        ]
+      }
+    },
+    "Syria": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "Ministry of Health _ Health Districts Program syria.pdf": [
+          "nursing"
+        ]
+      }
+    },
+    "Tanzania": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Tanzania_NSOAP_FINAL.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Thailand": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "ortho"
+      ],
+      "byFile": {
+        "Thailand NHP 2017-2036.pdf": [
+          "nursing",
+          "obgyn",
+          "ortho"
+        ]
+      }
+    },
+    "Timor-Leste": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "Timor Leste NHP 2011-2030.pdf": [
+          "obgyn"
+        ]
+      }
+    },
+    "Togo": {
+      "disciplines": [
+        "vascular"
+      ],
+      "byFile": {
+        "TGO_Togo_Plan-National-de-Développement-Sanitaire 2017-2022.pdf": [
+          "vascular"
+        ]
+      }
+    },
+    "Tonga": {
+      "disciplines": [
+        "anesthesia",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "ortho",
+        "trauma"
+      ],
+      "byFile": {
+        "Tonga NSP 2023-2030.pdf": [
+          "anesthesia",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "ortho",
+          "trauma"
+        ]
+      }
+    },
+    "Tunisia": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Turkey": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Turkey NHP 2024-2028.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Turkmenistan": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "UAE": {
+      "disciplines": [
+        "anesthesia",
+        "cardio",
+        "gensurg",
+        "nursing"
+      ],
+      "byFile": {
+        "UAE One day surgery center regulation.pdf": [
+          "anesthesia",
+          "cardio",
+          "gensurg",
+          "nursing"
+        ]
+      }
+    },
+    "Uganda": {
+      "disciplines": [
+        "anesthesia",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "UGA_Uganda_Ministry-of-Health-Strategic-Plan_2020-2025.pdf": [
+          "anesthesia",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
+    "Ukraine": {
+      "disciplines": [
+        "gi",
+        "nursing"
+      ],
+      "byFile": {
+        "Ukraine NHP (Cancer Control) 2020-2030.pdf": [
+          "gi",
+          "nursing"
+        ]
+      }
+    },
+    "Uzbekistan": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Yemen": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "nat_health_strategy_-_yemen_eng.pdf": [
+          "nursing"
+        ]
+      }
+    }
+  }
+}

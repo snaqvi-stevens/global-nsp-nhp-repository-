@@ -414,6 +414,13 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .fund-tag--public{color:#1d4ed8}
 .fund-tag--mixed{color:#6d28d9}
 .fund-tag--private{color:#c026d3}
+.disc-tag{
+  display:inline-block;font-size:0.6rem;font-weight:600;letter-spacing:0.03em;
+  padding:0.12rem 0.38rem;border-radius:3px;margin:0.08rem 0.12rem 0.08rem 0;
+  background:rgba(13,148,136,0.1);color:var(--teal-dark);white-space:nowrap;
+}
+.disc-filter-pill.active{background:rgba(13,148,136,0.14);border-color:rgba(13,148,136,0.45);color:var(--teal-dark);font-weight:600}
+.discipline-filter-list{flex-wrap:wrap}
 #map-legend-policy{display:flex;flex-wrap:wrap}
 #map-legend-income,#map-legend-funding{display:none;flex-wrap:wrap}
 #map-legend-income .leg-item,#map-legend-funding .leg-item{flex:1 1 45%}
@@ -535,12 +542,12 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:auto;background:rgba(248,250,252,0.95)}
 /* Grid sheet (not HTML table): avoids Chrome/Safari thead/tbody paint-order bugs */
 .policy-sheet{
-  width:100%;min-width:1100px;font-size:0.78rem;font-family:'DM Sans',sans-serif;
+  width:100%;min-width:1180px;font-size:0.78rem;font-family:'DM Sans',sans-serif;
 }
 .policy-sheet .policy-rowgroup{display:block}
 .policy-row{
   display:grid;
-  grid-template-columns:minmax(5rem,1.05fr) minmax(5.5rem,1.15fr) minmax(3.25rem,0.62fr) minmax(2.5rem,0.42fr) minmax(3.75rem,0.72fr) minmax(3.75rem,0.78fr) minmax(3.25rem,0.68fr) minmax(2.25rem,0.38fr) minmax(3rem,0.62fr);
+  grid-template-columns:minmax(4.5rem,0.95fr) minmax(5rem,1.05fr) minmax(3rem,0.58fr) minmax(2.35rem,0.4fr) minmax(3.5rem,0.68fr) minmax(3.5rem,0.72fr) minmax(3.25rem,0.72fr) minmax(3rem,0.62fr) minmax(2.2rem,0.36fr) minmax(2.75rem,0.55fr);
   column-gap:0;align-items:stretch;
   border-bottom:1px solid var(--rule-2);
 }
@@ -856,6 +863,11 @@ footer{
               </button>
             </div>
           </div>
+          <div class="sidebar-block" id="discipline-filter-block">
+            <div class="sidebar-head">Surgical disciplines</div>
+            <p class="map-source-note" style="margin-top:0">Keyword scan of policy PDFs. Select one or more; use discipline-overrides.json to correct tags.</p>
+            <div class="filter-list discipline-filter-list" id="discipline-filters"></div>
+          </div>
           <div class="sidebar-block" id="who-filter-block">
             <div class="sidebar-head">WHO Region</div>
             <div class="region-filter-list" id="region-filters"></div>
@@ -896,7 +908,7 @@ footer{
     <div class="section-wrap">
       <div class="section-eye reveal">Repository</div>
       <h2 class="section-h2 reveal reveal-d1">Policy Documents</h2>
-      <p class="table-year-note reveal reveal-d2" id="table-year-note">The <strong>Income</strong>, <strong>Development</strong>, and <strong>Health financing</strong> columns use World Bank country data (income groups, UN least-developed status, and government share of health spending). <strong>Years</strong> lists the catalogue year per document. Countries with both NSP and NHP show <strong>two years</strong>—one per file—not the newest year only.</p>
+      <p class="table-year-note reveal reveal-d2" id="table-year-note">The <strong>Income</strong>, <strong>Development</strong>, and <strong>Health financing</strong> columns use World Bank country data (income groups, UN least-developed status, and government share of health spending). <strong>Disciplines</strong> are detected from PDF text (run <code style="font-size:0.68rem">npm run disciplines</code> after adding files). <strong>Years</strong> lists the catalogue year per document. Countries with both NSP and NHP show <strong>two years</strong>—one per file—not the newest year only.</p>
       <div class="table-header reveal reveal-d2">
         <p class="table-meta" id="table-meta" aria-live="polite"></p>
         <div class="search-wrap">
@@ -914,6 +926,7 @@ footer{
               <div class="policy-th" role="columnheader">GNI/cap</div>
               <div class="policy-th" role="columnheader">Development</div>
               <div class="policy-th" role="columnheader">Health financing</div>
+              <div class="policy-th" role="columnheader">Disciplines</div>
               <div class="policy-th" role="columnheader">Document Type</div>
               <div class="policy-th" role="columnheader">Years</div>
               <div class="policy-th" role="columnheader">Access</div>
@@ -1232,6 +1245,9 @@ let mapViewMode = 'policy';
 let activeIncomeFilter = 'all';
 let activeDevelopmentFilter = 'all';
 let activeFundingFilter = 'all';
+let disciplineTags = null;
+/** @type {string[]} discipline ids selected for filter (empty = all) */
+let activeDisciplineFilters = [];
 
 const DEVELOPMENT_FILTERS = [
   { id: 'all', label: 'All' },
@@ -1244,6 +1260,41 @@ async function loadCountryMeta() {
   const res = await fetch('country-meta.json', { cache: 'no-store' });
   if (!res.ok) throw new Error('country-meta.json HTTP ' + res.status);
   return res.json();
+}
+
+async function loadDisciplineTags() {
+  try {
+    const res = await fetch('discipline-tags.json', { cache: 'no-store' });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+function getDisciplinesForCountry(country) {
+  if (!disciplineTags || !disciplineTags.byCountry) return [];
+  const row = disciplineTags.byCountry[country];
+  return row && Array.isArray(row.disciplines) ? row.disciplines : [];
+}
+
+function getDisciplineLabel(id) {
+  const hit = (disciplineTags?.disciplines || []).find((d) => d.id === id);
+  return hit ? hit.label : id;
+}
+
+function countryMatchesDisciplineFilter(country) {
+  if (!activeDisciplineFilters.length) return true;
+  const tags = getDisciplinesForCountry(country);
+  return activeDisciplineFilters.some((id) => tags.includes(id));
+}
+
+function formatDisciplinesCell(country) {
+  const tags = getDisciplinesForCountry(country);
+  if (!tags.length) return '<span class="meta-na">—</span>';
+  return tags
+    .map((id) => '<span class="disc-tag">' + escHtml(getDisciplineLabel(id)) + '</span>')
+    .join('');
 }
 
 function getMetaForCatalogueCountry(country) {
@@ -1358,6 +1409,43 @@ function initIncomeFilterPills() {
       list.querySelectorAll('.filter-pill').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       activeIncomeFilter = btn.dataset.income;
+      applyFilters();
+    });
+  });
+}
+
+function initDisciplineFilterPills() {
+  const list = document.getElementById('discipline-filters');
+  if (!list || !disciplineTags) return;
+  list.innerHTML =
+    '<button type="button" class="filter-pill disc-filter-pill active" data-discipline="__all__">All disciplines</button>';
+  (disciplineTags.disciplines || []).forEach((item) => {
+    list.innerHTML +=
+      '<button type="button" class="filter-pill disc-filter-pill" data-discipline="' +
+      item.id +
+      '">' +
+      escHtml(item.label) +
+      '</button>';
+  });
+  list.querySelectorAll('.disc-filter-pill').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.discipline;
+      if (id === '__all__') {
+        activeDisciplineFilters = [];
+        list.querySelectorAll('.disc-filter-pill').forEach((b) => {
+          b.classList.toggle('active', b.dataset.discipline === '__all__');
+        });
+        applyFilters();
+        return;
+      }
+      const idx = activeDisciplineFilters.indexOf(id);
+      if (idx >= 0) activeDisciplineFilters.splice(idx, 1);
+      else activeDisciplineFilters.push(id);
+      list.querySelector('[data-discipline="__all__"]')?.classList.remove('active');
+      btn.classList.toggle('active', activeDisciplineFilters.includes(id));
+      if (!activeDisciplineFilters.length) {
+        list.querySelector('[data-discipline="__all__"]')?.classList.add('active');
+      }
       applyFilters();
     });
   });
@@ -1608,13 +1696,19 @@ function refreshHeroAndFilters() {
 }
 
 async function bootstrapAtlas() {
-  const [catalogue, meta] = await Promise.all([loadCatalogue(), loadCountryMeta()]);
+  const [catalogue, meta, disciplines] = await Promise.all([
+    loadCatalogue(),
+    loadCountryMeta(),
+    loadDisciplineTags(),
+  ]);
   policyData = catalogue;
   countryMeta = meta;
+  disciplineTags = disciplines;
   rebuildCatalogueIndexes();
   initIncomeFilterPills();
   initDevelopmentFilterPills();
   initFundingFilterPills();
+  initDisciplineFilterPills();
   initMapViewToggle();
   refreshHeroAndFilters();
   applyFilters();
@@ -1703,7 +1797,8 @@ function getFiltered(){
     const incomeOk = activeIncomeFilter==='all'|| (meta && meta.income===activeIncomeFilter);
     const devOk = activeDevelopmentFilter==='all'|| (meta && meta.development===activeDevelopmentFilter);
     const fundingOk = activeFundingFilter==='all'|| (meta && meta.funding===activeFundingFilter);
-    return typeOk&&regionOk&&searchOk&&incomeOk&&devOk&&fundingOk;
+    const discOk = countryMatchesDisciplineFilter(d.country);
+    return typeOk&&regionOk&&searchOk&&incomeOk&&devOk&&fundingOk&&discOk;
   });
   rows.sort((a,b)=>a.country.localeCompare(b.country,'en',{sensitivity:'base'}));
   return rows;
@@ -1901,6 +1996,7 @@ function renderTable(){
       <div class="policy-td" role="cell">${formatGniCell(cmeta)}</div>
       <div class="policy-td" role="cell">${formatDevelopmentCell(cmeta)}</div>
       <div class="policy-td" role="cell">${formatFundingCell(cmeta)}</div>
+      <div class="policy-td" role="cell">${formatDisciplinesCell(d.country)}</div>
       <div class="policy-td" role="cell"><span class="badge ${d.status}"><span class="dot"></span>${d.docType}</span></div>
       <div class="policy-td" role="cell">${formatCatalogueYearCell(d)}</div>
       <div class="policy-td" role="cell">${docCell}</div>
@@ -2190,6 +2286,10 @@ function getMapCountryOpacity(d) {
   const name = d.properties.name;
   const meta = getMetaForTopoName(name);
   if (!countryPassesMetaFilters(meta)) return 0.1;
+  if (activeDisciplineFilters.length) {
+    const row = resolveDataRowForTopoName(name);
+    if (!row || !countryMatchesDisciplineFilter(row.country)) return 0.1;
+  }
   const status = countryStatus[name];
   const who = countryToWHO[name];
   const typeOk = mapFilterStatus === 'all' || status === mapFilterStatus;
