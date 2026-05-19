@@ -358,14 +358,29 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
   display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem;
 }
 .map-stage{width:100%}
-.map-filters{
+.map-filters-top,.map-filters-meta{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:0.75rem;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0.65rem;
+  align-items:start;
 }
-.map-filters .sidebar-block--span{grid-column:1/-1}
-.map-view-toggle{flex-direction:row;flex-wrap:wrap}
-.map-view-btn{flex:1 1 auto;min-width:9rem;text-align:center}
+.map-filters-top .sidebar-head,.map-filters-meta .sidebar-head,
+.map-filters-disciplines .sidebar-head{padding:0.45rem 0.7rem}
+.map-filters-top .filter-list,.map-filters-top .region-filter-list,
+.map-filters-meta .filter-list,.map-filters-disciplines .filter-list{padding:0.25rem}
+.map-filters-top .filter-pill,.map-filters-meta .filter-pill,
+.map-filters-disciplines .filter-pill{padding:0.32rem 0.5rem;font-size:0.7rem}
+.map-filters-note{
+  grid-column:1/-1;font-size:0.58rem;line-height:1.45;color:var(--text-subtle);
+  margin:0;padding:0 0.15rem;font-family:'DM Sans',sans-serif;
+}
+.map-filters-disciplines{width:100%}
+#discipline-filter-block .discipline-filter-list{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0.2rem;padding:0.3rem 0.35rem 0.4rem;
+}
+.map-filters-top .map-view-toggle{flex-direction:row;flex-wrap:wrap;padding:0.35rem}
+.map-filters-top .map-view-btn{flex:1 1 auto;min-width:7.5rem;text-align:center;width:auto}
 #map-viewport svg,#world-map{min-height:min(62vw,520px)}
 .sidebar-block{
   background:rgba(255,255,255,0.92);
@@ -743,7 +758,8 @@ footer{
 
 /* ── RESPONSIVE ── */
 @media(max-width:960px){
-  .map-filters{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .map-filters-top,.map-filters-meta{grid-template-columns:1fr}
+  #discipline-filter-block .discipline-filter-list{grid-template-columns:1fr}
   .how-grid{grid-template-columns:repeat(2,1fr)}
   .contribute-layout{grid-template-columns:1fr}
 }
@@ -858,6 +874,41 @@ footer{
       <h2 class="section-h2 reveal reveal-d1">Global NSP / NHP Status</h2>
       <p class="section-sub reveal reveal-d2">Switch the map between policy documents, World Bank income level, and national health financing. All countries appear on income and financing maps; diagonal stripes mark countries with NSP or NHP documents in this repository.</p>
       <div class="map-layout">
+        <div class="map-filters-top reveal">
+          <div class="sidebar-block map-filters-map-view">
+            <div class="sidebar-head">Map view</div>
+            <div class="map-view-toggle" id="map-view-toggle" role="group" aria-label="Map view">
+              <button type="button" class="map-view-btn active" data-map-view="policy">Policy documents (NSP / NHP)</button>
+              <button type="button" class="map-view-btn" data-map-view="income">World Bank income level</button>
+              <button type="button" class="map-view-btn" data-map-view="funding">Health financing</button>
+            </div>
+          </div>
+          <div class="sidebar-block" id="policy-filter-block">
+            <div class="sidebar-head">Document Type</div>
+            <div class="filter-list">
+              <button class="filter-pill active" data-filter="all">
+                <span class="filter-pill-dot" style="background:rgba(100,116,139,0.45)"></span>All Types
+                <span class="filter-pill-count" id="fc-all">0</span>
+              </button>
+              <button class="filter-pill" data-filter="both">
+                <span class="filter-pill-dot" style="background:var(--c-both)"></span>NSP + NHP
+                <span class="filter-pill-count" id="fc-both">0</span>
+              </button>
+              <button class="filter-pill" data-filter="nsp">
+                <span class="filter-pill-dot" style="background:var(--c-nsp)"></span>NSP Only
+                <span class="filter-pill-count" id="fc-nsp">0</span>
+              </button>
+              <button class="filter-pill" data-filter="nhp">
+                <span class="filter-pill-dot" style="background:var(--c-nhp)"></span>NHP Only
+                <span class="filter-pill-count" id="fc-nhp">0</span>
+              </button>
+            </div>
+          </div>
+          <div class="sidebar-block" id="who-filter-block">
+            <div class="sidebar-head">WHO Region</div>
+            <div class="region-filter-list" id="region-filters"></div>
+          </div>
+        </div>
         <div class="map-stage reveal reveal-d1">
           <div class="glass-card">
             <div class="map-card-head">
@@ -884,20 +935,7 @@ footer{
             <div class="map-legend" id="map-legend-funding"></div>
           </div>
         </div>
-        <div class="map-filters reveal">
-          <div class="sidebar-block sidebar-block--span">
-            <div class="sidebar-head">Map view</div>
-            <div class="map-view-toggle" id="map-view-toggle" role="group" aria-label="Map view">
-              <button type="button" class="map-view-btn active" data-map-view="policy">Policy documents (NSP / NHP)</button>
-              <button type="button" class="map-view-btn" data-map-view="income">World Bank income level</button>
-              <button type="button" class="map-view-btn" data-map-view="funding">Health financing</button>
-            </div>
-            <p class="map-source-note">Income &amp; GNI: World Bank. Development: high income = developed; UN LDC = least developed; other incomes = developing. Health financing: government share of current health spending (public ≥55%, private-dominated ≤45%, mixed between).</p>
-          </div>
-          <div class="sidebar-block" id="funding-filter-block">
-            <div class="sidebar-head">Health financing</div>
-            <div class="filter-list" id="funding-filters"></div>
-          </div>
+        <div class="map-filters-meta reveal">
           <div class="sidebar-block" id="income-filter-block">
             <div class="sidebar-head">Income group</div>
             <div class="filter-list" id="income-filters"></div>
@@ -906,35 +944,16 @@ footer{
             <div class="sidebar-head">Development status</div>
             <div class="filter-list" id="development-filters"></div>
           </div>
-          <div class="sidebar-block" id="policy-filter-block">
-            <div class="sidebar-head">Document Type</div>
-            <div class="filter-list">
-              <button class="filter-pill active" data-filter="all">
-                <span class="filter-pill-dot" style="background:rgba(100,116,139,0.45)"></span>All Types
-                <span class="filter-pill-count" id="fc-all">0</span>
-              </button>
-              <button class="filter-pill" data-filter="both">
-                <span class="filter-pill-dot" style="background:var(--c-both)"></span>NSP + NHP
-                <span class="filter-pill-count" id="fc-both">0</span>
-              </button>
-              <button class="filter-pill" data-filter="nsp">
-                <span class="filter-pill-dot" style="background:var(--c-nsp)"></span>NSP Only
-                <span class="filter-pill-count" id="fc-nsp">0</span>
-              </button>
-              <button class="filter-pill" data-filter="nhp">
-                <span class="filter-pill-dot" style="background:var(--c-nhp)"></span>NHP Only
-                <span class="filter-pill-count" id="fc-nhp">0</span>
-              </button>
-            </div>
+          <div class="sidebar-block" id="funding-filter-block">
+            <div class="sidebar-head">Health financing</div>
+            <div class="filter-list" id="funding-filters"></div>
           </div>
-          <div class="sidebar-block sidebar-block--span" id="discipline-filter-block">
+          <p class="map-filters-note">Income &amp; GNI: World Bank. Development: high income = developed; UN LDC = least developed; other incomes = developing. Health financing: government share of current health spending (public ≥55%, private-dominated ≤45%, mixed between).</p>
+        </div>
+        <div class="map-filters-disciplines reveal">
+          <div class="sidebar-block" id="discipline-filter-block">
             <div class="sidebar-head">Surgical disciplines</div>
-            <p class="map-source-note" style="margin-top:0">Keyword scan of policy PDFs. Select one or more; use discipline-overrides.json to correct tags.</p>
             <div class="filter-list discipline-filter-list" id="discipline-filters"></div>
-          </div>
-          <div class="sidebar-block" id="who-filter-block">
-            <div class="sidebar-head">WHO Region</div>
-            <div class="region-filter-list" id="region-filters"></div>
           </div>
         </div>
       </div>
@@ -1676,16 +1695,7 @@ function buildFundingLegend() {
 }
 
 function updateMapSidebarForView() {
-  const incomeBlock = document.getElementById('income-filter-block');
-  const devBlock = document.getElementById('development-filter-block');
-  const fundingBlock = document.getElementById('funding-filter-block');
-  const policyBlock = document.getElementById('policy-filter-block');
-  const whoBlock = document.getElementById('who-filter-block');
-  if (incomeBlock) incomeBlock.style.display = mapViewMode === 'income' ? '' : 'none';
-  if (devBlock) devBlock.style.display = mapViewMode === 'income' ? '' : 'none';
-  if (fundingBlock) fundingBlock.style.display = mapViewMode === 'funding' ? '' : 'none';
-  if (policyBlock) policyBlock.style.display = mapViewMode === 'policy' ? '' : 'none';
-  if (whoBlock) whoBlock.style.display = mapViewMode === 'policy' ? '' : 'none';
+  /* Filter panels stay visible in fixed layout (top / meta / disciplines). */
 }
 
 function buildIncomeLegend() {
