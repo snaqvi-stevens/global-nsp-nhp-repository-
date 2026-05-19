@@ -69,6 +69,10 @@ button,.nav-links a,.footer-links a,a.btn,a.doc-btn,a.nav-cta,a.champion-link{te
   --c-inc-umc:  #0d9488;
   --c-inc-hic:  #1e40af;
   --c-inc-inx:  #94a3b8;
+  --c-fund-public:  #1d4ed8;
+  --c-fund-mixed:   #6d28d9;
+  --c-fund-private: #c026d3;
+  --c-fund-unknown: #94a3b8;
   --ease:       cubic-bezier(0.16,1,0.3,1);
   --ease-std:   cubic-bezier(0.4,0,0.2,1);
   --t-fast:     140ms;
@@ -406,9 +410,13 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .dev-tag--developed{color:#1e40af}
 .dev-tag--developing{color:#0f766e}
 .dev-tag--undeveloped{color:#b45309}
+.fund-tag{font-size:0.62rem;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-subtle)}
+.fund-tag--public{color:#1d4ed8}
+.fund-tag--mixed{color:#6d28d9}
+.fund-tag--private{color:#c026d3}
 #map-legend-policy{display:flex;flex-wrap:wrap}
-#map-legend-income{display:none;flex-wrap:wrap}
-#map-legend-income .leg-item{flex:1 1 45%}
+#map-legend-income,#map-legend-funding{display:none;flex-wrap:wrap}
+#map-legend-income .leg-item,#map-legend-funding .leg-item{flex:1 1 45%}
 .region-pill{
   display:flex;align-items:center;gap:0.4rem;width:100%;
   padding:0.38rem 0.6rem;border-radius:5px;border:none;
@@ -527,12 +535,12 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:auto;background:rgba(248,250,252,0.95)}
 /* Grid sheet (not HTML table): avoids Chrome/Safari thead/tbody paint-order bugs */
 .policy-sheet{
-  width:100%;min-width:960px;font-size:0.78rem;font-family:'DM Sans',sans-serif;
+  width:100%;min-width:1100px;font-size:0.78rem;font-family:'DM Sans',sans-serif;
 }
 .policy-sheet .policy-rowgroup{display:block}
 .policy-row{
   display:grid;
-  grid-template-columns:minmax(5.5rem,1.2fr) minmax(6rem,1.35fr) minmax(4rem,0.75fr) minmax(2.75rem,0.38fr) minmax(5rem,0.95fr);
+  grid-template-columns:minmax(5rem,1.05fr) minmax(5.5rem,1.15fr) minmax(3.25rem,0.62fr) minmax(2.5rem,0.42fr) minmax(3.75rem,0.72fr) minmax(3.75rem,0.78fr) minmax(3.25rem,0.68fr) minmax(2.25rem,0.38fr) minmax(3rem,0.62fr);
   column-gap:0;align-items:stretch;
   border-bottom:1px solid var(--rule-2);
 }
@@ -803,7 +811,7 @@ footer{
     <div class="section-wrap">
       <div class="section-eye reveal">Interactive Map</div>
       <h2 class="section-h2 reveal reveal-d1">Global NSP / NHP Status</h2>
-      <p class="section-sub reveal reveal-d2">Switch the map between policy document status and World Bank income level. All countries appear on the income map; diagonal stripes mark countries with NSP or NHP documents in this repository.</p>
+      <p class="section-sub reveal reveal-d2">Switch the map between policy documents, World Bank income level, and national health financing. All countries appear on income and financing maps; diagonal stripes mark countries with NSP or NHP documents in this repository.</p>
       <div class="map-layout">
         <div class="map-sidebar reveal">
           <div class="sidebar-block">
@@ -811,8 +819,13 @@ footer{
             <div class="map-view-toggle" id="map-view-toggle" role="group" aria-label="Map view">
               <button type="button" class="map-view-btn active" data-map-view="policy">Policy documents (NSP / NHP)</button>
               <button type="button" class="map-view-btn" data-map-view="income">World Bank income level</button>
+              <button type="button" class="map-view-btn" data-map-view="funding">Health financing</button>
             </div>
-            <p class="map-source-note">Income &amp; GNI: World Bank. Development: high income = developed; UN LDC = least developed; other incomes = developing.</p>
+            <p class="map-source-note">Income &amp; GNI: World Bank. Development: high income = developed; UN LDC = least developed; other incomes = developing. Health financing: government share of current health spending (public ≥55%, private-dominated ≤45%, mixed between).</p>
+          </div>
+          <div class="sidebar-block" id="funding-filter-block">
+            <div class="sidebar-head">Health financing</div>
+            <div class="filter-list" id="funding-filters"></div>
           </div>
           <div class="sidebar-block" id="income-filter-block">
             <div class="sidebar-head">Income group</div>
@@ -871,6 +884,7 @@ footer{
               <div class="leg-item"><div class="leg-swatch" style="background:var(--c-none)"></div>Not in repository</div>
             </div>
             <div class="map-legend" id="map-legend-income"></div>
+            <div class="map-legend" id="map-legend-funding"></div>
           </div>
         </div>
       </div>
@@ -882,7 +896,7 @@ footer{
     <div class="section-wrap">
       <div class="section-eye reveal">Repository</div>
       <h2 class="section-h2 reveal reveal-d1">Policy Documents</h2>
-      <p class="table-year-note reveal reveal-d2" id="table-year-note">The <strong>Income</strong> and <strong>Development</strong> columns use World Bank income groups and UN least-developed status. <strong>Years</strong> lists the catalogue year per document. Countries with both NSP and NHP show <strong>two years</strong>—one per file—not the newest year only.</p>
+      <p class="table-year-note reveal reveal-d2" id="table-year-note">The <strong>Income</strong>, <strong>Development</strong>, and <strong>Health financing</strong> columns use World Bank country data (income groups, UN least-developed status, and government share of health spending). <strong>Years</strong> lists the catalogue year per document. Countries with both NSP and NHP show <strong>two years</strong>—one per file—not the newest year only.</p>
       <div class="table-header reveal reveal-d2">
         <p class="table-meta" id="table-meta" aria-live="polite"></p>
         <div class="search-wrap">
@@ -899,6 +913,7 @@ footer{
               <div class="policy-th" role="columnheader">Income</div>
               <div class="policy-th" role="columnheader">GNI/cap</div>
               <div class="policy-th" role="columnheader">Development</div>
+              <div class="policy-th" role="columnheader">Health financing</div>
               <div class="policy-th" role="columnheader">Document Type</div>
               <div class="policy-th" role="columnheader">Years</div>
               <div class="policy-th" role="columnheader">Access</div>
@@ -1216,6 +1231,7 @@ let countryMeta = null;
 let mapViewMode = 'policy';
 let activeIncomeFilter = 'all';
 let activeDevelopmentFilter = 'all';
+let activeFundingFilter = 'all';
 
 const DEVELOPMENT_FILTERS = [
   { id: 'all', label: 'All' },
@@ -1275,11 +1291,50 @@ function getIncomeColor(incomeId) {
   return map[incomeId] || 'var(--c-inc-inx)';
 }
 
-function countryPassesIncomeDevFilters(meta) {
-  if (!meta) return activeIncomeFilter === 'all' && activeDevelopmentFilter === 'all';
+function countryPassesMetaFilters(meta) {
+  if (!meta) {
+    return (
+      activeIncomeFilter === 'all' &&
+      activeDevelopmentFilter === 'all' &&
+      activeFundingFilter === 'all'
+    );
+  }
   const incomeOk = activeIncomeFilter === 'all' || meta.income === activeIncomeFilter;
   const devOk = activeDevelopmentFilter === 'all' || meta.development === activeDevelopmentFilter;
-  return incomeOk && devOk;
+  const fundingOk = activeFundingFilter === 'all' || meta.funding === activeFundingFilter;
+  return incomeOk && devOk && fundingOk;
+}
+
+function formatFundingCell(meta) {
+  if (!meta || !meta.fundingLabel) return '<span class="meta-na">—</span>';
+  const cls =
+    meta.funding === 'public'
+      ? 'fund-tag--public'
+      : meta.funding === 'private'
+      ? 'fund-tag--private'
+      : meta.funding === 'mixed'
+      ? 'fund-tag--mixed'
+      : '';
+  let html = '<span class="fund-tag ' + cls + '">' + escHtml(meta.fundingLabel) + '</span>';
+  if (meta.govtHealthSharePct != null) {
+    html +=
+      '<br><span style="font-size:0.68rem;color:var(--text-subtle)">' +
+      meta.govtHealthSharePct +
+      '% govt' +
+      (meta.fundingYear ? ' · ' + escHtml(meta.fundingYear) : '') +
+      '</span>';
+  }
+  return html;
+}
+
+function getFundingColor(fundingId) {
+  const map = {
+    public: 'var(--c-fund-public)',
+    mixed: 'var(--c-fund-mixed)',
+    private: 'var(--c-fund-private)',
+    unknown: 'var(--c-fund-unknown)',
+  };
+  return map[fundingId] || 'var(--c-fund-unknown)';
 }
 
 function initIncomeFilterPills() {
@@ -1303,6 +1358,32 @@ function initIncomeFilterPills() {
       list.querySelectorAll('.filter-pill').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       activeIncomeFilter = btn.dataset.income;
+      applyFilters();
+    });
+  });
+}
+
+function initFundingFilterPills() {
+  const list = document.getElementById('funding-filters');
+  if (!list || !countryMeta) return;
+  list.innerHTML =
+    '<button class="filter-pill active" data-funding="all"><span class="filter-pill-dot" style="background:rgba(100,116,139,0.45)"></span>All financing types</button>';
+  (countryMeta.fundingLegend || []).forEach((item) => {
+    if (item.id === 'unknown') return;
+    list.innerHTML +=
+      '<button class="filter-pill" data-funding="' +
+      item.id +
+      '"><span class="filter-pill-dot" style="background:' +
+      item.color +
+      '"></span>' +
+      escHtml(item.label) +
+      '</button>';
+  });
+  list.querySelectorAll('.filter-pill').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      list.querySelectorAll('.filter-pill').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFundingFilter = btn.dataset.funding;
       applyFilters();
     });
   });
@@ -1332,6 +1413,34 @@ function initDevelopmentFilterPills() {
   });
 }
 
+function buildFundingLegend() {
+  const leg = document.getElementById('map-legend-funding');
+  if (!leg || !countryMeta) return;
+  leg.innerHTML = '';
+  (countryMeta.fundingLegend || []).forEach((item) => {
+    if (item.id === 'unknown') return;
+    leg.innerHTML +=
+      '<div class="leg-item"><div class="leg-swatch" style="background:' +
+      item.color +
+      '"></div>' +
+      escHtml(item.label) +
+      '</div>';
+  });
+  leg.innerHTML +=
+    '<div class="leg-item"><div class="leg-swatch leg-swatch--striped"></div>In this repository (striped)</div>';
+}
+
+function updateMapSidebarForView() {
+  const incomeBlock = document.getElementById('income-filter-block');
+  const devBlock = document.getElementById('development-filter-block');
+  const policyBlock = document.getElementById('policy-filter-block');
+  const whoBlock = document.getElementById('who-filter-block');
+  if (incomeBlock) incomeBlock.style.display = mapViewMode === 'income' ? '' : 'none';
+  if (devBlock) devBlock.style.display = mapViewMode === 'income' ? '' : 'none';
+  if (policyBlock) policyBlock.style.display = mapViewMode === 'policy' ? '' : 'none';
+  if (whoBlock) whoBlock.style.display = mapViewMode === 'policy' ? '' : 'none';
+}
+
 function buildIncomeLegend() {
   const leg = document.getElementById('map-legend-income');
   if (!leg || !countryMeta) return;
@@ -1350,14 +1459,17 @@ function buildIncomeLegend() {
 }
 
 function setMapViewMode(mode) {
-  mapViewMode = mode === 'income' ? 'income' : 'policy';
+  mapViewMode = mode === 'income' || mode === 'funding' ? mode : 'policy';
   document.querySelectorAll('.map-view-btn').forEach((btn) => {
     btn.classList.toggle('active', btn.dataset.mapView === mapViewMode);
   });
   const legPolicy = document.getElementById('map-legend-policy');
   const legIncome = document.getElementById('map-legend-income');
+  const legFunding = document.getElementById('map-legend-funding');
   if (legPolicy) legPolicy.style.display = mapViewMode === 'policy' ? 'flex' : 'none';
   if (legIncome) legIncome.style.display = mapViewMode === 'income' ? 'flex' : 'none';
+  if (legFunding) legFunding.style.display = mapViewMode === 'funding' ? 'flex' : 'none';
+  updateMapSidebarForView();
   paintMapCountries();
   updateMapFilters();
   updateMapTitleLabel();
@@ -1370,6 +1482,7 @@ function initMapViewToggle() {
     btn.addEventListener('click', () => setMapViewMode(btn.dataset.mapView));
   });
   buildIncomeLegend();
+  buildFundingLegend();
   setMapViewMode('policy');
 }
 
@@ -1389,6 +1502,10 @@ function paintMapCountries() {
         const meta = getMetaForTopoName(name);
         return meta && meta.incomeColor ? meta.incomeColor : getIncomeColor('INX');
       }
+      if (mapViewMode === 'funding') {
+        const meta = getMetaForTopoName(name);
+        return meta && meta.fundingColor ? meta.fundingColor : getFundingColor('unknown');
+      }
       const status = countryStatus[name] || 'none';
       return getStatusColor(status);
     })
@@ -1405,6 +1522,15 @@ function paintMapCountries() {
 function updateMapTitleLabel() {
   const mapTitle = document.getElementById('map-title-label');
   if (!mapTitle) return;
+  if (mapViewMode === 'funding') {
+    const parts = ['Health financing map'];
+    if (activeFundingFilter !== 'all') {
+      const item = (countryMeta.fundingLegend || []).find((x) => x.id === activeFundingFilter);
+      parts.push(item ? item.label : activeFundingFilter);
+    }
+    mapTitle.textContent = parts.join(' · ');
+    return;
+  }
   if (mapViewMode === 'income') {
     const parts = ['Income map'];
     if (activeIncomeFilter !== 'all') {
@@ -1488,6 +1614,7 @@ async function bootstrapAtlas() {
   rebuildCatalogueIndexes();
   initIncomeFilterPills();
   initDevelopmentFilterPills();
+  initFundingFilterPills();
   initMapViewToggle();
   refreshHeroAndFilters();
   applyFilters();
@@ -1575,7 +1702,8 @@ function getFiltered(){
     const meta = getMetaForCatalogueCountry(d.country);
     const incomeOk = activeIncomeFilter==='all'|| (meta && meta.income===activeIncomeFilter);
     const devOk = activeDevelopmentFilter==='all'|| (meta && meta.development===activeDevelopmentFilter);
-    return typeOk&&regionOk&&searchOk&&incomeOk&&devOk;
+    const fundingOk = activeFundingFilter==='all'|| (meta && meta.funding===activeFundingFilter);
+    return typeOk&&regionOk&&searchOk&&incomeOk&&devOk&&fundingOk;
   });
   rows.sort((a,b)=>a.country.localeCompare(b.country,'en',{sensitivity:'base'}));
   return rows;
@@ -1772,6 +1900,7 @@ function renderTable(){
       <div class="policy-td" role="cell">${formatIncomeCell(cmeta)}</div>
       <div class="policy-td" role="cell">${formatGniCell(cmeta)}</div>
       <div class="policy-td" role="cell">${formatDevelopmentCell(cmeta)}</div>
+      <div class="policy-td" role="cell">${formatFundingCell(cmeta)}</div>
       <div class="policy-td" role="cell"><span class="badge ${d.status}"><span class="dot"></span>${d.docType}</span></div>
       <div class="policy-td" role="cell">${formatCatalogueYearCell(d)}</div>
       <div class="policy-td" role="cell">${docCell}</div>
@@ -1973,6 +2102,9 @@ function initD3Map() {
           if (mapViewMode === 'income' && topoMeta) {
             if (tst) tst.textContent = topoMeta.incomeLabel || 'Income';
             if (td) td.style.background = topoMeta.incomeColor || getIncomeColor('INX');
+          } else if (mapViewMode === 'funding' && topoMeta) {
+            if (tst) tst.textContent = topoMeta.fundingLabel || 'Health financing';
+            if (td) td.style.background = topoMeta.fundingColor || getFundingColor('unknown');
           } else {
             if (tst) tst.textContent = sc.label;
             if (td) td.style.background = sc.color;
@@ -1991,7 +2123,16 @@ function initD3Map() {
           } else if (topoMeta) {
             if (tm) {
               const gni = topoMeta.gniPerCapita != null ? '$' + topoMeta.gniPerCapita.toLocaleString() + ' GNI/cap · ' : '';
-              tm.textContent = gni + topoMeta.developmentLabel + (topoMeta.incomeLabel ? ' · ' + topoMeta.incomeLabel : '');
+              const fund =
+                topoMeta.govtHealthSharePct != null
+                  ? topoMeta.govtHealthSharePct + '% government health spend · '
+                  : '';
+              tm.textContent =
+                gni +
+                fund +
+                topoMeta.developmentLabel +
+                (topoMeta.incomeLabel ? ' · ' + topoMeta.incomeLabel : '') +
+                (topoMeta.fundingLabel && mapViewMode !== 'funding' ? ' · ' + topoMeta.fundingLabel : '');
             }
             if (tr) tr.textContent = '';
           } else {
@@ -2048,12 +2189,12 @@ function positionTip(event) {
 function getMapCountryOpacity(d) {
   const name = d.properties.name;
   const meta = getMetaForTopoName(name);
-  if (!countryPassesIncomeDevFilters(meta)) return 0.1;
+  if (!countryPassesMetaFilters(meta)) return 0.1;
   const status = countryStatus[name];
   const who = countryToWHO[name];
   const typeOk = mapFilterStatus === 'all' || status === mapFilterStatus;
   const regionOk = mapFilterRegion === 'all' || who === mapFilterRegion;
-  if (mapViewMode === 'income') return 1;
+  if (mapViewMode === 'income' || mapViewMode === 'funding') return 1;
   if (!status) return 0.35;
   return typeOk && regionOk ? 1 : 0.08;
 }

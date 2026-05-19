@@ -35,6 +35,40 @@ const INCOME_COLORS = {
   INX: '#94a3b8',
 };
 
+/** World Bank SH.XPD.GHED.CH.ZS — domestic general government share of current health spending */
+const FUNDING_LABELS = {
+  public: 'Public / government',
+  mixed: 'Mixed',
+  private: 'Private-dominated',
+  unknown: 'No data',
+};
+
+const FUNDING_COLORS = {
+  public: '#1d4ed8',
+  mixed: '#6d28d9',
+  private: '#c026d3',
+  unknown: '#94a3b8',
+};
+
+const GOVT_SHARE_PUBLIC_MIN = 55;
+const GOVT_SHARE_PRIVATE_MAX = 45;
+
+function classifyFunding(govtSharePct) {
+  if (govtSharePct == null || Number.isNaN(govtSharePct)) return 'unknown';
+  if (govtSharePct >= GOVT_SHARE_PUBLIC_MIN) return 'public';
+  if (govtSharePct <= GOVT_SHARE_PRIVATE_MAX) return 'private';
+  return 'mixed';
+}
+
+function applyFundingFields(record, govtSharePct, year) {
+  const funding = classifyFunding(govtSharePct);
+  record.govtHealthSharePct = govtSharePct != null ? Math.round(govtSharePct * 10) / 10 : null;
+  record.fundingYear = year || null;
+  record.funding = funding;
+  record.fundingLabel = FUNDING_LABELS[funding];
+  record.fundingColor = FUNDING_COLORS[funding];
+}
+
 const CATALOGUE_TO_ISO3 = {
   'Congo (DRC)': 'COD',
   'Czech Republic': 'CZE',
@@ -98,6 +132,23 @@ async function fetchJson(url) {
   return res.json();
 }
 
+/** World Bank indicator endpoints paginate; collect all rows. */
+async function fetchIndicatorAllRows(indicatorId, dateRange) {
+  const rows = [];
+  let page = 1;
+  let pages = 1;
+  do {
+    const url =
+      `https://api.worldbank.org/v2/country/all/indicator/${indicatorId}` +
+      `?format=json&per_page=2000&page=${page}&date=${dateRange}`;
+    const [meta, batch] = await fetchJson(url);
+    pages = meta?.pages || 1;
+    if (batch?.length) rows.push(...batch);
+    page += 1;
+  } while (page <= pages);
+  return rows;
+}
+
 function developmentTier(iso3, incomeId) {
   if (!iso3) return 'unknown';
   if (UN_LDC_ISO3.has(iso3)) return 'undeveloped';
@@ -114,11 +165,12 @@ function developmentLabel(tier) {
 }
 
 async function main() {
-  const [wbCountriesRaw, gniRaw, isoSlim, topoLocal] = await Promise.all([
+  const [wbCountriesRaw, gniRaw, govtHealthRows, isoSlim, topoLocal] = await Promise.all([
     fetchJson('https://api.worldbank.org/v2/country?format=json&per_page=400'),
     fetchJson(
       'https://api.worldbank.org/v2/country/all/indicator/NY.GNP.PCAP.CD?format=json&per_page=400&date=2020:2024&MRV=1',
     ),
+    fetchIndicatorAllRows('SH.XPD.GHED.CH.ZS', '2010:2024'),
     fetchJson(
       'https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/slim-3/slim-3.json',
     ),
@@ -150,7 +202,25 @@ async function main() {
       gniYear: null,
       development: null,
       developmentLabel: null,
+      govtHealthSharePct: null,
+      fundingYear: null,
+      funding: 'unknown',
+      fundingLabel: FUNDING_LABELS.unknown,
+      fundingColor: FUNDING_COLORS.unknown,
     };
+  }
+
+  const latestGovtShare = {};
+  for (const row of govtHealthRows) {
+    const iso3 = row.countryiso3code;
+    if (!iso3 || row.value == null) continue;
+    const year = Number.parseInt(row.date, 10);
+    if (Number.isNaN(year)) continue;
+    const prev = latestGovtShare[iso3];
+    if (!prev || year > prev.year) latestGovtShare[iso3] = { value: row.value, year: row.date };
+  }
+  for (const [iso3, hit] of Object.entries(latestGovtShare)) {
+    if (byIso3[iso3]) applyFundingFields(byIso3[iso3], hit.value, hit.year);
   }
 
   for (const row of gniRows) {
@@ -193,6 +263,11 @@ async function main() {
         gniYear: null,
         development: 'unknown',
         developmentLabel: developmentLabel('unknown'),
+        govtHealthSharePct: null,
+        fundingYear: null,
+        funding: 'unknown',
+        fundingLabel: FUNDING_LABELS.unknown,
+        fundingColor: FUNDING_COLORS.unknown,
       };
     }
   }
@@ -248,7 +323,16 @@ async function main() {
       ldc: 'UN Least Developed Countries list (2024)',
       developmentRules:
         'Developed = high income; Least developed = UN LDC; Developing = all other classified incomes',
+      healthFinancing:
+        'World Bank SH.XPD.GHED.CH.ZS (domestic general government health expenditure % of current health expenditure), latest available year 2010–2024',
+      fundingRules:
+        'Public = government share ≥55%; Private-dominated = ≤45%; Mixed = between; based on country-level financing, not document text',
     },
+    fundingLegend: Object.entries(FUNDING_LABELS).map(([id, label]) => ({
+      id,
+      label,
+      color: FUNDING_COLORS[id],
+    })),
     incomeLegend: Object.entries(INCOME_LABELS).map(([id, label]) => ({
       id,
       label,
