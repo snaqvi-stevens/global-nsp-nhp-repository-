@@ -416,8 +416,9 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .fund-tag--private{color:#c026d3}
 .disc-tag{
   display:inline-block;font-size:0.6rem;font-weight:600;letter-spacing:0.03em;
-  padding:0.12rem 0.38rem;border-radius:3px;margin:0.08rem 0.12rem 0.08rem 0;
+  padding:0.12rem 0.38rem;border-radius:3px;
   background:rgba(13,148,136,0.1);color:var(--teal-dark);white-space:nowrap;
+  flex-shrink:0;
 }
 .disc-filter-pill.active{background:rgba(13,148,136,0.14);border-color:rgba(13,148,136,0.45);color:var(--teal-dark);font-weight:600}
 .discipline-filter-list{flex-wrap:wrap}
@@ -525,50 +526,90 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 #table-section .section-h2{margin-bottom:0.35rem}
 /* Opacity-only in this section: translateY on .reveal can composite badly next to the table in WebKit */
 #table-section .reveal{transform:none}
-.table-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:0.55rem}
-.search-wrap{position:relative;display:flex;align-items:center}
+.table-header{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  margin-bottom:0.85rem;
+}
+.search-wrap{position:relative;display:flex;align-items:center;flex:1 1 220px;max-width:320px}
 .search-wrap svg{position:absolute;left:0.75rem;width:12px;height:12px;stroke:var(--text-subtle);stroke-width:2;fill:none;pointer-events:none}
 #search-input{
-  width:240px;padding:0.5rem 0.75rem 0.5rem 2.1rem;
-  border:1px solid var(--rule);border-radius:4px;
-  font-size:0.78rem;color:var(--text);font-family:'DM Sans',sans-serif;
+  width:100%;padding:0.55rem 0.75rem 0.55rem 2.1rem;
+  border:1px solid var(--rule);border-radius:6px;
+  font-size:0.82rem;color:var(--text);font-family:'DM Sans',sans-serif;
   background:var(--bg-2);outline:none;
   transition:border-color var(--t-fast),background var(--t-fast),box-shadow var(--t-fast);
 }
 #search-input:focus{border-color:rgba(13,148,136,0.45);background:var(--white);box-shadow:0 0 0 3px rgba(13,148,136,0.12)}
 #search-input::placeholder{color:var(--text-subtle)}
-.table-meta{font-size:0.75rem;line-height:1.35;color:var(--text-subtle);font-family:'DM Sans',sans-serif}
+.table-meta{font-size:0.75rem;line-height:1.35;color:var(--text-subtle);font-family:'DM Sans',sans-serif;flex:1 1 100%}
 .table-meta span{font-weight:600;color:var(--text-muted)}
-.tbl-wrap{border:1px solid var(--rule);border-radius:8px;overflow:auto;background:rgba(248,250,252,0.95)}
-/* Grid sheet (not HTML table): avoids Chrome/Safari thead/tbody paint-order bugs */
-.policy-sheet{
-  width:100%;min-width:1180px;font-size:0.78rem;font-family:'DM Sans',sans-serif;
+.tbl-wrap{
+  border:1px solid var(--rule);border-radius:10px;
+  background:var(--white);overflow:hidden;
 }
-.policy-sheet .policy-rowgroup{display:block}
-.policy-row{
+.policy-list{
+  font-size:0.78rem;font-family:'DM Sans',sans-serif;
+}
+.policy-list-head,
+.policy-entry{
   display:grid;
-  grid-template-columns:minmax(4.5rem,0.95fr) minmax(5rem,1.05fr) minmax(3rem,0.58fr) minmax(2.35rem,0.4fr) minmax(3.5rem,0.68fr) minmax(3.5rem,0.72fr) minmax(3.25rem,0.72fr) minmax(3rem,0.62fr) minmax(2.2rem,0.36fr) minmax(2.75rem,0.55fr);
-  column-gap:0;align-items:stretch;
-  border-bottom:1px solid var(--rule-2);
+  grid-template-columns:
+    minmax(7rem,1.15fr)
+    minmax(5.5rem,0.85fr)
+    minmax(8.5rem,1.35fr)
+    minmax(6.5rem,1.05fr)
+    minmax(5.5rem,0.8fr)
+    minmax(5.5rem,0.75fr);
+  gap:0.5rem 0.85rem;align-items:center;
+  padding:0.65rem 1rem;
 }
-.policy-row--head{
+.policy-list-head{
   background:rgba(248,250,252,0.98);
   border-bottom:1px solid var(--rule);
-  box-shadow:0 1px 0 rgba(13,148,136,0.12);
+  font-size:0.58rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--teal-dark);line-height:1.2;
 }
-.policy-th{
-  padding:0.12rem 0.875rem 0.14rem;line-height:1.15;
-  text-align:left;font-size:0.58rem;font-weight:600;
-  letter-spacing:0.13em;text-transform:uppercase;color:var(--teal-dark);
-  white-space:nowrap;font-family:'DM Sans',sans-serif;
+.policy-list-head span{white-space:nowrap}
+.policy-list-body{display:flex;flex-direction:column}
+.policy-entry{
+  border-bottom:1px solid var(--rule-2);
+  background:var(--white);
+  transition:background var(--t-fast);
 }
-.policy-td{
-  padding:0.7rem 0.875rem;vertical-align:middle;color:var(--text-muted);
-  background:rgba(255,255,255,0.75);
+.policy-entry:last-child{border-bottom:none}
+.policy-entry:hover{background:rgba(13,148,136,0.04)}
+.policy-cell{min-width:0;overflow:hidden}
+.policy-cell--country .policy-country-name{
+  display:block;font-size:0.88rem;font-weight:600;color:var(--text);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
-.policy-rowgroup--body .policy-row{align-items:center;transition:background var(--t-fast)}
-.policy-rowgroup--body .policy-row:hover .policy-td{background:rgba(13,148,136,0.06)}
-.policy-rowgroup--body .policy-row:last-child{border-bottom:none}
+.policy-cell--region{
+  font-size:0.72rem;line-height:1.35;color:var(--text-muted);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.policy-cell--region .who-tag{margin-right:0.25rem;vertical-align:baseline}
+.economy-stack{display:flex;flex-direction:column;gap:0.2rem;min-width:0}
+.economy-line{
+  display:block;font-size:0.72rem;line-height:1.3;color:var(--text-muted);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.economy-line--muted{color:var(--text-subtle);font-variant-numeric:tabular-nums}
+.policy-cell--disciplines .disc-chip-row{
+  display:flex;flex-wrap:wrap;gap:0.2rem;max-height:2.6rem;overflow:hidden;
+}
+.policy-cell--disciplines .disc-chip-row.is-expanded{max-height:none}
+.policy-disc-more{
+  display:inline-block;margin-top:0.2rem;padding:0;border:none;background:none;
+  font-size:0.62rem;font-weight:600;color:var(--teal-dark);cursor:pointer;font-family:inherit;
+}
+.policy-cell--documents{display:flex;flex-direction:column;gap:0.25rem;align-items:flex-start}
+.policy-cell--access .doc-actions{gap:0.3rem}
+.policy-cell--access .doc-btn-row{flex-direction:row;flex-wrap:wrap;align-items:center;gap:0.35rem}
+.policy-cell--access .doc-btn{white-space:nowrap}
+.policy-entry-label{
+  display:none;font-size:0.58rem;font-weight:600;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--teal-dark);margin-bottom:0.2rem;
+}
 .badge{
   display:inline-flex;align-items:center;gap:0.3rem;
   padding:0.16rem 0.5rem;border-radius:2px;
@@ -728,6 +769,34 @@ footer{
   .sidebar-block{flex:1;min-width:150px}
   .how-grid{grid-template-columns:repeat(2,1fr)}
   .contribute-layout{grid-template-columns:1fr}
+}
+@media(min-width:900px) and (max-width:1080px){
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .policy-list{min-width:920px}
+}
+@media(max-width:899px){
+  .policy-list-head{display:none}
+  .policy-list-body{gap:0.65rem;padding:0.65rem}
+  .policy-entry{
+    grid-template-columns:1fr 1fr;
+    gap:0.65rem 1rem;padding:0.9rem 1rem;
+    border:1px solid var(--rule-2);border-radius:8px;
+  }
+  .policy-entry-label{display:block}
+  .policy-cell--country{grid-column:1/-1}
+  .policy-cell--disciplines{grid-column:1/-1}
+  .policy-cell--documents{grid-column:1/-1}
+  .policy-cell--access{grid-column:1/-1}
+  .policy-cell--country .policy-country-name{white-space:normal}
+  .policy-cell--region{white-space:normal}
+  .economy-line{white-space:normal}
+  .policy-cell--disciplines .disc-chip-row{max-height:none}
+  .policy-disc-more{display:none}
+  .table-header{flex-direction:column;align-items:stretch}
+  .search-wrap{max-width:none}
+}
+@media(max-width:520px){
+  .policy-entry{grid-template-columns:1fr}
 }
 @media(max-width:640px){
   .nav-links{display:none}
@@ -908,7 +977,7 @@ footer{
     <div class="section-wrap">
       <div class="section-eye reveal">Repository</div>
       <h2 class="section-h2 reveal reveal-d1">Policy Documents</h2>
-      <p class="table-year-note reveal reveal-d2" id="table-year-note">The <strong>Income</strong>, <strong>Development</strong>, and <strong>Health financing</strong> columns use World Bank country data (income groups, UN least-developed status, and government share of health spending). <strong>Disciplines</strong> are detected from PDF text (run <code style="font-size:0.68rem">npm run disciplines</code> after adding files). <strong>Years</strong> lists the catalogue year per document. Countries with both NSP and NHP show <strong>two years</strong>—one per file—not the newest year only.</p>
+      <p class="table-year-note reveal reveal-d2" id="table-year-note"><strong>Economy &amp; financing</strong> combines World Bank income, GNI, development status, and health spending data. <strong>Disciplines</strong> are detected from PDF text (<code style="font-size:0.68rem">npm run disciplines</code> after adding files). <strong>Years</strong> lists the catalogue year per document; countries with both NSP and NHP show two years—one per file.</p>
       <div class="table-header reveal reveal-d2">
         <p class="table-meta" id="table-meta" aria-live="polite"></p>
         <div class="search-wrap">
@@ -917,22 +986,16 @@ footer{
         </div>
       </div>
       <div class="tbl-wrap">
-        <div class="policy-sheet" role="table" aria-label="National health policy documents by country">
-          <div class="policy-rowgroup" role="rowgroup">
-            <div class="policy-row policy-row--head" role="row">
-              <div class="policy-th" role="columnheader">Country</div>
-              <div class="policy-th" role="columnheader">WHO Region</div>
-              <div class="policy-th" role="columnheader">Income</div>
-              <div class="policy-th" role="columnheader">GNI/cap</div>
-              <div class="policy-th" role="columnheader">Development</div>
-              <div class="policy-th" role="columnheader">Health financing</div>
-              <div class="policy-th" role="columnheader">Disciplines</div>
-              <div class="policy-th" role="columnheader">Document Type</div>
-              <div class="policy-th" role="columnheader">Years</div>
-              <div class="policy-th" role="columnheader">Access</div>
-            </div>
+        <div class="policy-list" role="table" aria-label="National health policy documents by country">
+          <div class="policy-list-head" role="row" aria-hidden="true">
+            <span role="columnheader">Country</span>
+            <span role="columnheader">Region</span>
+            <span role="columnheader">Economy &amp; financing</span>
+            <span role="columnheader">Disciplines</span>
+            <span role="columnheader">Documents</span>
+            <span role="columnheader">Access</span>
           </div>
-          <div class="policy-rowgroup policy-rowgroup--body" role="rowgroup" id="policy-rowgroup-body"></div>
+          <div class="policy-list-body" role="rowgroup" id="policy-list-body"></div>
         </div>
       </div>
       <div class="pagination" id="pagination"></div>
@@ -1292,9 +1355,155 @@ function countryMatchesDisciplineFilter(country) {
 function formatDisciplinesCell(country) {
   const tags = getDisciplinesForCountry(country);
   if (!tags.length) return '<span class="meta-na">—</span>';
-  return tags
+  const chips = tags
     .map((id) => '<span class="disc-tag">' + escHtml(getDisciplineLabel(id)) + '</span>')
     .join('');
+  const needsToggle = tags.length > 4;
+  return (
+    '<div class="disc-chip-row' +
+    (needsToggle ? '' : ' is-expanded') +
+    '">' +
+    chips +
+    '</div>' +
+    (needsToggle
+      ? '<button type="button" class="policy-disc-more" aria-expanded="false" data-more-label="+' +
+        (tags.length - 4) +
+        ' more">+' +
+        (tags.length - 4) +
+        ' more</button>'
+      : '')
+  );
+}
+
+function formatFundingInline(meta) {
+  if (!meta || !meta.fundingLabel) return '';
+  const cls =
+    meta.funding === 'public'
+      ? 'fund-tag--public'
+      : meta.funding === 'private'
+      ? 'fund-tag--private'
+      : meta.funding === 'mixed'
+      ? 'fund-tag--mixed'
+      : '';
+  let html = '<span class="fund-tag ' + cls + '">' + escHtml(meta.fundingLabel) + '</span>';
+  if (meta.govtHealthSharePct != null) {
+    html +=
+      ' <span class="economy-line--muted" style="font-size:0.68rem">' +
+      meta.govtHealthSharePct +
+      '% govt</span>';
+  }
+  return html;
+}
+
+function formatEconomyCell(meta) {
+  if (!meta) return '<span class="meta-na">—</span>';
+  const parts = [];
+  if (meta.incomeLabel && meta.income !== 'INX') {
+    parts.push('<span class="economy-line">' + escHtml(meta.incomeLabel) + '</span>');
+  }
+  if (meta.gniPerCapita != null) {
+    const yr = meta.gniYear ? ' · ' + escHtml(meta.gniYear) : '';
+    parts.push(
+      '<span class="economy-line economy-line--muted">$' +
+        meta.gniPerCapita.toLocaleString('en-US') +
+        ' GNI' +
+        yr +
+        '</span>',
+    );
+  }
+  if (meta.development && meta.development !== 'unknown') {
+    parts.push('<span class="economy-line">' + formatDevelopmentCell(meta) + '</span>');
+  }
+  const fund = formatFundingInline(meta);
+  if (fund) parts.push('<span class="economy-line">' + fund + '</span>');
+  if (!parts.length) return '<span class="meta-na">—</span>';
+  return '<div class="economy-stack">' + parts.join('') + '</div>';
+}
+
+function buildPolicyDocCell(d) {
+  const items = getCatalogueDownloadItems(d);
+  const svg =
+    '<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+  if (items.length > 1) {
+    return (
+      '<div class="doc-actions">' +
+      items
+        .map((it) => {
+          const href = getDocHref(d, it.file);
+          const verb = docLinkButtonLabel(it.file);
+          const al = escHtml(d.country + ' — ' + it.short + ' document');
+          return (
+            '<div class="doc-btn-row"><span class="doc-kind doc-kind--' +
+            it.kind +
+            '">' +
+            it.short +
+            '</span><a class="doc-btn" href="' +
+            href +
+            '" target="_blank" rel="noopener noreferrer" aria-label="' +
+            al +
+            '">' +
+            svg +
+            verb +
+            '</a></div>'
+          );
+        })
+        .join('') +
+      '</div>'
+    );
+  }
+  const pdfPath = getDocHref(d, items[0].file);
+  const al = escHtml(d.country + ' — ' + items[0].short + ' document');
+  return (
+    '<a class="doc-btn" href="' +
+    pdfPath +
+    '" target="_blank" rel="noopener noreferrer" aria-label="' +
+    al +
+    '">' +
+    svg +
+    docLinkButtonLabel(items[0].file) +
+    '</a>'
+  );
+}
+
+function buildPolicyEntryHtml(d) {
+  const cmeta = getMetaForCatalogueCountry(d.country);
+  return (
+    '<article class="policy-entry" role="row">' +
+    '<div class="policy-cell policy-cell--country" data-label="Country">' +
+    '<span class="policy-entry-label">Country</span>' +
+    '<span class="policy-country-name">' +
+    escHtml(d.country) +
+    '</span></div>' +
+    '<div class="policy-cell policy-cell--region" data-label="Region">' +
+    '<span class="policy-entry-label">Region</span>' +
+    '<span class="who-tag">' +
+    escHtml(d.whoRegion) +
+    '</span> ' +
+    escHtml(d.region) +
+    '</div>' +
+    '<div class="policy-cell policy-cell--economy" data-label="Economy">' +
+    '<span class="policy-entry-label">Economy &amp; financing</span>' +
+    formatEconomyCell(cmeta) +
+    '</div>' +
+    '<div class="policy-cell policy-cell--disciplines" data-label="Disciplines">' +
+    '<span class="policy-entry-label">Disciplines</span>' +
+    formatDisciplinesCell(d.country) +
+    '</div>' +
+    '<div class="policy-cell policy-cell--documents" data-label="Documents">' +
+    '<span class="policy-entry-label">Documents</span>' +
+    '<span class="badge ' +
+    d.status +
+    '"><span class="dot"></span>' +
+    escHtml(d.docType) +
+    '</span>' +
+    formatCatalogueYearCell(d) +
+    '</div>' +
+    '<div class="policy-cell policy-cell--access" data-label="Access">' +
+    '<span class="policy-entry-label">Access</span>' +
+    buildPolicyDocCell(d) +
+    '</div>' +
+    '</article>'
+  );
 }
 
 function getMetaForCatalogueCountry(country) {
@@ -1952,6 +2161,22 @@ function openCountryDocumentTab(d) {
   if (si) si.addEventListener('input',()=>{ currentPage=1; renderTable(); });
 })();
 
+(function initPolicyListInteractions(){
+  const list = document.getElementById('policy-list-body');
+  if (!list) return;
+  list.addEventListener('click', function (e) {
+    const btn = e.target.closest('.policy-disc-more');
+    if (!btn) return;
+    const row = btn.closest('.policy-cell--disciplines');
+    if (!row) return;
+    const chips = row.querySelector('.disc-chip-row');
+    if (!chips) return;
+    const open = chips.classList.toggle('is-expanded');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Show less' : btn.dataset.moreLabel || '+ more';
+  });
+})();
+
 /* ═══════════════════════════════════════════════════════════════════
    TABLE
 ═══════════════════════════════════════════════════════════════════ */
@@ -1968,40 +2193,11 @@ function renderTable(){
   const filtered = getFiltered();
   const catalogueSize = policyData.length;
   syncTableMeta(filtered.length, catalogueSize);
-  const start = (currentPage-1)*ROWS;
-  const slice = filtered.slice(start, start+ROWS);
-  const bodyRg = document.getElementById('policy-rowgroup-body');
+  const start = (currentPage - 1) * ROWS;
+  const slice = filtered.slice(start, start + ROWS);
+  const bodyRg = document.getElementById('policy-list-body');
   if (!bodyRg) return;
-  bodyRg.innerHTML = slice.map(d=>{
-    const items = getCatalogueDownloadItems(d);
-    const svg = '<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
-    let docCell;
-    if (items.length > 1) {
-      docCell = '<div class="doc-actions">' + items.map(it => {
-        const href = getDocHref(d, it.file);
-        const verb = docLinkButtonLabel(it.file);
-        const al = escHtml(d.country + ' — ' + it.short + ' document');
-        return '<div class="doc-btn-row"><span class="doc-kind doc-kind--' + it.kind + '">' + it.short + '</span><a class="doc-btn" href="' + href + '" target="_blank" rel="noopener noreferrer" aria-label="' + al + '">' + svg + verb + '</a></div>';
-      }).join('') + '</div>';
-    } else {
-      const pdfPath = getDocHref(d, items[0].file);
-      const al = escHtml(d.country + ' — ' + items[0].short + ' document');
-      docCell = '<a class="doc-btn" href="' + pdfPath + '" target="_blank" rel="noopener noreferrer" aria-label="' + al + '">' + svg + docLinkButtonLabel(items[0].file) + '</a>';
-    }
-    const cmeta = getMetaForCatalogueCountry(d.country);
-    return `<div class="policy-row" role="row">
-      <div class="policy-td" role="cell"><strong>${d.country}</strong></div>
-      <div class="policy-td" role="cell"><span class="who-tag">${d.whoRegion}</span> <span style="font-size:0.78rem;color:var(--fog-3)">${d.region}</span></div>
-      <div class="policy-td" role="cell">${formatIncomeCell(cmeta)}</div>
-      <div class="policy-td" role="cell">${formatGniCell(cmeta)}</div>
-      <div class="policy-td" role="cell">${formatDevelopmentCell(cmeta)}</div>
-      <div class="policy-td" role="cell">${formatFundingCell(cmeta)}</div>
-      <div class="policy-td" role="cell">${formatDisciplinesCell(d.country)}</div>
-      <div class="policy-td" role="cell"><span class="badge ${d.status}"><span class="dot"></span>${d.docType}</span></div>
-      <div class="policy-td" role="cell">${formatCatalogueYearCell(d)}</div>
-      <div class="policy-td" role="cell">${docCell}</div>
-    </div>`;
-  }).join('');
+  bodyRg.innerHTML = slice.map((d) => buildPolicyEntryHtml(d)).join('');
   renderPagination(filtered.length);
 }
 
