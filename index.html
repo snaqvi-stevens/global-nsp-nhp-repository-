@@ -355,10 +355,18 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 /* ── MAP SECTION ── */
 #map-section{padding:5rem 0;border-top:1px solid var(--rule-2)}
 .map-layout{
-  display:grid;grid-template-columns:200px 1fr;
-  gap:1.25rem;align-items:start;margin-top:2.5rem;
+  display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem;
 }
-.map-sidebar{display:flex;flex-direction:column;gap:1rem}
+.map-stage{width:100%}
+.map-filters{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:0.75rem;
+}
+.map-filters .sidebar-block--span{grid-column:1/-1}
+.map-view-toggle{flex-direction:row;flex-wrap:wrap}
+.map-view-btn{flex:1 1 auto;min-width:9rem;text-align:center}
+#map-viewport svg,#world-map{min-height:min(62vw,520px)}
 .sidebar-block{
   background:rgba(255,255,255,0.92);
   border:1px solid var(--rule);border-radius:8px;overflow:hidden;
@@ -545,67 +553,38 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .table-meta span{font-weight:600;color:var(--text-muted)}
 .tbl-wrap{
   border:1px solid var(--rule);border-radius:10px;
-  background:var(--white);overflow:hidden;
+  background:var(--white);overflow-x:auto;-webkit-overflow-scrolling:touch;
 }
-.policy-list{
-  font-size:0.78rem;font-family:'DM Sans',sans-serif;
+.policy-table{
+  width:100%;border-collapse:collapse;font-size:0.78rem;font-family:'DM Sans',sans-serif;
+  table-layout:auto;
 }
-.policy-list-head,
-.policy-entry{
-  display:grid;
-  grid-template-columns:
-    minmax(7rem,1.15fr)
-    minmax(5.5rem,0.85fr)
-    minmax(8.5rem,1.35fr)
-    minmax(6.5rem,1.05fr)
-    minmax(5.5rem,0.8fr)
-    minmax(5.5rem,0.75fr);
-  gap:0.5rem 0.85rem;align-items:center;
-  padding:0.65rem 1rem;
-}
-.policy-list-head{
-  background:rgba(248,250,252,0.98);
-  border-bottom:1px solid var(--rule);
-  font-size:0.58rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--teal-dark);line-height:1.2;
-}
-.policy-list-head span{white-space:nowrap}
-.policy-list-body{display:flex;flex-direction:column}
-.policy-entry{
+.policy-table th,
+.policy-table td{
+  padding:0.65rem 0.85rem;vertical-align:top;text-align:left;
   border-bottom:1px solid var(--rule-2);
-  background:var(--white);
-  transition:background var(--t-fast);
+  line-height:1.4;color:var(--text-muted);
+  white-space:normal;word-wrap:break-word;overflow:visible;
 }
-.policy-entry:last-child{border-bottom:none}
-.policy-entry:hover{background:rgba(13,148,136,0.04)}
-.policy-cell{min-width:0;overflow:hidden}
-.policy-cell--country .policy-country-name{
-  display:block;font-size:0.88rem;font-weight:600;color:var(--text);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+.policy-table thead th{
+  background:rgba(248,250,252,0.98);
+  font-size:0.58rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--teal-dark);white-space:nowrap;border-bottom:1px solid var(--rule);
 }
-.policy-cell--region{
-  font-size:0.72rem;line-height:1.35;color:var(--text-muted);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.policy-cell--region .who-tag{margin-right:0.25rem;vertical-align:baseline}
-.economy-stack{display:flex;flex-direction:column;gap:0.2rem;min-width:0}
-.economy-line{
-  display:block;font-size:0.72rem;line-height:1.3;color:var(--text-muted);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
+.policy-table tbody tr{background:var(--white);transition:background var(--t-fast)}
+.policy-table tbody tr:hover{background:rgba(13,148,136,0.04)}
+.policy-table tbody tr:last-child td{border-bottom:none}
+.policy-table .policy-country-name{font-size:0.88rem;font-weight:600;color:var(--text)}
+.policy-table .policy-region-cell{font-size:0.72rem;line-height:1.4}
+.policy-table .policy-region-cell .who-tag{margin-right:0.25rem;vertical-align:baseline}
+.economy-stack{display:flex;flex-direction:column;gap:0.25rem}
+.economy-line{display:block;font-size:0.72rem;line-height:1.4;color:var(--text-muted)}
 .economy-line--muted{color:var(--text-subtle);font-variant-numeric:tabular-nums}
-.policy-cell--disciplines .disc-chip-row{
-  display:flex;flex-wrap:wrap;gap:0.2rem;max-height:2.6rem;overflow:hidden;
-}
-.policy-cell--disciplines .disc-chip-row.is-expanded{max-height:none}
-.policy-disc-more{
-  display:inline-block;margin-top:0.2rem;padding:0;border:none;background:none;
-  font-size:0.62rem;font-weight:600;color:var(--teal-dark);cursor:pointer;font-family:inherit;
-}
-.policy-cell--documents{display:flex;flex-direction:column;gap:0.25rem;align-items:flex-start}
-.policy-cell--access .doc-actions{gap:0.3rem}
-.policy-cell--access .doc-btn-row{flex-direction:row;flex-wrap:wrap;align-items:center;gap:0.35rem}
-.policy-cell--access .doc-btn{white-space:nowrap}
+.policy-table .disc-chip-row{display:flex;flex-wrap:wrap;gap:0.2rem}
+.policy-table .policy-docs-cell{display:flex;flex-direction:column;gap:0.25rem;align-items:flex-start}
+.policy-table .doc-actions{gap:0.3rem}
+.policy-table .doc-btn-row{flex-direction:row;flex-wrap:wrap;align-items:center;gap:0.35rem}
+.policy-disc-more{display:none}
 .policy-entry-label{
   display:none;font-size:0.58rem;font-weight:600;letter-spacing:0.1em;
   text-transform:uppercase;color:var(--teal-dark);margin-bottom:0.2rem;
@@ -764,39 +743,29 @@ footer{
 
 /* ── RESPONSIVE ── */
 @media(max-width:960px){
-  .map-layout{grid-template-columns:1fr}
-  .map-sidebar{flex-direction:row;flex-wrap:wrap}
-  .sidebar-block{flex:1;min-width:150px}
+  .map-filters{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
   .how-grid{grid-template-columns:repeat(2,1fr)}
   .contribute-layout{grid-template-columns:1fr}
 }
-@media(min-width:900px) and (max-width:1080px){
-  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .policy-list{min-width:920px}
-}
 @media(max-width:899px){
-  .policy-list-head{display:none}
-  .policy-list-body{gap:0.65rem;padding:0.65rem}
-  .policy-entry{
-    grid-template-columns:1fr 1fr;
-    gap:0.65rem 1rem;padding:0.9rem 1rem;
+  .policy-table thead{display:none}
+  .policy-table,.policy-table tbody,.policy-table tr,.policy-table td{display:block;width:100%}
+  .policy-table tr{
+    margin-bottom:0.65rem;padding:0.9rem 1rem;
     border:1px solid var(--rule-2);border-radius:8px;
   }
-  .policy-entry-label{display:block}
-  .policy-cell--country{grid-column:1/-1}
-  .policy-cell--disciplines{grid-column:1/-1}
-  .policy-cell--documents{grid-column:1/-1}
-  .policy-cell--access{grid-column:1/-1}
-  .policy-cell--country .policy-country-name{white-space:normal}
-  .policy-cell--region{white-space:normal}
-  .economy-line{white-space:normal}
-  .policy-cell--disciplines .disc-chip-row{max-height:none}
-  .policy-disc-more{display:none}
+  .policy-table td{
+    padding:0.35rem 0;border:none;
+  }
+  .policy-table td::before{
+    content:attr(data-label);
+    display:block;font-size:0.58rem;font-weight:600;letter-spacing:0.1em;
+    text-transform:uppercase;color:var(--teal-dark);margin-bottom:0.15rem;
+  }
+  .policy-table td:first-child{padding-top:0}
+  .policy-table .disc-chip-row{max-width:none}
   .table-header{flex-direction:column;align-items:stretch}
   .search-wrap{max-width:none}
-}
-@media(max-width:520px){
-  .policy-entry{grid-template-columns:1fr}
 }
 @media(max-width:640px){
   .nav-links{display:none}
@@ -889,8 +858,34 @@ footer{
       <h2 class="section-h2 reveal reveal-d1">Global NSP / NHP Status</h2>
       <p class="section-sub reveal reveal-d2">Switch the map between policy documents, World Bank income level, and national health financing. All countries appear on income and financing maps; diagonal stripes mark countries with NSP or NHP documents in this repository.</p>
       <div class="map-layout">
-        <div class="map-sidebar reveal">
-          <div class="sidebar-block">
+        <div class="map-stage reveal reveal-d1">
+          <div class="glass-card">
+            <div class="map-card-head">
+              <span class="map-card-title" id="map-title-label"></span>
+              <div class="map-zoom-controls">
+                <button class="zoom-btn" id="zoom-in">+</button>
+                <button class="zoom-btn" id="zoom-out">−</button>
+                <button class="zoom-btn" id="zoom-reset" style="font-size:0.7rem">↺</button>
+              </div>
+            </div>
+            <div style="overflow:hidden;position:relative" id="map-viewport">
+              <svg id="world-map" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="World map showing national surgical and health policy document status by country">
+                <!-- D3 renders here -->
+              </svg>
+            </div>
+            <div class="map-legend" id="map-legend-policy">
+              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-both)"></div>NSP + NHP</div>
+              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nsp)"></div>NSP Only</div>
+              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nhp)"></div>NHP Only</div>
+              <div class="leg-item"><div class="leg-swatch leg-swatch--striped"></div>In this repository (striped)</div>
+              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-none)"></div>Not in repository</div>
+            </div>
+            <div class="map-legend" id="map-legend-income"></div>
+            <div class="map-legend" id="map-legend-funding"></div>
+          </div>
+        </div>
+        <div class="map-filters reveal">
+          <div class="sidebar-block sidebar-block--span">
             <div class="sidebar-head">Map view</div>
             <div class="map-view-toggle" id="map-view-toggle" role="group" aria-label="Map view">
               <button type="button" class="map-view-btn active" data-map-view="policy">Policy documents (NSP / NHP)</button>
@@ -932,7 +927,7 @@ footer{
               </button>
             </div>
           </div>
-          <div class="sidebar-block" id="discipline-filter-block">
+          <div class="sidebar-block sidebar-block--span" id="discipline-filter-block">
             <div class="sidebar-head">Surgical disciplines</div>
             <p class="map-source-note" style="margin-top:0">Keyword scan of policy PDFs. Select one or more; use discipline-overrides.json to correct tags.</p>
             <div class="filter-list discipline-filter-list" id="discipline-filters"></div>
@@ -940,32 +935,6 @@ footer{
           <div class="sidebar-block" id="who-filter-block">
             <div class="sidebar-head">WHO Region</div>
             <div class="region-filter-list" id="region-filters"></div>
-          </div>
-        </div>
-        <div class="reveal reveal-d1">
-          <div class="glass-card">
-            <div class="map-card-head">
-              <span class="map-card-title" id="map-title-label"></span>
-              <div class="map-zoom-controls">
-                <button class="zoom-btn" id="zoom-in">+</button>
-                <button class="zoom-btn" id="zoom-out">−</button>
-                <button class="zoom-btn" id="zoom-reset" style="font-size:0.7rem">↺</button>
-              </div>
-            </div>
-            <div style="overflow:hidden;position:relative" id="map-viewport">
-              <svg id="world-map" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" role="img" aria-label="World map showing national surgical and health policy document status by country">
-                <!-- D3 renders here -->
-              </svg>
-            </div>
-            <div class="map-legend" id="map-legend-policy">
-              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-both)"></div>NSP + NHP</div>
-              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nsp)"></div>NSP Only</div>
-              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-nhp)"></div>NHP Only</div>
-              <div class="leg-item"><div class="leg-swatch leg-swatch--striped"></div>In this repository (striped)</div>
-              <div class="leg-item"><div class="leg-swatch" style="background:var(--c-none)"></div>Not in repository</div>
-            </div>
-            <div class="map-legend" id="map-legend-income"></div>
-            <div class="map-legend" id="map-legend-funding"></div>
           </div>
         </div>
       </div>
@@ -986,17 +955,19 @@ footer{
         </div>
       </div>
       <div class="tbl-wrap">
-        <div class="policy-list" role="table" aria-label="National health policy documents by country">
-          <div class="policy-list-head" role="row" aria-hidden="true">
-            <span role="columnheader">Country</span>
-            <span role="columnheader">Region</span>
-            <span role="columnheader">Economy &amp; financing</span>
-            <span role="columnheader">Disciplines</span>
-            <span role="columnheader">Documents</span>
-            <span role="columnheader">Access</span>
-          </div>
-          <div class="policy-list-body" role="rowgroup" id="policy-list-body"></div>
-        </div>
+        <table class="policy-table" aria-label="National health policy documents by country">
+          <thead>
+            <tr>
+              <th scope="col">Country</th>
+              <th scope="col">Region</th>
+              <th scope="col">Economy &amp; financing</th>
+              <th scope="col">Disciplines</th>
+              <th scope="col">Documents</th>
+              <th scope="col">Access</th>
+            </tr>
+          </thead>
+          <tbody id="policy-list-body"></tbody>
+        </table>
       </div>
       <div class="pagination" id="pagination"></div>
     </div>
@@ -1358,21 +1329,7 @@ function formatDisciplinesCell(country) {
   const chips = tags
     .map((id) => '<span class="disc-tag">' + escHtml(getDisciplineLabel(id)) + '</span>')
     .join('');
-  const needsToggle = tags.length > 4;
-  return (
-    '<div class="disc-chip-row' +
-    (needsToggle ? '' : ' is-expanded') +
-    '">' +
-    chips +
-    '</div>' +
-    (needsToggle
-      ? '<button type="button" class="policy-disc-more" aria-expanded="false" data-more-label="+' +
-        (tags.length - 4) +
-        ' more">+' +
-        (tags.length - 4) +
-        ' more</button>'
-      : '')
-  );
+  return '<div class="disc-chip-row">' + chips + '</div>';
 }
 
 function formatFundingInline(meta) {
@@ -1468,41 +1425,32 @@ function buildPolicyDocCell(d) {
 function buildPolicyEntryHtml(d) {
   const cmeta = getMetaForCatalogueCountry(d.country);
   return (
-    '<article class="policy-entry" role="row">' +
-    '<div class="policy-cell policy-cell--country" data-label="Country">' +
-    '<span class="policy-entry-label">Country</span>' +
-    '<span class="policy-country-name">' +
+    '<tr>' +
+    '<td data-label="Country"><span class="policy-country-name">' +
     escHtml(d.country) +
-    '</span></div>' +
-    '<div class="policy-cell policy-cell--region" data-label="Region">' +
-    '<span class="policy-entry-label">Region</span>' +
-    '<span class="who-tag">' +
+    '</span></td>' +
+    '<td class="policy-region-cell" data-label="Region"><span class="who-tag">' +
     escHtml(d.whoRegion) +
     '</span> ' +
     escHtml(d.region) +
-    '</div>' +
-    '<div class="policy-cell policy-cell--economy" data-label="Economy">' +
-    '<span class="policy-entry-label">Economy &amp; financing</span>' +
+    '</td>' +
+    '<td data-label="Economy &amp; financing">' +
     formatEconomyCell(cmeta) +
-    '</div>' +
-    '<div class="policy-cell policy-cell--disciplines" data-label="Disciplines">' +
-    '<span class="policy-entry-label">Disciplines</span>' +
+    '</td>' +
+    '<td data-label="Disciplines">' +
     formatDisciplinesCell(d.country) +
-    '</div>' +
-    '<div class="policy-cell policy-cell--documents" data-label="Documents">' +
-    '<span class="policy-entry-label">Documents</span>' +
-    '<span class="badge ' +
+    '</td>' +
+    '<td data-label="Documents"><span class="badge ' +
     d.status +
     '"><span class="dot"></span>' +
     escHtml(d.docType) +
-    '</span>' +
+    '</span> ' +
     formatCatalogueYearCell(d) +
-    '</div>' +
-    '<div class="policy-cell policy-cell--access" data-label="Access">' +
-    '<span class="policy-entry-label">Access</span>' +
+    '</td>' +
+    '<td class="policy-docs-cell" data-label="Access">' +
     buildPolicyDocCell(d) +
-    '</div>' +
-    '</article>'
+    '</td>' +
+    '</tr>'
   );
 }
 
@@ -1730,10 +1678,12 @@ function buildFundingLegend() {
 function updateMapSidebarForView() {
   const incomeBlock = document.getElementById('income-filter-block');
   const devBlock = document.getElementById('development-filter-block');
+  const fundingBlock = document.getElementById('funding-filter-block');
   const policyBlock = document.getElementById('policy-filter-block');
   const whoBlock = document.getElementById('who-filter-block');
   if (incomeBlock) incomeBlock.style.display = mapViewMode === 'income' ? '' : 'none';
   if (devBlock) devBlock.style.display = mapViewMode === 'income' ? '' : 'none';
+  if (fundingBlock) fundingBlock.style.display = mapViewMode === 'funding' ? '' : 'none';
   if (policyBlock) policyBlock.style.display = mapViewMode === 'policy' ? '' : 'none';
   if (whoBlock) whoBlock.style.display = mapViewMode === 'policy' ? '' : 'none';
 }
@@ -1744,13 +1694,12 @@ function buildIncomeLegend() {
   leg.innerHTML = '';
   (countryMeta.incomeLegend || []).forEach((item) => {
     leg.innerHTML +=
-      '<div class="leg-item"><motion class="leg-swatch" style="background:' +
+      '<div class="leg-item"><div class="leg-swatch" style="background:' +
       item.color +
       '"></div>' +
       escHtml(item.label) +
       '</div>';
   });
-  leg.innerHTML = leg.innerHTML.replace(/<motion class="leg-swatch"/g, '<div class="leg-swatch"').replace(/<\/motion>/g, '');
   leg.innerHTML +=
     '<div class="leg-item"><div class="leg-swatch leg-swatch--striped"></div>In this repository (striped)</div>';
 }
@@ -2161,22 +2110,6 @@ function openCountryDocumentTab(d) {
   if (si) si.addEventListener('input',()=>{ currentPage=1; renderTable(); });
 })();
 
-(function initPolicyListInteractions(){
-  const list = document.getElementById('policy-list-body');
-  if (!list) return;
-  list.addEventListener('click', function (e) {
-    const btn = e.target.closest('.policy-disc-more');
-    if (!btn) return;
-    const row = btn.closest('.policy-cell--disciplines');
-    if (!row) return;
-    const chips = row.querySelector('.disc-chip-row');
-    if (!chips) return;
-    const open = chips.classList.toggle('is-expanded');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    btn.textContent = open ? 'Show less' : btn.dataset.moreLabel || '+ more';
-  });
-})();
-
 /* ═══════════════════════════════════════════════════════════════════
    TABLE
 ═══════════════════════════════════════════════════════════════════ */
@@ -2286,7 +2219,7 @@ function initD3Map() {
   }
   const container = svgEl.parentElement;
   const W = container.clientWidth || 900;
-  const H = Math.round(W * 0.5);
+  const H = Math.round(W * 0.62);
 
   svgEl.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svgEl.setAttribute('width', W);
