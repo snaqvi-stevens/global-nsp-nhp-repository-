@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-20T20:15:13.012Z",
+  "generatedAt": "2026-05-20T20:28:13.600Z",
   "method": "Keyword scan of PDF text (pdf-parse, first 50 pages) with filename fallback; optional discipline-overrides.json",
   "disciplines": [
     {
@@ -81,14 +81,8 @@
       "byFile": {}
     },
     "Angola": {
-      "disciplines": [
-        "obgyn"
-      ],
-      "byFile": {
-        "AGO_Angola_PNDS_vol.2_2012-2025.pdf": [
-          "obgyn"
-        ]
-      }
+      "disciplines": [],
+      "byFile": {}
     },
     "Antigua And Barbuda": {
       "disciplines": [
@@ -1942,6 +1936,10 @@
           "nursing"
         ]
       }
+    },
+    "United States": {
+      "disciplines": [],
+      "byFile": {}
     },
     "Uruguay": {
       "disciplines": [

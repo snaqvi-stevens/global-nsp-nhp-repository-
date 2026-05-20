@@ -8,6 +8,7 @@ on:
       - 'Region-wise NSP-NHP documents [Living Repository]/**'
       - 'scripts/build-catalogue.mjs'
       - 'catalogue-overrides.json'
+      - 'catalogue-web-resources.json'
       - 'discipline-overrides.json'
       - 'scripts/build-disciplines.mjs'
   workflow_dispatch:

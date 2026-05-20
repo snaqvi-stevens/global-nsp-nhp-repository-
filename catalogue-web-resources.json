@@ -1,0 +1,32 @@
+{
+  "entries": [
+    {
+      "country": "United States",
+      "region": "PAHO / Americas",
+      "whoRegion": "AMRO",
+      "status": "nhp",
+      "docType": "NHP (Web-based, no single PDF)",
+      "accessType": "webResources",
+      "year": "2030",
+      "sourceNote": "The United States does not have a single official NSP or NHP PDF in this repository; these federal web resources are listed as functional equivalents.",
+      "webResources": [
+        {
+          "label": "Healthy People 2030 (Overview)",
+          "url": "https://odphp.health.gov/healthypeople/about"
+        },
+        {
+          "label": "Criteria for Selecting Leading Health Indicators",
+          "url": "https://www.ncbi.nlm.nih.gov/books/NBK552637/"
+        },
+        {
+          "label": "Surgical objective — Cesarean section",
+          "url": "https://health.gov/healthypeople/objectives-and-data/browse-objectives/pregnancy-and-childbirth/reduce-cesarean-births-among-low-risk-women-no-prior-births-mich-06"
+        },
+        {
+          "label": "Surgical objective — Mechanical thrombectomy",
+          "url": "https://health.gov/healthypeople/objectives-and-data/browse-objectives/heart-disease-and-stroke/increase-proportion-people-strokes-who-get-mechanical-thrombectomy-within-16-hours-symptom-onset-hds-d06"
+        }
+      ]
+    }
+  ]
+}

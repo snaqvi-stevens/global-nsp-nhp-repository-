@@ -118,6 +118,12 @@ If the country **still does not appear** after 15 minutes, ask a technical teamm
 
 ---
 
+## Countries with web resources instead of PDFs
+
+Some countries may not have one official NSP or NHP PDF. For those cases, technical maintainers can add a curated web-resource entry in `catalogue-web-resources.json`. These entries appear in the atlas table with a **View Resources** button instead of a PDF download button, and the catalogue rebuild keeps them alongside PDF-based countries.
+
+---
+
 ## Public submissions (people without GitHub access)
 
 Anyone can suggest a document using the **submission form**:

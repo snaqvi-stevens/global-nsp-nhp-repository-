@@ -8,6 +8,7 @@
  *   node scripts/build-catalogue.mjs
  *
  * Optional: catalogue-overrides.json — { "byFilename": { "file.pdf": { "country": "…", "kind": "nsp"|"nhp" } } }
+ * Optional: catalogue-web-resources.json — entries for countries represented by curated web resource lists instead of PDFs.
  */
 import fs from 'fs';
 import path from 'path';
@@ -129,6 +130,45 @@ function loadOverrides() {
   } catch {
     return { byFilename: {} };
   }
+}
+
+function loadWebResourceEntries() {
+  const p = path.join(ROOT, 'catalogue-web-resources.json');
+  if (!fs.existsSync(p)) return [];
+  try {
+    const data = JSON.parse(fs.readFileSync(p, 'utf8'));
+    return Array.isArray(data.entries) ? data.entries : [];
+  } catch (err) {
+    throw new Error(`Could not parse catalogue-web-resources.json: ${err.message}`);
+  }
+}
+
+function normalizeWebResourceEntry(entry) {
+  if (!entry || !entry.country) {
+    throw new Error('Each web resource entry needs at least a country.');
+  }
+  if (!Array.isArray(entry.webResources) || !entry.webResources.length) {
+    throw new Error(`Web resource entry for ${entry.country} needs a non-empty webResources array.`);
+  }
+  return {
+    country: entry.country,
+    region: entry.region || '',
+    whoRegion: entry.whoRegion || '',
+    status: entry.status || 'nhp',
+    docType: entry.docType || 'NHP (Web-based, no single PDF)',
+    accessType: 'webResources',
+    webResources: entry.webResources.map((resource) => {
+      if (!resource?.label || !resource?.url) {
+        throw new Error(`Each web resource for ${entry.country} needs a label and url.`);
+      }
+      return {
+        label: resource.label,
+        url: resource.url,
+      };
+    }),
+    year: entry.year || '',
+    sourceNote: entry.sourceNote || '',
+  };
 }
 
 function extractYears(name) {
@@ -306,6 +346,7 @@ function legacyFileMap(legacyRows) {
 
 function buildCatalogue() {
   const overrides = loadOverrides();
+  const webResourceEntries = loadWebResourceEntries();
   const htmlPath = path.join(ROOT, 'index.html');
   const legacy =
     fs.existsSync(htmlPath) ? extractPolicyDataFromHtml(fs.readFileSync(htmlPath, 'utf8')) : null;
@@ -397,6 +438,13 @@ function buildCatalogue() {
     }
 
     catalogue.push(entry);
+  }
+
+  for (const entry of webResourceEntries) {
+    const normalized = normalizeWebResourceEntry(entry);
+    const idx = catalogue.findIndex((row) => row.country.toLowerCase() === normalized.country.toLowerCase());
+    if (idx >= 0) catalogue[idx] = normalized;
+    else catalogue.push(normalized);
   }
 
   catalogue.sort((a, b) => a.country.localeCompare(b.country, 'en', { sensitivity: 'base' }));
