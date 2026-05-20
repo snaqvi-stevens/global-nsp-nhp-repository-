@@ -182,6 +182,7 @@ PDFs must be **in the GitHub repository** (not only on your laptop). After auto-
 | Region | Path in repo |
 |--------|----------------|
 | Africa | `Region-wise NSP-NHP documents [Living Repository]/AFRO/` |
+| Americas | `.../AMRO Policy Documents/` |
 | Eastern Mediterranean | `.../EMR NSP-NHP Documents/` |
 | Europe | `.../EURO/` |
 | South-East Asia | `.../SEARO/` |

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-19T03:14:18.727Z",
+  "generatedAt": "2026-05-20T20:15:13.012Z",
   "method": "Keyword scan of PDF text (pdf-parse, first 50 pages) with filename fallback; optional discipline-overrides.json",
   "disciplines": [
     {
@@ -90,6 +90,22 @@
         ]
       }
     },
+    "Antigua And Barbuda": {
+      "disciplines": [
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Antigua and Barbuda NHP 2015-2019.pdf": [
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Argentina": {
+      "disciplines": [],
+      "byFile": {}
+    },
     "Australia": {
       "disciplines": [
         "nursing"
@@ -113,6 +129,16 @@
     "Azerbaijan": {
       "disciplines": [],
       "byFile": {}
+    },
+    "Bahamas": {
+      "disciplines": [
+        "nursing"
+      ],
+      "byFile": {
+        "Bahamas NHP 2010-2020.pdf": [
+          "nursing"
+        ]
+      }
     },
     "Bahrain": {
       "disciplines": [
@@ -170,7 +196,7 @@
         ]
       }
     },
-    "Bosnia and Herzegovina": {
+    "Bosnia": {
       "disciplines": [],
       "byFile": {}
     },
@@ -246,6 +272,20 @@
         ]
       }
     },
+    "Canada": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Canada NHP 2024-2025.pdf": [
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
+    },
     "Cape Verde": {
       "disciplines": [
         "obgyn"
@@ -269,6 +309,16 @@
     "China": {
       "disciplines": [],
       "byFile": {}
+    },
+    "Colombia": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "Colombia NHP 2022-2031.pdf": [
+          "obgyn"
+        ]
+      }
     },
     "Comoros": {
       "disciplines": [
@@ -295,6 +345,10 @@
       }
     },
     "Congo (DRC)": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Costa Rica": {
       "disciplines": [],
       "byFile": {}
     },
@@ -328,9 +382,19 @@
         ]
       }
     },
-    "Czech Republic": {
+    "Czech": {
       "disciplines": [],
       "byFile": {}
+    },
+    "Czech Republic": {
+      "disciplines": [
+        "ortho"
+      ],
+      "byFile": {
+        "Czech Health Plan for 2020 (English).pdf": [
+          "ortho"
+        ]
+      }
     },
     "Denmark": {
       "disciplines": [],
@@ -340,7 +404,7 @@
       "disciplines": [],
       "byFile": {}
     },
-    "DPR Korea": {
+    "Dpr Korea": {
       "disciplines": [
         "anesthesia",
         "gensurg",
@@ -363,6 +427,16 @@
     "Egypt": {
       "disciplines": [],
       "byFile": {}
+    },
+    "El Salvador": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "El Salvador NHP 2024.pdf": [
+          "obgyn"
+        ]
+      }
     },
     "English": {
       "disciplines": [
@@ -545,6 +619,16 @@
       "disciplines": [],
       "byFile": {}
     },
+    "Guatemala": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "Guatemala NHP 2022-2032.pdf": [
+          "obgyn"
+        ]
+      }
+    },
     "Guinea": {
       "disciplines": [
         "nursing"
@@ -558,6 +642,20 @@
     "Guinea-Bissau": {
       "disciplines": [],
       "byFile": {}
+    },
+    "Guyana": {
+      "disciplines": [
+        "cardio",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Guyana NHP 2013-2020.pdf": [
+          "cardio",
+          "nursing",
+          "obgyn"
+        ]
+      }
     },
     "Hssp": {
       "disciplines": [
@@ -671,8 +769,40 @@
       }
     },
     "Italy": {
+      "disciplines": [
+        "gensurg",
+        "nursing",
+        "obgyn"
+      ],
+      "byFile": {
+        "Italy Health System Review 2022.pdf": [
+          "gensurg",
+          "nursing",
+          "obgyn"
+        ]
+      }
+    },
+    "Italy Health Pacts (not": {
       "disciplines": [],
       "byFile": {}
+    },
+    "Italy No": {
+      "disciplines": [],
+      "byFile": {}
+    },
+    "Jamaica": {
+      "disciplines": [
+        "nursing",
+        "obgyn",
+        "trauma"
+      ],
+      "byFile": {
+        "Jamaica NHP 2019-2030.pdf": [
+          "nursing",
+          "obgyn",
+          "trauma"
+        ]
+      }
     },
     "Japan": {
       "disciplines": [
@@ -904,11 +1034,7 @@
         ]
       }
     },
-    "Marino": {
-      "disciplines": [],
-      "byFile": {}
-    },
-    "Marshall": {
+    "Marshall Islands": {
       "disciplines": [
         "obgyn"
       ],
@@ -936,6 +1062,16 @@
         ]
       }
     },
+    "Mexico": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "Mexico NHP 2019-2024.pdf": [
+          "obgyn"
+        ]
+      }
+    },
     "Micronesia": {
       "disciplines": [
         "nursing",
@@ -952,7 +1088,7 @@
       "disciplines": [],
       "byFile": {}
     },
-    "Mongolia": {
+    "Mongolian": {
       "disciplines": [
         "nursing",
         "obgyn"
@@ -1135,14 +1271,8 @@
       "byFile": {}
     },
     "Oman": {
-      "disciplines": [
-        "trauma"
-      ],
-      "byFile": {
-        "Romania NHP 2022-2030.pdf": [
-          "trauma"
-        ]
-      }
+      "disciplines": [],
+      "byFile": {}
     },
     "Pakistan": {
       "disciplines": [
@@ -1292,9 +1422,31 @@
         ]
       }
     },
-    "Republic of Korea": {
+    "Republic Of Korea": {
       "disciplines": [],
       "byFile": {}
+    },
+    "Republic Of Sierra Leone": {
+      "disciplines": [
+        "anesthesia",
+        "cardio",
+        "gensurg",
+        "nursing",
+        "obgyn",
+        "pediatrics",
+        "trauma"
+      ],
+      "byFile": {
+        "REPUBLIC OF SIERRA LEONE NSOAP 2026-2030.pdf": [
+          "anesthesia",
+          "cardio",
+          "gensurg",
+          "nursing",
+          "obgyn",
+          "pediatrics",
+          "trauma"
+        ]
+      }
     },
     "Revised": {
       "disciplines": [
@@ -1305,6 +1457,16 @@
         "revised_National_Health_Policy.pdf": [
           "nursing",
           "obgyn"
+        ]
+      }
+    },
+    "Romania": {
+      "disciplines": [
+        "trauma"
+      ],
+      "byFile": {
+        "Romania NHP 2022-2030.pdf": [
+          "trauma"
         ]
       }
     },
@@ -1400,6 +1562,10 @@
         ]
       }
     },
+    "San Marino": {
+      "disciplines": [],
+      "byFile": {}
+    },
     "São Tomé and Príncipe": {
       "disciplines": [],
       "byFile": {}
@@ -1449,28 +1615,6 @@
         "SYC_Seychelles_National-Health-Strategic-Plan-2022-2026.pdf": [
           "nursing",
           "obgyn"
-        ]
-      }
-    },
-    "Sierra Leone": {
-      "disciplines": [
-        "anesthesia",
-        "cardio",
-        "gensurg",
-        "nursing",
-        "obgyn",
-        "pediatrics",
-        "trauma"
-      ],
-      "byFile": {
-        "REPUBLIC OF SIERRA LEONE NSOAP 2026-2030.pdf": [
-          "anesthesia",
-          "cardio",
-          "gensurg",
-          "nursing",
-          "obgyn",
-          "pediatrics",
-          "trauma"
         ]
       }
     },
@@ -1695,7 +1839,7 @@
         ]
       }
     },
-    "Timor-Leste": {
+    "Timor Leste": {
       "disciplines": [
         "obgyn"
       ],
@@ -1796,6 +1940,16 @@
         "Ukraine NHP (Cancer Control) 2020-2030.pdf": [
           "gi",
           "nursing"
+        ]
+      }
+    },
+    "Uruguay": {
+      "disciplines": [
+        "obgyn"
+      ],
+      "byFile": {
+        "Uruguay NHP X-2030.pdf": [
+          "obgyn"
         ]
       }
     },

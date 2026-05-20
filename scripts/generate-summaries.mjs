@@ -51,6 +51,7 @@ const LINK_FALLBACK_SUMMARY =
 const REPO_ROOT = 'Region-wise NSP-NHP documents [Living Repository';
 const SUBFOLDERS = {
   AFRO: 'AFRO',
+  AMRO: 'AMRO Policy Documents',
   EMR: 'EMR NSP-NHP Documents',
   EURO: 'EURO',
   SEARO: 'SEARO',

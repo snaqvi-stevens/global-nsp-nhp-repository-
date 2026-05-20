@@ -50,6 +50,26 @@
     "year": "2025"
   },
   {
+    "country": "Antigua And Barbuda",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Antigua and Barbuda NHP 2015-2019.pdf",
+    "year": "2019"
+  },
+  {
+    "country": "Argentina",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Argentina NHP 2021-2024.pdf",
+    "year": "2024"
+  },
+  {
     "country": "Australia",
     "region": "Western Pacific",
     "whoRegion": "WPR",
@@ -77,6 +97,16 @@
     "docType": "NHP",
     "docSubfolder": "EURO",
     "file": "Azerbaijan NHP 2014-2020 (Azerbaijani).pdf",
+    "year": "2020"
+  },
+  {
+    "country": "Bahamas",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Bahamas NHP 2010-2020.pdf",
     "year": "2020"
   },
   {
@@ -140,7 +170,7 @@
     "year": "2023"
   },
   {
-    "country": "Bosnia and Herzegovina",
+    "country": "Bosnia",
     "region": "Europe",
     "whoRegion": "EURO",
     "status": "nhp",
@@ -213,6 +243,16 @@
     "year": ""
   },
   {
+    "country": "Canada",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Canada NHP 2024-2025.pdf",
+    "year": "2025"
+  },
+  {
     "country": "Cape Verde",
     "region": "Africa",
     "whoRegion": "AFRO",
@@ -241,6 +281,16 @@
     "docSubfolder": "WPR NSP-NHP Documents",
     "file": "China NSP 2023-2025.pdf",
     "year": "2025"
+  },
+  {
+    "country": "Colombia",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Colombia NHP 2022-2031.pdf",
+    "year": "2031"
   },
   {
     "country": "Comoros",
@@ -273,6 +323,16 @@
     "year": "2022"
   },
   {
+    "country": "Costa Rica",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Costa Rica NHP 2016-2020.pdf",
+    "year": "2020"
+  },
+  {
     "country": "Côte d'Ivoire",
     "region": "Africa",
     "whoRegion": "AFRO",
@@ -303,7 +363,7 @@
     "year": "2026"
   },
   {
-    "country": "Czech Republic",
+    "country": "Czech",
     "region": "Europe",
     "whoRegion": "EURO",
     "status": "nhp",
@@ -311,6 +371,16 @@
     "docSubfolder": "EURO",
     "file": "Czech NHP 2030 (Czech).pdf",
     "year": "2030"
+  },
+  {
+    "country": "Czech Republic",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Czech Health Plan for 2020 (English).pdf",
+    "year": "2020"
   },
   {
     "country": "Denmark",
@@ -333,7 +403,7 @@
     "year": "2017"
   },
   {
-    "country": "DPR Korea",
+    "country": "Dpr Korea",
     "region": "South-East Asia",
     "whoRegion": "SEARO",
     "status": "nhp",
@@ -351,6 +421,16 @@
     "docSubfolder": "EMR NSP-NHP Documents",
     "file": "EGY_Egypt_National-Health-Strategy_2010-2025.pdf",
     "year": "2025"
+  },
+  {
+    "country": "El Salvador",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "El Salvador NHP 2024.pdf",
+    "year": "2024"
   },
   {
     "country": "English",
@@ -496,6 +576,16 @@
     "year": "2025"
   },
   {
+    "country": "Guatemala",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Guatemala NHP 2022-2032.pdf",
+    "year": "2032"
+  },
+  {
     "country": "Guinea",
     "region": "Africa",
     "whoRegion": "AFRO",
@@ -514,6 +604,16 @@
     "docSubfolder": "AFRO",
     "file": "GNB_Guinea-Bissau_Plano-Nacional-de-Desenvolvimento-Sanitário_2018-2022.pdf",
     "year": "2022"
+  },
+  {
+    "country": "Guyana",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Guyana NHP 2013-2020.pdf",
+    "year": "2020"
   },
   {
     "country": "Hssp",
@@ -615,8 +715,38 @@
     "status": "nhp",
     "docType": "NHP",
     "docSubfolder": "EURO",
+    "file": "Italy Health System Review 2022.pdf",
+    "year": "2022"
+  },
+  {
+    "country": "Italy Health Pacts (not",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
     "file": "Italy Health Pacts (not NHP) 2018-2022.pdf",
     "year": "2022"
+  },
+  {
+    "country": "Italy No",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Italy no NHP since 2008.pdf",
+    "year": "2008"
+  },
+  {
+    "country": "Jamaica",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Jamaica NHP 2019-2030.pdf",
+    "year": "2030"
   },
   {
     "country": "Japan",
@@ -779,17 +909,7 @@
     "year": "2030"
   },
   {
-    "country": "Marino",
-    "region": "Europe",
-    "whoRegion": "EURO",
-    "status": "nhp",
-    "docType": "NHP",
-    "docSubfolder": "EURO",
-    "file": "San Marino NHP 2021-2023.pdf",
-    "year": "2023"
-  },
-  {
-    "country": "Marshall",
+    "country": "Marshall Islands",
     "region": "Western Pacific",
     "whoRegion": "WPR",
     "status": "nhp",
@@ -819,6 +939,16 @@
     "year": "2024"
   },
   {
+    "country": "Mexico",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Mexico NHP 2019-2024.pdf",
+    "year": "2024"
+  },
+  {
     "country": "Micronesia",
     "region": "Western Pacific",
     "whoRegion": "WPR",
@@ -839,7 +969,7 @@
     "year": "2023"
   },
   {
-    "country": "Mongolia",
+    "country": "Mongolian",
     "region": "Western Pacific",
     "whoRegion": "WPR",
     "status": "nhp",
@@ -960,13 +1090,13 @@
   },
   {
     "country": "Oman",
-    "region": "Europe",
-    "whoRegion": "EURO",
+    "region": "Eastern Mediterranean",
+    "whoRegion": "EMR",
     "status": "nhp",
     "docType": "NHP",
-    "docSubfolder": "EURO",
-    "file": "Romania NHP 2022-2030.pdf",
-    "year": "2030"
+    "docSubfolder": "EMR NSP-NHP Documents",
+    "file": "OMAN NSP 2017 2.pdf",
+    "year": "2017"
   },
   {
     "country": "Pakistan",
@@ -1069,13 +1199,23 @@
     "year": "2021"
   },
   {
-    "country": "Republic of Korea",
+    "country": "Republic Of Korea",
     "region": "Western Pacific",
     "whoRegion": "WPR",
     "status": "nhp",
     "docType": "NHP",
     "docSubfolder": "WPR NSP-NHP Documents",
     "file": "Republic of Korea NHP Summary 2021-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Republic Of Sierra Leone",
+    "region": "Africa",
+    "whoRegion": "AFRO",
+    "status": "nsp",
+    "docType": "NSP",
+    "docSubfolder": "AFRO",
+    "file": "REPUBLIC OF SIERRA LEONE NSOAP 2026-2030.pdf",
     "year": "2030"
   },
   {
@@ -1087,6 +1227,16 @@
     "docSubfolder": "AFRO",
     "file": "revised_National_Health_Policy.pdf",
     "year": ""
+  },
+  {
+    "country": "Romania",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "Romania NHP 2022-2030.pdf",
+    "year": "2030"
   },
   {
     "country": "Russia",
@@ -1139,6 +1289,16 @@
     "year": "2030"
   },
   {
+    "country": "San Marino",
+    "region": "Europe",
+    "whoRegion": "EURO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "EURO",
+    "file": "San Marino NHP 2021-2023.pdf",
+    "year": "2023"
+  },
+  {
     "country": "São Tomé and Príncipe",
     "region": "Africa",
     "whoRegion": "AFRO",
@@ -1187,16 +1347,6 @@
     "docSubfolder": "AFRO",
     "file": "SYC_Seychelles_National-Health-Strategic-Plan-2022-2026.pdf",
     "year": "2026"
-  },
-  {
-    "country": "Sierra Leone",
-    "region": "Africa",
-    "whoRegion": "AFRO",
-    "status": "nsp",
-    "docType": "NSP",
-    "docSubfolder": "AFRO",
-    "file": "REPUBLIC OF SIERRA LEONE NSOAP 2026-2030.pdf",
-    "year": "2030"
   },
   {
     "country": "Singapore",
@@ -1345,7 +1495,7 @@
     "year": "2036"
   },
   {
-    "country": "Timor-Leste",
+    "country": "Timor Leste",
     "region": "South-East Asia",
     "whoRegion": "SEARO",
     "status": "nhp",
@@ -1432,6 +1582,16 @@
     "docType": "NHP",
     "docSubfolder": "EURO",
     "file": "Ukraine NHP (Cancer Control) 2020-2030.pdf",
+    "year": "2030"
+  },
+  {
+    "country": "Uruguay",
+    "region": "Americas",
+    "whoRegion": "AMRO",
+    "status": "nhp",
+    "docType": "NHP",
+    "docSubfolder": "AMRO Policy Documents",
+    "file": "Uruguay NHP X-2030.pdf",
     "year": "2030"
   },
   {

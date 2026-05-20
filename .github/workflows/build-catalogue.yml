@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'Region-wise NSP-NHP documents [Living Repository/**'
       - 'Region-wise NSP-NHP documents [Living Repository]/**'
       - 'scripts/build-catalogue.mjs'
       - 'catalogue-overrides.json'

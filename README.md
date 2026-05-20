@@ -54,6 +54,7 @@ Then open **one** of these folders based on the country’s WHO region:
 | If the country is in… | Open this folder |
 |------------------------|------------------|
 | Africa | **AFRO** |
+| Americas | **AMRO Policy Documents** |
 | Eastern Mediterranean | **EMR NSP-NHP Documents** |
 | Europe | **EURO** |
 | South-East Asia | **SEARO** |

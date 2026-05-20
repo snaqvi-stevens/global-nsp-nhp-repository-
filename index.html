@@ -882,7 +882,7 @@ footer{
         <div><div class="hero-stat-n" id="s-countries">0</div><div class="hero-stat-l">Countries Documented</div></div>
         <div><div class="hero-stat-n" id="s-nsp">0</div><div class="hero-stat-l">Surgical Plans</div></div>
         <div><div class="hero-stat-n" id="s-nhp">0</div><div class="hero-stat-l">Health Policies</div></div>
-        <div><div class="hero-stat-n">5</div><div class="hero-stat-l">WHO Regions</div></div>
+        <div><div class="hero-stat-n" id="s-regions">6</div><div class="hero-stat-l">WHO Regions</div></div>
       </div>
       <div id="region-bars" class="region-bars" aria-label="Documents by WHO region"></div>
     </div>
@@ -1289,6 +1289,7 @@ const SC = {
 
 const WHO_REGIONS = [
   {key:'AFRO',  label:'Africa'},
+  {key:'AMRO',  label:'Americas'},
   {key:'EMR',   label:'Eastern Mediterranean'},
   {key:'EURO',  label:'Europe'},
   {key:'SEARO', label:'South-East Asia'},
@@ -2004,7 +2005,7 @@ function getFiltered(){
   return rows;
 }
 
-const REPO_SUBFOLDERS = {'AFRO':'AFRO','EMR':'EMR NSP-NHP Documents','EURO':'EURO','SEARO':'SEARO','WPR':'WPR NSP-NHP Documents'};
+const REPO_SUBFOLDERS = {'AFRO':'AFRO','AMRO':'AMRO Policy Documents','EMR':'EMR NSP-NHP Documents','EURO':'EURO','SEARO':'SEARO','WPR':'WPR NSP-NHP Documents'};
 
 function getDocHref(d, fileName) {
   const sub = d.docSubfolder || REPO_SUBFOLDERS[d.whoRegion] || d.whoRegion;

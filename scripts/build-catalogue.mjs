@@ -19,6 +19,7 @@ const ROOT = path.join(__dirname, '..');
 const REPO_ROOT = 'Region-wise NSP-NHP documents [Living Repository';
 const FOLDERS = {
   AFRO: { whoRegion: 'AFRO', region: 'Africa', sub: 'AFRO' },
+  'AMRO Policy Documents': { whoRegion: 'AMRO', region: 'Americas', sub: 'AMRO Policy Documents' },
   'EMR NSP-NHP Documents': { whoRegion: 'EMR', region: 'Eastern Mediterranean', sub: 'EMR NSP-NHP Documents' },
   EURO: { whoRegion: 'EURO', region: 'Europe', sub: 'EURO' },
   SEARO: { whoRegion: 'SEARO', region: 'South-East Asia', sub: 'SEARO' },
@@ -168,6 +169,14 @@ function titleCase(s) {
 
 function inferCountryFromFilename(filename) {
   const base = path.basename(filename, path.extname(filename));
+  const docTypeMatch = base.match(/^(.+?)\s+(?:NSP|NHP|NSOAP|NSOANP)\b/i);
+  if (docTypeMatch) {
+    const raw = docTypeMatch[1].trim().replace(/\s+/g, ' ');
+    const lower = raw.toLowerCase();
+    if (lower === 'united states of america') return 'United States';
+    if (lower === 'usa') return 'United States';
+    return titleCase(raw);
+  }
   const mIso = base.match(/^([A-Z]{3})[_\s-]/);
   if (mIso && ISO3_TO_COUNTRY[mIso[1]]) return ISO3_TO_COUNTRY[mIso[1]];
 
