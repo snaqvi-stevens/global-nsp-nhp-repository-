@@ -374,6 +374,8 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
   grid-column:1/-1;font-size:0.58rem;line-height:1.45;color:var(--text-subtle);
   margin:0;padding:0 0.15rem;font-family:'DM Sans',sans-serif;
 }
+.map-filters-note a{color:var(--teal-dark);text-decoration:none}
+.map-filters-note a:hover{text-decoration:underline}
 .map-filters-disciplines{width:100%}
 #discipline-filter-block .discipline-filter-list{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
@@ -654,6 +656,29 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .pg-btn.active{background:var(--teal-dark);border-color:var(--teal-dark);color:var(--white);font-weight:700}
 .pg-btn:disabled{opacity:0.25;cursor:not-allowed}
 
+/* ── METHODS & SOURCES ── */
+#sources-section{padding:4rem 0;border-top:1px solid var(--rule-2)}
+.sources-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0.75rem;margin-top:1.75rem;
+}
+.source-card{
+  background:rgba(255,255,255,0.92);
+  border:1px solid var(--rule);border-radius:10px;
+  padding:1rem 1.1rem;
+}
+.source-card h3{
+  font-family:'Cinzel',serif;font-size:0.68rem;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;color:var(--teal-dark);
+  margin-bottom:0.45rem;
+}
+.source-card p{
+  font-family:'DM Sans',sans-serif;font-size:0.78rem;line-height:1.65;
+  color:var(--text-muted);
+}
+.source-card a{color:var(--teal-dark);text-decoration:none;font-weight:600}
+.source-card a:hover{text-decoration:underline}
+
 /* ── HOW IT WORKS ── */
 #how-section{padding:5rem 0;border-top:1px solid var(--rule-2)}
 .how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-top:2.5rem}
@@ -756,6 +781,7 @@ footer{
 @media(max-width:960px){
   .map-filters-top,.map-filters-meta{grid-template-columns:1fr}
   #discipline-filter-block .discipline-filter-list{grid-template-columns:1fr}
+  .sources-grid{grid-template-columns:1fr}
   .how-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:899px){
@@ -943,7 +969,7 @@ footer{
             <div class="sidebar-head">Health financing</div>
             <div class="filter-list" id="funding-filters"></div>
           </div>
-          <p class="map-filters-note">Income &amp; GNI: World Bank. Development: high income = developed; UN LDC = least developed; other incomes = developing. Health financing: government share of current health spending (public ≥55%, private-dominated ≤45%, mixed between).</p>
+          <p class="map-filters-note">Sources: income and GNI use World Bank country and lending groups; development status combines World Bank income group with the UN Least Developed Countries list; health financing uses World Bank domestic government health spending share of current health expenditure. Surgical discipline tags are automated PDF keyword flags and should be interpreted as a screening aid, not a full expert review.</p>
         </div>
         <div class="map-filters-disciplines reveal">
           <div class="sidebar-block" id="discipline-filter-block">
@@ -960,7 +986,7 @@ footer{
     <div class="section-wrap">
       <div class="section-eye reveal">Repository</div>
       <h2 class="section-h2 reveal reveal-d1">Policy Documents</h2>
-      <p class="table-year-note reveal reveal-d2" id="table-year-note"><strong>Economy &amp; financing</strong> combines World Bank income, GNI, development status, and health spending data. <strong>Disciplines</strong> are detected from PDF text (<code style="font-size:0.68rem">npm run disciplines</code> after adding files). <strong>Years</strong> lists the catalogue year per document; countries with both NSP and NHP show two years—one per file.</p>
+      <p class="table-year-note reveal reveal-d2" id="table-year-note"><strong>Economy &amp; financing</strong> combines World Bank income, GNI, development status, and health spending data. <strong>Disciplines</strong> are automated keyword tags from PDF text and should be confirmed through full document review. <strong>Years</strong> lists the catalogue year per document; countries with both NSP and NHP show two years—one per file.</p>
       <div class="table-header reveal reveal-d2">
         <p class="table-meta" id="table-meta" aria-live="polite"></p>
         <div class="search-wrap">
@@ -984,6 +1010,33 @@ footer{
         </table>
       </div>
       <div class="pagination" id="pagination"></div>
+    </div>
+  </section>
+
+  <!-- METHODS & SOURCES -->
+  <section id="sources-section">
+    <div class="section-wrap">
+      <div class="section-eye reveal">Methods</div>
+      <h2 class="section-h2 reveal reveal-d1">Methods &amp; Sources</h2>
+      <p class="section-sub reveal reveal-d2">The atlas separates repository holdings from contextual indicators. A country is colored as having an NSP or NHP only when a policy document is available in this repository; contextual filters come from external public data sources and automated document scans.</p>
+      <div class="sources-grid">
+        <div class="source-card reveal">
+          <h3>Income &amp; Development</h3>
+          <p>Income group and GNI per capita come from the World Bank. Development status is assigned as high-income = developed, UN Least Developed Countries = least developed, and other classified economies = developing.</p>
+        </div>
+        <div class="source-card reveal reveal-d1">
+          <h3>Health Financing</h3>
+          <p>Health financing uses the World Bank indicator for domestic general government health expenditure as a share of current health expenditure. Countries are grouped as public/government when government share is at least 55%, private-dominated when it is 45% or lower, and mixed between those thresholds.</p>
+        </div>
+        <div class="source-card reveal reveal-d2">
+          <h3>Surgical Disciplines</h3>
+          <p>Discipline filters are generated by scanning uploaded PDFs for keywords such as anesthesia, nursing, OBGYN, general surgery, trauma, pediatrics, and plastics. These tags are a discovery aid; definitive discipline categorization requires detailed review of each document.</p>
+        </div>
+        <div class="source-card reveal reveal-d3">
+          <h3>Africa NSP Context</h3>
+          <p>Africa NSP development and renewal context is informed by Bekele et al. (2023), <a href="https://doi.org/10.1007/s00268-023-07131-0" target="_blank" rel="noopener noreferrer">National Surgical Healthcare Policy Development and Implementation: Where do We Stand in Africa?</a> The cited study is used as methodological context, not as a separate hosted repository document.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1066,6 +1119,7 @@ footer{
       <div class="footer-links">
         <a href="#map-section">Map</a>
         <a href="#table-section">Repository</a>
+        <a href="#sources-section">Sources</a>
         <a href="#how-section">How It Works</a>
         <a href="#contribute-section">Contribute</a>
       </div>

@@ -162,10 +162,12 @@ Besides NSP/NHP status, the live map and table can show:
 
 | Feature | What it means |
 |---------|----------------|
-| **World Bank income level** | Income group and GNI per capita for every country (not only countries with a PDF). |
-| **Development status** | Developed / developing / least developed (from World Bank + UN lists). |
-| **Health financing** | Whether health spending is mostly **public**, **private**, or **mixed** (World Bank data). |
-| **Surgical disciplines** | Which topics (anesthesia, nursing, OBGYN, general surgery, trauma, pediatrics, plastics, etc.) appear in the **PDF text** — used for filters on the table and map. |
+| **World Bank income level** | Income group and GNI per capita for every country (not only countries with a PDF), using World Bank country and lending group data. |
+| **Development status** | Developed / developing / least developed. High-income economies are treated as developed; countries on the UN Least Developed Countries list are treated as least developed; other classified economies are treated as developing. |
+| **Health financing** | Whether health spending is mostly **public**, **private**, or **mixed**, using World Bank indicator `SH.XPD.GHED.CH.ZS` (domestic general government health expenditure as a share of current health expenditure). Public/government = at least 55%; private-dominated = 45% or lower; mixed = between those thresholds. |
+| **Surgical disciplines** | Which topics (anesthesia, nursing, OBGYN, general surgery, trauma, pediatrics, plastics, etc.) appear in the **PDF text** — used for filters on the table and map. These tags are automated keyword flags and should be confirmed through detailed document review. |
+
+Africa NSP development and renewal context is informed by Bekele et al. (2023), **National Surgical Healthcare Policy Development and Implementation: Where do We Stand in Africa?** (`World Journal of Surgery`, https://doi.org/10.1007/s00268-023-07131-0). This study is cited as contextual methodology; it is not uploaded as a repository document or used to replace the repository's document-availability status.
 
 Striped countries on the map = a document is in this repository. Light borders on all countries.
 
