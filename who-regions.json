@@ -1,0 +1,3909 @@
+{
+  "generatedAt": "2026-05-22T22:03:03.999Z",
+  "sources": {
+    "whoRegions": "World Health Organization countries/areas by WHO region, processed by Our World in Data",
+    "dataUrl": "https://ourworldindata.org/grapher/who-regions.csv?v=1&csvType=full&useColumnShortNames=false"
+  },
+  "legend": [
+    {
+      "id": "AFRO",
+      "label": "Africa",
+      "color": "#0f766e"
+    },
+    {
+      "id": "AMRO",
+      "label": "Americas",
+      "color": "#2563eb"
+    },
+    {
+      "id": "EMR",
+      "label": "Eastern Mediterranean",
+      "color": "#c2410c"
+    },
+    {
+      "id": "EURO",
+      "label": "Europe",
+      "color": "#7c3aed"
+    },
+    {
+      "id": "SEARO",
+      "label": "South-East Asia",
+      "color": "#ca8a04"
+    },
+    {
+      "id": "WPR",
+      "label": "Western Pacific",
+      "color": "#be123c"
+    }
+  ],
+  "byIso3": {
+    "AFG": {
+      "iso3": "AFG",
+      "entity": "Afghanistan",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "ALB": {
+      "iso3": "ALB",
+      "entity": "Albania",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "DZA": {
+      "iso3": "DZA",
+      "entity": "Algeria",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "ASM": {
+      "iso3": "ASM",
+      "entity": "American Samoa",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "AND": {
+      "iso3": "AND",
+      "entity": "Andorra",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "AGO": {
+      "iso3": "AGO",
+      "entity": "Angola",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "AIA": {
+      "iso3": "AIA",
+      "entity": "Anguilla",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "ATG": {
+      "iso3": "ATG",
+      "entity": "Antigua and Barbuda",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "ARG": {
+      "iso3": "ARG",
+      "entity": "Argentina",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "ARM": {
+      "iso3": "ARM",
+      "entity": "Armenia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "ABW": {
+      "iso3": "ABW",
+      "entity": "Aruba",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "AUS": {
+      "iso3": "AUS",
+      "entity": "Australia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "AUT": {
+      "iso3": "AUT",
+      "entity": "Austria",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "AZE": {
+      "iso3": "AZE",
+      "entity": "Azerbaijan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "BHS": {
+      "iso3": "BHS",
+      "entity": "Bahamas",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "BHR": {
+      "iso3": "BHR",
+      "entity": "Bahrain",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "BGD": {
+      "iso3": "BGD",
+      "entity": "Bangladesh",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023"
+    },
+    "BRB": {
+      "iso3": "BRB",
+      "entity": "Barbados",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "BLR": {
+      "iso3": "BLR",
+      "entity": "Belarus",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "BEL": {
+      "iso3": "BEL",
+      "entity": "Belgium",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "BLZ": {
+      "iso3": "BLZ",
+      "entity": "Belize",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "BEN": {
+      "iso3": "BEN",
+      "entity": "Benin",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "BMU": {
+      "iso3": "BMU",
+      "entity": "Bermuda",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "BTN": {
+      "iso3": "BTN",
+      "entity": "Bhutan",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023"
+    },
+    "BOL": {
+      "iso3": "BOL",
+      "entity": "Bolivia",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "BIH": {
+      "iso3": "BIH",
+      "entity": "Bosnia and Herzegovina",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "BWA": {
+      "iso3": "BWA",
+      "entity": "Botswana",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "BRA": {
+      "iso3": "BRA",
+      "entity": "Brazil",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "VGB": {
+      "iso3": "VGB",
+      "entity": "British Virgin Islands",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "BRN": {
+      "iso3": "BRN",
+      "entity": "Brunei",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "BGR": {
+      "iso3": "BGR",
+      "entity": "Bulgaria",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "BFA": {
+      "iso3": "BFA",
+      "entity": "Burkina Faso",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "BDI": {
+      "iso3": "BDI",
+      "entity": "Burundi",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "KHM": {
+      "iso3": "KHM",
+      "entity": "Cambodia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "CMR": {
+      "iso3": "CMR",
+      "entity": "Cameroon",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "CAN": {
+      "iso3": "CAN",
+      "entity": "Canada",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "CPV": {
+      "iso3": "CPV",
+      "entity": "Cape Verde",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "CYM": {
+      "iso3": "CYM",
+      "entity": "Cayman Islands",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "CAF": {
+      "iso3": "CAF",
+      "entity": "Central African Republic",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "TCD": {
+      "iso3": "TCD",
+      "entity": "Chad",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "CHL": {
+      "iso3": "CHL",
+      "entity": "Chile",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "CHN": {
+      "iso3": "CHN",
+      "entity": "China",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "COL": {
+      "iso3": "COL",
+      "entity": "Colombia",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "COM": {
+      "iso3": "COM",
+      "entity": "Comoros",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "COG": {
+      "iso3": "COG",
+      "entity": "Congo",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "COK": {
+      "iso3": "COK",
+      "entity": "Cook Islands",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "CRI": {
+      "iso3": "CRI",
+      "entity": "Costa Rica",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "CIV": {
+      "iso3": "CIV",
+      "entity": "Cote d'Ivoire",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "HRV": {
+      "iso3": "HRV",
+      "entity": "Croatia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "CUB": {
+      "iso3": "CUB",
+      "entity": "Cuba",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "CUW": {
+      "iso3": "CUW",
+      "entity": "Curacao",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "CYP": {
+      "iso3": "CYP",
+      "entity": "Cyprus",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "CZE": {
+      "iso3": "CZE",
+      "entity": "Czechia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "COD": {
+      "iso3": "COD",
+      "entity": "Democratic Republic of Congo",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "DNK": {
+      "iso3": "DNK",
+      "entity": "Denmark",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "DJI": {
+      "iso3": "DJI",
+      "entity": "Djibouti",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "DMA": {
+      "iso3": "DMA",
+      "entity": "Dominica",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "DOM": {
+      "iso3": "DOM",
+      "entity": "Dominican Republic",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "TLS": {
+      "iso3": "TLS",
+      "entity": "East Timor",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023"
+    },
+    "ECU": {
+      "iso3": "ECU",
+      "entity": "Ecuador",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "EGY": {
+      "iso3": "EGY",
+      "entity": "Egypt",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "SLV": {
+      "iso3": "SLV",
+      "entity": "El Salvador",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "GNQ": {
+      "iso3": "GNQ",
+      "entity": "Equatorial Guinea",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "ERI": {
+      "iso3": "ERI",
+      "entity": "Eritrea",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "EST": {
+      "iso3": "EST",
+      "entity": "Estonia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "SWZ": {
+      "iso3": "SWZ",
+      "entity": "Eswatini",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "ETH": {
+      "iso3": "ETH",
+      "entity": "Ethiopia",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "FJI": {
+      "iso3": "FJI",
+      "entity": "Fiji",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "FIN": {
+      "iso3": "FIN",
+      "entity": "Finland",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "FRA": {
+      "iso3": "FRA",
+      "entity": "France",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "GUF": {
+      "iso3": "GUF",
+      "entity": "French Guiana",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "PYF": {
+      "iso3": "PYF",
+      "entity": "French Polynesia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "GAB": {
+      "iso3": "GAB",
+      "entity": "Gabon",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "GMB": {
+      "iso3": "GMB",
+      "entity": "Gambia",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "GEO": {
+      "iso3": "GEO",
+      "entity": "Georgia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "DEU": {
+      "iso3": "DEU",
+      "entity": "Germany",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "GHA": {
+      "iso3": "GHA",
+      "entity": "Ghana",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "GRC": {
+      "iso3": "GRC",
+      "entity": "Greece",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "GRD": {
+      "iso3": "GRD",
+      "entity": "Grenada",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "GLP": {
+      "iso3": "GLP",
+      "entity": "Guadeloupe",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "GUM": {
+      "iso3": "GUM",
+      "entity": "Guam",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "GTM": {
+      "iso3": "GTM",
+      "entity": "Guatemala",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "GIN": {
+      "iso3": "GIN",
+      "entity": "Guinea",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "GNB": {
+      "iso3": "GNB",
+      "entity": "Guinea-Bissau",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "GUY": {
+      "iso3": "GUY",
+      "entity": "Guyana",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "HTI": {
+      "iso3": "HTI",
+      "entity": "Haiti",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "HND": {
+      "iso3": "HND",
+      "entity": "Honduras",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "HKG": {
+      "iso3": "HKG",
+      "entity": "Hong Kong",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "HUN": {
+      "iso3": "HUN",
+      "entity": "Hungary",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "ISL": {
+      "iso3": "ISL",
+      "entity": "Iceland",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "IND": {
+      "iso3": "IND",
+      "entity": "India",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023"
+    },
+    "IDN": {
+      "iso3": "IDN",
+      "entity": "Indonesia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "IRN": {
+      "iso3": "IRN",
+      "entity": "Iran",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "IRQ": {
+      "iso3": "IRQ",
+      "entity": "Iraq",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "IRL": {
+      "iso3": "IRL",
+      "entity": "Ireland",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "ISR": {
+      "iso3": "ISR",
+      "entity": "Israel",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "ITA": {
+      "iso3": "ITA",
+      "entity": "Italy",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "JAM": {
+      "iso3": "JAM",
+      "entity": "Jamaica",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "JPN": {
+      "iso3": "JPN",
+      "entity": "Japan",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "JOR": {
+      "iso3": "JOR",
+      "entity": "Jordan",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "KAZ": {
+      "iso3": "KAZ",
+      "entity": "Kazakhstan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "KEN": {
+      "iso3": "KEN",
+      "entity": "Kenya",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "KIR": {
+      "iso3": "KIR",
+      "entity": "Kiribati",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "KWT": {
+      "iso3": "KWT",
+      "entity": "Kuwait",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "KGZ": {
+      "iso3": "KGZ",
+      "entity": "Kyrgyzstan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "LAO": {
+      "iso3": "LAO",
+      "entity": "Laos",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "LVA": {
+      "iso3": "LVA",
+      "entity": "Latvia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "LBN": {
+      "iso3": "LBN",
+      "entity": "Lebanon",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "LSO": {
+      "iso3": "LSO",
+      "entity": "Lesotho",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "LBR": {
+      "iso3": "LBR",
+      "entity": "Liberia",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "LBY": {
+      "iso3": "LBY",
+      "entity": "Libya",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "LTU": {
+      "iso3": "LTU",
+      "entity": "Lithuania",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "LUX": {
+      "iso3": "LUX",
+      "entity": "Luxembourg",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "MAC": {
+      "iso3": "MAC",
+      "entity": "Macao",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "MDG": {
+      "iso3": "MDG",
+      "entity": "Madagascar",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "MWI": {
+      "iso3": "MWI",
+      "entity": "Malawi",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "MYS": {
+      "iso3": "MYS",
+      "entity": "Malaysia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "MDV": {
+      "iso3": "MDV",
+      "entity": "Maldives",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023"
+    },
+    "MLI": {
+      "iso3": "MLI",
+      "entity": "Mali",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "MLT": {
+      "iso3": "MLT",
+      "entity": "Malta",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "MHL": {
+      "iso3": "MHL",
+      "entity": "Marshall Islands",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "MTQ": {
+      "iso3": "MTQ",
+      "entity": "Martinique",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "MRT": {
+      "iso3": "MRT",
+      "entity": "Mauritania",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "MUS": {
+      "iso3": "MUS",
+      "entity": "Mauritius",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "MEX": {
+      "iso3": "MEX",
+      "entity": "Mexico",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "FSM": {
+      "iso3": "FSM",
+      "entity": "Micronesia (country)",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "MDA": {
+      "iso3": "MDA",
+      "entity": "Moldova",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "MCO": {
+      "iso3": "MCO",
+      "entity": "Monaco",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "MNG": {
+      "iso3": "MNG",
+      "entity": "Mongolia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "MNE": {
+      "iso3": "MNE",
+      "entity": "Montenegro",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "MSR": {
+      "iso3": "MSR",
+      "entity": "Montserrat",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "MAR": {
+      "iso3": "MAR",
+      "entity": "Morocco",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "MOZ": {
+      "iso3": "MOZ",
+      "entity": "Mozambique",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "MMR": {
+      "iso3": "MMR",
+      "entity": "Myanmar",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023"
+    },
+    "NAM": {
+      "iso3": "NAM",
+      "entity": "Namibia",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "NRU": {
+      "iso3": "NRU",
+      "entity": "Nauru",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "NPL": {
+      "iso3": "NPL",
+      "entity": "Nepal",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023"
+    },
+    "NLD": {
+      "iso3": "NLD",
+      "entity": "Netherlands",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "NCL": {
+      "iso3": "NCL",
+      "entity": "New Caledonia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "NZL": {
+      "iso3": "NZL",
+      "entity": "New Zealand",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "NIC": {
+      "iso3": "NIC",
+      "entity": "Nicaragua",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "NER": {
+      "iso3": "NER",
+      "entity": "Niger",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "NGA": {
+      "iso3": "NGA",
+      "entity": "Nigeria",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "NIU": {
+      "iso3": "NIU",
+      "entity": "Niue",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "PRK": {
+      "iso3": "PRK",
+      "entity": "North Korea",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023"
+    },
+    "MKD": {
+      "iso3": "MKD",
+      "entity": "North Macedonia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "MNP": {
+      "iso3": "MNP",
+      "entity": "Northern Mariana Islands",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "NOR": {
+      "iso3": "NOR",
+      "entity": "Norway",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "OMN": {
+      "iso3": "OMN",
+      "entity": "Oman",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "PAK": {
+      "iso3": "PAK",
+      "entity": "Pakistan",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "PLW": {
+      "iso3": "PLW",
+      "entity": "Palau",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "PSE": {
+      "iso3": "PSE",
+      "entity": "Palestine",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "PAN": {
+      "iso3": "PAN",
+      "entity": "Panama",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "PNG": {
+      "iso3": "PNG",
+      "entity": "Papua New Guinea",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "PRY": {
+      "iso3": "PRY",
+      "entity": "Paraguay",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "PER": {
+      "iso3": "PER",
+      "entity": "Peru",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "PHL": {
+      "iso3": "PHL",
+      "entity": "Philippines",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "PCN": {
+      "iso3": "PCN",
+      "entity": "Pitcairn",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "POL": {
+      "iso3": "POL",
+      "entity": "Poland",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "PRT": {
+      "iso3": "PRT",
+      "entity": "Portugal",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "PRI": {
+      "iso3": "PRI",
+      "entity": "Puerto Rico",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "QAT": {
+      "iso3": "QAT",
+      "entity": "Qatar",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "ROU": {
+      "iso3": "ROU",
+      "entity": "Romania",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "RUS": {
+      "iso3": "RUS",
+      "entity": "Russia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "RWA": {
+      "iso3": "RWA",
+      "entity": "Rwanda",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "KNA": {
+      "iso3": "KNA",
+      "entity": "Saint Kitts and Nevis",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "LCA": {
+      "iso3": "LCA",
+      "entity": "Saint Lucia",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "WSM": {
+      "iso3": "WSM",
+      "entity": "Samoa",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "SMR": {
+      "iso3": "SMR",
+      "entity": "San Marino",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "STP": {
+      "iso3": "STP",
+      "entity": "Sao Tome and Principe",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "SAU": {
+      "iso3": "SAU",
+      "entity": "Saudi Arabia",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "SEN": {
+      "iso3": "SEN",
+      "entity": "Senegal",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "SRB": {
+      "iso3": "SRB",
+      "entity": "Serbia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "SYC": {
+      "iso3": "SYC",
+      "entity": "Seychelles",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "SLE": {
+      "iso3": "SLE",
+      "entity": "Sierra Leone",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "SGP": {
+      "iso3": "SGP",
+      "entity": "Singapore",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "SXM": {
+      "iso3": "SXM",
+      "entity": "Sint Maarten (Dutch part)",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "SVK": {
+      "iso3": "SVK",
+      "entity": "Slovakia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "SVN": {
+      "iso3": "SVN",
+      "entity": "Slovenia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "SLB": {
+      "iso3": "SLB",
+      "entity": "Solomon Islands",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "SOM": {
+      "iso3": "SOM",
+      "entity": "Somalia",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "ZAF": {
+      "iso3": "ZAF",
+      "entity": "South Africa",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "KOR": {
+      "iso3": "KOR",
+      "entity": "South Korea",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "SSD": {
+      "iso3": "SSD",
+      "entity": "South Sudan",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "ESP": {
+      "iso3": "ESP",
+      "entity": "Spain",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "LKA": {
+      "iso3": "LKA",
+      "entity": "Sri Lanka",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023"
+    },
+    "SDN": {
+      "iso3": "SDN",
+      "entity": "Sudan",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "SUR": {
+      "iso3": "SUR",
+      "entity": "Suriname",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "SWE": {
+      "iso3": "SWE",
+      "entity": "Sweden",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "CHE": {
+      "iso3": "CHE",
+      "entity": "Switzerland",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "SYR": {
+      "iso3": "SYR",
+      "entity": "Syria",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "TJK": {
+      "iso3": "TJK",
+      "entity": "Tajikistan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "TZA": {
+      "iso3": "TZA",
+      "entity": "Tanzania",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "THA": {
+      "iso3": "THA",
+      "entity": "Thailand",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023"
+    },
+    "TGO": {
+      "iso3": "TGO",
+      "entity": "Togo",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "TKL": {
+      "iso3": "TKL",
+      "entity": "Tokelau",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "TON": {
+      "iso3": "TON",
+      "entity": "Tonga",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "TTO": {
+      "iso3": "TTO",
+      "entity": "Trinidad and Tobago",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "TUN": {
+      "iso3": "TUN",
+      "entity": "Tunisia",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "TUR": {
+      "iso3": "TUR",
+      "entity": "Turkey",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "TKM": {
+      "iso3": "TKM",
+      "entity": "Turkmenistan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "TCA": {
+      "iso3": "TCA",
+      "entity": "Turks and Caicos Islands",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "TUV": {
+      "iso3": "TUV",
+      "entity": "Tuvalu",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "UGA": {
+      "iso3": "UGA",
+      "entity": "Uganda",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "UKR": {
+      "iso3": "UKR",
+      "entity": "Ukraine",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "ARE": {
+      "iso3": "ARE",
+      "entity": "United Arab Emirates",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "GBR": {
+      "iso3": "GBR",
+      "entity": "United Kingdom",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "USA": {
+      "iso3": "USA",
+      "entity": "United States",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "URY": {
+      "iso3": "URY",
+      "entity": "Uruguay",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "UZB": {
+      "iso3": "UZB",
+      "entity": "Uzbekistan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023"
+    },
+    "VUT": {
+      "iso3": "VUT",
+      "entity": "Vanuatu",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "VEN": {
+      "iso3": "VEN",
+      "entity": "Venezuela",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023"
+    },
+    "VNM": {
+      "iso3": "VNM",
+      "entity": "Vietnam",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "WLF": {
+      "iso3": "WLF",
+      "entity": "Wallis and Futuna",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023"
+    },
+    "YEM": {
+      "iso3": "YEM",
+      "entity": "Yemen",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023"
+    },
+    "ZMB": {
+      "iso3": "ZMB",
+      "entity": "Zambia",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    },
+    "ZWE": {
+      "iso3": "ZWE",
+      "entity": "Zimbabwe",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023"
+    }
+  },
+  "byTopoName": {
+    "Zimbabwe": {
+      "iso3": "ZWE",
+      "entity": "Zimbabwe",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Zimbabwe",
+      "countryName": "Zimbabwe"
+    },
+    "Zambia": {
+      "iso3": "ZMB",
+      "entity": "Zambia",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Zambia",
+      "countryName": "Zambia"
+    },
+    "Yemen": {
+      "iso3": "YEM",
+      "entity": "Yemen",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Yemen",
+      "countryName": "Yemen, Rep."
+    },
+    "Vietnam": {
+      "iso3": "VNM",
+      "entity": "Vietnam",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Vietnam",
+      "countryName": "Viet Nam"
+    },
+    "Venezuela": {
+      "iso3": "VEN",
+      "entity": "Venezuela",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Venezuela",
+      "countryName": "Venezuela, RB"
+    },
+    "Vanuatu": {
+      "iso3": "VUT",
+      "entity": "Vanuatu",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Vanuatu",
+      "countryName": "Vanuatu"
+    },
+    "Uzbekistan": {
+      "iso3": "UZB",
+      "entity": "Uzbekistan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Uzbekistan",
+      "countryName": "Uzbekistan"
+    },
+    "Uruguay": {
+      "iso3": "URY",
+      "entity": "Uruguay",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Uruguay",
+      "countryName": "Uruguay"
+    },
+    "Micronesia": {
+      "iso3": "FSM",
+      "entity": "Micronesia (country)",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Micronesia",
+      "countryName": "Micronesia, Fed. Sts."
+    },
+    "Marshall Is.": {
+      "iso3": "MHL",
+      "entity": "Marshall Islands",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Marshall Is.",
+      "countryName": "Marshall Islands"
+    },
+    "N. Mariana Is.": {
+      "iso3": "MNP",
+      "entity": "Northern Mariana Islands",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "N. Mariana Is.",
+      "countryName": "Northern Mariana Islands"
+    },
+    "Guam": {
+      "iso3": "GUM",
+      "entity": "Guam",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Guam",
+      "countryName": "Guam"
+    },
+    "American Samoa": {
+      "iso3": "ASM",
+      "entity": "American Samoa",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "American Samoa",
+      "countryName": "American Samoa"
+    },
+    "Puerto Rico": {
+      "iso3": "PRI",
+      "entity": "Puerto Rico",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Puerto Rico",
+      "countryName": "Puerto Rico (US)"
+    },
+    "United States of America": {
+      "iso3": "USA",
+      "entity": "United States",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "United States of America",
+      "countryName": "United States"
+    },
+    "Pitcairn Is.": {
+      "iso3": "PCN",
+      "entity": "Pitcairn",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Pitcairn Is.",
+      "countryName": "Pitcairn Is."
+    },
+    "Anguilla": {
+      "iso3": "AIA",
+      "entity": "Anguilla",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Anguilla",
+      "countryName": "Anguilla"
+    },
+    "Cayman Is.": {
+      "iso3": "CYM",
+      "entity": "Cayman Islands",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Cayman Is.",
+      "countryName": "Cayman Islands"
+    },
+    "Bermuda": {
+      "iso3": "BMU",
+      "entity": "Bermuda",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Bermuda",
+      "countryName": "Bermuda"
+    },
+    "British Virgin Is.": {
+      "iso3": "VGB",
+      "entity": "British Virgin Islands",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "British Virgin Is.",
+      "countryName": "British Virgin Islands"
+    },
+    "Turks and Caicos Is.": {
+      "iso3": "TCA",
+      "entity": "Turks and Caicos Islands",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Turks and Caicos Is.",
+      "countryName": "Turks and Caicos Islands"
+    },
+    "Montserrat": {
+      "iso3": "MSR",
+      "entity": "Montserrat",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Montserrat",
+      "countryName": "Montserrat"
+    },
+    "United Kingdom": {
+      "iso3": "GBR",
+      "entity": "United Kingdom",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "United Kingdom",
+      "countryName": "United Kingdom"
+    },
+    "United Arab Emirates": {
+      "iso3": "ARE",
+      "entity": "United Arab Emirates",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "United Arab Emirates",
+      "countryName": "United Arab Emirates"
+    },
+    "Ukraine": {
+      "iso3": "UKR",
+      "entity": "Ukraine",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Ukraine",
+      "countryName": "Ukraine"
+    },
+    "Uganda": {
+      "iso3": "UGA",
+      "entity": "Uganda",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Uganda",
+      "countryName": "Uganda"
+    },
+    "Turkmenistan": {
+      "iso3": "TKM",
+      "entity": "Turkmenistan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Turkmenistan",
+      "countryName": "Turkmenistan"
+    },
+    "Turkey": {
+      "iso3": "TUR",
+      "entity": "Turkey",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Turkey",
+      "countryName": "Turkiye"
+    },
+    "Tunisia": {
+      "iso3": "TUN",
+      "entity": "Tunisia",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Tunisia",
+      "countryName": "Tunisia"
+    },
+    "Trinidad and Tobago": {
+      "iso3": "TTO",
+      "entity": "Trinidad and Tobago",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Trinidad and Tobago",
+      "countryName": "Trinidad and Tobago"
+    },
+    "Tonga": {
+      "iso3": "TON",
+      "entity": "Tonga",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Tonga",
+      "countryName": "Tonga"
+    },
+    "Togo": {
+      "iso3": "TGO",
+      "entity": "Togo",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Togo",
+      "countryName": "Togo"
+    },
+    "Timor-Leste": {
+      "iso3": "TLS",
+      "entity": "East Timor",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023",
+      "topoName": "Timor-Leste",
+      "countryName": "Timor-Leste"
+    },
+    "Thailand": {
+      "iso3": "THA",
+      "entity": "Thailand",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023",
+      "topoName": "Thailand",
+      "countryName": "Thailand"
+    },
+    "Tanzania": {
+      "iso3": "TZA",
+      "entity": "Tanzania",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Tanzania",
+      "countryName": "Tanzania"
+    },
+    "Tajikistan": {
+      "iso3": "TJK",
+      "entity": "Tajikistan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Tajikistan",
+      "countryName": "Tajikistan"
+    },
+    "Syria": {
+      "iso3": "SYR",
+      "entity": "Syria",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Syria",
+      "countryName": "Syrian Arab Republic"
+    },
+    "Switzerland": {
+      "iso3": "CHE",
+      "entity": "Switzerland",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Switzerland",
+      "countryName": "Switzerland"
+    },
+    "Sweden": {
+      "iso3": "SWE",
+      "entity": "Sweden",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Sweden",
+      "countryName": "Sweden"
+    },
+    "eSwatini": {
+      "iso3": "SWZ",
+      "entity": "Eswatini",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "eSwatini",
+      "countryName": "Eswatini"
+    },
+    "Suriname": {
+      "iso3": "SUR",
+      "entity": "Suriname",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Suriname",
+      "countryName": "Suriname"
+    },
+    "S. Sudan": {
+      "iso3": "SSD",
+      "entity": "South Sudan",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "S. Sudan",
+      "countryName": "South Sudan"
+    },
+    "Sudan": {
+      "iso3": "SDN",
+      "entity": "Sudan",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Sudan",
+      "countryName": "Sudan"
+    },
+    "Sri Lanka": {
+      "iso3": "LKA",
+      "entity": "Sri Lanka",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023",
+      "topoName": "Sri Lanka",
+      "countryName": "Sri Lanka"
+    },
+    "Spain": {
+      "iso3": "ESP",
+      "entity": "Spain",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Spain",
+      "countryName": "Spain"
+    },
+    "South Korea": {
+      "iso3": "KOR",
+      "entity": "South Korea",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "South Korea",
+      "countryName": "Korea, Rep."
+    },
+    "South Africa": {
+      "iso3": "ZAF",
+      "entity": "South Africa",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "South Africa",
+      "countryName": "South Africa"
+    },
+    "Somalia": {
+      "iso3": "SOM",
+      "entity": "Somalia",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Somalia",
+      "countryName": "Somalia, Fed. Rep."
+    },
+    "Solomon Is.": {
+      "iso3": "SLB",
+      "entity": "Solomon Islands",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Solomon Is.",
+      "countryName": "Solomon Islands"
+    },
+    "Slovakia": {
+      "iso3": "SVK",
+      "entity": "Slovakia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Slovakia",
+      "countryName": "Slovak Republic"
+    },
+    "Slovenia": {
+      "iso3": "SVN",
+      "entity": "Slovenia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Slovenia",
+      "countryName": "Slovenia"
+    },
+    "Singapore": {
+      "iso3": "SGP",
+      "entity": "Singapore",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Singapore",
+      "countryName": "Singapore"
+    },
+    "Sierra Leone": {
+      "iso3": "SLE",
+      "entity": "Sierra Leone",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Sierra Leone",
+      "countryName": "Sierra Leone"
+    },
+    "Seychelles": {
+      "iso3": "SYC",
+      "entity": "Seychelles",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Seychelles",
+      "countryName": "Seychelles"
+    },
+    "Serbia": {
+      "iso3": "SRB",
+      "entity": "Serbia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Serbia",
+      "countryName": "Serbia"
+    },
+    "Senegal": {
+      "iso3": "SEN",
+      "entity": "Senegal",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Senegal",
+      "countryName": "Senegal"
+    },
+    "Saudi Arabia": {
+      "iso3": "SAU",
+      "entity": "Saudi Arabia",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Saudi Arabia",
+      "countryName": "Saudi Arabia"
+    },
+    "São Tomé and Principe": {
+      "iso3": "STP",
+      "entity": "Sao Tome and Principe",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "São Tomé and Principe",
+      "countryName": "Sao Tome and Principe"
+    },
+    "San Marino": {
+      "iso3": "SMR",
+      "entity": "San Marino",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "San Marino",
+      "countryName": "San Marino"
+    },
+    "Samoa": {
+      "iso3": "WSM",
+      "entity": "Samoa",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Samoa",
+      "countryName": "Samoa"
+    },
+    "Saint Lucia": {
+      "iso3": "LCA",
+      "entity": "Saint Lucia",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Saint Lucia",
+      "countryName": "St. Lucia"
+    },
+    "St. Kitts and Nevis": {
+      "iso3": "KNA",
+      "entity": "Saint Kitts and Nevis",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "St. Kitts and Nevis",
+      "countryName": "St. Kitts and Nevis"
+    },
+    "Rwanda": {
+      "iso3": "RWA",
+      "entity": "Rwanda",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Rwanda",
+      "countryName": "Rwanda"
+    },
+    "Russia": {
+      "iso3": "RUS",
+      "entity": "Russia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Russia",
+      "countryName": "Russian Federation"
+    },
+    "Romania": {
+      "iso3": "ROU",
+      "entity": "Romania",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Romania",
+      "countryName": "Romania"
+    },
+    "Qatar": {
+      "iso3": "QAT",
+      "entity": "Qatar",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Qatar",
+      "countryName": "Qatar"
+    },
+    "Portugal": {
+      "iso3": "PRT",
+      "entity": "Portugal",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Portugal",
+      "countryName": "Portugal"
+    },
+    "Poland": {
+      "iso3": "POL",
+      "entity": "Poland",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Poland",
+      "countryName": "Poland"
+    },
+    "Philippines": {
+      "iso3": "PHL",
+      "entity": "Philippines",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Philippines",
+      "countryName": "Philippines"
+    },
+    "Peru": {
+      "iso3": "PER",
+      "entity": "Peru",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Peru",
+      "countryName": "Peru"
+    },
+    "Paraguay": {
+      "iso3": "PRY",
+      "entity": "Paraguay",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Paraguay",
+      "countryName": "Paraguay"
+    },
+    "Papua New Guinea": {
+      "iso3": "PNG",
+      "entity": "Papua New Guinea",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Papua New Guinea",
+      "countryName": "Papua New Guinea"
+    },
+    "Panama": {
+      "iso3": "PAN",
+      "entity": "Panama",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Panama",
+      "countryName": "Panama"
+    },
+    "Palau": {
+      "iso3": "PLW",
+      "entity": "Palau",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Palau",
+      "countryName": "Palau"
+    },
+    "Pakistan": {
+      "iso3": "PAK",
+      "entity": "Pakistan",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Pakistan",
+      "countryName": "Pakistan"
+    },
+    "Oman": {
+      "iso3": "OMN",
+      "entity": "Oman",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Oman",
+      "countryName": "Oman"
+    },
+    "Norway": {
+      "iso3": "NOR",
+      "entity": "Norway",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Norway",
+      "countryName": "Norway"
+    },
+    "North Korea": {
+      "iso3": "PRK",
+      "entity": "North Korea",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023",
+      "topoName": "North Korea",
+      "countryName": "Korea, Dem. People's Rep."
+    },
+    "Nigeria": {
+      "iso3": "NGA",
+      "entity": "Nigeria",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Nigeria",
+      "countryName": "Nigeria"
+    },
+    "Niger": {
+      "iso3": "NER",
+      "entity": "Niger",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Niger",
+      "countryName": "Niger"
+    },
+    "Nicaragua": {
+      "iso3": "NIC",
+      "entity": "Nicaragua",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Nicaragua",
+      "countryName": "Nicaragua"
+    },
+    "New Zealand": {
+      "iso3": "NZL",
+      "entity": "New Zealand",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "New Zealand",
+      "countryName": "New Zealand"
+    },
+    "Niue": {
+      "iso3": "NIU",
+      "entity": "Niue",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Niue",
+      "countryName": "Niue"
+    },
+    "Cook Is.": {
+      "iso3": "COK",
+      "entity": "Cook Islands",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Cook Is.",
+      "countryName": "Cook Is."
+    },
+    "Netherlands": {
+      "iso3": "NLD",
+      "entity": "Netherlands",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Netherlands",
+      "countryName": "Netherlands"
+    },
+    "Aruba": {
+      "iso3": "ABW",
+      "entity": "Aruba",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Aruba",
+      "countryName": "Aruba"
+    },
+    "Curaçao": {
+      "iso3": "CUW",
+      "entity": "Curacao",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Curaçao",
+      "countryName": "Curacao"
+    },
+    "Nepal": {
+      "iso3": "NPL",
+      "entity": "Nepal",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023",
+      "topoName": "Nepal",
+      "countryName": "Nepal"
+    },
+    "Nauru": {
+      "iso3": "NRU",
+      "entity": "Nauru",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Nauru",
+      "countryName": "Nauru"
+    },
+    "Namibia": {
+      "iso3": "NAM",
+      "entity": "Namibia",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Namibia",
+      "countryName": "Namibia"
+    },
+    "Mozambique": {
+      "iso3": "MOZ",
+      "entity": "Mozambique",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Mozambique",
+      "countryName": "Mozambique"
+    },
+    "Morocco": {
+      "iso3": "MAR",
+      "entity": "Morocco",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Morocco",
+      "countryName": "Morocco"
+    },
+    "Montenegro": {
+      "iso3": "MNE",
+      "entity": "Montenegro",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Montenegro",
+      "countryName": "Montenegro"
+    },
+    "Mongolia": {
+      "iso3": "MNG",
+      "entity": "Mongolia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Mongolia",
+      "countryName": "Mongolia"
+    },
+    "Moldova": {
+      "iso3": "MDA",
+      "entity": "Moldova",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Moldova",
+      "countryName": "Moldova"
+    },
+    "Monaco": {
+      "iso3": "MCO",
+      "entity": "Monaco",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Monaco",
+      "countryName": "Monaco"
+    },
+    "Mexico": {
+      "iso3": "MEX",
+      "entity": "Mexico",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Mexico",
+      "countryName": "Mexico"
+    },
+    "Mauritius": {
+      "iso3": "MUS",
+      "entity": "Mauritius",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Mauritius",
+      "countryName": "Mauritius"
+    },
+    "Mauritania": {
+      "iso3": "MRT",
+      "entity": "Mauritania",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Mauritania",
+      "countryName": "Mauritania"
+    },
+    "Malta": {
+      "iso3": "MLT",
+      "entity": "Malta",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Malta",
+      "countryName": "Malta"
+    },
+    "Mali": {
+      "iso3": "MLI",
+      "entity": "Mali",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Mali",
+      "countryName": "Mali"
+    },
+    "Maldives": {
+      "iso3": "MDV",
+      "entity": "Maldives",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023",
+      "topoName": "Maldives",
+      "countryName": "Maldives"
+    },
+    "Malaysia": {
+      "iso3": "MYS",
+      "entity": "Malaysia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Malaysia",
+      "countryName": "Malaysia"
+    },
+    "Malawi": {
+      "iso3": "MWI",
+      "entity": "Malawi",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Malawi",
+      "countryName": "Malawi"
+    },
+    "Madagascar": {
+      "iso3": "MDG",
+      "entity": "Madagascar",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Madagascar",
+      "countryName": "Madagascar"
+    },
+    "Macedonia": {
+      "iso3": "MKD",
+      "entity": "North Macedonia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Macedonia",
+      "countryName": "North Macedonia"
+    },
+    "Luxembourg": {
+      "iso3": "LUX",
+      "entity": "Luxembourg",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Luxembourg",
+      "countryName": "Luxembourg"
+    },
+    "Lithuania": {
+      "iso3": "LTU",
+      "entity": "Lithuania",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Lithuania",
+      "countryName": "Lithuania"
+    },
+    "Libya": {
+      "iso3": "LBY",
+      "entity": "Libya",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Libya",
+      "countryName": "Libya"
+    },
+    "Liberia": {
+      "iso3": "LBR",
+      "entity": "Liberia",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Liberia",
+      "countryName": "Liberia"
+    },
+    "Lesotho": {
+      "iso3": "LSO",
+      "entity": "Lesotho",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Lesotho",
+      "countryName": "Lesotho"
+    },
+    "Lebanon": {
+      "iso3": "LBN",
+      "entity": "Lebanon",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Lebanon",
+      "countryName": "Lebanon"
+    },
+    "Latvia": {
+      "iso3": "LVA",
+      "entity": "Latvia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Latvia",
+      "countryName": "Latvia"
+    },
+    "Laos": {
+      "iso3": "LAO",
+      "entity": "Laos",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Laos",
+      "countryName": "Lao PDR"
+    },
+    "Kyrgyzstan": {
+      "iso3": "KGZ",
+      "entity": "Kyrgyzstan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Kyrgyzstan",
+      "countryName": "Kyrgyz Republic"
+    },
+    "Kuwait": {
+      "iso3": "KWT",
+      "entity": "Kuwait",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Kuwait",
+      "countryName": "Kuwait"
+    },
+    "Kiribati": {
+      "iso3": "KIR",
+      "entity": "Kiribati",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Kiribati",
+      "countryName": "Kiribati"
+    },
+    "Kenya": {
+      "iso3": "KEN",
+      "entity": "Kenya",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Kenya",
+      "countryName": "Kenya"
+    },
+    "Kazakhstan": {
+      "iso3": "KAZ",
+      "entity": "Kazakhstan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Kazakhstan",
+      "countryName": "Kazakhstan"
+    },
+    "Jordan": {
+      "iso3": "JOR",
+      "entity": "Jordan",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Jordan",
+      "countryName": "Jordan"
+    },
+    "Japan": {
+      "iso3": "JPN",
+      "entity": "Japan",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Japan",
+      "countryName": "Japan"
+    },
+    "Jamaica": {
+      "iso3": "JAM",
+      "entity": "Jamaica",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Jamaica",
+      "countryName": "Jamaica"
+    },
+    "Italy": {
+      "iso3": "ITA",
+      "entity": "Italy",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Italy",
+      "countryName": "Italy"
+    },
+    "Israel": {
+      "iso3": "ISR",
+      "entity": "Israel",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Israel",
+      "countryName": "Israel"
+    },
+    "Palestine": {
+      "iso3": "PSE",
+      "entity": "Palestine",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Palestine",
+      "countryName": "West Bank and Gaza"
+    },
+    "Ireland": {
+      "iso3": "IRL",
+      "entity": "Ireland",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Ireland",
+      "countryName": "Ireland"
+    },
+    "Iraq": {
+      "iso3": "IRQ",
+      "entity": "Iraq",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Iraq",
+      "countryName": "Iraq"
+    },
+    "Iran": {
+      "iso3": "IRN",
+      "entity": "Iran",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Iran",
+      "countryName": "Iran, Islamic Rep."
+    },
+    "Indonesia": {
+      "iso3": "IDN",
+      "entity": "Indonesia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Indonesia",
+      "countryName": "Indonesia"
+    },
+    "India": {
+      "iso3": "IND",
+      "entity": "India",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023",
+      "topoName": "India",
+      "countryName": "India"
+    },
+    "Iceland": {
+      "iso3": "ISL",
+      "entity": "Iceland",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Iceland",
+      "countryName": "Iceland"
+    },
+    "Hungary": {
+      "iso3": "HUN",
+      "entity": "Hungary",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Hungary",
+      "countryName": "Hungary"
+    },
+    "Honduras": {
+      "iso3": "HND",
+      "entity": "Honduras",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Honduras",
+      "countryName": "Honduras"
+    },
+    "Haiti": {
+      "iso3": "HTI",
+      "entity": "Haiti",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Haiti",
+      "countryName": "Haiti"
+    },
+    "Guyana": {
+      "iso3": "GUY",
+      "entity": "Guyana",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Guyana",
+      "countryName": "Guyana"
+    },
+    "Guinea-Bissau": {
+      "iso3": "GNB",
+      "entity": "Guinea-Bissau",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Guinea-Bissau",
+      "countryName": "Guinea-Bissau"
+    },
+    "Guinea": {
+      "iso3": "GIN",
+      "entity": "Guinea",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Guinea",
+      "countryName": "Guinea"
+    },
+    "Guatemala": {
+      "iso3": "GTM",
+      "entity": "Guatemala",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Guatemala",
+      "countryName": "Guatemala"
+    },
+    "Grenada": {
+      "iso3": "GRD",
+      "entity": "Grenada",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Grenada",
+      "countryName": "Grenada"
+    },
+    "Greece": {
+      "iso3": "GRC",
+      "entity": "Greece",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Greece",
+      "countryName": "Greece"
+    },
+    "Ghana": {
+      "iso3": "GHA",
+      "entity": "Ghana",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Ghana",
+      "countryName": "Ghana"
+    },
+    "Germany": {
+      "iso3": "DEU",
+      "entity": "Germany",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Germany",
+      "countryName": "Germany"
+    },
+    "Georgia": {
+      "iso3": "GEO",
+      "entity": "Georgia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Georgia",
+      "countryName": "Georgia"
+    },
+    "Gambia": {
+      "iso3": "GMB",
+      "entity": "Gambia",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Gambia",
+      "countryName": "Gambia, The"
+    },
+    "Gabon": {
+      "iso3": "GAB",
+      "entity": "Gabon",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Gabon",
+      "countryName": "Gabon"
+    },
+    "France": {
+      "iso3": "FRA",
+      "entity": "France",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "France",
+      "countryName": "France"
+    },
+    "Wallis and Futuna Is.": {
+      "iso3": "WLF",
+      "entity": "Wallis and Futuna",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Wallis and Futuna Is.",
+      "countryName": "Wallis and Futuna Is."
+    },
+    "Fr. Polynesia": {
+      "iso3": "PYF",
+      "entity": "French Polynesia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Fr. Polynesia",
+      "countryName": "French Polynesia"
+    },
+    "New Caledonia": {
+      "iso3": "NCL",
+      "entity": "New Caledonia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "New Caledonia",
+      "countryName": "New Caledonia"
+    },
+    "Finland": {
+      "iso3": "FIN",
+      "entity": "Finland",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Finland",
+      "countryName": "Finland"
+    },
+    "Fiji": {
+      "iso3": "FJI",
+      "entity": "Fiji",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Fiji",
+      "countryName": "Fiji"
+    },
+    "Ethiopia": {
+      "iso3": "ETH",
+      "entity": "Ethiopia",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Ethiopia",
+      "countryName": "Ethiopia"
+    },
+    "Estonia": {
+      "iso3": "EST",
+      "entity": "Estonia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Estonia",
+      "countryName": "Estonia"
+    },
+    "Eritrea": {
+      "iso3": "ERI",
+      "entity": "Eritrea",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Eritrea",
+      "countryName": "Eritrea"
+    },
+    "Eq. Guinea": {
+      "iso3": "GNQ",
+      "entity": "Equatorial Guinea",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Eq. Guinea",
+      "countryName": "Equatorial Guinea"
+    },
+    "El Salvador": {
+      "iso3": "SLV",
+      "entity": "El Salvador",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "El Salvador",
+      "countryName": "El Salvador"
+    },
+    "Egypt": {
+      "iso3": "EGY",
+      "entity": "Egypt",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Egypt",
+      "countryName": "Egypt, Arab Rep."
+    },
+    "Ecuador": {
+      "iso3": "ECU",
+      "entity": "Ecuador",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Ecuador",
+      "countryName": "Ecuador"
+    },
+    "Dominican Rep.": {
+      "iso3": "DOM",
+      "entity": "Dominican Republic",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Dominican Rep.",
+      "countryName": "Dominican Republic"
+    },
+    "Dominica": {
+      "iso3": "DMA",
+      "entity": "Dominica",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Dominica",
+      "countryName": "Dominica"
+    },
+    "Djibouti": {
+      "iso3": "DJI",
+      "entity": "Djibouti",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Djibouti",
+      "countryName": "Djibouti"
+    },
+    "Denmark": {
+      "iso3": "DNK",
+      "entity": "Denmark",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Denmark",
+      "countryName": "Denmark"
+    },
+    "Czechia": {
+      "iso3": "CZE",
+      "entity": "Czechia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Czechia",
+      "countryName": "Czechia"
+    },
+    "Cyprus": {
+      "iso3": "CYP",
+      "entity": "Cyprus",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Cyprus",
+      "countryName": "Cyprus"
+    },
+    "Cuba": {
+      "iso3": "CUB",
+      "entity": "Cuba",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Cuba",
+      "countryName": "Cuba"
+    },
+    "Croatia": {
+      "iso3": "HRV",
+      "entity": "Croatia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Croatia",
+      "countryName": "Croatia"
+    },
+    "Côte d'Ivoire": {
+      "iso3": "CIV",
+      "entity": "Cote d'Ivoire",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Côte d'Ivoire",
+      "countryName": "Cote d'Ivoire"
+    },
+    "Costa Rica": {
+      "iso3": "CRI",
+      "entity": "Costa Rica",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Costa Rica",
+      "countryName": "Costa Rica"
+    },
+    "Dem. Rep. Congo": {
+      "iso3": "COD",
+      "entity": "Democratic Republic of Congo",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Dem. Rep. Congo",
+      "countryName": "Congo, Dem. Rep."
+    },
+    "Congo": {
+      "iso3": "COG",
+      "entity": "Congo",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Congo",
+      "countryName": "Congo, Rep."
+    },
+    "Comoros": {
+      "iso3": "COM",
+      "entity": "Comoros",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Comoros",
+      "countryName": "Comoros"
+    },
+    "Colombia": {
+      "iso3": "COL",
+      "entity": "Colombia",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Colombia",
+      "countryName": "Colombia"
+    },
+    "China": {
+      "iso3": "CHN",
+      "entity": "China",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "China",
+      "countryName": "China"
+    },
+    "Macao": {
+      "iso3": "MAC",
+      "entity": "Macao",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Macao",
+      "countryName": "Macao SAR, China"
+    },
+    "Hong Kong": {
+      "iso3": "HKG",
+      "entity": "Hong Kong",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Hong Kong",
+      "countryName": "Hong Kong SAR, China"
+    },
+    "Chile": {
+      "iso3": "CHL",
+      "entity": "Chile",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Chile",
+      "countryName": "Chile"
+    },
+    "Chad": {
+      "iso3": "TCD",
+      "entity": "Chad",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Chad",
+      "countryName": "Chad"
+    },
+    "Central African Rep.": {
+      "iso3": "CAF",
+      "entity": "Central African Republic",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Central African Rep.",
+      "countryName": "Central African Republic"
+    },
+    "Cabo Verde": {
+      "iso3": "CPV",
+      "entity": "Cape Verde",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Cabo Verde",
+      "countryName": "Cabo Verde"
+    },
+    "Canada": {
+      "iso3": "CAN",
+      "entity": "Canada",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Canada",
+      "countryName": "Canada"
+    },
+    "Cameroon": {
+      "iso3": "CMR",
+      "entity": "Cameroon",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Cameroon",
+      "countryName": "Cameroon"
+    },
+    "Cambodia": {
+      "iso3": "KHM",
+      "entity": "Cambodia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Cambodia",
+      "countryName": "Cambodia"
+    },
+    "Myanmar": {
+      "iso3": "MMR",
+      "entity": "Myanmar",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023",
+      "topoName": "Myanmar",
+      "countryName": "Myanmar"
+    },
+    "Burundi": {
+      "iso3": "BDI",
+      "entity": "Burundi",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Burundi",
+      "countryName": "Burundi"
+    },
+    "Burkina Faso": {
+      "iso3": "BFA",
+      "entity": "Burkina Faso",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Burkina Faso",
+      "countryName": "Burkina Faso"
+    },
+    "Bulgaria": {
+      "iso3": "BGR",
+      "entity": "Bulgaria",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Bulgaria",
+      "countryName": "Bulgaria"
+    },
+    "Brunei": {
+      "iso3": "BRN",
+      "entity": "Brunei",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Brunei",
+      "countryName": "Brunei Darussalam"
+    },
+    "Brazil": {
+      "iso3": "BRA",
+      "entity": "Brazil",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Brazil",
+      "countryName": "Brazil"
+    },
+    "Botswana": {
+      "iso3": "BWA",
+      "entity": "Botswana",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Botswana",
+      "countryName": "Botswana"
+    },
+    "Bosnia and Herz.": {
+      "iso3": "BIH",
+      "entity": "Bosnia and Herzegovina",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Bosnia and Herz.",
+      "countryName": "Bosnia and Herzegovina"
+    },
+    "Bolivia": {
+      "iso3": "BOL",
+      "entity": "Bolivia",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Bolivia",
+      "countryName": "Bolivia"
+    },
+    "Bhutan": {
+      "iso3": "BTN",
+      "entity": "Bhutan",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023",
+      "topoName": "Bhutan",
+      "countryName": "Bhutan"
+    },
+    "Benin": {
+      "iso3": "BEN",
+      "entity": "Benin",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Benin",
+      "countryName": "Benin"
+    },
+    "Belize": {
+      "iso3": "BLZ",
+      "entity": "Belize",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Belize",
+      "countryName": "Belize"
+    },
+    "Belgium": {
+      "iso3": "BEL",
+      "entity": "Belgium",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Belgium",
+      "countryName": "Belgium"
+    },
+    "Belarus": {
+      "iso3": "BLR",
+      "entity": "Belarus",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Belarus",
+      "countryName": "Belarus"
+    },
+    "Barbados": {
+      "iso3": "BRB",
+      "entity": "Barbados",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Barbados",
+      "countryName": "Barbados"
+    },
+    "Bangladesh": {
+      "iso3": "BGD",
+      "entity": "Bangladesh",
+      "region": "SEARO",
+      "regionLabel": "South-East Asia",
+      "color": "#ca8a04",
+      "sourceYear": "2023",
+      "topoName": "Bangladesh",
+      "countryName": "Bangladesh"
+    },
+    "Bahrain": {
+      "iso3": "BHR",
+      "entity": "Bahrain",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Bahrain",
+      "countryName": "Bahrain"
+    },
+    "Bahamas": {
+      "iso3": "BHS",
+      "entity": "Bahamas",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Bahamas",
+      "countryName": "Bahamas, The"
+    },
+    "Azerbaijan": {
+      "iso3": "AZE",
+      "entity": "Azerbaijan",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Azerbaijan",
+      "countryName": "Azerbaijan"
+    },
+    "Austria": {
+      "iso3": "AUT",
+      "entity": "Austria",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Austria",
+      "countryName": "Austria"
+    },
+    "Australia": {
+      "iso3": "AUS",
+      "entity": "Australia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Australia",
+      "countryName": "Australia"
+    },
+    "Ashmore and Cartier Is.": {
+      "iso3": "AUS",
+      "entity": "Australia",
+      "region": "WPR",
+      "regionLabel": "Western Pacific",
+      "color": "#be123c",
+      "sourceYear": "2023",
+      "topoName": "Ashmore and Cartier Is.",
+      "countryName": "Australia"
+    },
+    "Armenia": {
+      "iso3": "ARM",
+      "entity": "Armenia",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Armenia",
+      "countryName": "Armenia"
+    },
+    "Argentina": {
+      "iso3": "ARG",
+      "entity": "Argentina",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Argentina",
+      "countryName": "Argentina"
+    },
+    "Antigua and Barb.": {
+      "iso3": "ATG",
+      "entity": "Antigua and Barbuda",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Antigua and Barb.",
+      "countryName": "Antigua and Barbuda"
+    },
+    "Angola": {
+      "iso3": "AGO",
+      "entity": "Angola",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Angola",
+      "countryName": "Angola"
+    },
+    "Andorra": {
+      "iso3": "AND",
+      "entity": "Andorra",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Andorra",
+      "countryName": "Andorra"
+    },
+    "Algeria": {
+      "iso3": "DZA",
+      "entity": "Algeria",
+      "region": "AFRO",
+      "regionLabel": "Africa",
+      "color": "#0f766e",
+      "sourceYear": "2023",
+      "topoName": "Algeria",
+      "countryName": "Algeria"
+    },
+    "Albania": {
+      "iso3": "ALB",
+      "entity": "Albania",
+      "region": "EURO",
+      "regionLabel": "Europe",
+      "color": "#7c3aed",
+      "sourceYear": "2023",
+      "topoName": "Albania",
+      "countryName": "Albania"
+    },
+    "Afghanistan": {
+      "iso3": "AFG",
+      "entity": "Afghanistan",
+      "region": "EMR",
+      "regionLabel": "Eastern Mediterranean",
+      "color": "#c2410c",
+      "sourceYear": "2023",
+      "topoName": "Afghanistan",
+      "countryName": "Afghanistan"
+    },
+    "Sint Maarten": {
+      "iso3": "SXM",
+      "entity": "Sint Maarten (Dutch part)",
+      "region": "AMRO",
+      "regionLabel": "Americas",
+      "color": "#2563eb",
+      "sourceYear": "2023",
+      "topoName": "Sint Maarten",
+      "countryName": "Sint Maarten (Dutch part)"
+    }
+  }
+}

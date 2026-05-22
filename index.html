@@ -448,8 +448,8 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .disc-filter-pill.active{background:rgba(13,148,136,0.14);border-color:rgba(13,148,136,0.45);color:var(--teal-dark);font-weight:600}
 .discipline-filter-list{flex-wrap:wrap}
 #map-legend-policy{display:flex;flex-wrap:wrap}
-#map-legend-income,#map-legend-funding{display:none;flex-wrap:wrap}
-#map-legend-income .leg-item,#map-legend-funding .leg-item{flex:1 1 45%}
+#map-legend-income,#map-legend-funding,#map-legend-who{display:none;flex-wrap:wrap}
+#map-legend-income .leg-item,#map-legend-funding .leg-item,#map-legend-who .leg-item{flex:1 1 45%}
 .region-pill{
   display:flex;align-items:center;gap:0.4rem;width:100%;
   padding:0.38rem 0.6rem;border-radius:5px;border:none;
@@ -917,13 +917,14 @@ footer{
     <div class="section-wrap">
       <div class="section-eye reveal">Interactive Map</div>
       <h2 class="section-h2 reveal reveal-d1">Global NSP / NHP Status</h2>
-      <p class="section-sub reveal reveal-d2">Switch the map between policy documents, World Bank income level, and national health financing. All countries appear on income and financing maps; diagonal stripes mark countries with NSP or NHP documents in this repository.</p>
+      <p class="section-sub reveal reveal-d2">Switch the map between policy documents, WHO region, World Bank income level, and national health financing. All countries appear on contextual maps; diagonal stripes mark countries with NSP or NHP documents in this repository.</p>
       <div class="map-layout">
         <div class="map-filters-top reveal">
           <div class="sidebar-block map-filters-map-view">
             <div class="sidebar-head">Map view</div>
             <div class="map-view-toggle" id="map-view-toggle" role="group" aria-label="Map view">
               <button type="button" class="map-view-btn active" data-map-view="policy">Policy documents (NSP / NHP)</button>
+              <button type="button" class="map-view-btn" data-map-view="who">WHO regions</button>
               <button type="button" class="map-view-btn" data-map-view="income">World Bank income level</button>
               <button type="button" class="map-view-btn" data-map-view="funding">Health financing</button>
             </div>
@@ -978,6 +979,7 @@ footer{
             </div>
             <div class="map-legend" id="map-legend-income"></div>
             <div class="map-legend" id="map-legend-funding"></div>
+            <div class="map-legend" id="map-legend-who"></div>
           </div>
         </div>
         <div class="map-filters-meta reveal">
@@ -993,7 +995,7 @@ footer{
             <div class="sidebar-head">Health financing</div>
             <div class="filter-list" id="funding-filters"></div>
           </div>
-          <p class="map-filters-note">Sources: income and GNI use World Bank country and lending groups; development status combines World Bank income group with the UN Least Developed Countries list; health financing uses World Bank domestic government health spending share of current health expenditure. Surgical discipline tags are automated PDF keyword flags and should be interpreted as a screening aid, not a full expert review.</p>
+          <p class="map-filters-note">Sources: WHO regions use the World Health Organization regional grouping dataset processed by Our World in Data; income and GNI use World Bank country and lending groups; development status combines World Bank income group with the UN Least Developed Countries list; health financing uses World Bank domestic government health spending share of current health expenditure. Surgical discipline tags are automated PDF keyword flags and should be interpreted as a screening aid, not a full expert review.</p>
         </div>
         <div class="map-filters-disciplines reveal">
           <div class="sidebar-block" id="discipline-filter-block">
@@ -1045,14 +1047,18 @@ footer{
       <p class="section-sub reveal reveal-d2">This atlas distinguishes between policy documents held in the repository and contextual information drawn from external sources. Countries are shown as having an NSP or NHP only when the relevant document is available here, while the filters provide additional background on economic context, health financing, and surgical content.</p>
       <div class="sources-grid">
         <div class="source-card reveal">
+          <h3>WHO Regions</h3>
+          <p>WHO region groupings are drawn from the World Health Organization countries and areas by WHO region dataset, as processed by <a href="https://ourworldindata.org/grapher/who-regions" target="_blank" rel="noopener noreferrer">Our World in Data</a>. This is used only as a geographic classification for the map and filters; it does not imply formal WHO affiliation or endorsement of this repository.</p>
+        </div>
+        <div class="source-card reveal reveal-d1">
           <h3>Income &amp; Development</h3>
           <p>Income group and GNI per capita are drawn from World Bank country classifications. Development status is presented as a simple interpretive grouping: high-income economies are listed as developed, countries on the United Nations Least Developed Countries list are listed as least developed, and other classified economies are listed as developing.</p>
         </div>
-        <div class="source-card reveal reveal-d1">
+        <div class="source-card reveal reveal-d2">
           <h3>Health Financing</h3>
           <p>Health financing is based on World Bank data describing the government share of current health expenditure. Countries with a larger government share are grouped as public/government financed, countries with a lower government share are grouped as private-dominated, and countries between these ranges are shown as mixed financing systems.</p>
         </div>
-        <div class="source-card reveal reveal-d2">
+        <div class="source-card reveal reveal-d3">
           <h3>Surgical Disciplines</h3>
           <p>Surgical discipline filters are generated by scanning uploaded policy documents for discipline-related terms, including anesthesia, nursing, obstetrics and gynecology, general surgery, trauma, pediatrics, and plastics. These tags are intended to help readers find relevant documents, but they should not be treated as a final expert classification without full review of the document.</p>
         </div>
@@ -1354,6 +1360,7 @@ let countryToWHO = {};
 
 /* ── Phase 1: World Bank income, development status, map modes ── */
 let countryMeta = null;
+let whoRegionData = null;
 let mapViewMode = 'policy';
 let activeIncomeFilter = 'all';
 let activeDevelopmentFilter = 'all';
@@ -1372,6 +1379,12 @@ const DEVELOPMENT_FILTERS = [
 async function loadCountryMeta() {
   const res = await fetch('country-meta.json', { cache: 'no-store' });
   if (!res.ok) throw new Error('country-meta.json HTTP ' + res.status);
+  return res.json();
+}
+
+async function loadWhoRegions() {
+  const res = await fetch('who-regions.json', { cache: 'no-store' });
+  if (!res.ok) throw new Error('who-regions.json HTTP ' + res.status);
   return res.json();
 }
 
@@ -1785,6 +1798,22 @@ function buildFundingLegend() {
     '<div class="leg-item"><div class="leg-swatch leg-swatch--striped"></div>In this repository (striped)</div>';
 }
 
+function buildWhoRegionLegend() {
+  const leg = document.getElementById('map-legend-who');
+  if (!leg || !whoRegionData) return;
+  leg.innerHTML = '';
+  (whoRegionData.legend || []).forEach((item) => {
+    leg.innerHTML +=
+      '<div class="leg-item"><div class="leg-swatch" style="background:' +
+      item.color +
+      '"></div>' +
+      escHtml(item.label) +
+      '</div>';
+  });
+  leg.innerHTML +=
+    '<div class="leg-item"><div class="leg-swatch leg-swatch--striped"></div>In this repository (striped)</div>';
+}
+
 function updateMapSidebarForView() {
   /* Filter panels stay visible in fixed layout (top / meta / disciplines). */
 }
@@ -1806,16 +1835,18 @@ function buildIncomeLegend() {
 }
 
 function setMapViewMode(mode) {
-  mapViewMode = mode === 'income' || mode === 'funding' ? mode : 'policy';
+  mapViewMode = mode === 'income' || mode === 'funding' || mode === 'who' ? mode : 'policy';
   document.querySelectorAll('.map-view-btn').forEach((btn) => {
     btn.classList.toggle('active', btn.dataset.mapView === mapViewMode);
   });
   const legPolicy = document.getElementById('map-legend-policy');
   const legIncome = document.getElementById('map-legend-income');
   const legFunding = document.getElementById('map-legend-funding');
+  const legWho = document.getElementById('map-legend-who');
   if (legPolicy) legPolicy.style.display = mapViewMode === 'policy' ? 'flex' : 'none';
   if (legIncome) legIncome.style.display = mapViewMode === 'income' ? 'flex' : 'none';
   if (legFunding) legFunding.style.display = mapViewMode === 'funding' ? 'flex' : 'none';
+  if (legWho) legWho.style.display = mapViewMode === 'who' ? 'flex' : 'none';
   updateMapSidebarForView();
   paintMapCountries();
   updateMapFilters();
@@ -1830,7 +1861,12 @@ function initMapViewToggle() {
   });
   buildIncomeLegend();
   buildFundingLegend();
+  buildWhoRegionLegend();
   setMapViewMode('policy');
+}
+
+function getWhoRegionForTopoName(topoName) {
+  return whoRegionData && whoRegionData.byTopoName ? whoRegionData.byTopoName[topoName] || null : null;
 }
 
 function paintMapCountries() {
@@ -1853,6 +1889,10 @@ function paintMapCountries() {
       if (mapViewMode === 'funding') {
         const meta = getMetaForTopoName(name);
         return meta && meta.fundingColor ? meta.fundingColor : getFundingColor('unknown');
+      }
+      if (mapViewMode === 'who') {
+        const region = getWhoRegionForTopoName(name);
+        return region && region.color ? region.color : getStatusColor('none');
       }
       const status = countryStatus[name] || 'none';
       return getStatusColor(status);
@@ -1924,6 +1964,12 @@ function updateMapTitleLabel() {
     mapTitle.textContent = parts.join(' · ');
     return;
   }
+  if (mapViewMode === 'who') {
+    const region =
+      activeRegion === 'all' ? '' : ', ' + ((WHO_REGIONS.find((r) => r.key === activeRegion) || {}).label || activeRegion);
+    mapTitle.textContent = 'WHO regions' + region;
+    return;
+  }
   const showing = getFiltered().length;
   const sc = SC[activeFilter];
   const typeLabel = activeFilter === 'all' ? 'All Types' : (sc && sc.label) || activeFilter;
@@ -1988,13 +2034,15 @@ function refreshHeroAndFilters() {
 }
 
 async function bootstrapAtlas() {
-  const [catalogue, meta, disciplines] = await Promise.all([
+  const [catalogue, meta, whoRegions, disciplines] = await Promise.all([
     loadCatalogue(),
     loadCountryMeta(),
+    loadWhoRegions(),
     loadDisciplineTags(),
   ]);
   policyData = catalogue;
   countryMeta = meta;
+  whoRegionData = whoRegions;
   disciplineTags = disciplines;
   rebuildCatalogueIndexes();
   initIncomeFilterPills();
@@ -2474,12 +2522,16 @@ function initD3Map() {
           const tr = document.getElementById('tip-region');
           if (tc) tc.textContent = name;
           const topoMeta = getMetaForTopoName(name);
+          const whoRegion = getWhoRegionForTopoName(name);
           if (mapViewMode === 'income' && topoMeta) {
             if (tst) tst.textContent = topoMeta.incomeLabel || 'Income';
             if (td) td.style.background = topoMeta.incomeColor || getIncomeColor('INX');
           } else if (mapViewMode === 'funding' && topoMeta) {
             if (tst) tst.textContent = topoMeta.fundingLabel || 'Health financing';
             if (td) td.style.background = topoMeta.fundingColor || getFundingColor('unknown');
+          } else if (mapViewMode === 'who' && whoRegion) {
+            if (tst) tst.textContent = whoRegion.regionLabel || 'WHO region';
+            if (td) td.style.background = whoRegion.color;
           } else {
             if (tst) tst.textContent = sc.label;
             if (td) td.style.background = sc.color;
@@ -2494,7 +2546,9 @@ function initD3Map() {
                 tm.textContent = 'Document year: ' + dataRow.year;
               }
             }
-            if (tr) tr.textContent = dataRow.region + ' · ' + dataRow.whoRegion;
+            if (tr) tr.textContent = mapViewMode === 'who' && whoRegion
+              ? 'WHO region source: Our World in Data'
+              : dataRow.region + ' · ' + dataRow.whoRegion;
           } else if (topoMeta) {
             if (tm) {
               const gni = topoMeta.gniPerCapita != null ? '$' + topoMeta.gniPerCapita.toLocaleString() + ' GNI/cap · ' : '';
@@ -2509,7 +2563,7 @@ function initD3Map() {
                 (topoMeta.incomeLabel ? ' · ' + topoMeta.incomeLabel : '') +
                 (topoMeta.fundingLabel && mapViewMode !== 'funding' ? ' · ' + topoMeta.fundingLabel : '');
             }
-            if (tr) tr.textContent = '';
+            if (tr) tr.textContent = mapViewMode === 'who' && whoRegion ? 'WHO region source: Our World in Data' : '';
           } else {
             if (tm) tm.textContent = 'Not in current repository';
             if (tr) tr.textContent = '';
@@ -2545,7 +2599,7 @@ function initD3Map() {
     })
     .catch(err => {
       console.error('Map load error:', err);
-      svgEl.innerHTML = '<text x="50%" y="50%" text-anchor="middle" fill="#64748b" font-size="14">Map data unavailable — please ensure countries-110m.json is in the same folder.</text>';
+      svgEl.innerHTML = '<text x="50%" y="50%" text-anchor="middle" fill="#64748b" font-size="14">Map data unavailable — please ensure countries-50m.json is in the same folder.</text>';
     });
 }
 
@@ -2576,6 +2630,11 @@ function getMapCountryOpacity(d) {
   const who = countryToWHO[name];
   const typeOk = mapFilterStatus === 'all' || status === mapFilterStatus;
   const regionOk = mapFilterRegion === 'all' || who === mapFilterRegion;
+  if (mapViewMode === 'who') {
+    const region = getWhoRegionForTopoName(name);
+    if (!region) return 0.18;
+    return mapFilterRegion === 'all' || region.region === mapFilterRegion ? 1 : 0.08;
+  }
   if (mapViewMode === 'income' || mapViewMode === 'funding') return 1;
   if (!status) return 0.35;
   return typeOk && regionOk ? 1 : 0.08;

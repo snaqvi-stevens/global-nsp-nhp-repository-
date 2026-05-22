@@ -6,6 +6,7 @@
     "catalogue": "node scripts/build-catalogue.mjs",
     "country-meta": "node scripts/build-country-meta.mjs",
     "disciplines": "node scripts/build-disciplines.mjs",
+    "who-regions": "node scripts/build-who-regions.mjs",
     "summaries": "node scripts/generate-summaries.mjs",
     "summaries:translate": "node scripts/generate-summaries.mjs --translate-only"
   },

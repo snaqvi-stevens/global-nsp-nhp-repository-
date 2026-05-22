@@ -12,6 +12,7 @@ on:
       - 'discipline-overrides.json'
       - 'scripts/build-disciplines.mjs'
       - 'scripts/build-country-meta.mjs'
+      - 'scripts/build-who-regions.mjs'
       - 'countries-50m.json'
   workflow_dispatch:
 
@@ -31,10 +32,11 @@ jobs:
         run: |
           npm run catalogue
           npm run country-meta
+          npm run who-regions
           npm run disciplines
 
       - name: Commit catalogue if changed
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'chore: regenerate atlas data from policy documents'
-          file_pattern: catalogue.json country-meta.json discipline-tags.json
+          file_pattern: catalogue.json country-meta.json discipline-tags.json who-regions.json
