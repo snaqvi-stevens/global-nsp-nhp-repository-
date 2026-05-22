@@ -174,7 +174,7 @@ async function main() {
     fetchJson(
       'https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/slim-3/slim-3.json',
     ),
-    fs.promises.readFile(path.join(ROOT, 'countries-110m.json'), 'utf8').then(JSON.parse),
+    fs.promises.readFile(path.join(ROOT, 'countries-50m.json'), 'utf8').then(JSON.parse),
   ]);
 
   const wbCountries = wbCountriesRaw[1] || [];
@@ -312,6 +312,11 @@ async function main() {
     }
     if (iso3 && byIso3[iso3]) {
       byCatalogueCountry[country] = { ...byIso3[iso3], catalogueCountry: country };
+    } else {
+      const topoMeta = Object.values(byTopoName).find(
+        (m) => m.name === country || m.topoName === country || (iso3 && m.iso3 === iso3),
+      );
+      if (topoMeta) byCatalogueCountry[country] = { ...topoMeta, catalogueCountry: country };
     }
   }
 

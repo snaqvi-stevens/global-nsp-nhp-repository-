@@ -1,0 +1,88 @@
+{
+  "byFilename": {
+    "Antigua and Barbuda NHP 2015-2019.pdf": {
+      "country": "Antigua and Barbuda",
+      "kind": "nhp"
+    },
+    "Bosnia NHP 2008-2018 (Bosnian).pdf": {
+      "country": "Bosnia and Herzegovina",
+      "kind": "nhp"
+    },
+    "Czech NHP 2030 (Czech).pdf": {
+      "country": "Czech Republic",
+      "kind": "nhp"
+    },
+    "DPR KOREA NHP 2016 – 2020.pdf": {
+      "country": "DPR Korea",
+      "kind": "nhp"
+    },
+    "HSS_english_0.pdf": {
+      "country": "Cameroon",
+      "kind": "nhp"
+    },
+    "GoSL-NHSSP-2021-2025-Version-Final-Expert-edited-19-11-21.pdf": {
+      "country": "Sierra Leone",
+      "kind": "nhp"
+    },
+    "HSSP-III-Print-Version-2023-01-09_v1_Cleaned.pdf": {
+      "country": "Malawi",
+      "kind": "nhp"
+    },
+    "Mongolian NHP (English).pdf": {
+      "country": "Mongolia",
+      "kind": "nhp"
+    },
+    "Mongolian NHP (Mongolian).pdf": {
+      "country": "Mongolia",
+      "kind": "nhp"
+    },
+    "Nigeria_NSOANP.pdf": {
+      "country": "Nigeria",
+      "kind": "nsp"
+    },
+    "p4h_PNDS-2023-2032_Sao-Tome-et-Principe.x23411.pdf": {
+      "country": "São Tomé and Príncipe",
+      "kind": "nhp"
+    },
+    "National-Health-Policy_2020.pdf": {
+      "country": "Malawi",
+      "kind": "nhp"
+    },
+    "rca_-ptss_revise_final.pdf": {
+      "country": "Central African Republic",
+      "kind": "nhp"
+    },
+    "Republic of Korea NHP Summary 2021-2030.pdf": {
+      "country": "Republic of Korea",
+      "kind": "nhp"
+    },
+    "REPUBLIC OF SIERRA LEONE NSOAP 2026-2030.pdf": {
+      "country": "Sierra Leone",
+      "kind": "nsp"
+    },
+    "revised_National_Health_Policy.pdf": {
+      "country": "Botswana",
+      "kind": "nhp"
+    },
+    "s12630-023-02500-8.pdf": {
+      "country": "Madagascar",
+      "kind": "nsp"
+    },
+    "2018 SaLTS Five Year Strategic Plan_format_FINAL.pdf": {
+      "country": "Ethiopia",
+      "kind": "nsp"
+    },
+    "National Surgical Obstetric and Anaesthesia Plan 20262031.pdf": {
+      "country": "Samoa",
+      "kind": "nsp"
+    },
+    "Timor Leste NHP 2011-2030.pdf": {
+      "country": "Timor-Leste",
+      "kind": "nhp"
+    },
+    "UK NHS Long term plan 2019.pdf": {
+      "country": "United Kingdom",
+      "kind": "nhp"
+    }
+  }
+}

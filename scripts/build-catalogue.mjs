@@ -74,7 +74,7 @@ const ISO3_TO_COUNTRY = {
 };
 
 const NSP_HINTS = [
-  /\bnsoap\b/i, /\bnsoanp\b/i, /\bnsoap\b/i, /\bsalts\b/i, /\bsurgical\b/i, /\bsurgery\b/i,
+  /\bnsp\b/i, /\bnsoap\b/i, /\bnsoanp\b/i, /\bnsoap\b/i, /\bsalts\b/i, /\bsurgical\b/i, /\bsurgery\b/i,
   /\boperative\b/i, /\bobstetric(s)?\b/i, /\banaesth/i, /\banesthes/i, /\bkirurgi\b/i,
   /\bsafe surgery\b/i, /\bsurgical (hubs|action|guidelines)\b/i, /\bnsap\b/i,
   /\bnational surgical\b/i, /\bsurgical care\b/i, /\bsurgical plan\b/i, /\bns\s*o\s*a\s*p/i,
@@ -94,6 +94,11 @@ const SKIP_FILE = [
   /\.docx$/i,
   /\(1\)/i,
   /\(2\)/i,
+  /\bnot\s+NHP\b/i,
+  /\bno\s+NHP\b/i,
+  /\bHealth Reform Proposals\b/i,
+  /\bNorthern Ireland Surgical Action Plan\b/i,
+  /^Djibouti pnds_2013_2017_djibouti\.pdf$/i,
   /\bcopy\b/i,
   /duplicate/i,
   /^~\$/,

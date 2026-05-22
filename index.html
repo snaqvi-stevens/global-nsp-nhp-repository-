@@ -491,6 +491,11 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 .country.status-nsp{fill:var(--c-nsp)}
 .country.status-nhp{fill:var(--c-nhp)}
 .country.status-both{fill:var(--c-both)}
+.country.is-selected{
+  stroke:#0f172a !important;
+  stroke-width:1.8px !important;
+  filter:drop-shadow(0 0 4px rgba(15,23,42,0.34));
+}
 .country-stripe{pointer-events:none;transition:opacity var(--t-mid)}
 .leg-swatch--striped{
   background:var(--c-none);
@@ -590,6 +595,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.doc-btn:focus-visible,.
 }
 .policy-table tbody tr{background:var(--white);transition:background var(--t-fast)}
 .policy-table tbody tr:hover{background:rgba(13,148,136,0.04)}
+.policy-table tbody tr.is-selected{background:rgba(13,148,136,0.1)}
 .policy-table tbody tr:last-child td{border-bottom:none}
 .policy-table .policy-country-name{font-size:0.88rem;font-weight:600;color:var(--text)}
 .policy-table .policy-region-cell{font-size:0.72rem;line-height:1.4}
@@ -1332,6 +1338,7 @@ function setText(id, text) {
 }
 
 let countryStatus = {};
+let selectedTopoCountry = '';
 const ourToTopo = {
   'Congo (DRC)':'Dem. Rep. Congo','Czech Republic':'Czechia',
   'Bosnia and Herzegovina':'Bosnia and Herz.','North Macedonia':'Macedonia',
@@ -1339,6 +1346,8 @@ const ourToTopo = {
   'South Sudan':'S. Sudan','Central African Republic':'Central African Rep.',
   'Eswatini':'eSwatini','Solomon Islands':'Solomon Is.',
   'UAE':'United Arab Emirates','United States':'United States of America',
+  'Antigua and Barbuda':'Antigua and Barb.','Cape Verde':'Cabo Verde',
+  'São Tomé and Príncipe':'São Tomé and Principe','Marshall Islands':'Marshall Is.',
 };
 const lookup = {};
 let countryToWHO = {};
@@ -1520,8 +1529,13 @@ function buildPolicyDocCell(d) {
 
 function buildPolicyEntryHtml(d) {
   const cmeta = getMetaForCatalogueCountry(d.country);
+  const isSelected = selectedTopoCountry === getTopoNameForCatalogueCountry(d.country);
   return (
-    '<tr>' +
+    '<tr tabindex="0" data-country="' +
+    escHtml(d.country) +
+    '" class="' +
+    (isSelected ? 'is-selected' : '') +
+    '">' +
     '<td data-label="Country"><span class="policy-country-name">' +
     escHtml(d.country) +
     '</span></td>' +
@@ -1827,6 +1841,7 @@ function paintMapCountries() {
       const status = countryStatus[name];
       let cls = 'country';
       if (status) cls += ' status-' + status + ' status-has-doc';
+      if (selectedTopoCountry && name === selectedTopoCountry) cls += ' is-selected';
       return cls;
     })
     .style('fill', (d) => {
@@ -1848,8 +1863,40 @@ function paintMapCountries() {
       }
       return countryStatus[d.properties.name] ? 'pointer' : 'default';
     })
-    .style('stroke-width', '0.5px')
-    .style('stroke', 'rgba(15, 23, 42, 0.22)');
+    .style('stroke-width', (d) => (selectedTopoCountry && d.properties.name === selectedTopoCountry ? '1.8px' : '0.5px'))
+    .style('stroke', (d) => (selectedTopoCountry && d.properties.name === selectedTopoCountry ? '#0f172a' : 'rgba(15, 23, 42, 0.22)'));
+}
+
+function getTopoNameForCatalogueCountry(country) {
+  return ourToTopo[country] || country;
+}
+
+function setSelectedMapCountry(country) {
+  selectedTopoCountry = country ? getTopoNameForCatalogueCountry(country) : '';
+  const body = document.getElementById('policy-list-body');
+  if (body) {
+    body.querySelectorAll('tr[data-country]').forEach((row) => {
+      row.classList.toggle('is-selected', row.dataset.country === country);
+    });
+  }
+  paintMapCountries();
+}
+
+function bindTableMapHighlighting() {
+  const body = document.getElementById('policy-list-body');
+  if (!body) return;
+  body.querySelectorAll('tr[data-country]').forEach((row) => {
+    const country = row.dataset.country;
+    row.addEventListener('mouseenter', () => setSelectedMapCountry(country));
+    row.addEventListener('focus', () => setSelectedMapCountry(country));
+    row.addEventListener('click', () => setSelectedMapCountry(country));
+    row.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        setSelectedMapCountry(country);
+      }
+    });
+  });
 }
 
 function updateMapTitleLabel() {
@@ -2224,7 +2271,16 @@ function renderTable(){
   const slice = filtered.slice(start, start + ROWS);
   const bodyRg = document.getElementById('policy-list-body');
   if (!bodyRg) return;
+  const si = document.getElementById('search-input');
+  const hasSearch = Boolean(si && si.value && si.value.trim());
+  if (hasSearch && filtered.length === 1) {
+    selectedTopoCountry = getTopoNameForCatalogueCountry(filtered[0].country);
+  } else if (selectedTopoCountry && !filtered.some((d) => getTopoNameForCatalogueCountry(d.country) === selectedTopoCountry)) {
+    selectedTopoCountry = '';
+  }
   bodyRg.innerHTML = slice.map((d) => buildPolicyEntryHtml(d)).join('');
+  bindTableMapHighlighting();
+  paintMapCountries();
   renderPagination(filtered.length);
 }
 
@@ -2370,7 +2426,7 @@ function initD3Map() {
     mapD3.svgSel.transition().duration(400).call(mapD3.d3zoom.transform, d3.zoomIdentity);
 
   // Load TopoJSON
-  fetch('countries-110m.json')
+  fetch('countries-50m.json')
     .then(r => {
       if (!r.ok) throw new Error('TopoJSON HTTP ' + r.status);
       return r.json();
@@ -2478,7 +2534,10 @@ function initD3Map() {
         })
         .on('click', function(event, d) {
           const dataRow = resolveDataRowForTopoName(d.properties.name);
-          if (dataRow) openCountryDocumentTab(dataRow);
+          if (dataRow) {
+            setSelectedMapCountry(dataRow.country);
+            openCountryDocumentTab(dataRow);
+          }
         });
 
       paintMapCountries();

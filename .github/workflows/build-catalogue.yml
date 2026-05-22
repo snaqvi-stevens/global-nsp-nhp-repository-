@@ -11,6 +11,8 @@ on:
       - 'catalogue-web-resources.json'
       - 'discipline-overrides.json'
       - 'scripts/build-disciplines.mjs'
+      - 'scripts/build-country-meta.mjs'
+      - 'countries-50m.json'
   workflow_dispatch:
 
 jobs:
@@ -28,10 +30,11 @@ jobs:
       - name: Regenerate catalogue.json and discipline tags
         run: |
           npm run catalogue
+          npm run country-meta
           npm run disciplines
 
       - name: Commit catalogue if changed
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'chore: regenerate catalogue and discipline tags from PDFs'
-          file_pattern: catalogue.json discipline-tags.json
+          commit_message: 'chore: regenerate atlas data from policy documents'
+          file_pattern: catalogue.json country-meta.json discipline-tags.json
